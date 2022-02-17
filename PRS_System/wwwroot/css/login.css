@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.thai-lang {
+    font-family: 'Bai Jamjuree', sans-serif;
+}
+
+
+.flex-box {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: red; */
+    background-color: #EEEEEE;
+    /* background: linear-gradient(225deg, #1C2951, #0F52BA, #89CFEF ); */
+}
+
+section {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    width: 900px;
+    height: 550px;
+    background: #ffffff;
+    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
+    border-radius: 25px;
+}
+
+section .img-box {
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
+
+section .img-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(225deg, #000C66, #0000FF);
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+section .img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+section .content-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+}
+
+section .content-box .form-box {
+    width: 50%;
+}
+
+section .content-box .form-box h2 {
+    color: #022451;
+    font-weight: 600;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 4px solid #022451;
+    display: inline-block;
+    letter-spacing: 2px;
+}
+
+section .content-box .form-box .input-box {
+    margin-bottom: 20px;
+}
+
+section .content-box .form-box .input-box label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: inline-block;
+    color: #022451;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+section .content-box .form-box .input-box input {
+    width: 100%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid #022451;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #022451;
+    background: transparent;
+    border-radius: 25px;
+}
+
+section .content-box .form-box .input-box input:focus {
+    border: 1px solid #0F52BA;
+}
+
+section .content-box .form-box .grid-container {
+    display: grid;
+    column-gap: 10%;
+    grid-template-columns: 45% 45%;
+}
+
+.logo {
+    width: 100%;
+}
+
+.logo-img {
+    width: 80%;
+    /*margin-top: 5%;*/
+    margin-bottom: 7%;
+    padding-left: 20%;
+}
+
+section .content-box .form-box .btn-submit input/*[type="submit"]*/ {
+    width: 100%;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    background: transparent;
+    border-radius: 15px;
+    background: #022451;
+    color: #ffffff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline;
+}
+
+section .content-box .form-box .btn-submit input/*[type="submit"]*/:hover {
+    background: #0F52BA;
+}
+
+section .content-box .form-box .input-box {
+    color: #607d8b;
+}
+
+
+.holder_wrap {
+    position: relative;
+    margin: auto;
+    display: block;
+    height: 100%; /* กำหนดความสูงส่วนพื้นที่คลุมเนื้อหาทั้งหมด */
+}
+
+.img-text {
+    /* border: 1px solid; */
+    position: absolute;
+    display: block;
+    text-align: center;
+    /* z-index:999; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+    color: #022451;
+}
+
+.fake-legend {
+    height: 4%;
+    width: 100%;
+    border-bottom: solid 1px;
+    text-align: center;
+    margin: 1em 0;
+}
+
+.fake-legend span {
+    background: #fff;
+    position: relative;
+    top: 0;
+    padding: 0 20px;
+    line-height: 30px;
+}
+
+
+/* @media(max-width: 768px) {
+    section .img-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    section .content-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+    section .content-box .form-box {
+        width: 100%;
+        padding: 40px;
+        background: rgb(255 255 255 / 0.9);
+        margin: 50px;
+    }
+    section .content-box .form-box h3 {
+        color: #607d8b;
+        text-align: center;
+        margin: 20px 0 10px;
+        font-weight: 500;
+    }
+} */

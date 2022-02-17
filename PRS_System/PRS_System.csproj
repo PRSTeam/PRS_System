@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Desktop\OAuth2TestToolKU\OAuth2TestTool.MVC\OAuth2TestTool.MVC.csproj" />
+  </ItemGroup>
+
 </Project>
