@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+
+</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">           
+
+    <link rel="stylesheet" href="css/normalize.css">
+    
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/ui_form.css">
+<body>
+    
+    <!-- MAIN -->
+    <div class="main-content">
+        <div class="fluid-container">
+            <div>
+                <!-- Form -->
+                <div class="page-section" id="form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>FORM</h1>
+                            <h2>สำหรับผู้ทำงานขอจัดซื้อ</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form action="#" method="post" class="contact-form">
+
+                            <!-- form_ผู้จัดซื้อ -->
+                            <fieldset class="col-md-4 col-sm-8">
+                                <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
+                                <input type="text" id="idRoom" placeholder="Ex. LAB 001-001-65009" size="50">
+
+                                <p>ชื่อเรื่องที่จะทำการจัดซื้อหรือจ้าง</p>
+                                <input type="text" id="nameProcument" placeholder="Ex.ขอให้จัดซื้ออุปกรณ์" size="50">
+
+                                <p>คำอธิบายและเหตุผลถึงการจัดซื้อหรือจ้าง</p>
+                                <textarea name="message" id="description_1" cols="50" rows="6"
+                                    placeholder="คำอธิบาย"></textarea>
+                            </fieldset>
+
+                            <hr>
+                            <fieldset class="col-md-4 col-sm-8">
+                                <label>เหตุผลในการสนับสนุน</label><br><br>
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>เพื่อใช้ในการสนับสนุนรายวิชา</label>
+                                <button>+</button>
+                                <br>
+                               
+
+
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>เพื่อใช้ในการสนับสนุนรายวิชาอื่นๆ</label><br>
+                                <input type="radio">
+                                <label>ได้รับสนับสนุนจาก</label>
+                                <input type="text" name="supportBy" placeholder="ได้รับทุนสนับสนุนจาก"><br>
+                                <input type="radio">
+                                <label>ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ</label><br>
+                                <input type="radio">
+                                <label>เหตุผลอื่นๆ</label>
+                                <input type="text" name="other" placeholder="เหตุผลอื่นๆ">
+                            </fieldset>
+                            <hr>
+
+                            <fieldset class="col-md-4 col-sm-6">
+                                <p>รายการสินค้า</p>
+                                <label>ชื่อสินค้า</label>
+                                <input type="text" id="nameProduct" placeholder="บิ๊กเกอร์ 50 มล.">
+                                <label>จำนวนสินค้า</label>
+                                <input type="text" id="numProduct" placeholder="99">
+                                <label>หน่วยสินค้า</label>
+                                <input type="text" id="unitProduct" placeholder="อัน">
+                                <label>ราคาต่อหน่วย</label>
+                                <input type="text" id="priceUnit" placeholder="100">
+                            </fieldset>
+                            <hr>
+
+                            <fieldset class="col-md-4 col-sm-6">
+                                <p>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</p>
+                                <select name="name_select" id="name_select">
+                                    <option value="science">ชื่อคณะกรรมการ</option>
+                                    <option value="science">อ.ฉัตรชัย เกษมทวีโชค</option>
+                                </select>
+                            </fieldset>
+                            <hr>
+                            <fieldset class="col-md-4 col-sm-6">
+                                <p>รายการเอกสารแนบการพิจารณา</p>
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>ใบเสนอราคา จำนวน</label>
+                                <input type="text" id="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
+                                <label>หน้า</label>
+                                <br>
+
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>ขอบเขตของงาน/รายละเอียดคุณลักษณะ</label>
+                                <input type="text" id="scopeWork" placeholder="จำนวน">
+                                <label>หน้า</label>
+                                <label>*กรณีจัดซื้อจัดจ้างวงเงินตั้งเเต่ 100,000 บาทขึ้นไป</label>
+                                <br>
+
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>เอกสารรายชื่อนิสิตในการลงททะเบียนเรียนรายวิชาโครงงาน/ปัญหาพิเศษ จำนวน</label>
+                                <input type="text" id="docNum" placeholder="จำนวน">
+                                <label>หน้า</label>
+                                <br>
+
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>เอกสารที่ได้รับอนุมัติงบประมาณ จำนวน</label>
+                                <input type="text" id="budgetDoc" placeholder="จำนวน">
+                                <label>หน้า</label>
+                                <label>*กรณีปรับแผนซื้อครุภัณฑ์</label>
+                                <br>
+
+                                <input id="checkBox" name="" type="checkbox">
+                                <label>เอกสารประกอบอื่นๆ(ถ้ามี) ได้แก่</label>
+                                <input type="text" id="otherSupport" placeholder="ชื่อเอกสารอื่นๆ">
+                                <label>จำนวน</label>
+                                <input type="text" id="otherSupport_num" placeholder="จำนวน">
+                                <label>หน้า</label>
+                                <br><br>
+
+                                    <label class="label" for="myfile">เลือกไฟล์:</label>
+                                    <input type="file" id="myfile" name="myfile"><br><br>
+                                    <button class="button button2">บันทึกร่างเอกสาร</button>
+                                    <button class="button button3">Export PDF</button>
+                                    <button class="button button4">ส่งเอกสาร</button>
+                            </fieldset>
+                            <!-- form_ผู้จัดซื้อ -->
+
+                            <!-- form_ฝ่ายพัสดุ -->
+                            <div class="page-section" id="form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>สำหรับฝ่ายพัสดุ</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <fieldset class="col-md-4 col-sm-8">
+                                <label>ลำดับการดำเนินการจัดซื้อจัดจ้าง</label><br>
+                                <label>1.</label>
+                                <select name="name_select" id="name_select">
+                                    <option value="science">หัวหน้าภาควิชา</option>
+                                    <option value="science">อ.ฉัตรชัย เกษมทวีโชค</option>
+                                </select><br>
+                                <label>2.</label>
+                                <select name="name_select" id="name_select">
+                                    <option value="science">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</option>
+                                    <option value="science">อ.ฉัตรชัย เกษมทวีโชค</option>
+                                </select><br><br>
+
+                                <label>ภาควิชา</label><br>
+                                <input type="radio">
+                                <label>ภาคปกติ</label>
+                                <br>
+                                <label>1.</label>
+                                <select name="name_select" id="name_select">
+                                    <option value="science">นักวิเคราะห์นโยบายและแผนการชำระการ</option>
+                                    <option value="science">อ.ฉัตรชัย เกษมทวีโชค</option>
+                                </select><br>
+                                <label>2.</label>
+                                <select name="name_select" id="name_select">
+                                    <option value="science">หัวหน้าสำนักงานเลขานุการ</option>
+                                    <option value="science">อ.ฉัตรชัย เกษมทวีโชค</option>
+                                </select><br>
+                                <input type="radio">
+                                <label>ภาคพิเศษ</label><br><br>
+
+
+                                <button class="button button2">บันทึกร่างเอกสาร</button>
+                                <button class="button button3">Export PDF</button>
+                                <button class="button button4">ส่งเอกสาร</button>
+
+                            </fieldset>
+                            <!-- form_ฝ่ายพัสดุ -->
+
+                            <!-- form_ฝ่ายอนุมัติ -->
+                            <div class="page-section" id="form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>สำหรับฝ่ายอนุมัติ</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <fieldset class="col-md-4 col-sm-8">
+                                <h4>1.หัวหน้าภาควิชา</h4>
+                                <label>ความคิดเห็น</label><br>
+                                <textarea name="message" id="headDescrip" cols="50" rows="6"
+                                    placeholder="คำอธิบาย"></textarea><br>
+                                <label>ลายเซ็น</label><br>
+                                <label for="myfile">เลือกไฟล์:</label>
+                                    <input type="file" id="myfile" name="myfile"><br><br>
+                                
+                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                <button class="button button6">เห็นชอบ</button>
+                                <br><br>
+
+                                <h4>2.ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</h4>
+                                <label>ความคิดเห็น</label><br>
+                                <textarea name="message" id="sciencelabDescrip" cols="50" rows="6"
+                                    placeholder="คำอธิบาย"></textarea><br>
+                                <label>ลายเซ็น</label><br>
+                                <label for="myfile">เลือกไฟล์:</label>
+                                <input type="file" id="myfile" name="myfile"><br><br>
+                                
+                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                <button class="button button6">เห็นชอบ</button>
+                                <br><br>
+
+                                <h4>3.นักวิเคราะห์นโยบายและแผนการชำระการ</h4>
+                                <label>ความคิดเห็น</label><br>
+                                <textarea name="message" id="analystDescrip" cols="50" rows="6"
+                                    placeholder="คำอธิบาย"></textarea><br>
+                                <label>ลายเซ็น</label><br>
+                                <label for="myfile">เลือกไฟล์:</label>
+                                <input type="file" id="myfile" name="myfile"><br><br>
+                                
+                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                <button class="button button6">เห็นชอบ</button>
+                                <br><br>
+
+                                <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
+                                <label>ความคิดเห็น</label><br>
+                                <textarea name="message" id="secretarialDescrip" cols="50" rows="6"
+                                    placeholder="คำอธิบาย"></textarea><br>
+                                <label>ลายเซ็น</label><br>
+                                <label for="myfile">เลือกไฟล์:</label>
+                                <input type="file" id="myfile" name="myfile"><br><br>
+                                
+                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                <button class="button button6">เห็นชอบ</button>
+                            </fieldset>
+                            <!-- form_ฝ่ายอนุมัติ -->
+
+                        </form>
+                    </div> <!-- .contact-form -->
+                </div>
+                <hr>
+
+                <div class="row" id="footer">
+                    <div class="col-md-12 text-center">
+                        <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="js/min/plugins.min.js"></script>
+    <script src="js/min/main.min.js"></script>
+
+</body>
+
+</html>
