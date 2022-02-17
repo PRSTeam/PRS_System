@@ -1,0 +1,87 @@
+﻿@{
+	ViewData["Title"] = "OAuth2Test";
+}
+
+@model OAuth2TestTool.MVC.Models.OAuth2ViewModel
+
+<h1>OAuth2 Authentication Testing </h1>
+<p>Get the <code>authorization_code</code>, <code>access_token</code> and <code>User_Info</code> for any registered OAuth2 client!</p>
+<p><code>ASP.NET Core 2.0.3</code>,<code>MVC</code> </p>
+@if (Model.ErrorMessage != null || !ViewData.ModelState.IsValid)
+{
+<div id="error-message" class="alert alert-danger">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	@Model.ErrorMessage
+	@Html.ValidationSummary()
+</div>
+}
+<div class="panel panel-primary">
+
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			<a data-toggle="collapse" href="#authorization-code" aria-expanded="true">Authorization Code</a>
+		</h4>
+	</div>
+	<div id="authorization-code" class="panel-collapse collapse @(@Model.Focus == "auth-code" || Model.Focus == null ? "in" : "")">
+        <div class="panel-body">
+            <form asp-controller="Home" asp-action="GetAuthorizationCode">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="AuthorizationEndpoint">Authorization Endpoint</label>
+                        <input value="@Model.AuthorizationEndpoint" class="form-control" type="text" data-val="true" data-val-required="Authorization endpoint is required." name="AuthorizationEndpoint" />
+                        <span class="text-danger field-validation-field" data-valmsg-for="AuthorizationEndpoint" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="TokenEndpoint">Token Endpoint</label>
+                        <input value="@Model.TokenEndpoint" class="form-control" type="text" data-val="true" data-val-required="TokenEndpoint endpoint is required." name="TokenEndpoint" />
+                        <span class="text-danger field-validation-field" data-valmsg-for="TokenEndpoint" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="UserInfoEndpoint">UserInfo Endpoint</label>
+                        <input value="@Model.UserInfoEndpoint" class="form-control" type="text" data-val="true" data-val-required="UserInfoEndpoint endpoint is required." name="UserInfoEndpoint" />
+                        <span class="text-danger field-validation-field" data-valmsg-for="UserInfoEndpoint" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="RedirectURI">Redirect URI</label>
+                        <input value="@Model.RedirectURI" type="text" class="form-control" name="RedirectURI" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="ClientId">Client ID</label>
+                        <input value="@Model.ClientId" type="text" class="form-control" name="ClientId" data-val="true" data-val-required="Client ID is required." />
+                        <span class="text-danger field-validation-field" data-valmsg-for="ClientId" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ClientSecret">Client Secret</label>
+                        <input value="@Model.ClientSecret" type="text" class="form-control" name="ClientSecret" data-val="true" data-val-required="Client Secret is required." />
+                        <span class="text-danger field-validation-field" data-valmsg-for="ClientSecret" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Scope">Scope</label>
+                        <input value="@Model.Scope" type="text" class="form-control" name="Scope" data-val="true" data-val-required="Scope is required." />
+                        <span class="text-danger field-validation-field" data-valmsg-for="Scope" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="State">State</label>
+                        <input value="@Model.State" type="text" name="State" class="form-control" data-val="true" data-val-required="State is required." />
+                        <span class="text-danger field-validation-field" data-valmsg-for="State" data-valmsg-replace="true"></span>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Login" />
+                </fieldset>
+            </form>
+            <br />
+            <h4>Authorization Code</h4>
+            <pre>@Model.AuthorizationCode</pre>
+            <h4>AccessToken</h4>
+            <pre>@Model.AccessToken</pre>
+            <h4>User Info</h4>
+            <pre>@Model.UserInfo</pre>
+        </div>
+	</div>
+</div>
+
+    <style>
+        pre {
+            /* Prevent horizontal scrolling since access tokens can be very lengthy and contain no line breaks. */
+            white-space: normal;
+        }
+    </style>
