@@ -8,4 +8,9 @@
     <ProjectReference Include="..\OAuth2TestToolKU\OAuth2TestTool.MVC\OAuth2TestTool.MVC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IServices\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

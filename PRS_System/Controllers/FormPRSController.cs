@@ -11,6 +11,11 @@ namespace PRS_System.Controllers
         public IActionResult Index()
         {
             return View();
+
+        }
+        public IActionResult Form()
+        {
+            return View();
         }
     }
 }
