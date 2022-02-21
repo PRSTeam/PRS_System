@@ -11,67 +11,81 @@
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
-  }
-  .button1 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #4CAF50;
-  }
-  
-  .button1:hover {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .button2 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #0666f5;
-  }
-  
-  .button2:hover {
-    background-color: #0666f5;
-    color: white;
-  }
-  
-  .button3 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #8023fa9c;
-  }
-  
-  .button3:hover {
-    background-color: #8023fa9c;
-    color: white;
-  }
-  .button4 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #11a36b;
-  }
-  
-  .button4:hover {
-    background-color: #11a36b;
-    color: white;
-  }
-  .button5 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #ca14149c;
-  }
-  
-  .button5:hover {
-    background-color: #ca14149c;
-    color: white;
-  }
-  .button6 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #05aa139c;
-  }
-  
-  .button6:hover {
-    background-color: #05aa139c;
-    color: white;
-  }
+}
 
+.button1 {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+    .button1:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+.button2 {
+    background-color: white;
+    color: black;
+    border: 2px solid #0666f5;
+}
+
+    .button2:hover {
+        background-color: #0666f5;
+        color: white;
+    }
+
+.button3 {
+    background-color: white;
+    color: black;
+    border: 2px solid #8023fa9c;
+}
+
+    .button3:hover {
+        background-color: #8023fa9c;
+        color: white;
+    }
+
+.button4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #11a36b;
+}
+
+    .button4:hover {
+        background-color: #11a36b;
+        color: white;
+    }
+
+.button5 {
+    background-color: white;
+    color: black;
+    border: 2px solid #ca14149c;
+}
+
+    .button5:hover {
+        background-color: #ca14149c;
+        color: white;
+    }
+
+.button6 {
+    background-color: white;
+    color: black;
+    border: 2px solid #05aa139c;
+}
+
+    .button6:hover {
+        background-color: #05aa139c;
+        color: white;
+    }
+
+.button7 {
+    background-color: white;
+    color: black;
+    border: 2px solid #3b3b3b9c;
+}
+
+    .button7:hover {
+        background-color: #3b3b3b9c;
+        color: white;
+    }

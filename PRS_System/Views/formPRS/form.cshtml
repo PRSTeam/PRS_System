@@ -9,14 +9,15 @@
 <head>
 
 </head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">           
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/normalize.css">
-    
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/ui_form.css">
+<link rel="stylesheet" href="css/normalize.css">
+
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/ui_form.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
-    
+
     <!-- MAIN -->
     <div class="main-content">
         <div class="fluid-container">
@@ -42,17 +43,26 @@
 
                                 <p>คำอธิบายและเหตุผลถึงการจัดซื้อหรือจ้าง</p>
                                 <textarea name="message" id="description_1" cols="50" rows="6"
-                                    placeholder="คำอธิบาย"></textarea>
+                                          placeholder="คำอธิบาย"></textarea>
                             </fieldset>
 
                             <hr>
                             <fieldset class="col-md-4 col-sm-8">
-                                <label>เหตุผลในการสนับสนุน</label><br><br>
+                                <b>เหตุผลในการสนับสนุน</b><br><br>
                                 <input id="checkBox" name="" type="checkbox">
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชา</label>
-                                <button>+</button>
                                 <br>
-                               
+
+                                <div class="container1">
+                                    <button class="add_form_field">
+                                        Add &nbsp;
+                                        <span style="font-size:16px; font-weight:bold;">+ </span>
+                                    </button>
+                                    <div>
+                                        <input type="text" name="mytext[]" placeholder="รหัสวิชา">
+                                    </div>
+                                </div>
+
 
 
                                 <input id="checkBox" name="" type="checkbox">
@@ -69,7 +79,7 @@
                             <hr>
 
                             <fieldset class="col-md-4 col-sm-6">
-                                <p>รายการสินค้า</p>
+                                <b>รายการสินค้า</b><br>
                                 <label>ชื่อสินค้า</label>
                                 <input type="text" id="nameProduct" placeholder="บิ๊กเกอร์ 50 มล.">
                                 <label>จำนวนสินค้า</label>
@@ -82,7 +92,7 @@
                             <hr>
 
                             <fieldset class="col-md-4 col-sm-6">
-                                <p>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</p>
+                                <b>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</b><br>
                                 <select name="name_select" id="name_select">
                                     <option value="science">ชื่อคณะกรรมการ</option>
                                     <option value="science">อ.ฉัตรชัย เกษมทวีโชค</option>
@@ -90,7 +100,7 @@
                             </fieldset>
                             <hr>
                             <fieldset class="col-md-4 col-sm-6">
-                                <p>รายการเอกสารแนบการพิจารณา</p>
+                                <b>รายการเอกสารแนบการพิจารณา</b><br>
                                 <input id="checkBox" name="" type="checkbox">
                                 <label>ใบเสนอราคา จำนวน</label>
                                 <input type="text" id="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
@@ -125,14 +135,17 @@
                                 <label>หน้า</label>
                                 <br><br>
 
-                                    <label class="label" for="myfile">เลือกไฟล์:</label>
-                                    <input type="file" id="myfile" name="myfile"><br><br>
-                                    <button class="button button2">บันทึกร่างเอกสาร</button>
-                                    <button class="button button3">Export PDF</button>
-                                    <button class="button button4">ส่งเอกสาร</button>
+                                <form name="input">
+                                    <b>ไฟล์แนบ</b> <br>
+                                    <input type="file" name="File">
+                                </form><br><br>
+
+                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                <button class="button button2">บันทึกร่างเอกสาร</button>
+                                <button class="button button3">Export PDF</button>
+                                <button class="button button4">ส่งเอกสาร</button>
                             </fieldset>
                             <!-- form_ผู้จัดซื้อ -->
-
                             <!-- form_ฝ่ายพัสดุ -->
                             <div class="page-section" id="form">
                                 <div class="row">
@@ -178,7 +191,6 @@
 
                             </fieldset>
                             <!-- form_ฝ่ายพัสดุ -->
-
                             <!-- form_ฝ่ายอนุมัติ -->
                             <div class="page-section" id="form">
                                 <div class="row">
@@ -191,11 +203,10 @@
                                 <h4>1.หัวหน้าภาควิชา</h4>
                                 <label>ความคิดเห็น</label><br>
                                 <textarea name="message" id="headDescrip" cols="50" rows="6"
-                                    placeholder="คำอธิบาย"></textarea><br>
-                                <label>ลายเซ็น</label><br>
-                                <label for="myfile">เลือกไฟล์:</label>
-                                    <input type="file" id="myfile" name="myfile"><br><br>
-                                
+                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                <label>ลายเซ็น</label><br><br>
+
+                                <button class="button button7">เซ็นอนุมัติ</button><br>
                                 <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
                                 <button class="button button6">เห็นชอบ</button>
                                 <br><br>
@@ -203,11 +214,10 @@
                                 <h4>2.ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</h4>
                                 <label>ความคิดเห็น</label><br>
                                 <textarea name="message" id="sciencelabDescrip" cols="50" rows="6"
-                                    placeholder="คำอธิบาย"></textarea><br>
-                                <label>ลายเซ็น</label><br>
-                                <label for="myfile">เลือกไฟล์:</label>
-                                <input type="file" id="myfile" name="myfile"><br><br>
-                                
+                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                <label>ลายเซ็น</label><br><br>
+
+                                <button class="button button7">เซ็นอนุมัติ</button><br>
                                 <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
                                 <button class="button button6">เห็นชอบ</button>
                                 <br><br>
@@ -215,11 +225,10 @@
                                 <h4>3.นักวิเคราะห์นโยบายและแผนการชำระการ</h4>
                                 <label>ความคิดเห็น</label><br>
                                 <textarea name="message" id="analystDescrip" cols="50" rows="6"
-                                    placeholder="คำอธิบาย"></textarea><br>
-                                <label>ลายเซ็น</label><br>
-                                <label for="myfile">เลือกไฟล์:</label>
-                                <input type="file" id="myfile" name="myfile"><br><br>
-                                
+                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                <label>ลายเซ็น</label><br><br>
+
+                                <button class="button button7">เซ็นอนุมัติ</button><br>
                                 <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
                                 <button class="button button6">เห็นชอบ</button>
                                 <br><br>
@@ -227,11 +236,10 @@
                                 <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
                                 <label>ความคิดเห็น</label><br>
                                 <textarea name="message" id="secretarialDescrip" cols="50" rows="6"
-                                    placeholder="คำอธิบาย"></textarea><br>
-                                <label>ลายเซ็น</label><br>
-                                <label for="myfile">เลือกไฟล์:</label>
-                                <input type="file" id="myfile" name="myfile"><br><br>
-                                
+                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                <label>ลายเซ็น</label><br><br>
+
+                                <button class="button button7">เซ็นอนุมัติ</button><br>
                                 <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
                                 <button class="button button6">เห็นชอบ</button>
                             </fieldset>
@@ -255,6 +263,7 @@
     <script src="js/vendor/jquery-1.10.2.min.js"></script>
     <script src="js/min/plugins.min.js"></script>
     <script src="js/min/main.min.js"></script>
+    <script src="js/addinput.js"></script>
 
 </body>
 
