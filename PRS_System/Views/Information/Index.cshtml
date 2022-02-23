@@ -1,0 +1,129 @@
+﻿@{
+    //Layout = "_WebLayout";
+    ViewData["Title"] = "หน้าแรก";
+}
+
+<link rel="stylesheet" href="~/css/info.css">
+
+<div class="container">
+    <div class="content-body">
+        <div class="content-filed">
+            <div class="container-bar container-color ">
+                <button class="tablink tab-button tab-blue" onclick="tab_fnc(event,'a')">ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์</button>
+                <button class="tablink tab-button" onclick="tab_fnc(event,'b')">ข่าวประกวดราคา</button>
+                <button class="tablink tab-button" onclick="tab_fnc(event,'c')">ประกาศผู้ชนะ</button>
+                <button class="tablink tab-button" onclick="tab_fnc(event,'d')">เอกสารที่เกี่ยวข้อง</button>
+            </div>
+
+            <div class="container-inner">
+                <div id="a" class="tabcontent">
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-1-1.pdf"
+                       class="container-description">
+                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับวิเคราะห์หาปริมาณฟอสเฟตในตัวอย่างทางสิ่งแวดล้อม
+                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                    <hr>
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-2.pdf"
+                       class="container-description">
+                        ประกวดราคาซื้อชุดจัดเก็บอุปกรณ์และเครื่องแก้วประจำห้องปฏิบัติการทางสิ่งแวดล้อม
+                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                    <hr>
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-3.pdf"
+                       class="container-description">
+                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับตรวจวัดคุณภาพทางสิ่งแวดล้อมภาคสนาม
+                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                </div>
+
+                <div id="b" class="tabcontent" style="display:none">
+                    <h2>ดาวน์โหลด</h2>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 1</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 2</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 3</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 4</a>
+                    <hr>
+                    <h2>ดาวน์โหลด</h2>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 5</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 6</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 7</a>
+                    <br>
+                </div>
+
+                <div id="c" class="tabcontent" style="display:none">
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-1-1.pdf"
+                       class="container-description">
+                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับวิเคราะห์หาปริมาณฟอสเฟตในตัวอย่างทางสิ่งแวดล้อม
+                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                    <hr>
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-2.pdf"
+                       class="container-description">
+                        ประกวดราคาซื้อชุดจัดเก็บอุปกรณ์และเครื่องแก้วประจำห้องปฏิบัติการทางสิ่งแวดล้อม
+                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                    <hr>
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-3.pdf"
+                       class="container-description">
+                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับตรวจวัดคุณภาพทางสิ่งแวดล้อมภาคสนาม
+                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                </div>
+
+                <div id="d" class="tabcontent" style="display:none">
+                    <h2>ดาวน์โหลด</h2>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 1</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 2</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 3</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 4</a>
+                    <hr>
+                    <h2>ดาวน์โหลด</h2>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 5</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 6</a>
+                    <br>
+                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
+                    <a href="#" class="container-description">เอกสาร 7</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function tab_fnc(evt, page) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" tab-blue", "");
+    }
+    document.getElementById(page).style.display = "block";
+    evt.currentTarget.className += " tab-blue";
+    }
+</script>
