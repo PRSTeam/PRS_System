@@ -37,6 +37,6 @@ $(document).ready(function () {
     $(object).on("click", ".delete", function (e) {
         e.preventDefault();
         $(this).parent('div').remove();
-        x--;
+        y--;
     })
 });
