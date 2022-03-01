@@ -1,18 +1,26 @@
+﻿@model PRS_System.Models.Setting.AddnewuserdataModel
+@using PRS_System.Controllers
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js" lang="th">
 <!--<![endif]-->
 
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/ui_form.css" />
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link rel="stylesheet" href="~/css/normalize.css" />
+    <link rel="stylesheet" href="~/js/EsignatureCanvas.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/js/EsignatureCanvas.js"></script>
+    
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="css/table.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <body>
 
@@ -21,46 +29,75 @@
         <div class="fluid-container">
             <div>
                 <!-- Form -->
-                <div class="page-section" id="add">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Add New User</h1>
+                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting">
+                    <div class="page-section" id="add">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Add New User</h1>
+                            </div>
                         </div>
+                        <div class="row">
+
+                            <label>ID ผู้ใช้</label><br>
+                            <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20"><br><br>
+                            <label>ชื่อจริงภาษาไทย</label><br>
+                            <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20"><br><br>
+                            <label>ชื่อจริงภาษาอังกฤษ</label><br>
+                            <input type="text" asp-for="Full_NameEng" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
+
+                            <label>ตำแหน่งงานผู้ใช้</label><br>
+                            <select  asp-for="User_Type">
+                                <option value="science">นิสิต</option>
+                            </select><br><br>
+
+                            <label>Mr./Mrs./Miss/Ms.</label><br><br>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Mr.">
+                            <label>Mr.</label>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Mrs.">
+                            <label>Mrs.</label>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Miss.">
+                            <label>Miss.</label>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Ms.">
+                            <label>Ms.</label>
+                            <br><br>
+                            <label>คำนำหน้าชื่อ</label><br>
+                            <input asp-for="Prefix_NameThai" type="radio" value="นาย">
+                            <label>นาย</label>
+                            <input asp-for="Prefix_NameThai" type="radio" value="นาง">
+                            <label>นาง</label>
+                            <input asp-for="Prefix_NameThai" type="radio" value="นางสาว">
+                            <label>นางสาว</label>
+                            <br><br>
+
+                            <label>หมวดหมู่ผู้ใช้</label><br>
+                            <input asp-for="Category" type="radio" value="Admin">
+                            <label>Admin</label>
+                            <input asp-for="Category" type="radio" value="User">
+                            <label>User</label><br><br>
+
+                            <label>ลายเซ็น</label><br><br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <canvas id="sig-canvas" width="620" height="160" style="border-style:dashed">
+                                        Get a better browser, bro.
+                                    </canvas>
+                                </div>
+                                <input type="hidden" asp-for="ESignature" />
+                            </div>
+
+                            <label>สถานะผู้ใช้</label><br>
+                            <input asp-for="Status" type="radio" value="Working">
+                            <label>Working</label>
+                            <input asp-for="Status"  type="radio" value="Quit">
+                            <label>Quit</label><br><br>
+
+                            <button id="clearBtn" type="button">Clear signature</button>
+                            <button type="submit" id="submitBtn">Submit</button>
+
+                        </div> <!-- .contact-form -->
                     </div>
-                    <div class="row">
+                </form>
 
-                        <label>UserID</label><br>
-                        <input type="text" id="userID" placeholder="Ex.sfcfrc" size="20"><br><br>
-                        <label>Full name Thai</label><br>
-                        <input type="text" id="userID" placeholder="Ex.������ ���ͧ��" size="20"><br><br>
-                        <label>Full name English</label><br>
-                        <input type="text" id="userID" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
-
-                        <label>User Type</label><br>
-                        <select name="name_select" id="name_select">
-                            <option value="science">�Ҩ����</option>
-                        </select><br><br>
-
-                        <label>Category</label><br>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>Admin</label>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>User</label><br><br>
-
-                        <label>Signature</label><br><br>
-
-
-                        <label>Status</label><br>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>Working</label>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>Quit</label><br><br>
-
-                        <button>Clear signature</button>
-                        <button>Submit</button>
-
-                    </div> <!-- .contact-form -->
-                </div>
                 <hr>
 
                 <div class="row" id="footer">
@@ -81,3 +118,148 @@
 </body>
 
 </html>
+
+@*<script>
+    (function () {
+        window.requestAnimFrame = (function (callback) {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimaitonFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        var canvas = document.getElementById("sig-canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#222222";
+        ctx.lineWidth = 4;
+
+        var drawing = false;
+        var mousePos = {
+            x: 0,
+            y: 0
+        };
+        var lastPos = mousePos;
+
+        canvas.addEventListener("mousedown", function (e) {
+            drawing = true;
+            lastPos = getMousePos(canvas, e);
+        }, false);
+
+        canvas.addEventListener("mouseup", function (e) {
+            drawing = false;
+        }, false);
+
+        canvas.addEventListener("mousemove", function (e) {
+            mousePos = getMousePos(canvas, e);
+        }, false);
+
+        // Add touch event support for mobile
+        canvas.addEventListener("touchstart", function (e) {
+
+        }, false);
+
+        canvas.addEventListener("touchmove", function (e) {
+            var touch = e.touches[0];
+            var me = new MouseEvent("mousemove", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(me);
+        }, false);
+
+        canvas.addEventListener("touchstart", function (e) {
+            mousePos = getTouchPos(canvas, e);
+            var touch = e.touches[0];
+            var me = new MouseEvent("mousedown", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(me);
+        }, false);
+
+        canvas.addEventListener("touchend", function (e) {
+            var me = new MouseEvent("mouseup", {});
+            canvas.dispatchEvent(me);
+        }, false);
+
+        function getMousePos(canvasDom, mouseEvent) {
+            var rect = canvasDom.getBoundingClientRect();
+            return {
+                x: mouseEvent.clientX - rect.left,
+                y: mouseEvent.clientY - rect.top
+            }
+        }
+
+        function getTouchPos(canvasDom, touchEvent) {
+            var rect = canvasDom.getBoundingClientRect();
+            return {
+                x: touchEvent.touches[0].clientX - rect.left,
+                y: touchEvent.touches[0].clientY - rect.top
+            }
+        }
+
+        function renderCanvas() {
+            if (drawing) {
+                ctx.moveTo(lastPos.x, lastPos.y);
+                ctx.lineTo(mousePos.x, mousePos.y);
+                ctx.stroke();
+                lastPos = mousePos;
+            }
+        }
+
+        // Prevent scrolling when touching the canvas
+        document.body.addEventListener("touchstart", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+        document.body.addEventListener("touchend", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+        document.body.addEventListener("touchmove", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+
+        (function drawLoop() {
+            requestAnimFrame(drawLoop);
+            renderCanvas();
+        })();
+
+        function clearCanvas() {
+            canvas.width = canvas.width;
+        }
+
+        // Set up the UI
+
+        var sigText = document.getElementById("sig-dataUrl");
+        var sigImage = document.getElementById("sig-image");
+        var clearBtn = document.getElementById("sig-clearBtn");
+        var submitBtn = document.getElementById("sig-submitBtn");
+        var inputsig = document.getElementById("Esignature");
+        clearBtn.addEventListener("click", function (e) {
+            clearCanvas();
+            sigText.innerHTML = "Data URL for your signature will go here!";
+            sigImage.setAttribute("src", "");
+        }, false);
+        submitBtn.addEventListener("click", function (e) {
+            var dataUrl = canvas.toDataURL();
+            sigText.innerHTML = dataUrl;
+            sigImage.setAttribute("src", dataUrl);
+            console.log(dataUrl);
+        }, false);
+        $("#user-form").submit(function () {
+            var sigurl = canvas.toDataURL();
+            $(inputsig).val(sigurl);
+        });
+
+    })();
+
+</script>*@

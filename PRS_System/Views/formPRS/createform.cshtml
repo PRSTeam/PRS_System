@@ -9,15 +9,14 @@
 <!--<![endif]-->
 
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="~/js/createform.js" />
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/ui_form.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="~/js/createform.js"/>
-<link rel="stylesheet" href="css/font-awesome.css">
-<link rel="stylesheet" href="css/ui_form.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
 
     <!-- MAIN -->
@@ -33,7 +32,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <form asp-controller="FormPRS" asp-action="AddDataCreateForm" enctype="multipart/form-data" method="post" class="contact-form">
+                        <form asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" class="contact-form">
 
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
@@ -61,9 +60,9 @@
                                             Add &nbsp;
                                             <span style="font-size:16px; font-weight:bold;">+ </span>
                                         </button>
-                                        <div>
+                                        @*<div>
                                             <input type="text" name="mytext[]" placeholder="รหัสวิชา">
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
 
@@ -149,7 +148,7 @@
                         </form>
                         <!-- form_ผู้จัดซื้อ -->
                         <!-- form_ฝ่ายพัสดุ -->
-                        <form>
+                        <form >
                             <div class="page-section" id="form">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -160,13 +159,13 @@
                             <fieldset class="col-md-4 col-sm-8">
                                 <label>ลำดับการดำเนินการจัดซื้อจัดจ้าง</label><br>
                                 <label>1.</label>
-                                <select name="name_select" id="name_select">
+                                <select name="name_select" asp-for="name_select1" onchange="ChangeTopic(1)">
                                     <option value="science">หัวหน้าภาควิชา</option>
                                     <option value="science">หัวหน้าฝ่ายสนับสนุนงานกลาง</option>
                                     <option value="science">หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</option>
                                 </select><br>
                                 <label>2.</label>
-                                <select name="name_select" id="name_select">
+                                <select name="name_select" asp-for="name_select2" onchange="ChangeTopic(2)">
                                     <option value="science">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์</option>
                                     <option value="science">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</option>
                                 </select><br><br>
@@ -214,7 +213,7 @@
                       
                         <fieldset class="col-md-4 col-sm-8">
                             <form>
-                                <h4>1.หัวหน้าภาควิชา</h4>
+                                <h4 id="topicname1">1.หัวหน้าภาควิชา</h4>
                                 <label>ความคิดเห็น</label><br>
                                 <textarea name="message" id="headDescrip" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea><br><br>
@@ -227,7 +226,7 @@
                             </form>
                             
                             <form>
-                                <h4>2.ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</h4>
+                                <h4 id="topicname2">2.ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</h4>
                                 <label>ความคิดเห็น</label><br>
                                 <textarea name="message" id="sciencelabDescrip" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea><br><br>
