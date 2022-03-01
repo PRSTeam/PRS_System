@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using PRS_System.Models.Data;
 namespace PRS_System.Models.FormModel
 {
     public class CreateFormModel
@@ -21,5 +21,12 @@ namespace PRS_System.Models.FormModel
         public string supportType { get; set; }
         public string definition { get; set; }
         List<ProductModel> ProductModels { get; set; }
+        public string name_select1 { get; set; }
+        public string name_select2 { get; set; }
+        public FormPRSDataModel FormData()
+        {
+            FormPRSDataModel formprs_data = new FormPRSDataModel();
+            return formprs_data;
+        }
     }
 }
