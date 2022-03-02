@@ -28,6 +28,13 @@
 
 </head>
 
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="css/normalize.css">
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/ui_form.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <body>
 
@@ -36,21 +43,20 @@
         <div class="fluid-container">
             <div>
                 <!-- Form -->
-                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="Edituserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
-                    <div class="page-section" id="add">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Add New User</h1>
-                            </div>
+                <div class="page-section" id="add">
+                    <div class="row">
+                        <div class="w3-container w3-light-blue w3-hover-text-light-grey">
+                            <h1>Edit User</h1>
                         </div>
-                        <div class="row">
+                    </div>
+                    <div class="row">
 
-                            <label>ID �����</label><br>
-                            <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20"><br><br>
-                            <label>���ͨ�ԧ������</label><br>
-                            <input type="text" asp-for="Full_NameThai" placeholder="Ex.������ ���ͧ��" size="20"><br><br>
-                            <label>���ͨ�ԧ�����ѧ���</label><br>
-                            <input type="text" asp-for="Full_NameEng" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
+                        <label>UserID</label><br>
+                        <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.sfcfrc" size="20"><br><br>
+                        <label>Full name Thai</label><br>
+                        <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.ชิโนภาส เมืองไทย" size="20"><br><br>
+                        <label>Full name English</label><br>
+                        <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
 
                             <label>���˹觧ҹ�����</label><br>
                             <select asp-for="User_Type">
