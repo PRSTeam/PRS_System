@@ -16,7 +16,7 @@ namespace PRS_System.Controllers
             else
             {
                 var route = new FormPRSController().Index();
-                return View(route);
+                return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
         }
 
@@ -37,7 +37,7 @@ namespace PRS_System.Controllers
                     throw new Exception("Error in base64Encode" + ex.Message);
                 }
                 var route = new FormPRSController().Index();
-                return View(route);
+                return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
             else
             {
@@ -56,7 +56,7 @@ namespace PRS_System.Controllers
             else
             {
                 var route = new FormPRSController().Index();
-                return View(route);
+                return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
         }
     }
