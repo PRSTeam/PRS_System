@@ -32,6 +32,7 @@ namespace PRS_System
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromHours(8);
             });
+            services.AddScoped<IFormService, FormService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +63,7 @@ namespace PRS_System
                 //pattern: "{controller=FormPRS}/{action=form}/{id?}");
                 pattern: "{controller=AdminSetting}/{action=addnewuser}/{id?}");
                     pattern: "{controller=FormPRS}/{action=Index}/{id?}");
+                pattern: "{controller=FormPRS}/{action=form}/{id?}");
             });
         }
     }

@@ -25,16 +25,19 @@
     <script src="js/addinput.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/ui_form.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="css/normalize.css">
-<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet" href="css/font-awesome.css">
-<link rel="stylesheet" href="css/ui_form.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
 
 <body>
 
@@ -43,85 +46,122 @@
         <div class="fluid-container">
             <div>
                 <!-- Form -->
-                <div class="page-section" id="add">
-                    <div class="row">
-                        <div class="w3-container w3-light-blue w3-hover-text-light-grey">
-                            <h1>Edit User</h1>
-                        </div>
-                    </div>
-                    <div class="row">
 
-                        <label>UserID</label><br>
-                        <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.sfcfrc" size="20"><br><br>
-                        <label>Full name Thai</label><br>
-                        <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.ชิโนภาส เมืองไทย" size="20"><br><br>
-                        <label>Full name English</label><br>
-                        <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
-
-                            <label>���˹觧ҹ�����</label><br>
-                            <select asp-for="User_Type">
-                                <option value="science">���Ե</option>
-                            </select><br><br>
-
-                            <label>Mr./Mrs./Miss/Ms.</label><br><br>
-                            <input asp-for="Prefix_NameEng" type="radio" value="Mr.">
-                            <label>Mr.</label>
-                            <input asp-for="Prefix_NameEng" type="radio" value="Mrs.">
-                            <label>Mrs.</label>
-                            <input asp-for="Prefix_NameEng" type="radio" value="Miss.">
-                            <label>Miss.</label>
-                            <input asp-for="Prefix_NameEng" type="radio" value="Ms.">
-                            <label>Ms.</label>
-                            <br><br>
-                            <label>�ӹ�˹�Ҫ���</label><br>
-                            <input asp-for="Prefix_NameThai" type="radio" value="���">
-                            <label>���</label>
-                            <input asp-for="Prefix_NameThai" type="radio" value="�ҧ">
-                            <label>�ҧ</label>
-                            <input asp-for="Prefix_NameThai" type="radio" value="�ҧ���">
-                            <label>�ҧ���</label>
-                            <br><br>
-
-                            <label>��Ǵ��������</label><br>
-                            <input asp-for="Category" type="radio" value="Admin">
-                            <label>Admin</label>
-                            <input asp-for="Category" type="radio" value="User">
-                            <label>User</label><br><br>
-
-                            <label>�����</label><br><br>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <canvas id="sig-canvas" width="620" height="160" style="border-style:dashed">
-                                        Get a better browser, bro.
-                                    </canvas>
-                                </div>
-                                <input type="hidden" asp-for="ESignature" />
+                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="Edituserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
+                    <div class="page-section" id="add">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Add New User</h1>
                             </div>
 
-                            <label>ʶҹм����</label><br>
-                            <input asp-for="Status" type="radio" value="Working">
-                            <label>Working</label>
-                            <input asp-for="Status" type="radio" value="Quit">
-                            <label>Quit</label><br><br>
+                            <div class="page-section" id="add">
+                                <div class="row">
+                                    <div class="w3-container w3-light-blue w3-hover-text-light-grey">
+                                        <h1>Edit User</h1>
 
-                            <button id="clearBtn" type="button">Clear signature</button>
-                            <button type="submit" id="submitBtn">Submit</button>
+                                    </div>
+                                    <div class="row">
 
-                        </div> <!-- .contact-form -->
+                                        <label>ID �����</label><br>
+                                        <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20"><br><br>
+                                        <label>���ͨ�ԧ������</label><br>
+                                        <input type="text" asp-for="Full_NameThai" placeholder="Ex.������ ���ͧ��" size="20"><br><br>
+                                        <label>���ͨ�ԧ�����ѧ���</label><br>
+                                        <input type="text" asp-for="Full_NameEng" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
+
+                                        <label>���˹觧ҹ�����</label><br>
+                                        <select asp-for="User_Type">
+                                            <option value="science">���Ե</option>
+                                        </select><br><br>
+
+                                        <label>Mr./Mrs./Miss/Ms.</label><br><br>
+                                        <input asp-for="Prefix_NameEng" type="radio" value="Mr.">
+                                        <label>Mr.</label>
+                                        <input asp-for="Prefix_NameEng" type="radio" value="Mrs.">
+                                        <label>Mrs.</label>
+                                        <input asp-for="Prefix_NameEng" type="radio" value="Miss.">
+                                        <label>Miss.</label>
+                                        <input asp-for="Prefix_NameEng" type="radio" value="Ms.">
+                                        <label>Ms.</label>
+                                        <br><br>
+                                        <label>�ӹ�˹�Ҫ���</label><br>
+                                        <input asp-for="Prefix_NameThai" type="radio" value="���">
+                                        <label>���</label>
+                                        <input asp-for="Prefix_NameThai" type="radio" value="�ҧ">
+                                        <label>�ҧ</label>
+                                        <input asp-for="Prefix_NameThai" type="radio" value="�ҧ���">
+                                        <label>�ҧ���</label>
+                                        <br><br>
+
+                                        <label>��Ǵ��������</label><br>
+                                        <input asp-for="Category" type="radio" value="Admin">
+                                        <label>Admin</label>
+                                        <input asp-for="Category" type="radio" value="User">
+                                        <label>User</label><br><br>
+
+                                        <label>�����</label><br><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <canvas id="sig-canvas" width="620" height="160" style="border-style:dashed">
+                                                    Get a better browser, bro.
+                                                </canvas>
+                                            </div>
+                                            <input type="hidden" asp-for="ESignature" />
+                                        </div>
+
+                                        <label>ʶҹм����</label><br>
+                                        <input asp-for="Status" type="radio" value="Working">
+                                        <label>Working</label>
+                                        <input asp-for="Status" type="radio" value="Quit">
+                                        <label>Quit</label><br><br>
+
+                                        <button id="clearBtn" type="button">Clear signature</button>
+                                        <button type="submit" id="submitBtn">Submit</button>
+
+                                    </div> <!-- .contact-form -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </form>
 
-                <hr>
+                <div class="row">
 
-                <div class="row" id="footer">
-                    <div class="col-md-12 text-center">
-                        <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
+                    <label>UserID</label><br>
+                    <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.sfcfrc" size="20"><br><br>
+                    <label>Full name Thai</label><br>
+                    <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.������ ���ͧ��" size="20"><br><br>
+                    <label>Full name English</label><br>
+                    <input class="w3-input w3-border w3-round" type="text" id="userID" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
+
+                    <label>User Type</label><br>
+                    <select name="name_select" id="name_select">
+                        <option value="science">�Ҩ����</option>
+                    </select><br><br>
+
+                    <label>Category</label><br>
+                    <input id="checkBox" name="" type="checkbox">
+                    <label>Admin</label>
+                    <input id="checkBox" name="" type="checkbox">
+                    <label>User</label><br><br>
+
+                    <label>Signature</label><br><br>
+
+                    >>>>>>> 7d992c0a4c8712c1c6150dfe2f4bc5fd8a2233e6
+
+                    <hr>
+
+                    <div class="row" id="footer">
+                        <div class="col-md-12 text-center">
+                            <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+     
 
 
 
