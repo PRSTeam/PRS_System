@@ -28,6 +28,16 @@ namespace PRS_System.Controllers
             _hostingEnvironment = hostEnvironment;
             _accountService = accountService;
         }
+        public IActionResult Showlistuser(ShowListUserModel datauser)
+        {
+            if (HttpContext.User.FindFirst(c => c.Type == "Category").Value == "Admin")
+            {
+                datauser.userdata = _accountService.GetAllAccountWithKeyword(datauser.Keyword);
+                return View(datauser);
+            }
+            //datauser.userdata = _accountService.GetDataUser(user_id);
+            return View();
+        }
         public IActionResult Addnewuser()
         {
             return View();
@@ -38,23 +48,84 @@ namespace PRS_System.Controllers
            
             try
             {
-                //-------สร้างรูปภาพ ลายเซ็น
-                string filesig = AddnewuserModel.ESignature;
-                string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string fileName = AddnewuserModel.UserID + "_" + uniquefile + ".png";
-                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
-                System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(AddnewuserModel.ESignature.Replace("data:image/png;base64,", string.Empty)));
-                //-------------------------
-                //--------แอดข้อมูล User
-                UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(filePath);
-                _accountService.AddNewUser(userdata);
-                return Json(new { status = "success", Messege = "Add Complete" });
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.ESignature))
+                {
+                    ModelState.AddModelError("Signature", "กรุณาลงลายเซ็น");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.Status))
+                {
+                    ModelState.AddModelError("Status", "กรุณากดเลือกสถานะผู้ใช้");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.UserID))
+                {
+                    ModelState.AddModelError("UserID", "กรุณากรอกUserID");
+                }
+                if(string.IsNullOrWhiteSpace(AddnewuserModel.User_Type))
+                {
+                    ModelState.AddModelError("User Type", "กรุณากรอกตำแหน่ง");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameThai))
+                {
+                    ModelState.AddModelError("Prefix NameThai", "กรุณากดเลือกคำนำหน้าไทย");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameEng))
+                {
+                    ModelState.AddModelError("Prefix NameEng", "กรุณากดเลือกคำนำหน้าภาษาอังกฤษ");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameThai))
+                {
+                    ModelState.AddModelError("Full NameThai", "กรุณากรอกชื่อจริง");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameEng))
+                {
+                    ModelState.AddModelError("Full NameEng", "กรุณากรอกชื่อจริงภาษาอังกฤษ");
+                }
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.Category))
+                {
+                    ModelState.AddModelError("Category", "กรุณากรอกประเภทผู้ใช้");
+                }
+                
+
+                if(ModelState.IsValid)
+                {
+                    //-------สร้างรูปภาพ ลายเซ็น
+                    string filesig = AddnewuserModel.ESignature;
+                    string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    string fileName = AddnewuserModel.UserID + "_" + uniquefile + ".png";
+                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
+                    System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(AddnewuserModel.ESignature.Replace("data:image/png;base64,", string.Empty)));
+                    ////-------------------------
+                    ////--------แอดข้อมูล User
+                    UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(fileName);
+                    _accountService.AddNewUser(userdata);
+                    return Json(new { status = "success", Messege = "Add Complete" });
+                }
+                else
+                {
+                    string errorList = string.Join("<br/> -------------- <br/> ", (from item in ModelState.Values
+                                                             from error in item.Errors
+                                                             select error.ErrorMessage).ToList());
+                    return Json(new { status = "error", detail = errorList, errorMessage = "Add Fail" });
+                }
+               
+
+
             }
             catch(Exception ex)
             {
                 return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new User" });
             }
            
+        }
+        public IActionResult EditUser(string user_id)
+        {
+            EdituserdataModel datauser = new EdituserdataModel();
+            datauser.userdata = _accountService.GetDataUser(user_id);
+            return View(datauser);
+        }
+        public IActionResult EditUserdata()
+        {
+            return View();
         }
     }
 }

@@ -141,9 +141,7 @@
             var sigurl = canvas.toDataURL();
             $(inputsig).val(sigurl);
         });
-        $("#Category").click(function () {
-            alert("to js success")
-        });
 
     })();
+
 })

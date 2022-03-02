@@ -7,6 +7,7 @@ namespace PRS_System.Models.Data
 {
     public class UserDataModel
     {
+        public string Keyword { get; set; }
         public string UserID { get; set; }
         public string Full_NameThai { get; set; }
         public string Full_NameEng { get; set; }
