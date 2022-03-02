@@ -1,7 +1,7 @@
 ﻿@using PRS_System.Models.Login;
 @model LoginModel.Sendlogin;
 @{
-    Layout = "";
+    Layout = "_BlankLayout";
 }
 
 <!DOCTYPE html>
@@ -11,6 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/login.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js%22%3E"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">
+    <script src="~/js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="~/js/min/plugins.min.js"></script>
+    <script src="~/js/min/main.min.js"></script>
     <title>Login</title>
 </head>
 <body>
@@ -41,7 +48,7 @@
                     <p class="fake-legend">
                         <span>Or</span>
                     </p>
-                    <form asp-controller="Login" asp-action="Index">
+                    <form asp-controller="Login" asp-action="Index" id="user-form" method="post" enctype="multipart/form-data" onsubmit="AJAXSubmit(this); return false;">
                         <div class="input-box">
                             <label asp-for="Username">Username</label>
                             <input asp-for="Username" type="text" placeholder="username" id="username">
@@ -65,3 +72,46 @@
     </div>
 </body>
 </html>
+
+@section Scripts{
+    <script>
+    function AJAXSubmit(oFormElement) {
+            try {
+                var form = document.getElementById("user-form");
+                const url = "@Url.Action("Index", "Login")";
+                const formData = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData, // ดึงข้อมุลในฟอร์ม
+                    contentType: false,
+                    dataType: "JSON",
+                    processData: false,
+                    success: function (data) {
+
+                        console.log(data);
+                        if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                html: data.detail,
+                                showConfirmButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById("username").value='';
+                                    document.getElementById("password").value='';
+                                }
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("Error save fail");
+                    }
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+}

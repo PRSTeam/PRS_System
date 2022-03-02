@@ -15,7 +15,6 @@ namespace PRS_System.Controllers
             }
             else
             {
-                var route = new FormPRSController().Index();
                 return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
         }
@@ -26,18 +25,27 @@ namespace PRS_System.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("ACCESS_TOKEN")))
             {
-                try
+                if (data.Username == "admin" && data.Password == "1234")
                 {
-                    byte[] encData_byte = new byte[data.Password.Length];
-                    encData_byte = System.Text.Encoding.UTF8.GetBytes(data.Password);
-                    string encodedData = Convert.ToBase64String(encData_byte);
+
+                    return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
                 }
-                catch (Exception ex)
+                else
                 {
-                    throw new Exception("Error in base64Encode" + ex.Message);
+                    return Json(new { status = "error", detail = "Please try again", errorMessage = "Invalid username or password" });
                 }
-                var route = new FormPRSController().Index();
-                return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
+
+                //try
+                //{
+                //    byte[] encData_byte = new byte[data.Password.Length];
+                //    encData_byte = System.Text.Encoding.UTF8.GetBytes(data.Password);
+                //    string encodedData = Convert.ToBase64String(encData_byte);    
+                //}
+                //catch (Exception ex)
+                //{
+                //    throw new Exception("Error in base64Encode" + ex.Message);
+                //}
+                //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
             else
             {
@@ -55,7 +63,6 @@ namespace PRS_System.Controllers
             }
             else
             {
-                var route = new FormPRSController().Index();
                 return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
         }
