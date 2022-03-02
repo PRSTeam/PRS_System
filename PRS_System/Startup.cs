@@ -29,6 +29,7 @@ namespace PRS_System
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IFormService, FormService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +57,7 @@ namespace PRS_System
                 endpoints.MapControllerRoute(
                     name: "default",
                 //pattern: "{controller=FormPRS}/{action=form}/{id?}");
-                pattern: "{controller=AdminSetting}/{action=addnewuser}/{id?}");
+                pattern: "{controller=FormPRS}/{action=form}/{id?}");
             });
         }
     }
