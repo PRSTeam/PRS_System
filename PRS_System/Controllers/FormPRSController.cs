@@ -14,7 +14,7 @@ namespace PRS_System.Controllers
             return View();
 
         }
-        public IActionResult createform()
+        public IActionResult form()
         {
             return View();
         }
@@ -29,6 +29,19 @@ namespace PRS_System.Controllers
         }
         public IActionResult AddDataApprover(CreatedResult Approver)
         {
+            return View();
+        }
+        public IActionResult Showlistuser()
+        {
+            return View();
+        }
+        public IActionResult Addnewuser()
+        {
+            return View();
+        }
+        public IActionResult Addnewuserdata()
+        {
+
             return View();
         }
     }

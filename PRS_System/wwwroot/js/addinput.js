@@ -27,8 +27,9 @@ $(document).ready(function () {
     $(add_object).click(function (e) {
         e.preventDefault();
         if (y < max_object) {
+            var text = '<div><label>ชื่อสินค้า</label><input type="text" id="nameProduct" placeholder="บิ๊กเกอร์ 50 มล."><label>จำนวนสินค้า</label><input type="text" id="numProduct" placeholder="99"><label>หน่วยสินค้า</label><input type="text" id="unitProduct" placeholder="อัน"><label>ราคาต่อหน่วย</label><input type="text" id="priceUnit" placeholder="100"/><a href="#" class="delete">Delete</a></div>';
             y++;
-            $(object).append('<div><label>ชื่อสินค้า</label><input type="text" id="nameProduct" placeholder="บิ๊กเกอร์ 50 มล."><label>จำนวนสินค้า</label><input type="text" id="numProduct" placeholder="99"><label>หน่วยสินค้า</label><input type="text" id="unitProduct" placeholder="อัน"><label>ราคาต่อหน่วย</label><input type="text" id="priceUnit" placeholder="100"/><a href="#" class="delete">Delete</a></div>'); //add input box
+            $(object).append(utf8.encode(text)); //add input box
         } else {
             alert('You Reached the limits')
         }
@@ -37,6 +38,6 @@ $(document).ready(function () {
     $(object).on("click", ".delete", function (e) {
         e.preventDefault();
         $(this).parent('div').remove();
-        x--;
+        y--;
     })
 });

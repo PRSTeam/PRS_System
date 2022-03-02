@@ -1,18 +1,33 @@
+﻿@model PRS_System.Models.Setting.AddnewuserdataModel
+@using PRS_System.Controllers
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js" lang="th">
 <!--<![endif]-->
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/ui_form.css" />
+    <link rel="stylesheet" href="~/css/table.css" />
+    <link rel="stylesheet" href="~/css/normalize.css" />
+    <link rel="stylesheet" href="~/js/EsignatureCanvas.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/js/EsignatureCanvas.js"></script>
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="js/min/plugins.min.js"></script>
+    <script src="js/min/main.min.js"></script>
+    <script src="js/addinput.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
 
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="css/table.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <body>
 
@@ -21,46 +36,75 @@
         <div class="fluid-container">
             <div>
                 <!-- Form -->
-                <div class="page-section" id="add">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Add New User</h1>
+                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
+                    <div class="page-section" id="add">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Add New User</h1>
+                            </div>
                         </div>
+                        <div class="row">
+
+                            <label>ID ผู้ใช้</label><br>
+                            <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20"><br><br>
+                            <label>ชื่อจริงภาษาไทย</label><br>
+                            <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20"><br><br>
+                            <label>ชื่อจริงภาษาอังกฤษ</label><br>
+                            <input type="text" asp-for="Full_NameEng" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
+
+                            <label>ตำแหน่งงานผู้ใช้</label><br>
+                            <select asp-for="User_Type">
+                                <option value="science">นิสิต</option>
+                            </select><br><br>
+
+                            <label>Mr./Mrs./Miss/Ms.</label><br><br>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Mr.">
+                            <label>Mr.</label>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Mrs.">
+                            <label>Mrs.</label>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Miss.">
+                            <label>Miss.</label>
+                            <input asp-for="Prefix_NameEng" type="radio" value="Ms.">
+                            <label>Ms.</label>
+                            <br><br>
+                            <label>คำนำหน้าชื่อ</label><br>
+                            <input asp-for="Prefix_NameThai" type="radio" value="นาย">
+                            <label>นาย</label>
+                            <input asp-for="Prefix_NameThai" type="radio" value="นาง">
+                            <label>นาง</label>
+                            <input asp-for="Prefix_NameThai" type="radio" value="นางสาว">
+                            <label>นางสาว</label>
+                            <br><br>
+
+                            <label>หมวดหมู่ผู้ใช้</label><br>
+                            <input asp-for="Category" type="radio" value="Admin">
+                            <label>Admin</label>
+                            <input asp-for="Category" type="radio" value="User">
+                            <label>User</label><br><br>
+
+                            <label>ลายเซ็น</label><br><br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <canvas id="sig-canvas" width="620" height="160" style="border-style:dashed">
+                                        Get a better browser, bro.
+                                    </canvas>
+                                </div>
+                                <input type="hidden" asp-for="ESignature" />
+                            </div>
+
+                            <label>สถานะผู้ใช้</label><br>
+                            <input asp-for="Status" type="radio" value="Working">
+                            <label>Working</label>
+                            <input asp-for="Status" type="radio" value="Quit">
+                            <label>Quit</label><br><br>
+
+                            <button id="clearBtn" type="button">Clear signature</button>
+                            <button type="submit" id="submitBtn">Submit</button>
+
+                        </div> <!-- .contact-form -->
                     </div>
-                    <div class="row">
+                </form>
 
-                        <label>UserID</label><br>
-                        <input type="text" id="userID" placeholder="Ex.sfcfrc" size="20"><br><br>
-                        <label>Full name Thai</label><br>
-                        <input type="text" id="userID" placeholder="Ex.������ ���ͧ��" size="20"><br><br>
-                        <label>Full name English</label><br>
-                        <input type="text" id="userID" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
-
-                        <label>User Type</label><br>
-                        <select name="name_select" id="name_select">
-                            <option value="science">�Ҩ����</option>
-                        </select><br><br>
-
-                        <label>Category</label><br>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>Admin</label>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>User</label><br><br>
-
-                        <label>Signature</label><br><br>
-
-
-                        <label>Status</label><br>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>Working</label>
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>Quit</label><br><br>
-
-                        <button>Clear signature</button>
-                        <button>Submit</button>
-
-                    </div> <!-- .contact-form -->
-                </div>
                 <hr>
 
                 <div class="row" id="footer">
@@ -73,11 +117,59 @@
         </div>
     </div>
 
-    <script src="js/vendor/jquery-1.10.2.min.js"></script>
-    <script src="js/min/plugins.min.js"></script>
-    <script src="js/min/main.min.js"></script>
-    <script src="js/addinput.js"></script>
+    
 
 </body>
 
 </html>
+@section Scripts{
+    <script>
+    function AJAXSubmit(oFormElement) {
+            try {
+                var form = document.getElementById("user-form");
+                const url = "@Url.Action("Addnewuserdata", "AdminSetting")";
+                const formData = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData, // ดึงข้อมุลในฟอร์ม
+                    contentType: false,
+                    dataType: "JSON",
+                    processData: false,
+                    success: function (data) {
+
+                        console.log(data);
+                        if (data.status == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: data.messege,
+                                showConfirmButton: true,
+                                confirmButtonText: 'Ok'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href ="@Url.Action("Addnewuser", "AdminSetting")";
+                                }
+                            });
+
+                        }
+                        else if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                html: data.detail,
+                                showConfirmButton: true,
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("Error save fail");
+                    }
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+}
+
