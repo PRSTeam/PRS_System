@@ -29,6 +29,9 @@ namespace PRS_System
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromHours(8);
+            });
             services.AddScoped<IFormService, FormService>();
         }
 
@@ -51,12 +54,15 @@ namespace PRS_System
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                 //pattern: "{controller=FormPRS}/{action=form}/{id?}");
+                pattern: "{controller=AdminSetting}/{action=addnewuser}/{id?}");
+                    pattern: "{controller=FormPRS}/{action=Index}/{id?}");
                 pattern: "{controller=FormPRS}/{action=form}/{id?}");
             });
         }
