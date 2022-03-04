@@ -13,14 +13,14 @@
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
     /* background-color: aliceblue; */
     box-shadow: 0px 0px 2px;
 }
 
 .img-logo {
     position: relative;
-    width: 40%;
+    width: 50%;
 }
 
 /* .nav-list {
@@ -105,6 +105,8 @@
 
     .box a {
         text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
     }
 
     .box::before {
@@ -169,27 +171,6 @@
     animation: slider 20s infinite linear;
 } */
 
-@keyframes slider {
-    0% {
-        background-image: url('../img/information/1.jpg');
-    }
-
-    25% {
-        background-image: url('../img/information/2.jpg');
-    }
-
-    45% {
-        background-image: url('../img/information/3.jpg');
-    }
-
-    65% {
-        background-image: url('../img/information/4.jpg');
-    }
-
-    85% {
-        background-image: url('../img/information/5.jpg');
-    }
-}
 
 .container-News {
     display: flex;
@@ -201,12 +182,12 @@
 
 .News {
     position: absolute;
-    top: 95%;
+    top: 120%;
     left: 50%;
     transform: translate(-50%, -50%);
     /*width: 60%;*/
     width: 80%;
-    height: 250px;
+    height: 80%;
     background: #f5f5f5;
     padding: 20px 30px;
     overflow: hidden;
@@ -315,68 +296,70 @@
         top: 15px;
         right: 20px;
     }
-
-    /*.backgroud-News {
-        height: 60vh;
-    }*/
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .medie-show {
         height: 55%;
-        /*height: 350px;*/
         width: 80%;
     }
 
-    /*.backgroud-News {
-        height: 75vh;
-    }*/
-
     .News {
         width: 80%;
+        top: 120%;
+        height: 80%;
     }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    /*.backgroud-News {
-        height: 80vh;
-    */}
-
     .medie-show {
-        /*height: 375px;*/
         height: 55%;
         width: 70%;
     }
 
     .News {
         width: 70%;
+        top: 115%;
+        height: 60%;
     }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .medie-show {
-        /*height: 375px;*/
         height: 55%;
         width: 60%;
     }
 
+    .backgroud-News {
+        height: 75vh;
+    }
+
     .News {
         width: 60%;
+        top: 110%;
+        height: 60%;
     }
 }
 
 /* Extra large devices (large laptops and desktops, 1350px and up) */
 @media only screen and (min-width: 1350px) {
     .medie-show {
-        /*height: 375px;*/
         height: 55%;
         width: 60%;
     }
 
     .News {
         width: 60%;
+        top: 110%;
+        height: 60%;
+    }
+
+    .container-News {
+        display: flex;
+        height: 80vh;
+        background: #EBEBEB;
     }
 }

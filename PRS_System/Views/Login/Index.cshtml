@@ -104,6 +104,9 @@
                                 }
                             });
                         }
+                        if (data.status == "success") {
+                            window.location = "@Url.Action("Index", "FormPRS")";
+                        }
                     },
                     error: function (err) {
                         console.log("Error", err);
