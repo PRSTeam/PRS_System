@@ -1,115 +1,126 @@
+﻿@model PRS_System.Models.Setting.AddnewuserdataModel
+@using PRS_System.Controllers
+@{
+    Layout = "_BlankLayout";
+}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home</title>
-        <meta name="description" content="">
-        <!-- 
-    	Volton Template
-    	http://www.templatemo.com/tm-441-volton
-        -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/templatemo-style.css">
-        <link rel="stylesheet" href="css/table.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    
-        <div class="responsive-header visible-xs visible-sm">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="top-section">
-                            <div class="profile-image">
-                                <img src="img/profile.jpg" alt="Jack">
-                            </div>
-                            <div class="profile-content">
-                                <h3 class="profile-title">Jack</h3>
-                                <p class="profile-description">kriangkrai kancahanaaksorn</p>
-                            </div>
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="description" content="">
+    <!--
+    Volton Template
+    http://www.templatemo.com/tm-441-volton
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/table.css">
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    @*<link rel="stylesheet" href="~/js/IndexForm.js" />*@
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="js/min/plugins.min.js"></script>
+    <script src="js/min/main.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="responsive-header visible-xs visible-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="top-section">
+                        <div class="profile-image">
+                            <img src="img/profile.jpg" alt="Jack">
+                        </div>
+                        <div class="profile-content">
+                            <h3 class="profile-title">Jack</h3>
+                            <p class="profile-description">kriangkrai kancahanaaksorn</p>
                         </div>
                     </div>
                 </div>
-                <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
-                <div class="main-navigation responsive-menu">
-                    <ul class="navigation">
-                        <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
-                        <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
-                        <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
-                    </ul>
-                </div>
             </div>
-        </div>
-
-        <!-- SIDEBAR -->
-        <div class="sidebar-menu hidden-xs hidden-sm">
-            <div class="top-section">
-                <div class="profile-image">
-                    <img src="img/profile.jpg" alt="Jack">
-                </div>
-                <h3 class="profile-title">Jack</h3>
-                <p class="profile-description">kriangkrai kancahanaaksorn</p>
-            </div> <!-- top-section -->
-            <div class="main-navigation">
+            <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
+            <div class="main-navigation responsive-menu">
                 <ul class="navigation">
                     <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                     <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
                     <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
                 </ul>
-            </div> <!-- .main-navigation -->
-        </div> <!-- .sidebar-menu -->
-        
-
-        <div class="banner-bg" id="home">
-            <div class="banner-overlay"></div>
-            <div class="welcome-text">
-                <h2>รูปปกวิทยาศาสตร์</h2>
-                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div class="fluid-container">
+    <!-- SIDEBAR -->
+    <div class="sidebar-menu hidden-xs hidden-sm">
+        <div class="top-section">
+            <div class="profile-image">
+                <img src="img/profile.jpg" alt="Jack">
+            </div>
+            <h3 class="profile-title">Jack</h3>
+            <p class="profile-description">kriangkrai kancahanaaksorn</p>
+        </div> <!-- top-section -->
+        <div class="main-navigation">
+            <ul class="navigation">
+                <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
+                <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
+                <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
+            </ul>
+        </div> <!-- .main-navigation -->
+    </div> <!-- .sidebar-menu -->
 
-                <div class="content-wrapper">
-                
-                    <!-- HISTORY -->
-                    <div class="page-section" id="history">
+
+    <div class="banner-bg" id="home">
+        <div class="banner-overlay"></div>
+        <div class="welcome-text">
+            <h2>รูปปกวิทยาศาสตร์</h2>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="fluid-container">
+
+            <div class="content-wrapper">
+
+                <!-- HISTORY -->
+                <div class="page-section" id="history">
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="widget-title">History</h4>
                             <p>ตารางหน้าคำขอผู้จัดซื้อ</p>
-                            <button class="button button1">+Create</button>
+                            <button class="button button1" id="createbutton">+Create</button>
                             <hr>
                             <table id="customers">
                                 <tr>
-                                  <th>No.</th>
-                                  <th>Procurement Request</th>
-                                  <th>Status</th>
-                                  <th>Function</th>
-                                  <th>Date</th>
+                                    <th>No.</th>
+                                    <th>Procurement Request</th>
+                                    <th>Status</th>
+                                    <th>Function</th>
+                                    <th>Date</th>
                                 </tr>
                                 <tr>
-                                  <td>1.</td>
-                                  <td>คำขอจัดซื้อ 1</td>
-                                  <td style="color:green">Sent</td>
-                                  <td>
-                                      <button class="button button2">Edit</button>
-                                      <button class="button button3">Delete</button>
-                                      <button class="button button4">Draft</button>
-                                  </td>
-                                  <td>11-07-2564</td>
+                                    <td>1.</td>
+                                    <td>คำขอจัดซื้อ 1</td>
+                                    <td style="color:green">Sent</td>
+                                    <td>
+                                        <button class="button button2">Edit</button>
+                                        <button class="button button3">Delete</button>
+                                        <button class="button button4">Draft</button>
+                                    </td>
+                                    <td>11-07-2564</td>
                                 </tr>
                                 <tr>
                                     <td>2.</td>
@@ -121,33 +132,33 @@
                                         <button class="button button4">Draft</button>
                                     </td>
                                     <td>11-07-2564</td>
-                                  </tr>
-                              </table>
+                                </tr>
+                            </table>
                             <br>
                             <p>ตารางหน้าฝ่ายพัสดุ</p>
                             <hr>
                             <table id="customers">
                                 <tr>
-                                  <th>No.</th>
-                                  <th>Name of Purchaser</th>
-                                  <th>Department</th>
-                                  <th>Procurement Request</th>
-                                  <th>Status</th>
-                                  <th>Function</th>
-                                  <th>Date</th>
+                                    <th>No.</th>
+                                    <th>Name of Purchaser</th>
+                                    <th>Department</th>
+                                    <th>Procurement Request</th>
+                                    <th>Status</th>
+                                    <th>Function</th>
+                                    <th>Date</th>
                                 </tr>
                                 <tr>
-                                  <td>1.</td>
-                                  <td>แฟร้งค์</td>
-                                  <td>ภาคปกติ</td>
-                                  <td>คำขอจัดซื้อ 1</td>
-                                  <td style="color:green">Sent</td>
-                                  <td>
-                                      <button class="button button2">Edit</button>
-                                      <button class="button button3">Delete</button>
-                                      <button class="button button4">Draft</button>
-                                  </td>
-                                  <td>11-07-2564</td>
+                                    <td>1.</td>
+                                    <td>แฟร้งค์</td>
+                                    <td>ภาคปกติ</td>
+                                    <td>คำขอจัดซื้อ 1</td>
+                                    <td style="color:green">Sent</td>
+                                    <td>
+                                        <button class="button button2">Edit</button>
+                                        <button class="button button3">Delete</button>
+                                        <button class="button button4">Draft</button>
+                                    </td>
+                                    <td>11-07-2564</td>
                                 </tr>
                                 <tr>
                                     <td>2.</td>
@@ -162,26 +173,32 @@
                                     </td>
                                     <td>11-07-2564</td>
                                 </tr>
-                                
-                              </table>
+
+                            </table>
                         </div>
                     </div> <!-- #history -->
-                    </div>
+                </div>
 
-                    <div class="row" id="footer">
-                        <div class="col-md-12 text-center">
-                            <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
-                        </div>
+                <div class="row" id="footer">
+                    <div class="col-md-12 text-center">
+                        <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
                     </div>
-
                 </div>
 
             </div>
+
         </div>
+    </div>
 
-        <script src="js/vendor/jquery-1.10.2.min.js"></script>
-        <script src="js/min/plugins.min.js"></script>
-        <script src="js/min/main.min.js"></script>
 
-    </body>
+
+</body>
 </html>
+<script>
+    $(document).ready(function () {
+        $("#createbutton").click(function () {
+            location.href = "@Url.Action("form", "FormPRS")";
+        });
+        
+});
+</script>

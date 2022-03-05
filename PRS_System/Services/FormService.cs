@@ -18,7 +18,7 @@ namespace PRS_System.Services
             _logger = logger;
             _connectionString = Startup.ConnectionString;
         }
-        public void AddFormDetailData(FormPRSDataModel formdetaildata)
+        public void AddFormDetailData(FormPRSDataModel formdetaildata,int id_tor)
         {
             SqlConnection connect = new SqlConnection(_connectionString);
             SqlCommand command = new SqlCommand();
@@ -41,24 +41,63 @@ namespace PRS_System.Services
             command.Parameters.Add(new SqlParameter("@NAME_OTHER_DC", (object)formdetaildata.idRoom ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@AMT_OTHER_DOC", (object)formdetaildata.idRoom ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@TOR_DATE", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ID_USER", (object)formdetaildata.idRoom ?? DBNull.Value));
-            throw new NotImplementedException();
+
+            connect.Close();
         }
 
-        public void AddProductData(SubjectDataModel formdetaildata)
+        public void AddSubjectData(List<SubjectDataModel> formdetaildata,int id_tor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                foreach (SubjectDataModel item in formdetaildata)
+                {
+                    SqlCommand command = new SqlCommand();
+                    connect.Open();
+                    command.Connection = connect;
+                    int maximum = GetMaximumID_SUBJECT_LIST();
+                    command.CommandText = @"Insert Into PRS_TOR_PRODUCT_LIST(ID_SUBJECTT_LIST,ID_TOR,SUBJECT) 
+                                        VALUES(@ID_SUBJECTT_LIST,@ID_TOR,@SUBJECT)";
+                    command.Parameters.Add(new SqlParameter("@ID_SUBJECTT_LIST", (object)maximum ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@NSUBJECT", (object)item.Subject ?? DBNull.Value));
+                    command.ExecuteNonQuery();
+                    connect.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void AddSubjectData(ProductDataModel formdetaildata)
+        public void AddProductData(List<ProductDataModel> formdetaildata,int id_tor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                foreach (ProductDataModel item in formdetaildata)
+                {
+                    SqlCommand command = new SqlCommand();
+                    connect.Open();
+                    command.Connection = connect;
+                    int maximum = GetMaximumID_PRODUCT_LIST();
+                    command.CommandText = @"Insert Into PRS_TOR_PRODUCT_LIST(ID_PRODUCT_LIST,ID_TOR,NAME_PRODUCT,AMT_PRODUCT,UNIT_PRODUCT,PRICE_PER_PIECE) 
+                                        VALUES(@IDPRODUCT,@IDTOR,@NAMEPRODUCT,@AMT_PRODUCT,@UNT_PRODUCT,@PRICE_PER_PIECE)";
+                    command.Parameters.Add(new SqlParameter("@IDPRODUCT", (object)maximum ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@NAMEPRODUCT", (object)item.NameProduct ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@AMT_PRODUCT", (object)item.AmtProduct ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@UNT_PRODUCT", (object)item.Unit ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@PRICE_PER_PIECE", (object)item.Price_Per_Piece ?? DBNull.Value));
+                    command.ExecuteNonQuery();
+                    connect.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int GetMaximumID_TOR()
@@ -89,6 +128,130 @@ namespace PRS_System.Services
             {
                 throw ex;
             }
+        }
+
+        public int GetMaximumID_PRODUCT_LIST()
+        {
+            try
+            {
+                /// DECLARE VARIABLE
+                int maximum = 0;
+
+                /// CONNECTION OPEN
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT max(ID_PRODUCT_LIST) MAXIMUM FROM PRS_TOR_PRODUCT_LIST";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    maximum = reader["MAXIMUM"] != DBNull.Value ? (int)reader["MAXIMUM"] : 0;
+                }
+                reader.Close();
+                con.Close();
+
+                return maximum;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
+        public int GetMaximumID_COM()
+        {
+            try
+            {
+                /// DECLARE VARIABLE
+                int maximum = 0;
+
+                /// CONNECTION OPEN
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT max(ID_COM) MAXIMUM FROM PRS_COM_COMMENT";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    maximum = reader["MAXIMUM"] != DBNull.Value ? (int)reader["MAXIMUM"] : 0;
+                }
+                reader.Close();
+                con.Close();
+
+                return maximum;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
+        public int GetMaximumID_ASSIST()
+        {
+            try
+            {
+                /// DECLARE VARIABLE
+                int maximum = 0;
+
+                /// CONNECTION OPEN
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT max(ID_ASSIST) MAXIMUM FROM PRS_TOR_ASSIST";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    maximum = reader["MAXIMUM"] != DBNull.Value ? (int)reader["MAXIMUM"] : 0;
+                }
+                reader.Close();
+                con.Close();
+
+                return maximum;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
+        public int GetMaximumID_SUBJECT_LIST()
+        {
+            try
+            {
+                /// DECLARE VARIABLE
+                int maximum = 0;
+
+                /// CONNECTION OPEN
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT max(ID_SUBJECT_LIST) MAXIMUM FROM PRS_TOR_SUBJECT";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    maximum = reader["MAXIMUM"] != DBNull.Value ? (int)reader["MAXIMUM"] : 0;
+                }
+                reader.Close();
+                con.Close();
+
+                return maximum;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
         }
     }
 }

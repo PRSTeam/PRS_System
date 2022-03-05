@@ -5,12 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OAuth2TestToolKU\OAuth2TestTool.MVC\OAuth2TestTool.MVC.csproj" />
+    <None Include="wwwroot\File\Information\ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-1-1.pdf" />
+    <None Include="wwwroot\File\Information\ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-2.pdf" />
+    <None Include="wwwroot\File\Information\ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-3.pdf" />
+    <None Include="wwwroot\File\Information\ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-4.pdf" />
+    <None Include="wwwroot\File\Information\ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-5.pdf" />
+    <None Include="wwwroot\File\Information\ประกวดราคาซื้อชุดครุภัณฑ์ห้องปฏิบัติการสร้างสรรค์นวัตกรรมการผลิตชิ้นงาน-ตำบลทุ่งสุขา-อำเภอศรีราชา-จังหวัดชลบุรี-จำนวน-1-ชุด.pdf" />
+    <None Include="wwwroot\File\Information\ประกวดราคาซื้อชุดเตรียมตัวอย่างสารอินทรีย์-ตำบลทุ่งสุขลา-อำเภอศรีราชา-จังหวัดชลบุรี-จำนวน-1-ชุด-ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์-1.pdf" />
+    <None Include="wwwroot\File\Information\ประกาศผู้ชนะการเสนอราคา-จ้างเหมาบริการพัฒนาระบบแม่ข่าย-จำนวน-1-งาน-โดยวิธีเฉพาะเจาะจง.pdf" />
+    <None Include="wwwroot\File\Information\ประกาศผู้ชนะการเสนอราคา-ซื้อครุภัณฑ์คอมพิวเตอร์-จำนวน-2-รายการ-โดยวิธีเฉพาะเจาะจง.pdf" />
+    <None Include="wwwroot\File\Information\ประกาศผู้ชนะการเสนอราคา-ประกวดราคาซื้อชุดเตรียมตัวอย่างและทำชิ้นส่วนหยาบด้วยระบบทำแห้งร้อนแบบสุญญากาศ.pdf" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IServices\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\OAuth2TestToolKU\OAuth2TestTool.MVC\OAuth2TestTool.MVC.csproj" />
   </ItemGroup>
 
 </Project>
