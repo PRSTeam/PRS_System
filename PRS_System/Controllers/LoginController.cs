@@ -27,8 +27,9 @@ namespace PRS_System.Controllers
             {
                 if (data.Username == "admin" && data.Password == "1234")
                 {
-
-                    return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
+                    HttpContext.Session.SetString("USER_ID", "admin");
+                    return Json(new { status = "success"});
+                    //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
                 }
                 else
                 {

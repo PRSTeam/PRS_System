@@ -1,129 +1,228 @@
-﻿@{
-    //Layout = "_WebLayout";
+﻿@using PRS_System.Models.Information;
+@model List<InformationModel>;
+@{
+    Layout = "_BlankLayout";
     ViewData["Title"] = "หน้าแรก";
+    if (ViewBag.count_img != null)
+    {
+        string img_slide = null;
+        var num = 0;
+        string st_pic = null;
+        foreach (var img in Model)
+        {
+            if (img.Header == "รูปปก")
+            {
+                img_slide += num + "% { background-image: url(../img/information/" + img.Name + ")}";
+                num =+ num + ViewBag.count_img;
+                if (ViewBag.st_pic == null)
+                {
+                    ViewBag.st_pic = "url(../img/information/" + img.Name + ")";
+                }
+
+            }
+
+        }
+        ViewBag.css_img = img_slide;
+    }
 }
 
-<link rel="stylesheet" href="~/css/info.css">
+<!DOCTYPE html>
+<html lang="th">
 
-<div class="container">
-    <div class="content-body">
-        <div class="content-filed">
-            <div class="container-bar container-color ">
-                <button class="tablink tab-button tab-blue" onclick="tab_fnc(event,'a')">ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์</button>
-                <button class="tablink tab-button" onclick="tab_fnc(event,'b')">ข่าวประกวดราคา</button>
-                <button class="tablink tab-button" onclick="tab_fnc(event,'c')">ประกาศผู้ชนะ</button>
-                <button class="tablink tab-button" onclick="tab_fnc(event,'d')">เอกสารที่เกี่ยวข้อง</button>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="~/css/information.css">
+    <title>@ViewData["Title"] - ระบบจัดซื้อจัดจ้าง</title>
+    <style>
+        .News .tab-indicator {
+            width: calc(100% / @ViewBag.css_tab_header);
+        }
+
+        .medie-show {
+            background-image: @ViewBag.st_pic;
+        }
+
+        @@keyframes slider {
+        @ViewBag.css_img
+            /*0% {
+                        background-image: url('../img/information/1.jpg');
+                    }
+
+                    25% {
+                        background-image: url('../img/information/2.jpg');
+                    }
+
+                    45% {
+                        background-image: url('../img/information/3.jpg');
+                    }
+
+                    65% {
+                        background-image: url('../img/information/4.jpg');
+                    }
+
+                    85% {
+                        background-image: url('../img/information/5.jpg');
+                    }*/
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <div>
+            <a asp-controller="Information" asp-action="Index">
+                <img class="img-logo" src="~/img/information/Logo.jpg" alt="">
+            </a>  
+        </div>
+
+        <div class="toggle">
+            <a href="#">
+                <ion-icon name="menu-outline"></ion-icon>
+            </a>
+        </div>
+
+        <div class="nav-list">
+            <div class="box line">
+                <a asp-controller="Information" asp-action="Index">Home</a>
             </div>
-
-            <div class="container-inner">
-                <div id="a" class="tabcontent">
-                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-1-1.pdf"
-                       class="container-description">
-                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับวิเคราะห์หาปริมาณฟอสเฟตในตัวอย่างทางสิ่งแวดล้อม
-                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
-                    </a>
-                    <hr>
-                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-2.pdf"
-                       class="container-description">
-                        ประกวดราคาซื้อชุดจัดเก็บอุปกรณ์และเครื่องแก้วประจำห้องปฏิบัติการทางสิ่งแวดล้อม
-                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
-                    </a>
-                    <hr>
-                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-3.pdf"
-                       class="container-description">
-                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับตรวจวัดคุณภาพทางสิ่งแวดล้อมภาคสนาม
-                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
-                    </a>
-                </div>
-
-                <div id="b" class="tabcontent" style="display:none">
-                    <h2>ดาวน์โหลด</h2>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 1</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 2</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 3</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 4</a>
-                    <hr>
-                    <h2>ดาวน์โหลด</h2>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 5</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 6</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 7</a>
-                    <br>
-                </div>
-
-                <div id="c" class="tabcontent" style="display:none">
-                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-1-1.pdf"
-                       class="container-description">
-                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับวิเคราะห์หาปริมาณฟอสเฟตในตัวอย่างทางสิ่งแวดล้อม
-                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
-                    </a>
-                    <hr>
-                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-2.pdf"
-                       class="container-description">
-                        ประกวดราคาซื้อชุดจัดเก็บอุปกรณ์และเครื่องแก้วประจำห้องปฏิบัติการทางสิ่งแวดล้อม
-                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
-                    </a>
-                    <hr>
-                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/%E0%B8%82%E0%B8%AD%E0%B8%9A%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%A7%E0%B8%94%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%AD%E0%B8%B4%E0%B9%80%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%97%E0%B8%A3%E0%B8%AD%E0%B8%99%E0%B8%B4%E0%B8%81%E0%B8%AA%E0%B9%8C-3.pdf"
-                       class="container-description">
-                        ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับตรวจวัดคุณภาพทางสิ่งแวดล้อมภาคสนาม
-                        ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
-                    </a>
-                </div>
-
-                <div id="d" class="tabcontent" style="display:none">
-                    <h2>ดาวน์โหลด</h2>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 1</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 2</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 3</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 4</a>
-                    <hr>
-                    <h2>ดาวน์โหลด</h2>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 5</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 6</a>
-                    <br>
-                    <img src="https://img.icons8.com/windows/32/000000/open-document.png" style="width: 20px;" />
-                    <a href="#" class="container-description">เอกสาร 7</a>
-                    <br>
-                </div>
+            <div class="box line">
+                <a asp-controller="Login" asp-action="Index">Login</a>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="backgroud-News">
+        <div class="medie-show">
+            @*<img class="img-size" src="~/img/information/1.jpg" alt="">*@
+        </div>
+
+    </div>
+
+    <div class="container-News">
+        <div class="News">
+            <div class="tab-header">
+                @Html.Raw(ViewBag.tab_header)
+                @*<div class="actives tab-desc">
+                    <h3>ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์</h3>
+                    </div>
+                    <div class="tab-desc">
+                    <h3>ข่าวประกวดราคา</h3>
+                    </div>
+                    <div class="tab-desc">
+                    <h3>ประกาศผู้ชนะ</h3>
+                    </div>
+                    <div class="tab-desc">
+                    <h3>เอกสารที่เกี่ยวข้อง</h3>
+                    </div>*@
+            </div>
+
+            <div class="tab-indicator"></div>
+
+            <div class="tab-body">
+                @Html.Raw(ViewBag.tab_body)
+                @*<div class="actives tab-desc">
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-1-1.pdf">
+                    ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับวิเคราะห์หาปริมาณฟอสเฟตในตัวอย่างทางสิ่งแวดล้อม ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                    <hr>
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-2.pdf">
+                    ประกวดราคาซื้อชุดจัดเก็บอุปกรณ์และเครื่องแก้วประจำห้องปฏิบัติการทางสิ่งแวดล้อม ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+                    <hr>
+                    <a href="https://sci.src.ku.ac.th/wp-content/uploads/2021/11/ขอบเขตของงานประกวดราคาอิเล็กทรอนิกส์-3.pdf">
+                    ประกวดราคาซื้อชุดครุภัณฑ์การเรียนการสอนสำหรับตรวจวัดคุณภาพทางสิ่งแวดล้อมภาคสนาม ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี จำนวน 1 ชุด ด้วยวิธีประกวดราคาอิเล็กทรอนิกส์
+                    </a>
+
+                    </div>
+                    <div class="tab-desc">
+                    <h2>Lorem2 ipsum, dolor sit amet consectetur adipisicing elit. Quas, modi.</h2>
+                    <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut nisi corporis ab qui deserunt
+                    quas, natus facilis doloremque atque commodi eius! Ullam maiores quae velit perferendis
+                    molestias cumque molestiae error.
+                    </p>
+                    </div>
+                    <div class="tab-desc">
+                    <h2>Lorem3 ipsum, dolor sit amet consectetur adipisicing elit. Quas, modi.</h2>
+                    <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut nisi corporis ab qui deserunt
+                    quas, natus facilis doloremque atque commodi eius! Ullam maiores quae velit perferendis
+                    molestias cumque molestiae error.
+                    </p>
+                    </div>
+                    <div class="tab-desc">
+                    <h2>Lorem4 ipsum, dolor sit amet consectetur adipisicing elit. Quas, modi.</h2>
+                    <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut nisi corporis ab qui deserunt
+                    quas, natus facilis doloremque atque commodi eius! Ullam maiores quae velit perferendis
+                    molestias cumque molestiae error.
+                    </p>
+                    </div>*@
+            </div>
+
+        </div>
+
+        @*<div class="Footer">
+            <div class="tab-links">
+
+            </div>
+            </div>*@
+
+    </div>
+
+
+
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-    function tab_fnc(evt, page) {
-    var i, x, tablinks;
-    x = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < x.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" tab-blue", "");
-    }
-    document.getElementById(page).style.display = "block";
-    evt.currentTarget.className += " tab-blue";
-    }
+    $(function () {
+        $(".toggle").on("click", function () {
+            if ($(".nav-list").hasClass("active")) {
+                $(".nav-list").removeClass("active");
+                $(this).find("a").html("<ion-icon name='menu-outline'></ion-icon>");
+
+            } else {
+                $(".nav-list").addClass("active")
+                $(this).find("a").html("<ion-icon name='close-outline'></ion-icon>");
+            }
+        })
+    })
+
 </script>
+
+<script>
+    let tabHeader = document.getElementsByClassName("tab-header")[0];
+    let tabIndicator = document.getElementsByClassName("tab-indicator")[0];
+    let tabBody = document.getElementsByClassName("tab-body")[0];
+    let tabsPane = tabHeader.getElementsByClassName("tab-desc");
+
+    for (let i = 0; i < tabsPane.length; i++) {
+        tabsPane[i].addEventListener("click", function () {
+            tabHeader.getElementsByClassName("actives")[0].classList.remove("actives");
+
+            tabsPane[i].classList.add("actives");
+            tabsPane[i].style.display = "";
+
+            tabBody.getElementsByClassName("actives")[0].style.display = "none"
+            tabBody.getElementsByClassName("actives")[0].classList.remove("actives");
+
+            tabBody.getElementsByClassName("tab-desc")[i].style.display = "";
+            tabBody.getElementsByClassName("tab-desc")[i].classList.add("actives");
+
+            tabIndicator.style.left = "calc(calc(100% / " + @ViewBag.css_tab_header + ") * " + i + ")";
+        });
+    }
+
+
+</script>
+
+
+</html>

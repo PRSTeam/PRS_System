@@ -33,6 +33,7 @@ namespace PRS_System
                 options.IdleTimeout = TimeSpan.FromHours(8);
             });
             services.AddScoped<IFormService, FormService>();
+            services.AddScoped<IInformationService, InformationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
