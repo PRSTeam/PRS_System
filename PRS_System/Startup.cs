@@ -61,9 +61,9 @@ namespace PRS_System
                 endpoints.MapControllerRoute(
                     name: "default",
                 //pattern: "{controller=FormPRS}/{action=form}/{id?}");
-                pattern: "{controller=AdminSetting}/{action=addnewuser}/{id?}");
-                    pattern: "{controller=FormPRS}/{action=Index}/{id?}");
-                pattern: "{controller=FormPRS}/{action=form}/{id?}");
+                //pattern: "{controller=AdminSetting}/{action=addnewuser}/{id?}");
+                //    pattern: "{controller=FormPRS}/{action=Index}/{id?}");
+                pattern: "{controller=FormPRS}/{action=index}/{id?}");
             });
         }
     }
