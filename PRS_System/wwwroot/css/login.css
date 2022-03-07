@@ -1,14 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree&family=Montserrat&display=swap');*/
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.thai-lang {
-    font-family: 'Bai Jamjuree', sans-serif;
+    font-family: 'Kanit', sans-serif;
+    /*font-family: 'Bai Jamjuree', sans-serif;*/
 }
 
 
@@ -34,92 +31,92 @@ section {
     border-radius: 25px;
 }
 
-section .img-box {
-    position: relative;
-    width: 50%;
-    height: 100%;
-}
+    section .img-box {
+        position: relative;
+        width: 50%;
+        height: 100%;
+    }
 
-section .img-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(225deg, #000C66, #0000FF);
-    z-index: 1;
-    mix-blend-mode: screen;
-}
+        section .img-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(225deg, #000C66, #0000FF);
+            z-index: 1;
+            mix-blend-mode: screen;
+        }
 
-section .img-box img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        section .img-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-section .content-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 100%;
-    flex-direction: column;
-}
+    section .content-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 100%;
+        flex-direction: column;
+    }
 
-section .content-box .form-box {
-    width: 50%;
-}
+        section .content-box .form-box {
+            width: 50%;
+        }
 
-section .content-box .form-box h2 {
-    color: #022451;
-    font-weight: 600;
-    font-size: 1.5em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    border-bottom: 4px solid #022451;
-    display: inline-block;
-    letter-spacing: 2px;
-}
+            section .content-box .form-box h2 {
+                color: #022451;
+                font-weight: 600;
+                font-size: 1.5em;
+                text-transform: uppercase;
+                margin-bottom: 20px;
+                border-bottom: 4px solid #022451;
+                display: inline-block;
+                letter-spacing: 2px;
+            }
 
-section .content-box .form-box .input-box {
-    margin-bottom: 20px;
-}
+            section .content-box .form-box .input-box {
+                margin-bottom: 20px;
+            }
 
-section .content-box .form-box .input-box label {
-    font-size: 16px;
-    margin-bottom: 5px;
-    display: inline-block;
-    color: #022451;
-    font-weight: 300;
-    letter-spacing: 1px;
-}
+                section .content-box .form-box .input-box label {
+                    font-size: 16px;
+                    margin-bottom: 5px;
+                    display: inline-block;
+                    color: #022451;
+                    font-weight: 300;
+                    letter-spacing: 1px;
+                }
 
-section .content-box .form-box .input-box input {
-    width: 100%;
-    padding: 10px 20px;
-    outline: none;
-    font-weight: 400;
-    border: 1px solid #022451;
-    font-size: 16px;
-    letter-spacing: 1px;
-    color: #022451;
-    background: transparent;
-    border-radius: 25px;
-}
+                section .content-box .form-box .input-box input {
+                    width: 100%;
+                    padding: 8px 20px;
+                    outline: none;
+                    font-weight: 400;
+                    border: 1px solid #022451;
+                    font-size: 16px;
+                    letter-spacing: 1px;
+                    color: #022451;
+                    background: transparent;
+                    border-radius: 25px;
+                }
 
-section .content-box .form-box .input-box input:focus {
-    border: 1px solid #0F52BA;
-}
+                    section .content-box .form-box .input-box input:focus {
+                        border: 1px solid #0F52BA;
+                    }
 
-section .content-box .form-box .grid-container {
-    display: grid;
-    column-gap: 10%;
-    grid-template-columns: 45% 45%;
-}
+            section .content-box .form-box .grid-container {
+                display: grid;
+                column-gap: 10%;
+                grid-template-columns: 45% 45%;
+            }
 
 .logo {
     width: 100%;
@@ -132,7 +129,7 @@ section .content-box .form-box .grid-container {
     padding-left: 20%;
 }
 
-section .content-box .form-box .btn-submit input/*[type="submit"]*/ {
+section .content-box .form-box .btn-submit input /*[type="submit"]*/ {
     width: 100%;
     text-align: center;
     padding: 10px 20px;
@@ -149,9 +146,9 @@ section .content-box .form-box .btn-submit input/*[type="submit"]*/ {
     display: inline;
 }
 
-section .content-box .form-box .btn-submit input/*[type="submit"]*/:hover {
-    background: #0F52BA;
-}
+    section .content-box .form-box .btn-submit input /*[type="submit"]*/ :hover {
+        background: #0F52BA;
+    }
 
 section .content-box .form-box .input-box {
     color: #607d8b;
@@ -187,13 +184,13 @@ section .content-box .form-box .input-box {
     margin: 1em 0;
 }
 
-.fake-legend span {
-    background: #fff;
-    position: relative;
-    top: 0;
-    padding: 0 20px;
-    line-height: 30px;
-}
+    .fake-legend span {
+        background: #fff;
+        position: relative;
+        top: 0;
+        padding: 0 20px;
+        line-height: 30px;
+    }
 
 
 /* @media(max-width: 768px) {

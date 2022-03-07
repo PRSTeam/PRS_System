@@ -64,6 +64,7 @@ namespace PRS_System.Controllers
                         {
                             ViewBag.tab_body += "<p><a href='../File/Information/" + desc.Name + "'>";
                             ViewBag.tab_body += desc.Description + "</a></p>";
+                            ViewBag.tab_body += "<hr>";
                         }
                     }
                     ViewBag.tab_body += "</div>";
@@ -81,24 +82,13 @@ namespace PRS_System.Controllers
                         {
                             ViewBag.tab_body += "<p><a href='../File/Information/" + desc.Name + "'>";
                             ViewBag.tab_body += desc.Description + "</a></p>";
+                            ViewBag.tab_body += "<hr>";
                         }
                     }
                     ViewBag.tab_body += "</div>";
                 }
             }
-
-
-
-
-
-            //if (HttpContext.Session.GetString("advisor-id") == null)
-            //{
-            //    ViewData["nav_manu"] = HttpContext.Session.GetString("advisor-id");
-            //}
-            //else if (HttpContext.Session.GetString("type-person") == "1" || HttpContext.Session.GetString("type-person") == "2")
-            //{
-            //    ViewData["nav_manu"] = HttpContext.Session.GetString("type-person").ToString();
-            //}
+            
             return View(_i);
         }
 
