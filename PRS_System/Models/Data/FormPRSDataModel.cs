@@ -20,5 +20,12 @@ namespace PRS_System.Models.Data
         public int otherSupport_num { get; set; }
         public string supportType { get; set; }
         public string definition { get; set; }
+        public string diractor_1 { get; set; }
+        public string diractor_2 { get; set; }
+        public string diractor_3 { get; set; }
+        public int id_tor { get; set; }
+        public string Status { get; set; }
+        public DateTime Date { get; set; }
+        public string FilePath { get; set; }
     }
 }

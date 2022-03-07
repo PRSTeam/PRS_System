@@ -1,4 +1,4 @@
-﻿@model PRS_System.Models.Setting.AddnewuserdataModel
+﻿@model PRS_System.Models.FormModel.IndexListFormModel
 @using PRS_System.Controllers
 @{
     Layout = "_BlankLayout";
@@ -111,28 +111,21 @@
                                     <th>Function</th>
                                     <th>Date</th>
                                 </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>คำขอจัดซื้อ 1</td>
-                                    <td style="color:green">Sent</td>
-                                    <td>
-                                        <button class="button button2">Edit</button>
-                                        <button class="button button3">Delete</button>
-                                        <button class="button button4">Draft</button>
-                                    </td>
-                                    <td>11-07-2564</td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>คำขอจัดซื้อ 2</td>
-                                    <td style="color:rgb(235, 13, 13)">Return to request</td>
-                                    <td>
-                                        <button class="button button2">Edit</button>
-                                        <button class="button button3">Delete</button>
-                                        <button class="button button4">Draft</button>
-                                    </td>
-                                    <td>11-07-2564</td>
-                                </tr>
+                                @*@foreach (var item in Model.ListForm)
+                                {
+                                    int i =0;
+                                    <tr>
+                                        <td>@i++</td>
+                                        <td>@item.nameProcument</td>
+                                        <td style="color:green">@item.Status</td>
+                                        <td>
+                                            <button class="button button2">Edit</button>
+                                            <button class="button button3">Delete</button>
+                                            <button class="button button4">Draft</button>
+                                        </td>
+                                        <td>@item.Date</td>
+                                    </tr>
+                                }*@
                             </table>
                             <br>
                             <p>ตารางหน้าฝ่ายพัสดุ</p>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using PRS_System.Models.Data;
 namespace PRS_System.Models.FormModel
 {
@@ -22,6 +23,11 @@ namespace PRS_System.Models.FormModel
         public string supportType { get; set; }
         public List<ProductDataModel> Productdata { get; set; }
         public List<SubjectDataModel> Subjectdata { get; set; }
+        public IFormFile FilePDF { get; set; }
+        public string FilePath { get; set; }
+        public string diractor_1 { get; set; }
+        public string diractor_2 { get; set; }
+        public string diractor_3 { get; set; }
         //---------------------------------------
 
         public string definition { get; set; }
@@ -42,7 +48,10 @@ namespace PRS_System.Models.FormModel
             formprs_data.budgetDoc = budgetDoc;
             formprs_data.otherSupport = otherSupport;
             formprs_data.otherSupport_num = otherSupport_num;
-            
+            formprs_data.diractor_1 = diractor_1;
+            formprs_data.diractor_2 = diractor_2;
+            formprs_data.diractor_3 = diractor_3;
+            formprs_data.FilePath = FilePath;
             return formprs_data;
         }
     }

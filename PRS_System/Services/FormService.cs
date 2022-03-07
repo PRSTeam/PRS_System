@@ -18,7 +18,7 @@ namespace PRS_System.Services
             _logger = logger;
             _connectionString = Startup.ConnectionString;
         }
-        public void AddFormDetailData(FormPRSDataModel formdetaildata,int id_tor)
+        public void AddFormDetailData(FormPRSDataModel formdetaildata)
         {
             SqlConnection connect = new SqlConnection(_connectionString);
             SqlCommand command = new SqlCommand();
