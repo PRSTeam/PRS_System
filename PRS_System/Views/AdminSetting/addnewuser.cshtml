@@ -11,11 +11,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="~/css/font-awesome.css" />
     <link rel="stylesheet" href="~/css/ui_form.css" />
     <link rel="stylesheet" href="~/css/table.css" />
     <link rel="stylesheet" href="~/css/normalize.css" />
     <link rel="stylesheet" href="~/js/EsignatureCanvas.js" />
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="~/js/EsignatureCanvas.js"></script>
@@ -35,14 +37,15 @@
     <div class="main-content">
         <div class="fluid-container">
             <div>
+                <div class="row">
+                   <div class="w3-container w3-light-blue w3-hover-text-light-grey">
+                     <h1>Add New User</h1>
+                   </div>
+            </div>
                 <!-- Form -->
-                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
+                <form class="w3-container w3-card-4 w3-light-grey" id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
                     <div class="page-section" id="add">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Add New User</h1>
-                            </div>
-                        </div>
+                        <fieldset class="col-md-4 col-sm-6">
                         <div class="row">
 
                             <label>ID ผู้ใช้</label><br>
@@ -102,6 +105,7 @@
                             <button type="submit" id="submitBtn">Submit</button>
 
                         </div> <!-- .contact-form -->
+                        </fieldset>
                     </div>
                 </form>
 
