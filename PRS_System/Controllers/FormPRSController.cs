@@ -10,6 +10,7 @@ using PRS_System.IServices;
 using System.IO;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace PRS_System.Controllers
 {
@@ -39,13 +40,13 @@ namespace PRS_System.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+                //{
                     string uniquefile = null;
                     string filepath = null;
                     if (Procurement.FilePDF != null)
                     {
-                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "image");
+                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\ListFormUser");
                         string filename = Procurement.FilePDF.FileName;
                         string[] fileextension = filename.Split(".");
                         uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + fileextension[1];/* + "_" + editdata.ImagePicture.FileName*/
@@ -54,23 +55,24 @@ namespace PRS_System.Controllers
                         Procurement.FilePath = uniquefile;
 
                     }
+                    Procurement.User_ID = HttpContext.Session.GetString("USER_ID").ToString();
                     Console.WriteLine("Check");
-                    //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
-                    _formService.AddFormDetailData(Procurement.FormDataDetail());
-                    int id_tor = _formService.GetMaximumID_TOR();
+                //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
+                _formService.AddFormDetailData(Procurement.FormDataDetail());
+                int id_tor = _formService.GetMaximumID_TOR();
                     //--------------------------------
                     _formService.AddProductData(Procurement.Productdata, id_tor);
                     _formService.AddSubjectData(Procurement.Subjectdata, id_tor);
 
                     return Json(new { status = "success", Messege = "Add Complete" });
-                }
-                else
-                {
-                    string errorList = string.Join("<br/>", (from item in ModelState.Values
-                                                             from error in item.Errors
-                                                             select error.ErrorMessage).ToList());
-                    return Json(new { status = "error", detail = errorList, errorMessage = "Add fail" });
-                }
+                //}
+                //else
+                //{
+                //    string errorList = string.Join("<br/>", (from item in ModelState.Values
+                //                                             from error in item.Errors
+                //                                             select error.ErrorMessage).ToList());
+                //    return Json(new { status = "error", detail = errorList, errorMessage = "Add fail" });
+                //}
                
             }
             catch(Exception ex)

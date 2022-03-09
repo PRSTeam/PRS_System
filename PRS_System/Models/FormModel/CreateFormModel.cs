@@ -33,7 +33,7 @@ namespace PRS_System.Models.FormModel
         public string definition { get; set; }
         public string name_select1 { get; set; }
         public string name_select2 { get; set; }
-       
+        public string User_ID { get; set; }
         public FormPRSDataModel FormDataDetail()
         {
             FormPRSDataModel formprs_data = new FormPRSDataModel();
@@ -52,6 +52,7 @@ namespace PRS_System.Models.FormModel
             formprs_data.diractor_2 = diractor_2;
             formprs_data.diractor_3 = diractor_3;
             formprs_data.FilePath = FilePath;
+            formprs_data.User_ID = User_ID;
             return formprs_data;
         }
     }

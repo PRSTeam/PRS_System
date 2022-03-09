@@ -27,5 +27,6 @@ namespace PRS_System.Models.Data
         public string Status { get; set; }
         public DateTime Date { get; set; }
         public string FilePath { get; set; }
+        public string User_ID { get; set; }
     }
 }
