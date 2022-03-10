@@ -84,13 +84,3 @@
     color: white;
   }
 
-    .dropdown-item {
-        background-color: dimgray;
-        color: white;
-    }
-    .dropdown-item:hover {
-        background-color: gray;
-        color: white;
-    }
-
-
