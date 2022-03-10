@@ -14,13 +14,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="~/css/normalize.css">
     <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="~/css/normalize.css">
 
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/ui_form.css">
+    <link rel="stylesheet" href="~/css/font-awesome.css">
+    <link rel="stylesheet" href="~/css/ui_form.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -65,7 +65,7 @@
                                         <span style="font-size:16px; font-weight:bold;">+ </span>
                                     </button>
                                     <div>
-                                        <input type="text" name="mytext[]" placeholder="รหัสวิชา">
+                                        <input size= 180 type="text" name="mytext[]" placeholder="รหัสวิชา">
                                     </div>
                                 </div>
 
@@ -75,12 +75,12 @@
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชาอื่นๆ</label><br>
                                 <input type="radio" asp-for="supportType" value="2">
                                 <label>ได้รับสนับสนุนจาก</label>
-                                <input type="text" name="supportBy" placeholder="ได้รับทุนสนับสนุนจาก"><br>
+                                <input class="w3-input w3-border w3-round" type="text" name="supportBy" placeholder="ได้รับทุนสนับสนุนจาก"><br>
                                 <input type="radio" asp-for="supportType" value="3">
                                 <label>ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ</label><br>
                                 <input type="radio" asp-for="supportType" value="4">
                                 <label>เหตุผลอื่นๆ</label>
-                                <input type="text" name="other" placeholder="เหตุผลอื่นๆ">
+                                <input class="w3-input w3-border w3-round" type="text" name="other" placeholder="เหตุผลอื่นๆ">
                             </fieldset>
                             <hr>
 
@@ -111,9 +111,9 @@
 
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</b><br>
-                                <input type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
-                                <input type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" style="display:none" />
-                                <input type="text" asp-for="diractor_3"  placeholder="กรรมการคนที่3" style="display:none"/>
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" style="display:none" />
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="diractor_3"  placeholder="กรรมการคนที่3" style="display:none"/>
 
                             </fieldset>
                             <hr>
@@ -190,22 +190,22 @@
                                 <label>ภาคปกติ</label>
                                 <br>
                                 <label>1.</label>
-                                <input type="text" value="นักวิเคราะห์นโยบายและแผนการชำระการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำระการ" disabled />
                                 <br>
                                 <label>2.</label>
-                                <input type="text" value="หัวหน้าสำนักงานเลขานุการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="หัวหน้าสำนักงานเลขานุการ" disabled />
                                 <br>
 
                                 <input type="radio" asp-for="definition" value="พิเศษ">
                                 <label>ภาคพิเศษ</label><br><br>
                                 <label>1.</label>
-                                <input type="text" value="นักวิเคราะห์นโยบายและแผนการชำนานการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนานการ" disabled />
                                 <br>
                                 <label>2.</label>
-                                <input type="text" value="กรรมการและเลขานุการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="กรรมการและเลขานุการ" disabled />
                                 <br>
                                 <label>3.</label>
-                                <input type="text" value="ประธานกรรมการดำเนินงาน" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="ประธานกรรมการดำเนินงาน" disabled />
                                 <br>
 
 
@@ -226,7 +226,7 @@
                             <fieldset class="col-md-4 col-sm-8">
                                 <h4>1.หัวหน้าภาควิชา</h4>
                                 <label>ความคิดเห็น</label><br>
-                                <textarea name="message" id="headDescrip" cols="50" rows="6"
+                                <textarea class="w3-input w3-border w3-round" name="message" id="headDescrip" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea><br><br>
                                 <label>ลายเซ็น</label><br><br>
 
@@ -237,7 +237,7 @@
 
                                 <h4>2.ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</h4>
                                 <label>ความคิดเห็น</label><br>
-                                <textarea name="message" id="sciencelabDescrip" cols="50" rows="6"
+                                <textarea class="w3-input w3-border w3-round" name="message" id="sciencelabDescrip" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea><br><br>
                                 <label>ลายเซ็น</label><br><br>
 
@@ -248,7 +248,7 @@
 
                                 <h4>3.นักวิเคราะห์นโยบายและแผนการชำระการ</h4>
                                 <label>ความคิดเห็น</label><br>
-                                <textarea name="message" id="analystDescrip" cols="50" rows="6"
+                                <textarea class="w3-input w3-border w3-round" name="message" id="analystDescrip" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea><br><br>
                                 <label>ลายเซ็น</label><br><br>
 
@@ -259,7 +259,7 @@
 
                                 <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
                                 <label>ความคิดเห็น</label><br>
-                                <textarea name="message" id="secretarialDescrip" cols="50" rows="6"
+                                <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea><br><br>
                                 <label>ลายเซ็น</label><br><br>
 
@@ -308,7 +308,7 @@
         $(add_button).click(function (e) {
             e.preventDefault();
             if (x < max_fields) {
-                var text = '<div id="fieldsubject[string]"><input type="text" id="Subjectdata[[string]].Subject" name="Subjectdata[[string]].Subject" placeholder="รหัสวิชา" required/><button type="button" id="buttonsub[string]" class="delete" onclick="deletesubejectfield([string])">Delete</button>';
+                var text = '<div id="fieldsubject[string]"><input size= 180 type="text" id="Subjectdata[[string]].Subject" name="Subjectdata[[string]].Subject" placeholder="รหัสวิชา" required/><button type="button" id="buttonsub[string]" class="delete" onclick="deletesubejectfield([string])">Delete</button>';
                 text = text.replaceAll('[string]', x.toString());
                 x++;
                 $(wrapper).append(text); //add input box
