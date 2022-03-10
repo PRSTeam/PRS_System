@@ -68,7 +68,7 @@ namespace PRS_System.Services
                     connect.Open();
                     command.Connection = connect;
                     int maximum = GetMaximumID_SUBJECT_LIST();
-                    command.CommandText = @"Insert Into PRS_TOR_PRODUCT_LIST(ID_SUBJECTT_LIST,ID_TOR,SUBJECT) 
+                    command.CommandText = @"Insert Into PRS_TOR_SUBJECT (ID_SUBJECTT_LIST,ID_TOR,SUBJECT) 
                                         VALUES(@ID_SUBJECTT_LIST,@ID_TOR,@SUBJECT)";
                     command.Parameters.Add(new SqlParameter("@ID_SUBJECTT_LIST", (object)(maximum + 1) ?? DBNull.Value));
                     command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));

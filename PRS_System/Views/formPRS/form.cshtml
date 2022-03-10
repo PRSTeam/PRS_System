@@ -40,7 +40,6 @@
                     </div>
                     <div class="row">
                         <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" class="w3-container w3-card-4 w3-light-grey">
-
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
                                 <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
@@ -53,7 +52,6 @@
                                 <textarea class="w3-input w3-border w3-round" name="message" asp-for="description_1" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea>
                             </fieldset>
-
                             <hr>
                             <fieldset class="col-md-4 col-sm-8">
                                 <b>เหตุผลในการสนับสนุน</b><br><br>
@@ -158,7 +156,7 @@
                                 <input type="file"  accept="application/pdf" asp-for="FilePDF" multiple>
                                 <br><br>
 
-                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                <button class="button button7">เซ็นอนุมัติ</button><img href="" /><br>
                                 <button class="button button2">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
                                 <button class="button button4">ส่งเอกสาร</button>

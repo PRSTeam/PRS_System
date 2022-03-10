@@ -30,11 +30,7 @@ namespace PRS_System.Controllers
         }
         public IActionResult Showlistuser(ShowListUserModel datauser)
         {
-            if (HttpContext.User.FindFirst(c => c.Type == "Category").Value == "Admin")
-            {
-                datauser.userdata = _accountService.GetAllAccountWithKeyword(datauser.Keyword);
-                return View(datauser);
-            }
+            
             //datauser.userdata = _accountService.GetDataUser(user_id);
             return View();
         }
@@ -48,10 +44,7 @@ namespace PRS_System.Controllers
            
             try
             {
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.ESignature))
-                {
-                    ModelState.AddModelError("Signature", "กรุณาลงลายเซ็น");
-                }
+                
                 if (string.IsNullOrWhiteSpace(AddnewuserModel.Status))
                 {
                     ModelState.AddModelError("Status", "กรุณากดเลือกสถานะผู้ใช้");
@@ -89,15 +82,20 @@ namespace PRS_System.Controllers
                 if(ModelState.IsValid)
                 {
                     //-------สร้างรูปภาพ ลายเซ็น
-                    string filesig = AddnewuserModel.ESignature;
-                    string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
-                    string fileName = AddnewuserModel.UserID + "_" + uniquefile + ".png";
-                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
-                    System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(AddnewuserModel.ESignature.Replace("data:image/png;base64,", string.Empty)));
+                    if(AddnewuserModel.ESignature !=null)
+                    {
+                        string filesig = AddnewuserModel.ESignature;
+                        string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
+                        string fileName = AddnewuserModel.UserID + "_" + uniquefile + ".png";
+                        string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
+                        System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(AddnewuserModel.ESignature.Replace("data:image/png;base64,", string.Empty)));
+                        UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(fileName);
+                        _accountService.AddNewUser(userdata);
+                    }
+                   
                     ////-------------------------
                     ////--------แอดข้อมูล User
-                    UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(fileName);
-                    _accountService.AddNewUser(userdata);
+                    
                     return Json(new { status = "success", Messege = "Add Complete" });
                 }
                 else

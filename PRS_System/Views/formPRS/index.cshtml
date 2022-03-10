@@ -76,7 +76,16 @@
                 <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                 <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
                 <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
-                <li><a href="#setting"><i class="fa fa-cog"></i>Admin Setting</a></li>
+                <li class="btn-group" style="background-color:lightslategray" >
+                    <a href="#form" id="btnGroupVerticalDrop4" class="btn btn-secondary dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog"></i>
+                        Admin Setting
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop4" style="background-color:white ; float:right">
+                        <a  class="dropdown-item" href="@Url.Action("Addnewuser","AdminSetting")" id="Admin_Setting">Admin Control</a>
+                        <a class="dropdown-item" id="CompareRow">Informantion Control</a>
+                    </div>
+                </li>
             </ul>
         </div> <!-- .main-navigation -->
     </div> <!-- .sidebar-menu -->
@@ -191,6 +200,9 @@
     $(document).ready(function () {
         $("#createbutton").click(function () {
             location.href = "@Url.Action("form", "FormPRS")";
+        });
+        $('#UserSetting').click(function () {
+            location.href = "@Url.Action("ShowListuser","AdminSetting")";
         });
         
 });

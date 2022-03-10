@@ -18,6 +18,7 @@ namespace PRS_System.Controllers
     {
         private readonly ILogger<FormPRSController> _logger;
         private readonly IFormService _formService;
+        private readonly IAccountService accountService;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public FormPRSController(ILogger<FormPRSController> logger,
                                       IFormService formService, IWebHostEnvironment hostingEnvironment)
@@ -33,6 +34,7 @@ namespace PRS_System.Controllers
         }
         public IActionResult form()
         {
+
             return View();
         }
         [HttpPost]
@@ -53,7 +55,6 @@ namespace PRS_System.Controllers
                         filepath = Path.Combine(uploadfile, uniquefile);
                         Procurement.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
                         Procurement.FilePath = uniquefile;
-
                     }
                     Procurement.User_ID = HttpContext.Session.GetString("USER_ID").ToString();
                     Console.WriteLine("Check");
