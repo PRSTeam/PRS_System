@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using PRS_System.IServices;
 using PRS_System.Models.Data;
+using PRS_System.Models.FormModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -68,11 +69,11 @@ namespace PRS_System.Services
                     connect.Open();
                     command.Connection = connect;
                     int maximum = GetMaximumID_SUBJECT_LIST();
-                    command.CommandText = @"Insert Into PRS_TOR_SUBJECT (ID_SUBJECTT_LIST,ID_TOR,SUBJECT) 
-                                        VALUES(@ID_SUBJECTT_LIST,@ID_TOR,@SUBJECT)";
-                    command.Parameters.Add(new SqlParameter("@ID_SUBJECTT_LIST", (object)(maximum + 1) ?? DBNull.Value));
-                    command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
-                    command.Parameters.Add(new SqlParameter("@NSUBJECT", (object)item.Subject ?? DBNull.Value));
+                    command.CommandText = @"Insert Into PRS_TOR_SUBJECT (ID_SUBJECT_LIST,ID_TOR,SUBJECT) 
+                                        VALUES(@ID_SUBJECT_LIST,@ID_TOR,@SUBJECT)";
+                    command.Parameters.Add(new SqlParameter("@ID_SUBJECT_LIST", (object)(maximum + 1) ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@SUBJECT", (object)item.Subject ?? DBNull.Value));
                     command.ExecuteNonQuery();
                     connect.Close();
                 }
@@ -264,6 +265,153 @@ namespace PRS_System.Services
                 throw ex;
             }
            
+        }
+
+        public FormPRSModel GetValuesFormPRS(int id_tor)
+        {
+            try
+            {
+                FormPRSModel model = new FormPRSModel();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT *  FROM PRS_MAIN_TOR WHERE id_tor =@id_tor";
+                command.Parameters.Add(new SqlParameter("id_tor", (object)id_tor ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while(reader.Read())
+                {
+                    model.idRoom = reader["ID_ROOM"] != DBNull.Value ? (string)reader["ID_ROOM"] : "";
+                    model.nameProcument= reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : "";
+                    model.description_1= reader["DESC_TOR"] != DBNull.Value ? (string)reader["DESC_TOR"] : "";
+                    model.diractor_1 = reader["DIRECTOR_1"] != DBNull.Value ? (string)reader["DIRECTOR_1"] : "";
+                    model.diractor_2 = reader["DIRECTOR_2"] != DBNull.Value ? (string)reader["DIRECTOR_2"] : "";
+                    model.diractor_3 = reader["DIRECTOR_3"] != DBNull.Value ? (string)reader["DIRECTOR_3"] : "";
+                    model.quotationNum = reader["AMT_QUTATATION"] != DBNull.Value ? (int)reader["AMT_QUTATATION"] : 0;
+                    model.prsnum = reader["AMT_STUDENTLIST_PAGE"] != DBNull.Value ? (int)reader["AMT_STUDENTLIST_PAGE"] : 0;
+                    model.budgetDoc = reader["AMT_BUGGET_PAGE"] != DBNull.Value ? (int)reader["AMT_BUGGET_PAGE"] : 0;
+                    model.otherSupport = reader["NAME_OTHER_DOC"] != DBNull.Value ? (string)reader["NAME_OTHER_DOC"] : "";
+                    model.otherSupport_num = reader["AMT_OTHER_DOC"] != DBNull.Value ? (int)reader["AMT_OTHER_DOC"] : 0;
+                    model.FilePath = reader["DOC_FILE"] != DBNull.Value ? (string)reader["DOC_FILE"] : "";
+                    model.status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : "";
+                    model.User_ID = reader["OWNER_ID"] != DBNull.Value ? (string)reader["OWNER_ID"] : "";                  
+                }
+                con.Close();
+                return model;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ProductDataModel> GetValuesFormPRSProduct(int id_tor)
+        {
+            try
+            {
+                List<ProductDataModel> model = new List<ProductDataModel>();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT *  FROM PRS_TOR_PRODUCT_LIST WHERE ID_TOR =@id_tor";
+                command.Parameters.Add(new SqlParameter("id_tor", (object)id_tor ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    model.Add(new ProductDataModel
+                    {
+                        NameProduct = reader["NAME_PRODUCT"] != DBNull.Value ? (string)reader["NAME_PRODUCT"] : ""
+                        ,
+                        AmtProduct = reader["AMT_PRODUCT"] != DBNull.Value ? (int)reader["AMT_PRODUCT"] : 0
+                        ,
+                        Unit = reader["UNIT_PRODUCT"] != DBNull.Value ? (string)reader["UNIT_PRODUCT"] : ""
+                        ,
+                        Price_Per_Piece = reader["PRICE_PER_PIECE"] != DBNull.Value ? (double)reader["PRICE_PER_PIECE"] : 0
+                        ,
+                        status = "Open"
+                    }) ;
+                }
+                con.Close();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<SubjectDataModel> GetValuesFormPRSSubject(int id_tor)
+        {
+            try
+            {
+                List<SubjectDataModel> model = new List<SubjectDataModel>();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT *  FROM PRS_TOR_PRODUCT_LIST WHERE ID_TOR =@id_tor";
+                command.Parameters.Add(new SqlParameter("id_tor", (object)id_tor ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    model.Add(new SubjectDataModel
+                    {
+                        Subject= reader["NAME_PRODUCT"] != DBNull.Value ? (string)reader["NAME_PRODUCT"] : ""
+                        ,
+                        status = "Open"
+                    });
+                }
+                con.Close();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<FormPRSDataModel> GetnamePRS(string user_id)
+        {
+            try
+            {
+               List<FormPRSDataModel> model = new List<FormPRSDataModel>();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT ID_TOR,NAME_TOR,STATUS,TOR_DATE   FROM PRS_MAIN_TOR WHERE OWNER_ID =@OWNER_ID";
+                command.Parameters.Add(new SqlParameter("OWNER_ID", (object)user_id ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    
+                    model.Add(new FormPRSDataModel()
+                    {
+                        id_tor = reader["ID_TOR"] != DBNull.Value ? (int)reader["ID_TOR"] : 0
+                        ,
+                        nameProcument = reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : ""
+                        ,
+                        Status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : ""
+                        ,
+                        Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
+                    }) ;
+                   
+                    
+                }
+                con.Close();
+                return model;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+            
         }
     }
 }

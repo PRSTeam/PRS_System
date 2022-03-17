@@ -10,6 +10,7 @@ namespace PRS_System.IServices
     {
         public void AddNewUser(UserDataModel datauser);
         public List<UserDataModel> GetDataUser(string user_id);
+        public string GetSignature(string user_id);
         IEnumerable<UserDataModel> GetAllAccountWithKeyword(string keyword);
     }
 }

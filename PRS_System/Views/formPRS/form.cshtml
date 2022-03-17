@@ -1,5 +1,5 @@
 ﻿@using PRS_System.Controllers
-@model PRS_System.Models.FormModel.CreateFormModel
+@model PRS_System.Models.FormModel.FormPRSModel
 @{
     Layout = "_BlankLayout";
 }
@@ -43,10 +43,10 @@
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
                                 <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
-                                <input class="w3-input w3-border w3-round" type="text" asp-for="idRoom" placeholder="Ex. LAB 001-001-65009" size="50">
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="idRoom" placeholder="Ex. LAB 001-001-65009" size="50" required>
 
                                 <p>ชื่อเรื่องที่จะทำการจัดซื้อหรือจ้าง</p>
-                                <input class="w3-input w3-border w3-round" type="text" asp-for="nameProcument" placeholder="Ex.ขอให้จัดซื้ออุปกรณ์" size="50">
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="nameProcument" placeholder="Ex.ขอให้จัดซื้ออุปกรณ์" size="50" required>
 
                                 <p>คำอธิบายและเหตุผลถึงการจัดซื้อหรือจ้าง</p>
                                 <textarea class="w3-input w3-border w3-round" name="message" asp-for="description_1" cols="50" rows="6"
@@ -60,16 +60,21 @@
                                 <br>
 
                                 <div class="container1">
-                                    <button class="add_form_field">
+                                    <button class="add_form_field" type="button">
                                         Add &nbsp;
                                         <span style="font-size:16px; font-weight:bold;">+ </span>
                                     </button>
                                     <div>
-                                        <input type="text" name="mytext[]" placeholder="รหัสวิชา">
+                                        @{int countsubject = Model.Subjectdata != null ? Model.Subjectdata.Count-1 : 0;}
+                                        @for (int i = 0; i <= countsubject; i++)
+                                        {
+                                            <input type="text" id="Subjectdata[@i].Subject" name="Subjectdata[@i].Subject" placeholder="รหัสวิชา" required>
+                                        }
+
                                     </div>
                                 </div>
-
-
+                                <!--ไว้สำหรับการเก็บ idtor เพื่อส่งไปให้แต่ละ Action-->
+                                <input asp-for="id_tor" style="display:none" />
 
                                 <input id="checkBox" name="" type="checkbox">
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชาอื่นๆ</label><br>
@@ -86,32 +91,52 @@
 
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายการสินค้า</b><br>
-                                <button class="add_form_object">
+                                <button class="add_form_object" type="button">
                                     Add &nbsp;
                                     <span style="font-size:16px; font-weight:bold;">+ </span>
                                 </button>
                                 <div class="container2">
-                                    <label>ชื่อสินค้า</label>
-                                    <input type="text" id="Productdata[0].NameProduct" Name="Productdata[0].NameProduct"  placeholder="บิ๊กเกอร์ 50 มล."  >
-                                    <label>จำนวนสินค้า</label>
-                                    <input type="number" id="Productdata[0].AmtProduct" Name="Productdata[0].AmtProduct" value=0 placeholder="99"  onkeypress="check_amt()"  onkeyup="check_amt()"  step="0.01" >
-                                    <label>หน่วยสินค้า</label>
-                                    <input type="text" id="Productdata[0].Unit" Name="Productdata[[string]].Unit"  placeholder="อัน"  >
-                                    <label>ราคาต่อหน่วย</label>
-                                    <input type="number" id="Productdata[0].Price_Per_Piece" onkeypress="sumproductprice()"  onkeyup="sumproductprice()" value=0 Name="Productdata[0].Price_Per_Piece" placeholder="100" step="0.01"  />
+                                    @{int countproduct = Model.Productdata != null ? Model.Productdata.Count - 1 : 0;}
+                                    @for (int i = 0; i <= countproduct; i++)
+                                    {
+
+                                        var item = Model.Productdata.ToList()[i];
+                                    <div id="field@(i)">
+                                        
+                                        <label>ชื่อสินค้า</label>
+                                        <input type="text" id="Productdata[@i].NameProduct" Name="Productdata[@i].NameProduct" value="@item.NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
+
+                                        <label>จำนวนสินค้า</label>
+                                        <input type="number" id="Productdata[@i].AmtProduct" Name="Productdata[@i].AmtProduct" value="@item.AmtProduct" placeholder="99" onkeypress="check_amt()" onkeyup="check_amt()" step="0.01" required>
+
+                                        <label>หน่วยสินค้า</label>
+                                        <input type="text" id="Productdata[@i].Unit" Name="Productdata[@i].Unit" value="@item.Unit" placeholder="อัน" required>
+
+                                        <label>ราคาต่อหน่วย</label>
+                                        <input type="number" id="Productdata[@i].Price_Per_Piece" value="@item.Price_Per_Piece" onkeypress="sumproductprice()" onkeyup="sumproductprice()" Name="Productdata[@i].Price_Per_Piece" placeholder="100" step="0.01" required />
+                                        <input type="text" id="Productdata[@i].status" Name="Productdata[@i].status" value="@item.status" style="display:none" readonly>
+                                        @if (i > 0)
+                                        {
+                                        <button type="button" id="buttonproduct@(i)" class="delete" onclick="deleteproductfield(@i,'Productdata[@i].status')">Delete</button>
+                                        }
+                                    </div>
+                                    }
+
                                 </div>
                                 <div>
                                     <label>ภาษีมูลค่าเพิ่ม7%</label>
-                                    <input id="vaxproduct" type="number" style="background-color:white" step="0.01" disabled />
+                                    <input asp-for="vaxproduct" type="number" style="background-color:white" step="0.01" disabled />
                                     <label>มูลค่ารวมทั้งสิ้น</label>
-                                    <input id="sumproduct" type="number" style="background-color:white" step="0.01" disabled />
+                                    <input asp-for="sumproduct" type="number" style="background-color:white" step="0.01" disabled />
                                 </div>
                             </fieldset>
                             <hr>
 
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</b><br>
+                                
                                 <input type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
+
                                 <input type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" style="display:none" />
                                 <input type="text" asp-for="diractor_3"  placeholder="กรรมการคนที่3" style="display:none"/>
 
@@ -153,13 +178,20 @@
                                 <label>หน้า</label>
                                 <br><br>
                                 <b>ไฟล์แนบ</b> <br>
-                                <input type="file"  accept="application/pdf" asp-for="FilePDF" multiple>
+                                <input type="file" accept="application/pdf" asp-for="FilePDF" multiple>
                                 <br><br>
 
-                                <button class="button button7">เซ็นอนุมัติ</button><img href="" /><br>
+                                <button type="button" class="button button7" id="showimage1" onclick="showimage(1)">เซ็นอนุมัติ</button><img id="signature1" src="~/img/signature/@Model.FilePath" style="display:none" /><br>
                                 <button class="button button2">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
-                                <button class="button button4">ส่งเอกสาร</button>
+                                @if (Model.id_tor == 0)
+                                {
+                                    <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                }
+                                @if (Model.id_tor != 0)
+                                {
+                                    <button class="button button4" type="submit">แก้ไขเอกสาร</button>
+                                }
 
                             </fieldset>
                             <!-- form_ผู้จัดซื้อ -->
@@ -211,7 +243,15 @@
 
                                 <button class="button button2">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
-                                <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                @if (Model.id_tor == 0)
+                                {
+                                    <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                }
+                                @if (Model.id_tor != 0)
+                                {
+                                    <button class="button button4" type="submit">แก้ไขเอกสาร</button>
+                                }
+
 
                             </fieldset>
                             <!-- form_ฝ่ายพัสดุ -->
@@ -294,7 +334,8 @@
 <script src="js/min/plugins.min.js"></script>
 <script src="js/min/main.min.js"></script>
 <script>
-    var y = 1;
+     @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count - 1 : 1;}
+    var y = @countproduct2 ;
     var x = 1;
     $(document).ready(function () {
         var max_fields = 10;
@@ -322,139 +363,164 @@
         $(add_object).click(function (e) {
             e.preventDefault();
             if (y < max_object) {
-                var text = `<div id="field[string]"><label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
-                            <label>จำนวนสินค้า</label><input type="number" id="Productdata[[string]].AmtProduct" Name="Productdata[[string]].AmtProduct" placeholder="99" value=0 required onkeypress="check_amt()"  onkeyup="check_amt()" >
-                            <label>หน่วยสินค้า</label><input type="text" id="Productdata[[string]].Unit" Name="Productdata[[string]].Unit" placeholder="อัน" required>
-                            <label>ราคาต่อหน่วย</label><input type="number" step="0.01"  value=0 id="Productdata[[string]].Price_Per_Piece" onkeypress="sumproductprice()"  onkeyup="sumproductprice()" Name="Productdata[[string]].Price_Per_Piece" placeholder="100" required/> <button type="button" id="buttonproduct[string]"  class="delete" onclick="deleteproductfield([string])">Delete</button>
-                            </div>
-                            `;
+                var text = `<div id="field[string]">
+/**/
+                            <input type="text" id="Productdata[[string]].status" Name="Productdata[[string]].status"  style="display:none" readonly>
+/**/
+                                <label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
+                                <label>จำนวนสินค้า</label><input type="number" id="Productdata[[string]].AmtProduct" Name="Productdata[[string]].AmtProduct" placeholder="99" value=0 required onkeypress="check_amt()"  onkeyup="check_amt()" >
+                                <label>หน่วยสินค้า</label><input type="text" id="Productdata[[string]].Unit" Name="Productdata[[string]].Unit" placeholder="อัน" required>
+                                <label>ราคาต่อหน่วย</label><input type="number" step="0.01"  value=0 id="Productdata[[string]].Price_Per_Piece" onkeypress="sumproductprice()"  onkeyup="sumproductprice()" Name="Productdata[[string]].Price_Per_Piece" placeholder="100" required/> <button type="button" id="buttonproduct[string]"  class="delete" onclick="deleteproductfield([string],'Productdata[[string]].status')">Delete</button>
+                                </div>
+                                `;
 
 
-                text = text.replaceAll('[string]', y.toString());
-                y++;
-                $(object).append(text); //add input box
-            } else {
-                alert('You Reached the limits')
-            }
+                    text = text.replaceAll('[string]', y.toString());
+                    y++;
+                    $(object).append(text); //add input box
+                } else {
+                    alert('You Reached the limits')
+                }
+            });
+
         });
+    function deleteproductfield(index, status) {
+        try {
+            console.log("check");
+            document.getElementById(status).value = "Close";
+            //$(this).parent('div').remove();
+            let field_delete = document.getElementById("field" + index);
+            field_delete.remove();
+            const list = ["NameProduct", "AmtProduct", "Unit", "Price_Per_Piece", "status"];
+            y--;
+            console.log("PresPosition=" + y);
+            for (let i = index; i <= y; i++) {
+                let npostion = i + 1;
 
-    });
-    function deleteproductfield(index) {
-        //$(this).parent('div').remove();
-        let field_delete = document.getElementById("field" + index);
-        field_delete.remove();
-        const list = ["NameProduct", "AmtProduct", "Unit", "Price_Per_Piece"];
-        y--;
-        console.log("PresPosition=" + y);
-        for (let i = index; i <= y; i++) {
-            let npostion = i+1;
+                console.log("ListPosition=" + i);
+                console.log("field" + (i - 1));
+                let presfield = document.getElementById("field" + npostion);
+                presfield.setAttribute("id", "field" + (npostion - 1).toString());
+                for (let j = 0; j < list.length; j++) {
 
-            console.log("ListPosition=" + i);
-            console.log("field" + (i - 1));
-            let presfield = document.getElementById("field" + npostion);
-            presfield.setAttribute("id", "field" + (npostion - 1).toString());
-            for (let j = 0; j < 3; j++) {
-                //change index number in product
-                let presinput = document.getElementById("Productdata[" + npostion.toString() + "]." + list[j].toString());
-                console.log("Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
-                //change index number in id and name
-                presinput.setAttribute("id", "Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
-                presinput.setAttribute("name", "Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
-                //change index number in onclick
+                    //change index number in product
+                    let presinput = document.getElementById("Productdata[" + npostion.toString() + "]." + list[j].toString());
+                    console.log("Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
+                    console.log("Check Error 2");
+                    //change index number in id and name
+                    presinput.setAttribute("id", "Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
+                    presinput.setAttribute("name", "Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
+                    console.log("Check Error 3");
+                    //change index number in onclick
+                }
                 let presbutdelte = document.getElementById("buttonproduct" + npostion.toString());
-                presbutdelte.setAttribute("id", "buttonproduct(" + (npostion - 1).toString() + ")");
-                presbutdelte.setAttribute("onclick", "deleteproductfield(" + (npostion - 1).toString()+")");
-            }
-
-        }
-    }
-    function deletesubejectfield(index) {
-        let field_delete = document.getElementById("fieldsubject" + index);
-        field_delete.remove();
-        console.log("x="+x);
-        x--;
-        for (i = index; i <= x; i++) {
-            let nposition = i + 1;
-            console.log("fieldsubject" + (i - 1));
-            let presfield = document.getElementById("fieldsubject" + nposition.toString());
-            presfield.setAttribute("id", "fieldsubject" + (nposition - 1).toString())
-
-            let presinput = document.getElementById("Subjectdata[" + nposition.toString() + "].Subject");
-            presinput.setAttribute("id", "Subjectdata[" + (nposition - 1).toString() + "].Subject");
-            presinput.setAttribute("name", "Subjectdata[" + (nposition - 1).toString() + "].Subject");
-
-            let presbutdelete = document.getElementById("buttonsub" + nposition.toString());
-            presbutdelete.setAttribute("id", "buttonsub" + (nposition - 1).toString());
-            presbutdelete.setAttribute("onclick", "deletesubejectfield(" + (nposition - 1).toString() + ")");
-        }
- }
-        
-
-    let sumprice = 0;
-    function check_amt() {
-        console.log("presPosition :" + y);
-        for (let i = 0; i <= y; i++) {
-            var amt_product = document.getElementById("Productdata[" + i + "].AmtProduct").value;
-            if (isNaN(amt_product) == true) {
+                console.log("Check Error 4");
+                presbutdelte.setAttribute("id", "buttonproduct" + (npostion - 1).toString());
+                console.log("Check Error 5");
+                presbutdelte.setAttribute("onclick", "deleteproductfield(" + (npostion - 1).toString() + ",'Productdata[" + (npostion - 1).toString() + "].status" + "')");
+                console.log("Check Error 6");
 
             }
-            if (amt_product < 0) {
-                document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
-                alert("Please input Value > 0")
+            console.log("LastPosition=" + y);
+            sumproductprice();
+        }
+        catch (err) {
+            alert("Error Message: "+err.messege);
+        }
+            
+        }
+        function deletesubejectfield(index) {
+            let field_delete = document.getElementById("fieldsubject" + index);
+            field_delete.remove();
+            console.log("x=" + x);
+            x--;
+            for (i = index; i <= x; i++) {
+                let nposition = i + 1;
+                console.log("fieldsubject" + (i - 1));
+                let presfield = document.getElementById("fieldsubject" + nposition.toString());
+                presfield.setAttribute("id", "fieldsubject" + (nposition - 1).toString())
+
+                let presinput = document.getElementById("Subjectdata[" + nposition.toString() + "].Subject");
+                presinput.setAttribute("id", "Subjectdata[" + (nposition - 1).toString() + "].Subject");
+                presinput.setAttribute("name", "Subjectdata[" + (nposition - 1).toString() + "].Subject");
+
+                let presbutdelete = document.getElementById("buttonsub" + nposition.toString());
+                presbutdelete.setAttribute("id", "buttonsub" + (nposition - 1).toString());
+                presbutdelete.setAttribute("onclick", "deletesubejectfield(" + (nposition - 1).toString() + ")");
+
 
             }
         }
-    }
-    function sumproductprice() {
-        sumprice = 0;
-        for (let i = 0; i <= y; i++) {
-            var amt_product = document.getElementById("Productdata[" + i + "].AmtProduct").value;
-            var per_price = document.getElementById("Productdata[" + i + "].Price_Per_Piece").value;
-            amt_product = parseInt(amt_product);
-            per_price = parseFloat(per_price);
-            if (isNaN(amt_product) == true || isNaN(per_price) == true) {
-                amt_product = 0;
-                per_price = 0;
-                sumprice = (sumprice + amt_product * per_price);
-                document.getElementById("sumproduct").value = parseFloat(sumprice);
+
+
+        let sumprice = 0;
+        function check_amt() {
+            console.log("presPosition :" + y);
+            for (let i = 0; i <= y; i++) {
+                var amt_product = document.getElementById("Productdata[" + i + "].AmtProduct").value;
+                if (isNaN(amt_product) == true) {
+
+                }
+                if (amt_product < 0) {
+                    document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
+                    alert("Please input Value > 0")
+
+                }
             }
-            
-            else if (amt_product < 0) {
-                document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
-                alert("Please input Value > 0")
+        }
+        function sumproductprice() {
+            sumprice = 0;
+            for (let i = 0; i <= y; i++) {
+                var amt_product = document.getElementById("Productdata[" + i + "].AmtProduct").value;
+                var per_price = document.getElementById("Productdata[" + i + "].Price_Per_Piece").value;
+                amt_product = parseInt(amt_product);
+                per_price = parseFloat(per_price);
+                if (isNaN(amt_product) == true || isNaN(per_price) == true) {
+                    amt_product = 0;
+                    per_price = 0;
+                    sumprice = (sumprice + amt_product * per_price);
+                    document.getElementById("sumproduct").value = parseFloat(sumprice);
+                }
+
+                else if (amt_product < 0) {
+                    document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
+                    alert("Please input Value > 0")
+
+                }
+                else if (per_price < 0) {
+
+                    document.getElementById("Productdata[" + i + "].Price_Per_Piece").value = 0;
+                    alert("Please input Value > 0")
+                }
+                else {
+                    var vaxproduct = (0.07) * (sumprice + amt_product * per_price)
+                    sumprice = sumprice + amt_product * per_price;
+                    document.getElementById("vaxproduct").value = parseFloat(vaxproduct.toFixed(2));
+                    document.getElementById("sumproduct").value = parseFloat((sumprice + vaxproduct).toFixed(2));
+                }
+                let check_sum = sumprice;
+                console.log("Check Sum : " + check_sum);
+                if (check_sum > 10000) {
+                    document.getElementById("diractor_2").style.display = "block";
+                    document.getElementById("diractor_3").style.display = "block";
+                }
+                else {
+                    document.getElementById("diractor_2").style.display = "none";
+                    document.getElementById("diractor_2").value = "";
+                    document.getElementById("diractor_3").style.display = "none";
+                    document.getElementById("diractor_3").value = "";
+                }
+
+                console.log(sumprice);
+
 
             }
-            else if (per_price < 0) {
-                
-                document.getElementById("Productdata[" + i + "].Price_Per_Piece").value = 0;
-                alert("Please input Value > 0")
-            }
-            else {
-                var vaxproduct=(0.07) *( sumprice + amt_product * per_price)
-                sumprice = sumprice + amt_product * per_price;
-                document.getElementById("vaxproduct").value = parseFloat(vaxproduct.toFixed(2));
-                document.getElementById("sumproduct").value = parseFloat((sumprice + vaxproduct).toFixed(2));
-            }
-            let check_sum = sumprice;
-            console.log("Check Sum : " + check_sum);
-            if (check_sum > 10000) {
-                document.getElementById("diractor_2").style.display = "block";
-                document.getElementById("diractor_3").style.display = "block";
-            }
-            else {
-                document.getElementById("diractor_2").style.display = "none";
-                document.getElementById("diractor_2").value="";
-                document.getElementById("diractor_3").style.display = "none";
-                document.getElementById("diractor_3").value = "";
-            }
-            
-            console.log(sumprice);
-            
-            
+
+
         }
-        
-        
-    }
+        function showimage(index) {
+            document.getElementById("signature" + index).style.display = "block";
+        }
 </script>
 @section Scripts{
     <script>

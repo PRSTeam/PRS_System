@@ -11,5 +11,6 @@ namespace PRS_System.Models.Data
         public int AmtProduct { get; set; }
         public string Unit { get; set; }
         public double Price_Per_Piece { get; set;}
+        public string status { get; set; }
     }
 }

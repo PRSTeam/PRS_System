@@ -1,19 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using PRS_System.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using PRS_System.Models.Data;
+
 namespace PRS_System.Models.FormModel
 {
-    public class CreateFormModel
+    public class FormPRSModel
     {
-        //-----------Procurement--------------
+        public double vaxproduct { get; set; }
+        public double sumproduct { get; set; }
+        public int id_tor { get; set; }
         public string idRoom { get; set; }
         public string nameProcument { get; set; }
         public string description_1 { get; set; }
         public string supportBy { get; set; }
         public string checksupport { get; set; }
+        public int prsnum { get; set; }
         public int quotationNum { get; set; }
         public int scopeWork { get; set; }
         public int docNum { get; set; }
@@ -21,8 +25,10 @@ namespace PRS_System.Models.FormModel
         public string otherSupport { get; set; }
         public int otherSupport_num { get; set; }
         public string supportType { get; set; }
-        public List<ProductDataModel> Productdata { get; set; }
-        public List<SubjectDataModel> Subjectdata { get; set; }
+        public string status { get; set; }
+#nullable enable
+        public List<ProductDataModel>? Productdata { get; set; }
+        public List<SubjectDataModel>? Subjectdata { get; set; }
         public IFormFile FilePDF { get; set; }
         public string FilePath { get; set; }
         public string diractor_1 { get; set; }

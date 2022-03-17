@@ -73,14 +73,14 @@ namespace PRS_System.Services
                 {
                     UserDataModel user = new UserDataModel();
                     user.UserID=reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["TH_NAME"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["ENG_NAME"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["THAI_NAME_FULL"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["USER_TYPE"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["SIGNATURE"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["CATEGORY"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["STATUS"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
+                    user.UserID = reader["TH_NAME"] != DBNull.Value ? reader["TH_NAME"].ToString() : null;
+                    user.UserID = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
+                    user.UserID = reader["THAI_NAME_FULL"] != DBNull.Value ? reader["THAI_NAME_FULL"].ToString() : null;
+                    user.UserID = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
+                    user.UserID = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
+                    user.UserID = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                    user.UserID = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
+                    user.UserID = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
                     userdata.Add(user);
                 }
                 connect.Close();
@@ -91,6 +91,33 @@ namespace PRS_System.Services
                 throw ex;
             }
            
+        }
+
+        public string GetSignature(string user_id)
+        {
+            try
+            {
+                string namefile = "";
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER=@ID_USER";
+                command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    namefile = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                   
+                }
+                connect.Close();
+                return namefile;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
