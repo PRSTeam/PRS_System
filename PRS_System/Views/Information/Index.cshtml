@@ -1,5 +1,5 @@
 ﻿@using PRS_System.Models.Information;
-@model List<InformationModel>;
+@model List<InfomationModel>;
 @{
     Layout = "_BlankLayout";
     ViewData["Title"] = "หน้าแรก";
@@ -12,11 +12,11 @@
         {
             if (img.Header == "รูปปก")
             {
-                img_slide += num + "% { background-image: url(../img/information/" + img.Name + ")}";
+                img_slide += num + "% { background-image: url(../img/information/" + img.FilePath + ")}";
                 num =+ num + ViewBag.count_img;
                 if (ViewBag.st_pic == null)
                 {
-                    ViewBag.st_pic = "url(../img/information/" + img.Name + ")";
+                    ViewBag.st_pic = "url(../img/information/" + img.FilePath + ")";
                 }
 
             }
@@ -42,31 +42,31 @@
             width: calc(100% / @ViewBag.css_tab_header);
         }
 
-        .medie-show {
+        .media-show {
             background-image: @ViewBag.st_pic;
         }
 
         @@keyframes slider {
         @ViewBag.css_img
             /*0% {
-                        background-image: url('../img/information/1.jpg');
-                    }
+                                background-image: url('../img/information/1.jpg');
+                            }
 
-                    25% {
-                        background-image: url('../img/information/2.jpg');
-                    }
+                            25% {
+                                background-image: url('../img/information/2.jpg');
+                            }
 
-                    45% {
-                        background-image: url('../img/information/3.jpg');
-                    }
+                            45% {
+                                background-image: url('../img/information/3.jpg');
+                            }
 
-                    65% {
-                        background-image: url('../img/information/4.jpg');
-                    }
+                            65% {
+                                background-image: url('../img/information/4.jpg');
+                            }
 
-                    85% {
-                        background-image: url('../img/information/5.jpg');
-                    }*/
+                            85% {
+                                background-image: url('../img/information/5.jpg');
+                            }*/
         }
     </style>
 </head>
@@ -76,7 +76,7 @@
         <div>
             <a asp-controller="Information" asp-action="Index">
                 <img class="img-logo" src="~/img/information/Logo.jpg" alt="">
-            </a>  
+            </a>
         </div>
 
         <div class="toggle">
@@ -96,7 +96,7 @@
     </div>
 
     <div class="backgroud-News">
-        <div class="medie-show">
+        <div class="media-show">
             @*<img class="img-size" src="~/img/information/1.jpg" alt="">*@
         </div>
 
@@ -183,19 +183,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-    $(function () {
-        $(".toggle").on("click", function () {
+    $(function() {
+        $(".toggle").on("click", function() {
             if ($(".nav-list").hasClass("active")) {
                 $(".nav-list").removeClass("active");
                 $(this).find("a").html("<ion-icon name='menu-outline'></ion-icon>");
 
-            } else {
+            }
+            else {
                 $(".nav-list").addClass("active")
                 $(this).find("a").html("<ion-icon name='close-outline'></ion-icon>");
             }
-        })
-    })
+        });
 
+        $(".media-show").hover(function() {
+            $(this).css("animation-play-state", "paused");
+        }, function(){
+            $(this).css("animation-play-state", "running");
+        });
+    });
 </script>
 
 <script>
@@ -220,9 +226,5 @@
             tabIndicator.style.left = "calc(calc(100% / " + @ViewBag.css_tab_header + ") * " + i + ")";
         });
     }
-
-
 </script>
-
-
 </html>

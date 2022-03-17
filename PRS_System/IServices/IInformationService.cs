@@ -5,6 +5,7 @@ namespace PRS_System.IServices
 {
     public interface IInformationService
     {
-        public List<InformationModel> ShowInformation();
+        public List<InfomationModel> ShowInformation();
+        public void AddNewsDetailData(InfomationModel infdata);
     }
 }

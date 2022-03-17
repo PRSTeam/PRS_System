@@ -1,4 +1,5 @@
 ﻿@model PRS_System.Models.FormModel.IndexListFormModel
+@using Microsoft.AspNetCore.Http
 @using PRS_System.Models.Data
 @using PRS_System.Controllers
 @{
@@ -24,15 +25,57 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/font-awesome.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/templatemo-style.css">
     <link rel="stylesheet" href="css/table.css">
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     @*<link rel="stylesheet" href="~/js/IndexForm.js" />*@
     <script src="js/vendor/jquery-1.10.2.min.js"></script>
     <script src="js/min/plugins.min.js"></script>
+    <style>
+
+        .dropdown {
+            padding: 15px 40px;
+            display: block;
+            font-size: 14px;
+        }
+
+            .dropdown i {
+                margin-right: 15px;
+                font-size: 24px;
+            }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #EEEEEE;
+            min-width: 160px;
+            border-radius: 5px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content:hover a:hover {
+                    background-color: #dddddd;
+                    border-radius: 5px;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown:hover a {
+            color: #5f6d7e;
+        }
+
+    </style>
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -44,12 +87,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="top-section">
-                        <div class="profile-image">
-                            <img src="img/profile.jpg" alt="Jack">
-                        </div>
                         <div class="profile-content">
-                            <h3 class="profile-title">Jack</h3>
-                            <p class="profile-description">kriangkrai kancahanaaksorn</p>
+                            <h3 class="profile-title">@Context.Session.GetString("cn")</h3>
+                            <p class="profile-description">@Context.Session.GetString("thaiprename") @Context.Session.GetString("thainame")</p>
                         </div>
                     </div>
                 </div>
@@ -69,24 +109,25 @@
     <!-- SIDEBAR -->
     <div class="sidebar-menu hidden-xs hidden-sm">
         <div class="top-section">
-            <h3 class="profile-title">Jack</h3>
-            <p class="profile-description">kriangkrai kancahanaaksorn</p>
+            <h3 class="profile-title">@Context.Session.GetString("cn")</h3>
+            <p class="profile-description">@Context.Session.GetString("thaiprename") @Context.Session.GetString("thainame")</p>
         </div> <!-- top-section -->
         <div class="main-navigation">
             <ul class="navigation">
                 <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                 <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
                 <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
-                <li class="btn-group" style="background-color:lightslategray" >
-                    <a href="#form" id="btnGroupVerticalDrop4" class="btn btn-secondary dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog"></i>
-                        Admin Setting
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop4" style="background-color:white ; float:right">
-                        <a  class="dropdown-item" href="@Url.Action("ShowListuser","AdminSetting")" id="Admin_Setting">Admin Control</a>
-                        <a class="dropdown-item" id="CompareRow">Informantion Control</a>
+                <li class="dropdown">
+                    <i class="fa fa-cog"></i>Admin Setting
+                    <div class="dropdown-content">
+                        <a href="@Url.Action("ShowListuser","AdminSetting")" id="Admin_Setting">Admin Control</a>
+                        <a href="@Url.Action("informationsetting","AdminSetting")" id="Information_Setting">Information Control</a>
                     </div>
                 </li>
+                @if (!string.IsNullOrEmpty(Context.Session.GetString("AccessToken")))
+                {
+                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Login</a></li>
+                }
             </ul>
         </div> <!-- .main-navigation -->
     </div> <!-- .sidebar-menu -->
@@ -121,42 +162,21 @@
                                     <th>Function</th>
                                     <th>Date</th>
                                 </tr>
-                                @{int countfield = Model.ListForm != null ? Model.ListForm.Count  : 0;}
-                                @for (int i = 0; i < countfield; i++)
+                                @*@foreach (var item in Model.ListForm)
                                 {
-                                    int number = i + 1;
-                                    FormPRSDataModel item = Model.ListForm[i];
-                            <tr>
-                                <td>@number</td>
-                                <td>@item.nameProcument</td>
-                                @{
-                                    if (item.Status == "Sent")
-                                    {
-                                        <td style="color:blue">@item.Status</td>
-                                    }
-                                    else if (item.Status == "Sent to Approval")
-                                    {
-                                        <td style="color:cornflowerblue">@item.Status</td>
-                                    }
-                                    else if (item.Status == "Return to Requester")
-                                    {
-                                        <td style="color:red">@item.Status</td>
-                                    }
-                                    else if (item.Status == "Approved")
-                                    {
-                                        <td style="color:lawngreen">@item.Status</td>
-
-                                    }
-                                 }
-
-                                <td>
-                                    <button type="button" class="button button2" onclick="editpage(@item.id_tor)">Edit</button>
-                                    <button type="button" class="button button3">Delete</button>
-                                    <button type="button" class="button button4">Draft</button>
-                                </td>
-                                <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
-                            </tr>
-                                }
+                                    int i =0;
+                                    <tr>
+                                        <td>@i++</td>
+                                        <td>@item.nameProcument</td>
+                                        <td style="color:green">@item.Status</td>
+                                        <td>
+                                            <button class="button button2">Edit</button>
+                                            <button class="button button3">Delete</button>
+                                            <button class="button button4">Draft</button>
+                                        </td>
+                                        <td>@item.Date</td>
+                                    </tr>
+                                }*@
                             </table>
                             <br>
                             <p>ตารางหน้าฝ่ายพัสดุ</p>
@@ -206,7 +226,7 @@
                 <div class="row" id="footer">
                     @*<div class="col-md-12 text-center">
                         <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
-                    </div>*@
+                        </div>*@
                 </div>
 
             </div>
@@ -223,14 +243,10 @@
         $("#createbutton").click(function () {
             location.href = "@Url.Action("form", "FormPRS")"+"?id_tor=0";
         });
+        
         $('#UserSetting').click(function () {
             location.href = "@Url.Action("ShowListuser","AdminSetting")";
         });
         
 });
-</script>
-<script>
-    function editpage(id_tor) {
-           location.href = "@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor;
-    }
 </script>

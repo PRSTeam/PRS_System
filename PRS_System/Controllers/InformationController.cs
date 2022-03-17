@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PRS_System.IServices;
 using PRS_System.Models.Information;
 using System.Collections.Generic;
@@ -9,19 +11,24 @@ namespace PRS_System.Controllers
 {
     public class InformationController : Controller
     {
-        private List<InformationModel> _i;
+        private readonly ILogger<InformationController> _logger;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IInformationService _informationService;
 
-        public InformationController(IInformationService i_info)
+        public InformationController(ILogger<InformationController> logger,
+                                      IWebHostEnvironment hostEnvironment,
+                                      IInformationService informationService)
         {
-            _i = i_info.ShowInformation();
+            _logger = logger;
+            _hostingEnvironment = hostEnvironment;
+            _informationService = informationService;
         }
 
         public IActionResult Index()
         {
             string h = null;
-            string[] str = null;
             int img_count = 0;
-            foreach (InformationModel i in _i)
+            foreach (InfomationModel i in _informationService.ShowInformation())
             {
                 if (i.Header.ToString() != "รูปปก")
                 {
@@ -41,7 +48,7 @@ namespace PRS_System.Controllers
             }
             ViewBag.count_img = 100/img_count;
 
-            str = h.Split(",");
+            string[] str = h.Split(",");
             IEnumerable<string> result = str.Distinct();
 
             string[] data = result.ToArray();
@@ -58,11 +65,11 @@ namespace PRS_System.Controllers
                     ViewBag.tab_header += "</div>";
 
                     ViewBag.tab_body = "<div class='actives tab-desc'>";
-                    foreach(var desc in _i)
+                    foreach(var desc in _informationService.ShowInformation())
                     {
                         if (desc.Header == data[i])
                         {
-                            ViewBag.tab_body += "<p><a href='../File/Information/" + desc.Name + "'>";
+                            ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
                             ViewBag.tab_body += desc.Description + "</a></p>";
                             ViewBag.tab_body += "<hr>";
                         }
@@ -76,11 +83,11 @@ namespace PRS_System.Controllers
                     ViewBag.tab_header += "</div>";
 
                     ViewBag.tab_body += "<div class='tab-desc'>";
-                    foreach (var desc in _i)
+                    foreach (var desc in _informationService.ShowInformation())
                     {
                         if (desc.Header == data[i])
                         {
-                            ViewBag.tab_body += "<p><a href='../File/Information/" + desc.Name + "'>";
+                            ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
                             ViewBag.tab_body += desc.Description + "</a></p>";
                             ViewBag.tab_body += "<hr>";
                         }
@@ -89,7 +96,7 @@ namespace PRS_System.Controllers
                 }
             }
             
-            return View(_i);
+            return View(_informationService.ShowInformation());
         }
 
         //public IActionResult GetSessionData(string txt)

@@ -19,25 +19,23 @@ namespace PRS_System.Services
             _connectionString = Startup.ConnectionString;
         }
 
-        public List<InformationModel> ShowInformation()
+        public List<InfomationModel> ShowInformation()
         {
-            List<InformationModel> info_data = new List<InformationModel>();
+            List<InfomationModel> info_data = new List<InfomationModel>();
             try
             {
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
-                
                 command.Connection = connect;
                 command.CommandText = @"SELECT * FROM PRS_INFORMATION";
                 connect.Open();
-
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    InformationModel dt = new InformationModel();
+                    InfomationModel dt = new InfomationModel();
                     dt.Header = reader["TOPIC"] != DBNull.Value ? reader["TOPIC"].ToString() : null;
                     dt.Description = reader["DESCRIPTION"] != DBNull.Value ? reader["DESCRIPTION"].ToString() : null;
-                    dt.Name = reader["FILE_NAME"] != DBNull.Value ? reader["FILE_NAME"].ToString() : null;
+                    dt.FilePath = reader["FILE_NAME"] != DBNull.Value ? reader["FILE_NAME"].ToString() : null;
                     dt.Date = reader["POST_DATE"] != DBNull.Value ? reader["POST_DATE"].ToString() : null;
                     info_data.Add(dt);
                 }
@@ -46,6 +44,30 @@ namespace PRS_System.Services
             }
             catch (Exception e)
             {
+                _logger.LogError("Caught Exception: {0}", e.ToString());
+                throw e;
+            }
+        }
+
+        public void AddNewsDetailData(InfomationModel infdata)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                command.Connection = connect;
+                command.CommandText = @"INSERT INTO PRS_INFORMATION (TOPIC, DESCRIPTION, FILE_NAME, POST_DATE) VALUES(@header, @desc, @Name, @date)";
+                command.Parameters.AddWithValue("@header", infdata.Header);
+                command.Parameters.AddWithValue("@desc", infdata.Description);
+                command.Parameters.AddWithValue("@Name", infdata.FilePath);
+                command.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                connect.Open();
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Caught Exception: {0}", e.ToString());
                 throw e;
             }
         }

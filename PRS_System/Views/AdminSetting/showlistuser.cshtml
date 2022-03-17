@@ -9,11 +9,24 @@
 <!--<![endif]-->
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="description" content="">
+    <!--
+    Volton Template
+    http://www.templatemo.com/tm-441-volton
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/table.css">
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/ui_form.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/css/table.css">
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    @*<link rel="stylesheet" href="~/js/IndexForm.js" />*@
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="js/min/plugins.min.js"></script>
+
 </head>
 
 
@@ -22,15 +35,20 @@
     <!-- MAIN -->
     <div class="main-content">
         <div class="fluid-container">
-            <div>
+            <div class="w3-container w3-card-4 w3-light-grey">
                 <!-- list -->
                 <div class="page-section" id="form">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>User Control</h1>
+                            <div class="w3-container w3-pale-blue w3-hover-text-teal">
+                                <h1>User Control</h1>
+                            </div>
+                            <button class="button button4">
+                                Add New User
+                            </button>
                             <fieldset class="col-md-4 col-sm-8">
                                 <label>Keyword</label>
-                                <input type="text" id="mySearch" placeholder="Key..">
+                                <input class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="Key..">
                             </fieldset>
                         </div>
                     </div>
@@ -43,6 +61,7 @@
                                 <th>UserType</th>
                                 <th>Category</th>
                                 <th>Status</th>
+                                <th>Function</th>
                             </tr>
                            
                             <tr>
@@ -51,6 +70,10 @@
                                 <td>นิสิต</td>
                                 <td>Admin</td>
                                 <td>Working</td>
+                                <td>
+                                    <button class="button button2">Edit</button>
+                                    <button class="button button3">Delete</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>B6130200129</td>
@@ -58,17 +81,17 @@
                                 <td>นิสิต</td>
                                 <td>Admin</td>
                                 <td>Working</td>
+                                <td>
+                                    <button class="button button2">Edit</button>
+                                    <button class="button button3">Delete</button>
+                                </td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <hr>
 
-                <div class="row" id="footer">
-                    <div class="col-md-12 text-center">
-                        <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
-                    </div>
-                </div>
+                
             </div>
 
         </div>
