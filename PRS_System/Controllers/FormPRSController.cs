@@ -99,7 +99,11 @@ namespace PRS_System.Controllers
                 //----Edit Form to Database
                 else if(Procurement.id_tor != 0)
                 {
+                    for(int i=0;i<=Procurement.Productdata.Count;i++)
+                    {
+                        string[]  listdelete_idProduct = Procurement.IndexDelete.Split(",");
 
+                    }
                 }
                 return Json(new { status = "success", Messege = "Add Complete" });
                 //if (ModelState.IsValid)

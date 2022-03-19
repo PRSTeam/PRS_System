@@ -7,6 +7,7 @@ namespace PRS_System.Models.FormModel
 {
     public class ProductModel
     {
+        
         public string nameProduct { get; set; }
         public int numProduct { get; set; }
         public string unitProduct { get; set; }

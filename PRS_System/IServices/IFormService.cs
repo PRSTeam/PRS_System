@@ -21,5 +21,13 @@ namespace PRS_System.IServices
         public FormPRSModel GetValuesFormPRS(int id_tor);
         public List<ProductDataModel> GetValuesFormPRSProduct(int id_tor);
         public List<SubjectDataModel> GetValuesFormPRSSubject(int id_tor);
+
+        public void EditFormDetailData(FormPRSDataModel formdetaildata);
+        public void EditFormProductlData(List<ProductDataModel> formdetaildata, int ID_TOR);
+        public void EditFormSubjectData(List<SubjectDataModel> formdetaildata, int ID_TOR);
+
+        public void DeleteFormProductData(int ID_Product);
+
+        public void DeleteFormSubjectData(int ID_Subject);
     }
 }

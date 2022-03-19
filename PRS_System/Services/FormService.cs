@@ -323,6 +323,8 @@ namespace PRS_System.Services
                 {
                     model.Add(new ProductDataModel
                     {
+                        Id_Product= reader["ID_PRODUCT_LIST"] != DBNull.Value ? (int)reader["ID_PRODUCT_LIST"] : 0
+                        ,
                         NameProduct = reader["NAME_PRODUCT"] != DBNull.Value ? (string)reader["NAME_PRODUCT"] : ""
                         ,
                         AmtProduct = reader["AMT_PRODUCT"] != DBNull.Value ? (int)reader["AMT_PRODUCT"] : 0
@@ -352,7 +354,7 @@ namespace PRS_System.Services
                 SqlCommand command = new SqlCommand();
                 con.Open();
                 command.Connection = con;
-                command.CommandText = "SELECT *  FROM PRS_TOR_PRODUCT_LIST WHERE ID_TOR =@id_tor";
+                command.CommandText = "SELECT *  FROM PRS_TOR_SUBJECT WHERE ID_TOR =@id_tor";
                 command.Parameters.Add(new SqlParameter("id_tor", (object)id_tor ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
@@ -360,7 +362,7 @@ namespace PRS_System.Services
                 {
                     model.Add(new SubjectDataModel
                     {
-                        Subject= reader["NAME_PRODUCT"] != DBNull.Value ? (string)reader["NAME_PRODUCT"] : ""
+                        Subject= reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
                         ,
                         status = "Open"
                     });
@@ -412,6 +414,40 @@ namespace PRS_System.Services
             }
             
             
+        }
+
+        public void EditFormDetailData(FormPRSDataModel formdetaildata)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditFormProductlData(List<ProductDataModel> formdetaildata, int ID_TOR)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditFormSubjectData(List<SubjectDataModel> formdetaildata, int ID_TOR)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteFormProductData(int ID_Product)
+        {
+            
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"DELETE FROM PRS_TOR_PRODUCT_LIST WHERE ID_PRODUCT_LIST=@ID_Product;";
+                command.Parameters.Add(new SqlParameter("@ID_Product", (object)ID_Product ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+            throw new NotImplementedException();
+        }
+
+        public void DeleteFormSubjectData(int ID_Subject)
+        {
+            throw new NotImplementedException();
         }
     }
 }

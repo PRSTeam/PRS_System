@@ -34,6 +34,7 @@ namespace PRS_System.Models.FormModel
         public string diractor_1 { get; set; }
         public string diractor_2 { get; set; }
         public string diractor_3 { get; set; }
+        public string IndexDelete { get; set; }
         //---------------------------------------
 
         public string definition { get; set; }
