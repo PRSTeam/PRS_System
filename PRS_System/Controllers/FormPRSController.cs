@@ -30,7 +30,7 @@ namespace PRS_System.Controllers
         }
         public IActionResult Index(IndexListFormModel indexmodel)
         {
-            string user_id = HttpContext.Session.GetString("USER_ID").ToString();
+            string user_id = HttpContext.Session.GetString("uid").ToString();
             indexmodel.ListForm= _formService.GetnamePRS(user_id);
             return View(indexmodel);
 
@@ -59,7 +59,7 @@ namespace PRS_System.Controllers
                 Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
             }
             Console.WriteLine("Check" + id_tor);
-            string user_id= HttpContext.Session.GetString("USER_ID").ToString();       
+            string user_id= HttpContext.Session.GetString("uid").ToString();       
             Createview.FilePath = _accountService.GetSignature(user_id);
             Createview.id_tor = id_tor;
             return View(Createview);

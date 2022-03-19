@@ -65,7 +65,7 @@
                                         <span style="font-size:16px; font-weight:bold;">+ </span>
                                     </button>
                                     <div>
-                                        @{int countsubject = Model.Subjectdata != null ? Model.Subjectdata.Count-1 : 0;}
+                                        @{int countsubject = Model.Subjectdata != null ? Model.Subjectdata.Count - 1 : 0;}
                                         @for (int i = 0; i <= countsubject; i++)
                                         {
                                             <input type="text" id="Subjectdata[@i].Subject" name="Subjectdata[@i].Subject" placeholder="รหัสวิชา" required>
@@ -134,11 +134,13 @@
 
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</b><br>
-                                
-                                <input type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
 
-                                <input type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" style="display:none" />
-                                <input type="text" asp-for="diractor_3"  placeholder="กรรมการคนที่3" style="display:none"/>
+                                <input type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
+                                
+                                <input type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" value="@Model.diractor_2" style="display:@(Model.diractor_2 == "" ? "none" : "block"  )" />
+                               
+                                <input type="text" asp-for="diractor_3" placeholder="กรรมการคนที่3" value="@Model.diractor_3" style="display:@(Model.diractor_3 == "" ? "none" : "block"  )" />
+                                
 
                             </fieldset>
                             <hr>
@@ -330,7 +332,7 @@
 <script src="js/min/plugins.min.js"></script>
 <script src="js/min/main.min.js"></script>
 <script>
-     @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count - 1 : 1;}
+     @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count-1  : 1;}
     var y = @countproduct2 ;
     var x = 1;
     $(document).ready(function () {
@@ -359,10 +361,11 @@
         $(add_object).click(function (e) {
             e.preventDefault();
             if (y < max_object) {
+                console.log("index :" + y);
                 var text = `<div id="field[string]">
-/**/
+
                             <input type="text" id="Productdata[[string]].status" Name="Productdata[[string]].status"  style="display:none" readonly>
-/**/
+
                                 <label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
                                 <label>จำนวนสินค้า</label><input type="number" id="Productdata[[string]].AmtProduct" Name="Productdata[[string]].AmtProduct" placeholder="99" value=0 required onkeypress="check_amt()"  onkeyup="check_amt()" >
                                 <label>หน่วยสินค้า</label><input type="text" id="Productdata[[string]].Unit" Name="Productdata[[string]].Unit" placeholder="อัน" required>
@@ -381,13 +384,14 @@
 
         });
     function deleteproductfield(index, status) {
-        try {
+        console.log(status);
+       
             console.log("check");
             document.getElementById(status).value = "Close";
             //$(this).parent('div').remove();
             let field_delete = document.getElementById("field" + index);
             field_delete.remove();
-            const list = ["NameProduct", "AmtProduct", "Unit", "Price_Per_Piece", "status"];
+            const list = ["NameProduct","AmtProduct","Unit","Price_Per_Piece","status"];
             y--;
             console.log("PresPosition=" + y);
             for (let i = index; i <= y; i++) {
@@ -417,13 +421,14 @@
                 console.log("Check Error 6");
 
             }
+            
             console.log("LastPosition=" + y);
             sumproductprice();
-        }
-        catch (err) {
-            alert("Error Message: "+err.messege);
-        }
-            
+            if (y == 0) {
+                y=1;
+            }
+       
+
         }
         function deletesubejectfield(index) {
             let field_delete = document.getElementById("fieldsubject" + index);
@@ -496,15 +501,15 @@
                 }
                 let check_sum = sumprice;
                 console.log("Check Sum : " + check_sum);
-                if (check_sum > 10000) {
+                if (check_sum >= 10000) {
                     document.getElementById("diractor_2").style.display = "block";
                     document.getElementById("diractor_3").style.display = "block";
                 }
-                else {
+                else if (check_sum < 10000) {
+                   
                     document.getElementById("diractor_2").style.display = "none";
-                    document.getElementById("diractor_2").value = "";
                     document.getElementById("diractor_3").style.display = "none";
-                    document.getElementById("diractor_3").value = "";
+
                 }
 
                 console.log(sumprice);
