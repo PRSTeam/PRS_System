@@ -362,6 +362,8 @@ namespace PRS_System.Services
                 {
                     model.Add(new SubjectDataModel
                     {
+                        Id_Subject=reader["ID_SUBJECT_LIST"] != DBNull.Value ? (int)reader["ID_SUBJECT_LIST"] : 0
+                        ,
                         Subject= reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
                         ,
                         status = "Open"

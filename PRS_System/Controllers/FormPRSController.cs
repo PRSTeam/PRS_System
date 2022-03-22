@@ -40,6 +40,42 @@ namespace PRS_System.Controllers
             //----Add Form Page
             if(id_tor==0)
             {
+                List<ProductDataModel> productDatas = new List<ProductDataModel>();
+                List<SubjectDataModel> subjectDatas = new List<SubjectDataModel>();
+                Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
+                Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                if(Createview.Productdata.Count==0)
+                {
+                    productDatas.Add(new ProductDataModel {
+                        Id_Product = 0
+                        ,
+                        NameProduct = ""
+                        ,
+                        Unit = ""
+                        ,
+                        AmtProduct = 0
+                        ,
+                        Price_Per_Piece = 0
+                        ,
+                        status="Open"
+                    }) ;
+                    Createview.Productdata = productDatas;
+                }
+                if(Createview.Subjectdata.Count==0)
+                {
+                    subjectDatas.Add(new SubjectDataModel
+                    {
+                        Id_Subject = 0
+                        ,
+                        Subject=""
+                        ,
+                        status="Open"
+                    });
+                    Createview.Subjectdata = subjectDatas;
+                }
+                
+
+                
 
             }
             //----Edit Form Page
@@ -99,9 +135,37 @@ namespace PRS_System.Controllers
                 //----Edit Form to Database
                 else if(Procurement.id_tor != 0)
                 {
-                    for(int i=0;i<=Procurement.Productdata.Count;i++)
+                    // Delete Product กับ Subject ที่ต้องการจะลบ
+                    string[] listdelete_idProduct = Procurement.IndexProDelete.Split(",");
+                    for (int i = 0; i < listdelete_idProduct.Length; i++)
                     {
-                        string[]  listdelete_idProduct = Procurement.IndexDelete.Split(",");
+                        int id_productdelete = int.Parse(listdelete_idProduct[i]);
+                        if(id_productdelete!=0)
+                        {
+                            _formService.DeleteFormProductData(id_productdelete);
+                        }
+                        
+                    }
+                    string[] listdelete_idSubject = Procurement.IndexSubdelete.Split(",");
+                    for (int i = 0; i < listdelete_idSubject.Length; i++)
+                    {
+                        int id_productdelete = int.Parse(listdelete_idSubject[i]);
+                        if (id_productdelete != 0)
+                        {
+                            _formService.DeleteFormSubjectData(id_productdelete);
+                        }
+
+                    }
+                    //-----------------------------------------
+                    for (int i=0;i<=Procurement.Productdata.Count;i++)
+                    {
+                        if(Procurement.Productdata[i].Id_Product!=0)
+                        {
+                            
+                        }
+                        
+                        
+                        
 
                     }
                 }
