@@ -65,7 +65,26 @@
                                         <span style="font-size:16px; font-weight:bold;">+ </span>
                                     </button>
                                     <div>
-                                        <input size= 180 type="text" name="mytext[]" placeholder="รหัสวิชา">
+                                        <input type="text" asp-for="IndexSubdelete" value="@Model.IndexSubdelete" style="display:none" readonly>
+                                        @{int countsubject = Model.Subjectdata != null ? Model.Subjectdata.Count : 0;}
+                                        @for (int i = 0; i < countsubject; i++)
+                                        {
+                                            var item = Model.Subjectdata.ToList()[i];
+                                            <div id="fieldsubject@(i)">
+                                                <input type="number" id="Subjectdata[@i].Id_Subject" name="Subjectdata[@i].Id_Subject" value="@item.Id_Subject" style="display:none" placeholder="รหัสวิชา" required>
+                                                <input type="text" id="Subjectdata[@i].Subject" name="Subjectdata[@i].Subject" value="@item.Subject" placeholder="รหัสวิชา" required>
+                                                <input type="text" id="Subjectdata[@i].status" Name="Subjectdata[@i].status" value="@item.status" style="display:none" readonly>
+                                                @if (i > 0)
+                                                {
+                                                    <button type="button" id="buttonsub@(i)" class="delete" onclick="deletesubjectfield(@i,'Subjectdata[@i].status','Subjectdata[@i].Id_Subject')">Delete</button>
+                                                }
+                                            </div>
+
+
+
+
+                                        }
+
                                     </div>
                                 </div>
 
@@ -75,12 +94,12 @@
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชาอื่นๆ</label><br>
                                 <input type="radio" asp-for="supportType" value="2">
                                 <label>ได้รับสนับสนุนจาก</label>
-                                <input class="w3-input w3-border w3-round"  type="text" name="supportBy" placeholder="ได้รับทุนสนับสนุนจาก"><br>
+                                <input class="w3-input w3-border w3-round" type="text" name="supportBy" placeholder="ได้รับทุนสนับสนุนจาก"><br>
                                 <input type="radio" asp-for="supportType" value="3">
                                 <label>ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ</label><br>
                                 <input type="radio" asp-for="supportType" value="4">
                                 <label>เหตุผลอื่นๆ</label>
-                                <input class="w3-input w3-border w3-round"  type="text" name="other" placeholder="เหตุผลอื่นๆ">
+                                <input class="w3-input w3-border w3-round" type="text" name="other" placeholder="เหตุผลอื่นๆ">
                             </fieldset>
                             <hr>
 
@@ -90,15 +109,37 @@
                                     Add &nbsp;
                                     <span style="font-size:16px; font-weight:bold;">+ </span>
                                 </button>
+                                <input type="text" asp-for="IndexProDelete" value="@Model.IndexProDelete" style="display:none" readonly>
                                 <div class="container2">
-                                    <label>ชื่อสินค้า</label>
-                                    <input type="text" id="Productdata[0].NameProduct" Name="Productdata[0].NameProduct"  placeholder="บิ๊กเกอร์ 50 มล."  >
-                                    <label>จำนวนสินค้า</label>
-                                    <input type="number" id="Productdata[0].AmtProduct" Name="Productdata[0].AmtProduct" value=0 placeholder="99"  onkeypress="check_amt()"  onkeyup="check_amt()"  step="0.01" >
-                                    <label>หน่วยสินค้า</label>
-                                    <input type="text" id="Productdata[0].Unit" Name="Productdata[[string]].Unit"  placeholder="อัน"  >
-                                    <label>ราคาต่อหน่วย</label>
-                                    <input type="number" id="Productdata[0].Price_Per_Piece" onkeypress="sumproductprice()"  onkeyup="sumproductprice()" value=0 Name="Productdata[0].Price_Per_Piece" placeholder="100" step="0.01"  />
+
+                                    @{int countproduct = Model.Productdata != null ? Model.Productdata.Count  : 0;}
+                                    @for (int i = 0; i < countproduct; i++)
+                                    {
+
+                                        var item = Model.Productdata.ToList()[i];
+                                        <div id="field@(i)">
+
+                                            <label>ชื่อสินค้า</label>
+                                            <input type="text" id="Productdata[@i].NameProduct" Name="Productdata[@i].NameProduct" value="@item.NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
+
+                                            <label>จำนวนสินค้า</label>
+                                            <input type="number" id="Productdata[@i].AmtProduct" Name="Productdata[@i].AmtProduct" value="@item.AmtProduct" placeholder="99" onkeypress="check_amt()" onkeyup="check_amt()" step="0.01" required>
+
+                                            <label>หน่วยสินค้า</label>
+                                            <input type="text" id="Productdata[@i].Unit" Name="Productdata[@i].Unit" value="@item.Unit" placeholder="อัน" required>
+
+                                            <label>ราคาต่อหน่วย</label>
+                                            
+                                            <input type="number" id="Productdata[@i].Price_Per_Piece" value="@item.Price_Per_Piece" onkeypress="sumproductprice()" onkeyup="sumproductprice()" Name="Productdata[@i].Price_Per_Piece" placeholder="100" step="0.01" required />
+                                            <input type="text" id="Productdata[@i].status" Name="Productdata[@i].status" value="@item.status" style="display:none" readonly>
+                                            <input type="number" id="Productdata[@i].Id_Product" Name="Productdata[@i].Id_Product" value="@item.Id_Product" style="display:none" readonly>
+                                            @if (i > 0)
+                                            {
+                                                <button type="button" id="buttonproduct@(i)" class="delete" onclick="deleteproductfield(@i,'Productdata[@i].status','Productdata[@(i)].Id_Product')">Delete</button>
+                                            }
+                                        </div>
+                                    }
+
                                 </div>
                                 <div>
                                     <label>ภาษีมูลค่าเพิ่ม7%</label>
@@ -111,9 +152,13 @@
 
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</b><br>
-                                <input class="w3-input w3-border w3-round" type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
-                                <input class="w3-input w3-border w3-round" type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" style="display:none" />
-                                <input class="w3-input w3-border w3-round" type="text" asp-for="diractor_3"  placeholder="กรรมการคนที่3" style="display:none"/>
+
+                                <input type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
+
+                                <input type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" value="@Model.diractor_2" style="display:@(Model.diractor_2 == "" ? "none" : "block"  )" />
+
+                                <input type="text" asp-for="diractor_3" placeholder="กรรมการคนที่3" value="@Model.diractor_3" style="display:@(Model.diractor_3 == "" ? "none" : "block"  )" />
+
 
                             </fieldset>
                             <hr>
@@ -274,7 +319,7 @@
                 </div>
                 <hr>
 
-  
+
             </div>
 
         </div>
@@ -290,8 +335,12 @@
 <script src="js/min/plugins.min.js"></script>
 <script src="js/min/main.min.js"></script>
 <script>
-    var y = 1;
-    var x = 1;
+    @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count  : 1;}
+     @{int countsubject2 = Model.Subjectdata != null ? Model.Subjectdata.Count  : 1;}
+    var y = @countproduct2 ;
+    var x = @countsubject2;
+    var listindexdelete = "";
+    var listsubdelete = "";
     $(document).ready(function () {
         var max_fields = 10;
         var wrapper = $(".container1");
@@ -304,7 +353,13 @@
         $(add_button).click(function (e) {
             e.preventDefault();
             if (x < max_fields) {
-                var text = '<div id="fieldsubject[string]"><input size= 180 type="text" id="Subjectdata[[string]].Subject" name="Subjectdata[[string]].Subject" placeholder="รหัสวิชา" required/><button type="button" id="buttonsub[string]" class="delete" onclick="deletesubejectfield([string])">Delete</button>';
+                var text = `<div id="fieldsubject[string]"><input size= 180 type="text" id="Subjectdata[[string]].Subject" name="Subjectdata[[string]].Subject" placeholder="รหัสวิชา" required/>
+                                                <input type="number" id="Subjectdata[[string]].Id_Subject" name="Subjectdata[[string]].Id_Subject" value="0" style="display:none" placeholder="รหัสวิชา" required>
+
+                                                <input type="number" id="Subjectdata[[string]].Id_Subject" name="Subjectdata[string]].Id_Subject" value="0" style="display:none" placeholder="รหัสวิชา" required>
+
+                                                <input type="text" id="Subjectdata[[string]].status" Name="Subjectdata[[string]].status" value="Open" style="display:none" readonly>
+<button type="button" id="buttonsub[string]" class="delete" onclick="deletesubjectfield([string],'Subjectdata[[string]].status','Subjectdata[[string]].Id_Subject')">Delete</button>`;
                 text = text.replaceAll('[string]', x.toString());
                 x++;
                 $(wrapper).append(text); //add input box
@@ -318,12 +373,20 @@
         $(add_object).click(function (e) {
             e.preventDefault();
             if (y < max_object) {
-                var text = `<div id="field[string]"><label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
-                            <label>จำนวนสินค้า</label><input type="number" id="Productdata[[string]].AmtProduct" Name="Productdata[[string]].AmtProduct" placeholder="99" value=0 required onkeypress="check_amt()"  onkeyup="check_amt()" >
-                            <label>หน่วยสินค้า</label><input type="text" id="Productdata[[string]].Unit" Name="Productdata[[string]].Unit" placeholder="อัน" required>
-                            <label>ราคาต่อหน่วย</label><input type="number" step="0.01"  value=0 id="Productdata[[string]].Price_Per_Piece" onkeypress="sumproductprice()"  onkeyup="sumproductprice()" Name="Productdata[[string]].Price_Per_Piece" placeholder="100" required/> <button type="button" id="buttonproduct[string]"  class="delete" onclick="deleteproductfield([string])">Delete</button>
-                            </div>
-                            `;
+                console.log("index :" + y);
+                var text = `<div id="field[string]">
+
+                            <input type="text" id="Productdata[[string]].status" Name="Productdata[[string]].status"  style="display:none" readonly>
+                           <input type="number" id="Productdata[[string]].Id_Product" Name="Productdata[[string]].Id_Product" value="0" style="display:none" readonly>
+
+                                <label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
+                                <label>จำนวนสินค้า</label><input type="number" id="Productdata[[string]].AmtProduct" Name="Productdata[[string]].AmtProduct" placeholder="99" value=0 required onkeypress="check_amt()"  onkeyup="check_amt()" >
+                                <label>หน่วยสินค้า</label><input type="text" id="Productdata[[string]].Unit" Name="Productdata[[string]].Unit" placeholder="อัน" required>
+                                <label>ราคาต่อหน่วย</label><input type="number" step="0.01"  value=0 id="Productdata[[string]].Price_Per_Piece" onkeypress="sumproductprice()"  onkeyup="sumproductprice()" Name="Productdata[[string]].Price_Per_Piece" placeholder="100" required/>
+
+<button type="button" id="buttonproduct[string]"  class="delete" onclick="deleteproductfield([string],'Productdata[[string]].status','Productdata[[string]].Id_Product')">Delete</button>
+                                </div>
+                                `;
 
 
                 text = text.replaceAll('[string]', y.toString());
@@ -334,57 +397,108 @@
             }
         });
 
-    });
-    function deleteproductfield(index) {
-        //$(this).parent('div').remove();
-        let field_delete = document.getElementById("field" + index);
-        field_delete.remove();
-        const list = ["NameProduct", "AmtProduct", "Unit", "Price_Per_Piece"];
-        y--;
-        console.log("PresPosition=" + y);
-        for (let i = index; i <= y; i++) {
-            let npostion = i+1;
+        });
+    function deleteproductfield(index, status, Id_Product) {
+        var indexdelete = document.getElementById(Id_Product).value;
+        listindexdelete = indexdelete + "," + listindexdelete;
+        if (listindexdelete.charAt(listindexdelete.length - 1) == ',') {
+            console.log("check At , ")
+            listindexdelete = listindexdelete.substring(0, listindexdelete.length - 1)
+        }
+        document.getElementById("IndexProDelete").value = listindexdelete;
+        console.log(listindexdelete)
+            console.log(status);
+            console.log("check");
+            document.getElementById(status).value = "Close";
+            //$(this).parent('div').remove();
 
-            console.log("ListPosition=" + i);
-            console.log("field" + (i - 1));
-            let presfield = document.getElementById("field" + npostion);
-            presfield.setAttribute("id", "field" + (npostion - 1).toString());
-            for (let j = 0; j < 3; j++) {
-                //change index number in product
-                let presinput = document.getElementById("Productdata[" + npostion.toString() + "]." + list[j].toString());
-                console.log("Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
-                //change index number in id and name
-                presinput.setAttribute("id", "Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
-                presinput.setAttribute("name", "Productdata[" + (npostion - 1).toString() + "]." + list[j].toString());
-                //change index number in onclick
-                let presbutdelte = document.getElementById("buttonproduct" + npostion.toString());
-                presbutdelte.setAttribute("id", "buttonproduct(" + (npostion - 1).toString() + ")");
-                presbutdelte.setAttribute("onclick", "deleteproductfield(" + (npostion - 1).toString()+")");
-            }
+            let field_delete = document.getElementById("field" + index);
+            field_delete.remove();
+            const list = ["NameProduct","AmtProduct","Unit","Price_Per_Piece","status","Id_Product"];
+            y--;
+            console.log("PresPosition=" + y);
+            for (let i = index; i < y; i++) {
+                let nposition = i + 1;
+
+                console.log("ListPosition=" + i);
+                console.log("Presfield=" + nposition);
+                console.log("Newfield=" + (nposition - 1));
+                let presfield = document.getElementById("field" + nposition);
+                presfield.setAttribute("id", "field" + (nposition - 1).toString());
+                for (let j = 0; j < list.length; j++) {
+
+                    //change index number in product
+                    let presinput = document.getElementById("Productdata[" + nposition.toString() + "]." + list[j].toString());
+                    console.log("Productdata[" + (nposition - 1).toString() + "]." + list[j].toString());
+                    console.log("Check Error 2");
+                    //change index number in id and name
+                    presinput.setAttribute("id", "Productdata[" + (nposition - 1).toString() + "]." + list[j].toString());
+                    presinput.setAttribute("name", "Productdata[" + (nposition - 1).toString() + "]." + list[j].toString());
+                    console.log("Check Error 3");
+                    //change index number in onclick
+                }
+                let presbutdelte = document.getElementById("buttonproduct" + nposition.toString());
+                console.log("Check Error 4");
+                presbutdelte.setAttribute("id", "buttonproduct" + (nposition - 1).toString());
+                console.log("Check Error 5");
+                presbutdelte.setAttribute("onclick", "deleteproductfield(" + (nposition - 1).toString() + ",'Productdata[" + (nposition - 1).toString() + "].status'" + ",'Productdata[" + (nposition - 1).toString() + "].Id_Product'" + ")");
+                console.log("Check Error 6");
 
         }
-    }
-    function deletesubejectfield(index) {
-        let field_delete = document.getElementById("fieldsubject" + index);
-        field_delete.remove();
-        console.log("x="+x);
-        x--;
-        for (i = index; i <= x; i++) {
-            let nposition = i + 1;
-            console.log("fieldsubject" + (i - 1));
-            let presfield = document.getElementById("fieldsubject" + nposition.toString());
-            presfield.setAttribute("id", "fieldsubject" + (nposition - 1).toString())
+
+
+            console.log("LastPosition=" + y);
+            sumproductprice();
+            if (y == 0) {
+                y=1;
+        }
+
+
+        }
+    function deletesubjectfield(index, status, id_subject) {
+        var indexdelete = document.getElementById(id_subject).value;
+        listsubdelete = indexdelete + "," + listsubdelete;
+        if (listsubdelete.charAt(listsubdelete.length - 1) == ',') {
+            console.log("check At , ")
+            listsubdelete = listsubdelete.substring(0, listsubdelete.length - 1)
+        }
+        document.getElementById("IndexSubdelete").value = listsubdelete;
+        console.log(listsubdelete)
+            let field_delete = document.getElementById("fieldsubject" + index);
+            console.log("fieldsubject" + index);
+            document.getElementById(status).value = "Close";
+            field_delete.remove();
+            console.log("x=" + x);
+            x--;
+            for (i = index; i < x; i++) {
+                let nposition = i + 1;
+                console.log("fieldsubject" + (i - 1));
+                let presfield = document.getElementById("fieldsubject" + nposition.toString());
+                presfield.setAttribute("id", "fieldsubject" + (nposition - 1).toString())
 
             let presinput = document.getElementById("Subjectdata[" + nposition.toString() + "].Subject");
             presinput.setAttribute("id", "Subjectdata[" + (nposition - 1).toString() + "].Subject");
             presinput.setAttribute("name", "Subjectdata[" + (nposition - 1).toString() + "].Subject");
 
-            let presbutdelete = document.getElementById("buttonsub" + nposition.toString());
-            presbutdelete.setAttribute("id", "buttonsub" + (nposition - 1).toString());
-            presbutdelete.setAttribute("onclick", "deletesubejectfield(" + (nposition - 1).toString() + ")");
+                let presinput2 = document.getElementById("Subjectdata[" + nposition.toString() + "].status");
+                presinput2.setAttribute("id", "Subjectdata[" + (nposition - 1).toString() + "].status");
+                presinput2.setAttribute("name", "Subjectdata[" + (nposition - 1).toString() + "].status");
+
+                let presinput3 = document.getElementById("Subjectdata[" + nposition.toString() + "].Id_Subject");
+                presinput3.setAttribute("id", "Subjectdata[" + (nposition - 1).toString() + "].Id_Subject");
+                presinput3.setAttribute("name", "Subjectdata[" + (nposition - 1).toString() + "].Id_Subject");
+
+                let presbutdelete = document.getElementById("buttonsub" + nposition.toString());
+                presbutdelete.setAttribute("id", "buttonsub" + (nposition - 1).toString());
+                presbutdelete.setAttribute("onclick", "deletesubjectfield(" + (nposition - 1).toString() + ",'Subjectdata[" + (nposition - 1).toString() + "].status" + ",'Subjectdata[" + (nposition - 1).toString() + "].Id_Subject'" + ")");
+
+
+            }
+            if (x == 0) {
+                x = 1;
+            }
         }
- }
-        
+
 
     let sumprice = 0;
     function check_amt() {
@@ -398,59 +512,62 @@
                 document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
                 alert("Please input Value > 0")
 
+                }
             }
         }
-    }
-    function sumproductprice() {
-        sumprice = 0;
-        for (let i = 0; i <= y; i++) {
-            var amt_product = document.getElementById("Productdata[" + i + "].AmtProduct").value;
-            var per_price = document.getElementById("Productdata[" + i + "].Price_Per_Piece").value;
-            amt_product = parseInt(amt_product);
-            per_price = parseFloat(per_price);
-            if (isNaN(amt_product) == true || isNaN(per_price) == true) {
-                amt_product = 0;
-                per_price = 0;
-                sumprice = (sumprice + amt_product * per_price);
-                document.getElementById("sumproduct").value = parseFloat(sumprice);
-            }
-            
-            else if (amt_product < 0) {
-                document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
-                alert("Please input Value > 0")
+        function sumproductprice() {
+            sumprice = 0;
+            for (let i = 0; i < y; i++) {
+                var amt_product = document.getElementById("Productdata[" + i + "].AmtProduct").value;
+                var per_price = document.getElementById("Productdata[" + i + "].Price_Per_Piece").value;
+                amt_product = parseInt(amt_product);
+                per_price = parseFloat(per_price);
+                if (isNaN(amt_product) == true || isNaN(per_price) == true) {
+                    amt_product = 0;
+                    per_price = 0;
+                    sumprice = (sumprice + amt_product * per_price);
+                    document.getElementById("sumproduct").value = parseFloat(sumprice);
+                }
+
+                else if (amt_product < 0) {
+                    document.getElementById("Productdata[" + i + "].AmtProduct").value = 0;
+                    alert("Please input Value > 0")
+
+                }
+                else if (per_price < 0) {
+
+                    document.getElementById("Productdata[" + i + "].Price_Per_Piece").value = 0;
+                    alert("Please input Value > 0")
+                }
+                else {
+                    var vaxproduct = (0.07) * (sumprice + amt_product * per_price)
+                    sumprice = sumprice + amt_product * per_price;
+                    document.getElementById("vaxproduct").value = parseFloat(vaxproduct.toFixed(2));
+                    document.getElementById("sumproduct").value = parseFloat((sumprice + vaxproduct).toFixed(2));
+                }
+                let check_sum = sumprice;
+                console.log("Check Sum : " + check_sum);
+                if (check_sum >= 10000) {
+                    document.getElementById("diractor_2").style.display = "block";
+                    document.getElementById("diractor_3").style.display = "block";
+                }
+                else if (check_sum < 10000) {
+
+                    document.getElementById("diractor_2").style.display = "none";
+                    document.getElementById("diractor_3").style.display = "none";
+
+                }
+
+                console.log(sumprice);
+
 
             }
-            else if (per_price < 0) {
-                
-                document.getElementById("Productdata[" + i + "].Price_Per_Piece").value = 0;
-                alert("Please input Value > 0")
-            }
-            else {
-                var vaxproduct=(0.07) *( sumprice + amt_product * per_price)
-                sumprice = sumprice + amt_product * per_price;
-                document.getElementById("vaxproduct").value = parseFloat(vaxproduct.toFixed(2));
-                document.getElementById("sumproduct").value = parseFloat((sumprice + vaxproduct).toFixed(2));
-            }
-            let check_sum = sumprice;
-            console.log("Check Sum : " + check_sum);
-            if (check_sum > 10000) {
-                document.getElementById("diractor_2").style.display = "block";
-                document.getElementById("diractor_3").style.display = "block";
-            }
-            else {
-                document.getElementById("diractor_2").style.display = "none";
-                document.getElementById("diractor_2").value="";
-                document.getElementById("diractor_3").style.display = "none";
-                document.getElementById("diractor_3").value = "";
-            }
-            
-            console.log(sumprice);
-            
-            
+
+
         }
-        
-        
-    }
+        function showimage(index) {
+            document.getElementById("signature" + index).style.display = "block";
+        }
 </script>
 @section Scripts{
     <script>
