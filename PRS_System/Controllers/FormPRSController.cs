@@ -112,7 +112,7 @@ namespace PRS_System.Controllers
                         Procurement.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
                         Procurement.FilePath = uniquefile;
                     }
-                    Procurement.User_ID = HttpContext.Session.GetString("USER_ID").ToString();
+                    Procurement.User_ID = HttpContext.Session.GetString("uid").ToString();
                     Console.WriteLine("Check");
                     //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
                     _formService.AddFormDetailData(Procurement.FormDataDetail());
@@ -126,6 +126,8 @@ namespace PRS_System.Controllers
                 //----Edit Form to Database
                 else if(Procurement.id_tor != 0)
                 {
+                    Procurement.User_ID = HttpContext.Session.GetString("uid").ToString();
+                    _formService.EditFormDetailData(Procurement.FormDataDetail(),Procurement.id_tor);
                     if (Procurement.IndexProDelete != null)
                     {
                         // Delete Product กับ Subject ที่ต้องการจะลบ
@@ -168,8 +170,19 @@ namespace PRS_System.Controllers
                             _formService.UpdateAddProductData(Procurement.Productdata[i], Procurement.id_tor);
                         }
                     }
+                    for(int i=0;i< Procurement.Subjectdata.Count;i++)
+                    {
+                        if(Procurement.Subjectdata[i].Id_Subject!=0)
+                        {
+                            _formService.EditFormSubjectData(Procurement.Subjectdata[i]);
+                        }
+                        else if(Procurement.Subjectdata[i].Id_Subject == 0)
+                        {
+                            _formService.UpdateAddSubjectData(Procurement.Subjectdata[i], Procurement.id_tor);
+                        }
+                    }
                 }
-                return Json(new { status = "success", Messege = "Add Complete" });
+                return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete" });
                 //if (ModelState.IsValid)
                 //{
 
