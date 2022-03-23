@@ -418,35 +418,102 @@ namespace PRS_System.Services
 
         public void EditFormDetailData(FormPRSDataModel formdetaildata)
         {
+
             throw new NotImplementedException();
         }
 
-        public void EditFormProductlData(List<ProductDataModel> formdetaildata, int ID_TOR)
+        public void EditFormProductlData(ProductDataModel formdetaildata)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+                command.CommandText = @"UPDATE PRS_TOR_PRODUCT_LIST 
+SET NAME_PRODUCT = @NAMEPRODUCT ,AMT_PRODUCT=@AMT_PRODUCT,UNIT_PRODUCT=@UNT_PRODUCT,PRICE_PER_PIECE=@PRICE_PER_PIECE 
+                                            WHERE ID_PRODUCT_LIST=@IDPRODUCT";
+
+                command.Parameters.Add(new SqlParameter("@IDPRODUCT", (object)formdetaildata.Id_Product ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@NAMEPRODUCT", (object)formdetaildata.NameProduct ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_PRODUCT", (object)formdetaildata.AmtProduct ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@UNT_PRODUCT", (object)formdetaildata.Unit ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@PRICE_PER_PIECE", (object)formdetaildata.Price_Per_Piece ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
-        public void EditFormSubjectData(List<SubjectDataModel> formdetaildata, int ID_TOR)
+        public void EditFormSubjectData(List<SubjectDataModel> formdetaildata, int subject)
         {
             throw new NotImplementedException();
         }
 
         public void DeleteFormProductData(int ID_Product)
         {
-            
-                SqlConnection connect = new SqlConnection(_connectionString);
-                SqlCommand command = new SqlCommand();
-                connect.Open();
-                command.Connection = connect;
-                command.CommandText = @"DELETE FROM PRS_TOR_PRODUCT_LIST WHERE ID_PRODUCT_LIST=@ID_Product;";
-                command.Parameters.Add(new SqlParameter("@ID_Product", (object)ID_Product ?? DBNull.Value));
-                command.ExecuteNonQuery();
-                connect.Close();
+
+            SqlConnection connect = new SqlConnection(_connectionString);
+            SqlCommand command = new SqlCommand();
+            connect.Open();
+            command.Connection = connect;
+            command.CommandText = @"DELETE FROM PRS_TOR_PRODUCT_LIST WHERE ID_PRODUCT_LIST=@ID_Product;";
+            command.Parameters.Add(new SqlParameter("@ID_Product", (object)ID_Product ?? DBNull.Value));
+            command.ExecuteNonQuery();
+            connect.Close();
             throw new NotImplementedException();
         }
 
         public void DeleteFormSubjectData(int ID_Subject)
         {
+            throw new NotImplementedException();
+        }
+
+        public void EditFormSubjectData(SubjectDataModel formdetaildata, int id_subject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateAddProductData(ProductDataModel formdetaildata, int id_tor)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                int maximum = GetMaximumID_PRODUCT_LIST();
+                command.CommandText = @"Insert Into PRS_TOR_PRODUCT_LIST(ID_PRODUCT_LIST,ID_TOR,NAME_PRODUCT,AMT_PRODUCT,UNIT_PRODUCT,PRICE_PER_PIECE) 
+                                            VALUES(@IDPRODUCT,@IDTOR,@NAMEPRODUCT,@AMT_PRODUCT,@UNT_PRODUCT,@PRICE_PER_PIECE)";
+                command.Parameters.Add(new SqlParameter("@IDPRODUCT", (object)(maximum + 1) ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@NAMEPRODUCT", (object)formdetaildata.NameProduct ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_PRODUCT", (object)formdetaildata.AmtProduct ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@UNT_PRODUCT", (object)formdetaildata.Unit ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@PRICE_PER_PIECE", (object)formdetaildata.Price_Per_Piece ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public void UpdateAddSubjectData(SubjectDataModel formdetaildata, int ID_TOR)
+        {
+
             throw new NotImplementedException();
         }
     }

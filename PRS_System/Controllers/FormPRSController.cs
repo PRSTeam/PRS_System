@@ -40,7 +40,34 @@ namespace PRS_System.Controllers
             //----Add Form Page
             if(id_tor==0)
             {
-
+                List<ProductDataModel> productdata = new List<ProductDataModel>();
+                List<SubjectDataModel> subjectdata = new List<SubjectDataModel>();
+                productdata.Add(new ProductDataModel
+                {
+                    Id_Product = 0
+                    ,
+                    AmtProduct = 0
+                    ,
+                    Unit = ""
+                    ,
+                    NameProduct = ""
+                    ,
+                    Price_Per_Piece=0
+                    ,
+                    status="open"
+                }) ;
+                Createview.Productdata = productdata;
+                subjectdata.Add(new SubjectDataModel
+                {
+                    Id_Subject = 0
+                    ,
+                    Subject = ""
+                    ,
+                    status="Open"
+                }) ;
+                Createview.Subjectdata = subjectdata;
+               
+               
             }
             //----Edit Form Page
             else if(id_tor!=0)
@@ -59,7 +86,7 @@ namespace PRS_System.Controllers
                 Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
             }
             Console.WriteLine("Check" + id_tor);
-            string user_id= HttpContext.Session.GetString("uid").ToString();       
+            string user_id = HttpContext.Session.GetString("uid").ToString();
             Createview.FilePath = _accountService.GetSignature(user_id);
             Createview.id_tor = id_tor;
             return View(Createview);
@@ -99,10 +126,47 @@ namespace PRS_System.Controllers
                 //----Edit Form to Database
                 else if(Procurement.id_tor != 0)
                 {
-                    for(int i=0;i<=Procurement.Productdata.Count;i++)
+                    if (Procurement.IndexProDelete != null)
                     {
-                        string[]  listdelete_idProduct = Procurement.IndexDelete.Split(",");
+                        // Delete Product กับ Subject ที่ต้องการจะลบ
+                        string[] listdelete_idProduct = Procurement.IndexProDelete.Split(",");
+                        for (int i = 0; i < listdelete_idProduct.Length; i++)
+                        {
+                            int id_productdelete = int.Parse(listdelete_idProduct[i]);
+                            if (id_productdelete != 0)
+                            {
+                                _formService.DeleteFormProductData(id_productdelete);
+                            }
 
+                        }
+                    }
+                    if (Procurement.IndexSubdelete != null)
+                    {
+                        string[] listdelete_idSubject = Procurement.IndexSubdelete.Split(",");
+                        for (int i = 0; i < listdelete_idSubject.Length; i++)
+                        {
+                            int id_productdelete = int.Parse(listdelete_idSubject[i]);
+                            if (id_productdelete != 0)
+                            {
+                                _formService.DeleteFormSubjectData(id_productdelete);
+                            }
+
+                        }
+                    }
+
+                    //-------Edit and Add New Data----------------------------------
+                    for (int i = 0; i < Procurement.Productdata.Count; i++)
+                    {
+                        // Edit Data Product 
+                        if (Procurement.Productdata[i].Id_Product != 0)
+                        {
+                            _formService.EditFormProductlData(Procurement.Productdata[i]);
+                        }
+                        // Add New Data Product
+                        else if (Procurement.Productdata[i].Id_Product == 0)
+                        {
+                            _formService.UpdateAddProductData(Procurement.Productdata[i], Procurement.id_tor);
+                        }
                     }
                 }
                 return Json(new { status = "success", Messege = "Add Complete" });
