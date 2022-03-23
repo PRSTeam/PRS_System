@@ -29,13 +29,75 @@ namespace PRS_System.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            string user_id = HttpContext.Session.GetString("uid").ToString();
+            indexmodel.ListForm= _formService.GetnamePRS(user_id);
+            return View(indexmodel);
 
         }
         public IActionResult form()
         {
+            //----Add Form Page
+            if(id_tor==0)
+            {
+                List<ProductDataModel> productDatas = new List<ProductDataModel>();
+                List<SubjectDataModel> subjectDatas = new List<SubjectDataModel>();
+                Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
+                Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                if(Createview.Productdata.Count==0)
+                {
+                    productDatas.Add(new ProductDataModel {
+                        Id_Product = 0
+                        ,
+                        NameProduct = ""
+                        ,
+                        Unit = ""
+                        ,
+                        AmtProduct = 0
+                        ,
+                        Price_Per_Piece = 0
+                        ,
+                        status="Open"
+                    }) ;
+                    Createview.Productdata = productDatas;
+                }
+                if(Createview.Subjectdata.Count==0)
+                {
+                    subjectDatas.Add(new SubjectDataModel
+                    {
+                        Id_Subject = 0
+                        ,
+                        Subject=""
+                        ,
+                        status="Open"
+                    });
+                    Createview.Subjectdata = subjectDatas;
+                }
+                
 
-            return View();
+                
+
+            }
+            //----Edit Form Page
+            else if(id_tor!=0)
+            {
+                double sumvalue = 0;
+                double vaxvalue = 0;
+                Createview = _formService.GetValuesFormPRS(id_tor);
+                Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
+                for(int i=0;i<Createview.Productdata.Count;i++)
+                {
+                    vaxvalue = (0.07) * (sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece));
+                    sumvalue = sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece);
+                }
+                Createview.vaxproduct = Math.Round(vaxvalue,2);
+                Createview.sumproduct = Math.Round(sumvalue +vaxvalue,2);
+                Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+            }
+            Console.WriteLine("Check" + id_tor);
+            string user_id= HttpContext.Session.GetString("uid").ToString();       
+            Createview.FilePath = _accountService.GetSignature(user_id);
+            Createview.id_tor = id_tor;
+            return View(Createview);
         }
         [HttpPost]
         public async Task<IActionResult>  AddDataProcurement(CreateFormModel Procurement)
@@ -62,10 +124,52 @@ namespace PRS_System.Controllers
                 _formService.AddFormDetailData(Procurement.FormDataDetail());
                 int id_tor = _formService.GetMaximumID_TOR();
                     //--------------------------------
-                    _formService.AddProductData(Procurement.Productdata, id_tor);
-                    _formService.AddSubjectData(Procurement.Subjectdata, id_tor);
+                    _formService.AddProductData(Procurement.Productdata, Procurement.id_tor);
+                    _formService.AddSubjectData(Procurement.Subjectdata, Procurement.id_tor);
 
-                    return Json(new { status = "success", Messege = "Add Complete" });
+                    
+                }
+                //----Edit Form to Database
+                else if(Procurement.id_tor != 0)
+                {
+                    // Delete Product กับ Subject ที่ต้องการจะลบ
+                    string[] listdelete_idProduct = Procurement.IndexProDelete.Split(",");
+                    for (int i = 0; i < listdelete_idProduct.Length; i++)
+                    {
+                        int id_productdelete = int.Parse(listdelete_idProduct[i]);
+                        if(id_productdelete!=0)
+                        {
+                            _formService.DeleteFormProductData(id_productdelete);
+                        }
+                        
+                    }
+                    string[] listdelete_idSubject = Procurement.IndexSubdelete.Split(",");
+                    for (int i = 0; i < listdelete_idSubject.Length; i++)
+                    {
+                        int id_productdelete = int.Parse(listdelete_idSubject[i]);
+                        if (id_productdelete != 0)
+                        {
+                            _formService.DeleteFormSubjectData(id_productdelete);
+                        }
+
+                    }
+                    //-----------------------------------------
+                    for (int i=0;i<=Procurement.Productdata.Count;i++)
+                    {
+                        if(Procurement.Productdata[i].Id_Product!=0)
+                        {
+                            
+                        }
+                        
+                        
+                        
+
+                    }
+                }
+                return Json(new { status = "success", Messege = "Add Complete" });
+                //if (ModelState.IsValid)
+                //{
+
                 //}
                 //else
                 //{

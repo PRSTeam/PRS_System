@@ -1,5 +1,6 @@
 ﻿@model PRS_System.Models.FormModel.IndexListFormModel
 @using Microsoft.AspNetCore.Http
+@using PRS_System.Models.Data
 @using PRS_System.Controllers
 @{
     Layout = "_BlankLayout";
@@ -161,21 +162,42 @@
                                     <th>Function</th>
                                     <th>Date</th>
                                 </tr>
-                                @*@foreach (var item in Model.ListForm)
-                                    {
-                                    int i =0;
+                                @{int countfield = Model.ListForm != null ? Model.ListForm.Count : 0;}
+                                @for (int i = 0; i < countfield; i++)
+                                {
+                                    int number = i + 1;
+                                    FormPRSDataModel item = Model.ListForm[i];
                                     <tr>
-                                    <td>@i++</td>
-                                    <td>@item.nameProcument</td>
-                                    <td style="color:green">@item.Status</td>
-                                    <td>
-                                    <button class="button button2">Edit</button>
-                                    <button class="button button3">Delete</button>
-                                    <button class="button button4">Draft</button>
-                                    </td>
-                                    <td>@item.Date</td>
+                                        <td>@number</td>
+                                        <td>@item.nameProcument</td>
+                                        @{
+                                            if (item.Status == "Sent")
+                                            {
+                                                <td style="color:blue">@item.Status</td>
+                                            }
+                                            else if (item.Status == "Sent to Approval")
+                                            {
+                                                <td style="color:cornflowerblue">@item.Status</td>
+                                            }
+                                            else if (item.Status == "Return to Requester")
+                                            {
+                                                <td style="color:red">@item.Status</td>
+                                            }
+                                            else if (item.Status == "Approved")
+                                            {
+                                                <td style="color:lawngreen">@item.Status</td>
+
+                                            }
+                                        }
+
+                                        <td>
+                                            <button type="button" class="button button2" onclick="editpage(@item.id_tor)">Edit</button>
+                                            <button type="button" class="button button3">Delete</button>
+                                            <button type="button" class="button button4">Draft</button>
+                                        </td>
+                                        <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
                                     </tr>
-                                    }*@
+                                }
                             </table>
                             <br>
                             <p>ตารางหน้าฝ่ายพัสดุ</p>
