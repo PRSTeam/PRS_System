@@ -64,7 +64,7 @@ namespace PRS_System
                 //pattern: "{controller=FormPRS}/{action=form}/{id?}");
                 //pattern: "{controller=AdminSetting}/{action=addnewuser}/{id?}");
                 //    pattern: "{controller=FormPRS}/{action=Index}/{id?}");
-                pattern: "{controller=Login}/{action=index}/{id?}");
+                pattern: "{controller=Information}/{action=index}/{id?}");
             });
         }
     }

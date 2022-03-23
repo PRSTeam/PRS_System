@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-
 namespace PRS_System.Models.Information
 {
     public class InfomationModel

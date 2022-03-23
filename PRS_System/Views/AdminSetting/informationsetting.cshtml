@@ -1,5 +1,1027 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "_BlankLayout";
+    ViewData["Title"] = "แก้ไขหน้าประชาสัมพันธ์";
+}
+
+@section Head{
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/AddNews.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="custom.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+          integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+}
+
+<body>
+    <div class="container-tab" id="blur">
+        <div class="position-tab">
+            <h1>Infomation</h1>
+            <ul class="tab-menu">
+                <li class="current"><a href="#tab-1">Upload Image</a></li>
+                <li><a href="#tab-2">Add News</a></li>
+            </ul>
+
+            <div class="tab" id="blur">
+                <div class="tab-content" id="tab-1">
+                    <div class="container">
+                        <div class="design">
+                            <h2>Upload Photo</h2>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Photo</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <th>1</th>
+                                    <td>
+                                        <img src="photo/1.jpg" alt="">
+                                    </td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>15/03/2022</td>
+                                    <td>
+                                        <span class="btn-action">
+                                            <button type="button" class="btn btn-upload"
+                                                    onclick="toggle()">
+                                                Upload
+                                            </button>
+                                            <button type="button" class="btn btn-delete"><a href="">Delete</a></button>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>2</th>
+                                    <td>
+                                        <img src="photo/2.jpg" alt="">
+                                    </td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>15/03/2022</td>
+                                    <td>
+                                        <span class="btn-action">
+                                            <button type="button" class="btn btn-upload"
+                                                    onclick="toggle()">
+                                                Upload
+                                            </button>
+                                            <button type="button" class="btn btn-delete"><a href="">Delete</a></button>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>5</th>
+                                    <td>
+                                        <img src="photo/3.jpg" alt="">
+                                    </td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>15/03/2022</td>
+                                    <td>
+                                        <span class="btn-action">
+                                            <button type="button" class="btn btn-upload"
+                                                    onclick="toggle()">
+                                                Upload
+                                            </button>
+                                            <button type="button" class="btn btn-delete"><a href="">Delete</a></button>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>4</th>
+                                    <td>
+                                        <img src="photo/4.jpg" alt="">
+                                    </td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>15/03/2022</td>
+                                    <td>
+                                        <span class="btn-action">
+                                            <button type="button" class="btn btn-upload"
+                                                    onclick="toggle()">
+                                                Upload
+                                            </button>
+                                            <button type="button" class="btn btn-delete"><a href="">Delete</a></button>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>5</th>
+                                    <td>
+                                        <img src="photo/5.jpg" alt="">
+                                    </td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>15/03/2022</td>
+                                    <td>
+                                        <span class="btn-action">
+                                            <button type="button" class="btn btn-upload"
+                                                    onclick="toggle()">
+                                                Upload
+                                            </button>
+                                            <button type="button" class="btn btn-delete"><a href="">Delete</a></button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ******************************************************************************************** -->
+
+
+                <div class="tab-content" id="tab-2">
+                    <div class="container-body">
+                        <div class="con-add">
+                            <div class="title-add">
+                                <h2>Add New Tab</h2>
+                            </div>
+                            <div class="add-field">
+                                <label>
+                                    <p class="label-txt">The first field</p>
+                                    <input type="text" class="input">
+                                    <div class="line-box">
+                                        <div class="line"></div>
+                                    </div>
+                                </label>
+                                <button>Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="tab-menu-news">
+                        <li class="current-news"><a href="#tab-news1">Tab 1</a></li>
+                        <li><a href="#tab-news2">Tab 2</a></li>
+                        <li><a href="#tab-news3">Tab 3</a></li>
+                        <li><a href="#tab-news4">Tab 4</a></li>
+                        <li><a href="#tab-news5">Tab 5</a></li>
+                    </ul>
+
+                    <div class="tab-news" id="blur-file">
+                        <div id="tab-news1" class="tab-content-news">
+                            <div class="rename-tag">
+                                <div class="btn2 btn-delete-tab">
+                                    <h3>Rename Tab</h3>
+                                    <button class="delete-tab">Delete Tab</button>
+                                </div>
+                                <div class="rename-con">
+                                    <input class="rename-input" type="text" placeholder="Rename">
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+
+                            <div class="add-news">
+                                <div class="btn2 btn-add-tab">
+                                    <h3>Add News</h3>
+                                    <button class="add-tab fa-solid fa-plus" onclick="togglefile()"></button>
+
+                                </div>
+
+                                <div class="add-news-field">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div id="tab-news2" class="tab-content-news">
+                            <div class="rename-tag">
+                                <div class="btn2 btn-delete-tab">
+                                    <h3>Rename Tab2</h3>
+                                    <button class="delete-tab">Delete Tab</button>
+                                </div>
+                                <div class="rename-con">
+                                    <input class="rename-input" type="text" placeholder="Rename">
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+
+                            <div class="add-news">
+                                <div class="btn2 btn-add-tab">
+                                    <h3>Add News</h3>
+                                    <button class="add-tab fa-solid fa-plus"></button>
+
+                                </div>
+
+                                <div class="add-news-field">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="tab-news3" class="tab-content-news">
+                            <div class="rename-tag">
+                                <div class="btn2 btn-delete-tab">
+                                    <h3>Rename Tab3</h3>
+                                    <button class="delete-tab">Delete Tab</button>
+                                </div>
+                                <div class="rename-con">
+                                    <input class="rename-input" type="text" placeholder="Rename">
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+
+                            <div class="add-news">
+                                <div class="btn2 btn-add-tab">
+                                    <h3>Add News</h3>
+                                    <button class="add-tab fa-solid fa-plus"></button>
+
+                                </div>
+
+                                <div class="add-news-field">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-news4" class="tab-content-news">
+                            <div class="rename-tag">
+                                <div class="btn2 btn-delete-tab">
+                                    <h3>Rename Tab4</h3>
+                                    <button class="delete-tab">Delete Tab</button>
+                                </div>
+                                <div class="rename-con">
+                                    <input class="rename-input" type="text" placeholder="Rename">
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+
+                            <div class="add-news">
+                                <div class="btn2 btn-add-tab">
+                                    <h3>Add News</h3>
+                                    <button class="add-tab fa-solid fa-plus"></button>
+
+                                </div>
+
+                                <div class="add-news-field">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="tab-news5" class="tab-content-news">
+                            <div class="rename-tag">
+                                <div class="btn2 btn-delete-tab">
+                                    <h3>Rename Tab5</h3>
+                                    <button class="delete-tab">Delete Tab</button>
+                                </div>
+                                <div class="rename-con">
+                                    <input class="rename-input" type="text" placeholder="Rename">
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+
+                            <div class="add-news">
+                                <div class="btn2 btn-add-tab">
+                                    <h3>Add News</h3>
+                                    <button class="add-tab fa-solid fa-plus"></button>
+
+                                </div>
+                                <div class="add-news-field">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                                                </td>
+                                                <td>20/03/2022</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload img -->
+    <div class="container-popup" id="popup">
+        <label class="close-btn fa-solid fa-xmark" onclick="toggle()"></label>
+        <!-- <label for="" class="close-btn"  onclick="toggle()">X</label> -->
+        <div class="form">
+            <h2>Upload</h2>
+            <div class="form-element">
+                <label for="des">Description</label>
+                <input type="text" id="des" placeholder="Description">
+            </div>
+
+            <!-- Upload img -->
+            <div class="container-upload">
+                <div class="panel">
+                    <div class="button_outer">
+                        <div class="btn_upload">
+                            <input type="file" id="upload_file" name="">
+                            Selete Photo
+                        </div>
+                        <div class="processing_bar"></div>
+                        <div class="success_box"></div>
+                    </div>
+                </div>
+                <div class="error_msg"></div>
+                <div class="uploaded_file_view" id="uploaded_view">
+                    <span class="file_remove">X</span>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-create">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload file -->
+    <div class="container-popup-file" id="popup-file">
+        <label class="close-btn-file fa-solid fa-xmark" onclick="togglefile()"></label>
+        <div class="form-file">
+            <h2>News</h2>
+            <div class="form-element-file">
+                <label for="des-file">Description</label>
+                <input type="text" id="des-file" placeholder="Description">
+            </div>
+
+            <!-- Upload file -->
+            <!-- แก้ -->
+            <div class="container-upload-file">
+                <div class="panel-file">
+                    <div class="button_outer_file">
+                        <div class="btn_upload_file">
+                            <input type="file" id="upload_file_news" name="">
+                            Selete File
+                        </div>
+                        <div class="processing_bar_file"></div>
+                        <div class="success_box_file"></div>
+                    </div>
+                    <div class="error_msg"></div>
+                    <div class="upload_file_news_view" id="upload_news_view">
+                        <span class="file_news_remove">X</span>
+                        <div id="file-upload-filename"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-create-file">Create</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+@section Scripts{
+    <script src="~/js/AddNews.js"></script>
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OAuth2TestTool.MVC.Models
 {
-	public class UserInfoResponseModel
-	{
+    public class UserInfoResponseModel
+    {
         [JsonProperty("thainame")]
         public string thainame { get; set; }
 
@@ -55,7 +55,7 @@ namespace OAuth2TestTool.MVC.Models
 
         [JsonProperty("department-id")]
         public string department_id { get; set; }
-        
+
         [JsonProperty("advisor-id")]
         public string advisor_id { get; set; }
 
@@ -70,7 +70,7 @@ namespace OAuth2TestTool.MVC.Models
 
         [JsonProperty("userprincipalname")]
         public string userprincipalname { get; set; }
-        
+
         [JsonProperty("uid")]
         public string uid { get; set; }
     }

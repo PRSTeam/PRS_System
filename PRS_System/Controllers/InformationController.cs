@@ -32,7 +32,7 @@ namespace PRS_System.Controllers
             {
                 if (i.Header.ToString() != "รูปปก")
                 {
-                    if(h == null)
+                    if (h == null)
                     {
                         h += i.Header.ToString();
                     }
@@ -46,7 +46,7 @@ namespace PRS_System.Controllers
                     img_count = img_count + 1;
                 }
             }
-            ViewBag.count_img = 100/img_count;
+            ViewBag.count_img = 100 / img_count;
 
             string[] str = h.Split(",");
             IEnumerable<string> result = str.Distinct();
@@ -61,11 +61,11 @@ namespace PRS_System.Controllers
                 if (i == 0)
                 {
                     ViewBag.tab_header = "<div class='actives tab-desc'>";
-                    ViewBag.tab_header += "<h3>" + data[i] +"</h3>";
+                    ViewBag.tab_header += "<h3>" + data[i] + "</h3>";
                     ViewBag.tab_header += "</div>";
 
                     ViewBag.tab_body = "<div class='actives tab-desc'>";
-                    foreach(var desc in _informationService.ShowInformation())
+                    foreach (var desc in _informationService.ShowInformation())
                     {
                         if (desc.Header == data[i])
                         {
@@ -95,7 +95,7 @@ namespace PRS_System.Controllers
                     ViewBag.tab_body += "</div>";
                 }
             }
-            
+
             return View(_informationService.ShowInformation());
         }
 

@@ -119,5 +119,40 @@ namespace PRS_System.Services
                 throw ex;
             }
         }
+
+        public UserDataModel CheckLogin(string user_id)
+        {
+            UserDataModel userdata = new UserDataModel();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER = @ID_USER";
+                command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    userdata.UserID = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
+                    userdata.Prefix_NameThai = reader["TH_NAME"] != DBNull.Value ? reader["TH_NAME"].ToString() : null;
+                    userdata.Prefix_NameEng = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
+                    userdata.Full_NameThai = reader["TH_NAME_FULL"] != DBNull.Value ? reader["TH_NAME_FULL"].ToString() : null;
+                    userdata.Full_NameEng = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
+                    userdata.User_Type = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
+                    userdata.ESignature = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                    userdata.Category = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
+                    userdata.Status = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
+                }
+                connect.Close();
+                return userdata;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

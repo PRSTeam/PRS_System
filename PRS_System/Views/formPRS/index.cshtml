@@ -88,8 +88,8 @@
                 <div class="col-md-12">
                     <div class="top-section">
                         <div class="profile-content">
-                            <h3 class="profile-title">@Context.Session.GetString("cn")</h3>
-                            <p class="profile-description">@Context.Session.GetString("thaiprename") @Context.Session.GetString("thainame")</p>
+                            <h3 class="profile-title">@Context.Session.GetString("uid")</h3>
+                            <p class="profile-description">@Context.Session.GetString("thainame")</p>
                         </div>
                     </div>
                 </div>
@@ -109,8 +109,8 @@
     <!-- SIDEBAR -->
     <div class="sidebar-menu hidden-xs hidden-sm">
         <div class="top-section">
-            <h3 class="profile-title">@Context.Session.GetString("cn")</h3>
-            <p class="profile-description">@Context.Session.GetString("thaiprename") @Context.Session.GetString("thainame")</p>
+            <h3 class="profile-title">@Context.Session.GetString("uid")</h3>
+            <p class="profile-description">@Context.Session.GetString("thainame")</p>
         </div> <!-- top-section -->
         <div class="main-navigation">
             <ul class="navigation">
@@ -126,7 +126,7 @@
                 </li>
                 @if (!string.IsNullOrEmpty(Context.Session.GetString("AccessToken")))
                 {
-                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Login</a></li>
+                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Logout</a></li>
                 }
             </ul>
         </div> <!-- .main-navigation -->

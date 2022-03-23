@@ -43,17 +43,18 @@ namespace PRS_System.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-
                 if (data.Username == "Admin" && data.Password == "1234")
                 {
-                    HttpContext.Session.SetString("AccessToken", "1234");
-                    HttpContext.Session.SetString("uid", "Admin");
-                    HttpContext.Session.SetString("thainame", "แอดมิน");
-                    HttpContext.Session.SetString("cn", "admin");
-                    HttpContext.Session.SetString("thaiprename", "นาย");
-                    HttpContext.Session.SetString("ENG_NAME_FULL", "Mr.");
-                    HttpContext.Session.SetString("position", "science");
-                    HttpContext.Session.SetString("type_person", "Admin");
+                    var result_chk = _accountService.CheckLogin(data.Username);
+
+                    HttpContext.Session.SetString("AccessToken", "1234567890");
+                    HttpContext.Session.SetString("uid", result_chk.UserID);
+                    HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
+                    HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
+                    HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
+                    HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
+                    HttpContext.Session.SetString("position", result_chk.User_Type);
+                    HttpContext.Session.SetString("type_person", result_chk.Category);
 
                     return Json(new { status = "success" });
                     //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
@@ -91,11 +92,11 @@ namespace PRS_System.Controllers
         public IActionResult KUoAuth2()
         {
             var AuthModel = new OAuth2TestTool.MVC.Models.OAuth2ViewModel();
-            
+
             if (!string.IsNullOrEmpty(AuthModel.AccessToken))
             {
                 HttpContext.Session.SetString("AccessToken", AuthModel.AccessToken);
-                
+
                 var userinfoResponse = JsonConvert.DeserializeObject<OAuth2TestTool.MVC.Models.UserInfoResponseModel>(AuthModel.UserInfo);
                 HttpContext.Session.SetString("thainame", userinfoResponse.thainame);
                 HttpContext.Session.SetString("first_name", userinfoResponse.first_name);
@@ -130,7 +131,7 @@ namespace PRS_System.Controllers
                     return RedirectToAction("Index", "Login", Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "รหัสผู้ใช้งานของคุณไม่ได้รับสิทธื์เข้าใช้งาน" }));
                 }
             }
-            
+
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
                 var AuthControl = new OAuth2TestTool.MVC.Controllers.HomeController();
