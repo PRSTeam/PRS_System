@@ -8,6 +8,5 @@ namespace PRS_System.Models.Data
     public class SubjectDataModel
     {
         public string Subject { get; set; }
-        public string status { get; set; }
     }
 }

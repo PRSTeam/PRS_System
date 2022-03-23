@@ -7,7 +7,6 @@ namespace PRS_System.Models.FormModel
 {
     public class IndexListFormModel
     {
-#nullable enable
-        public List<FormPRSDataModel>? ListForm { get; set; }
+        public List<FormPRSDataModel> ListForm { get; set; }
     }
 }

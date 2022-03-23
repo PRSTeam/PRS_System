@@ -18,61 +18,32 @@ namespace PRS_System.Controllers
     {
         private readonly ILogger<FormPRSController> _logger;
         private readonly IFormService _formService;
-        private readonly IAccountService _accountService;
+        private readonly IAccountService accountService;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public FormPRSController(ILogger<FormPRSController> logger,
-                                      IFormService formService, IWebHostEnvironment hostingEnvironment,IAccountService accountService)
+                                      IFormService formService, IWebHostEnvironment hostingEnvironment)
         {
             _logger = logger;
             _formService = formService;
             _hostingEnvironment = hostingEnvironment;
-            _accountService = accountService;
         }
-        public IActionResult Index(IndexListFormModel indexmodel)
+        public IActionResult Index()
         {
-            string user_id = HttpContext.Session.GetString("USER_ID").ToString();
-            indexmodel.ListForm= _formService.GetnamePRS(user_id);
-            return View(indexmodel);
+            return View();
 
         }
-        public IActionResult form(int id_tor,FormPRSModel Createview)
+        public IActionResult form()
         {
-            //----Add Form Page
-            if(id_tor==0)
-            {
 
-            }
-            //----Edit Form Page
-            else if(id_tor!=0)
-            {
-                double sumvalue = 0;
-                double vaxvalue = 0;
-                Createview = _formService.GetValuesFormPRS(id_tor);
-                Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
-                for(int i=0;i<Createview.Productdata.Count;i++)
-                {
-                    vaxvalue = (0.07) * (sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece));
-                    sumvalue = sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece);
-                }
-                Createview.vaxproduct = Math.Round(vaxvalue,2);
-                Createview.sumproduct = Math.Round(sumvalue +vaxvalue,2);
-                Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
-            }
-            Console.WriteLine("Check" + id_tor);
-            string user_id= HttpContext.Session.GetString("USER_ID").ToString();       
-            Createview.FilePath = _accountService.GetSignature(user_id);
-            Createview.id_tor = id_tor;
-            return View(Createview);
+            return View();
         }
         [HttpPost]
-        public async Task<IActionResult>  AddDataProcurement(FormPRSModel Procurement)
+        public async Task<IActionResult>  AddDataProcurement(CreateFormModel Procurement)
         {
             try
             {
-                Console.WriteLine("Check"+ Procurement.id_tor);
-                //------Add New form to database
-                if (Procurement.id_tor == 0)
-                {
+                //if (ModelState.IsValid)
+                //{
                     string uniquefile = null;
                     string filepath = null;
                     if (Procurement.FilePDF != null)
@@ -87,24 +58,14 @@ namespace PRS_System.Controllers
                     }
                     Procurement.User_ID = HttpContext.Session.GetString("USER_ID").ToString();
                     Console.WriteLine("Check");
-                    //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
-                    _formService.AddFormDetailData(Procurement.FormDataDetail());
-                    Procurement.id_tor = _formService.GetMaximumID_TOR();
+                //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
+                _formService.AddFormDetailData(Procurement.FormDataDetail());
+                int id_tor = _formService.GetMaximumID_TOR();
                     //--------------------------------
-                    _formService.AddProductData(Procurement.Productdata, Procurement.id_tor);
-                    _formService.AddSubjectData(Procurement.Subjectdata, Procurement.id_tor);
+                    _formService.AddProductData(Procurement.Productdata, id_tor);
+                    _formService.AddSubjectData(Procurement.Subjectdata, id_tor);
 
-                    
-                }
-                //----Edit Form to Database
-                else if(Procurement.id_tor != 0)
-                {
-
-                }
-                return Json(new { status = "success", Messege = "Add Complete" });
-                //if (ModelState.IsValid)
-                //{
-
+                    return Json(new { status = "success", Messege = "Add Complete" });
                 //}
                 //else
                 //{
@@ -113,7 +74,7 @@ namespace PRS_System.Controllers
                 //                                             select error.ErrorMessage).ToList());
                 //    return Json(new { status = "error", detail = errorList, errorMessage = "Add fail" });
                 //}
-
+               
             }
             catch(Exception ex)
             {
@@ -125,7 +86,7 @@ namespace PRS_System.Controllers
 
            
         }
-        public IActionResult AddDataSuppies(FormPRSModel Suppies)
+        public IActionResult AddDataSuppies(CreateFormModel Suppies)
         {
             return View();
         }

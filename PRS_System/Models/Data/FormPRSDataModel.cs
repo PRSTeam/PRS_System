@@ -7,8 +7,6 @@ namespace PRS_System.Models.Data
 {
     public class FormPRSDataModel
     {
-
-        public int id_tor { get; set; }
         public string idRoom { get; set; }
         public string nameProcument { get; set; }
         public string description_1 { get; set; }
@@ -25,10 +23,10 @@ namespace PRS_System.Models.Data
         public string diractor_1 { get; set; }
         public string diractor_2 { get; set; }
         public string diractor_3 { get; set; }
+        public int id_tor { get; set; }
         public string Status { get; set; }
-#nullable enable
-        public DateTime? Date { get; set; }
-        public string? FilePath { get; set; }
-        public string? User_ID { get; set; }
+        public DateTime Date { get; set; }
+        public string FilePath { get; set; }
+        public string User_ID { get; set; }
     }
 }
