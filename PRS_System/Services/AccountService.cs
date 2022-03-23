@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PRS_System.IServices;
 using PRS_System.Models.Data;
-using PRS_System.Models.Login;
 using PRS_System.Models.Setting;
 
 namespace PRS_System.Services
@@ -74,14 +73,14 @@ namespace PRS_System.Services
                 {
                     UserDataModel user = new UserDataModel();
                     user.UserID=reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["TH_NAME"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["ENG_NAME"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["THAI_NAME_FULL"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["USER_TYPE"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["SIGNATURE"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["CATEGORY"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["STATUS"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
+                    user.UserID = reader["TH_NAME"] != DBNull.Value ? reader["TH_NAME"].ToString() : null;
+                    user.UserID = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
+                    user.UserID = reader["THAI_NAME_FULL"] != DBNull.Value ? reader["THAI_NAME_FULL"].ToString() : null;
+                    user.UserID = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
+                    user.UserID = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
+                    user.UserID = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                    user.UserID = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
+                    user.UserID = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
                     userdata.Add(user);
                 }
                 connect.Close();
@@ -94,40 +93,31 @@ namespace PRS_System.Services
            
         }
 
-        public UserDataModel CheckLogin(string user_id)
+        public string GetSignature(string user_id)
         {
-            UserDataModel userdata = new UserDataModel();
             try
             {
+                string namefile = "";
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
-
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER = @ID_USER";
+                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER=@ID_USER";
                 command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    userdata.UserID = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    userdata.Prefix_NameThai = reader["TH_NAME"] != DBNull.Value ? reader["TH_NAME"].ToString() : null;
-                    userdata.Prefix_NameEng = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
-                    userdata.Full_NameThai = reader["TH_NAME_FULL"] != DBNull.Value ? reader["TH_NAME_FULL"].ToString() : null;
-                    userdata.Full_NameEng = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
-                    userdata.User_Type = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
-                    userdata.ESignature = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
-                    userdata.Category = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
-                    userdata.Status = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
+                    namefile = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                   
                 }
                 connect.Close();
-                return userdata;
+                return namefile;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
     }
 }

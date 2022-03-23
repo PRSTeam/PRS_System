@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using PRS_System.IServices;
 using PRS_System.Models.Data;
+using PRS_System.Models.FormModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -68,11 +69,11 @@ namespace PRS_System.Services
                     connect.Open();
                     command.Connection = connect;
                     int maximum = GetMaximumID_SUBJECT_LIST();
-                    command.CommandText = @"Insert Into PRS_TOR_SUBJECT (ID_SUBJECTT_LIST,ID_TOR,SUBJECT) 
-                                        VALUES(@ID_SUBJECTT_LIST,@ID_TOR,@SUBJECT)";
-                    command.Parameters.Add(new SqlParameter("@ID_SUBJECTT_LIST", (object)(maximum + 1) ?? DBNull.Value));
-                    command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
-                    command.Parameters.Add(new SqlParameter("@NSUBJECT", (object)item.Subject ?? DBNull.Value));
+                    command.CommandText = @"Insert Into PRS_TOR_SUBJECT (ID_SUBJECT_LIST,ID_TOR,SUBJECT) 
+                                        VALUES(@ID_SUBJECT_LIST,@ID_TOR,@SUBJECT)";
+                    command.Parameters.Add(new SqlParameter("@ID_SUBJECT_LIST", (object)(maximum + 1) ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@SUBJECT", (object)item.Subject ?? DBNull.Value));
                     command.ExecuteNonQuery();
                     connect.Close();
                 }
@@ -361,8 +362,6 @@ namespace PRS_System.Services
                 {
                     model.Add(new SubjectDataModel
                     {
-                        Id_Subject=reader["ID_SUBJECT_LIST"] != DBNull.Value ? (int)reader["ID_SUBJECT_LIST"] : 0
-                        ,
                         Subject= reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
                         ,
                         status = "Open"

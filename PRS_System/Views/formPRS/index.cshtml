@@ -126,7 +126,7 @@
                 </li>
                 @if (!string.IsNullOrEmpty(Context.Session.GetString("AccessToken")))
                 {
-                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Logout</a></li>
+                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Login</a></li>
                 }
             </ul>
         </div> <!-- .main-navigation -->
@@ -262,12 +262,17 @@
 <script>
     $(document).ready(function () {
         $("#createbutton").click(function () {
-            location.href = "@Url.Action("form", "FormPRS")";
+            location.href = "@Url.Action("form", "FormPRS")"+"?id_tor=0";
         });
         
         $('#UserSetting').click(function () {
             location.href = "@Url.Action("ShowListuser","AdminSetting")";
         });
-
-    });
+        
+});
+</script>
+<script>
+    function editpage(id_tor) {
+           location.href = "@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor;
+    }
 </script>

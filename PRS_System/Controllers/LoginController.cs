@@ -43,18 +43,17 @@ namespace PRS_System.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
+
                 if (data.Username == "Admin" && data.Password == "1234")
                 {
-                    var result_chk = _accountService.CheckLogin(data.Username);
-
                     HttpContext.Session.SetString("AccessToken", "1234");
-                    HttpContext.Session.SetString("uid", result_chk.UserID);
-                    HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
-                    HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
-                    HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
-                    HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
-                    HttpContext.Session.SetString("position", result_chk.User_Type);
-                    HttpContext.Session.SetString("type_person", result_chk.Category);
+                    HttpContext.Session.SetString("uid", "Admin");
+                    HttpContext.Session.SetString("thainame", "แอดมิน");
+                    HttpContext.Session.SetString("cn", "admin");
+                    HttpContext.Session.SetString("thaiprename", "นาย");
+                    HttpContext.Session.SetString("ENG_NAME_FULL", "Mr.");
+                    HttpContext.Session.SetString("position", "science");
+                    HttpContext.Session.SetString("type_person", "Admin");
 
                     return Json(new { status = "success" });
                     //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");

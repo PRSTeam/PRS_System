@@ -18,63 +18,28 @@ namespace PRS_System.Controllers
     {
         private readonly ILogger<FormPRSController> _logger;
         private readonly IFormService _formService;
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
         private readonly IWebHostEnvironment _hostingEnvironment;
         public FormPRSController(ILogger<FormPRSController> logger,
-                                      IFormService formService, IWebHostEnvironment hostingEnvironment)
+                                      IFormService formService, IWebHostEnvironment hostingEnvironment,IAccountService accountService)
         {
             _logger = logger;
             _formService = formService;
             _hostingEnvironment = hostingEnvironment;
+            _accountService = accountService;
         }
-        public IActionResult Index()
+        public IActionResult Index(IndexListFormModel indexmodel)
         {
             string user_id = HttpContext.Session.GetString("uid").ToString();
             indexmodel.ListForm= _formService.GetnamePRS(user_id);
             return View(indexmodel);
 
         }
-        public IActionResult form()
+        public IActionResult form(int id_tor,FormPRSModel Createview)
         {
             //----Add Form Page
             if(id_tor==0)
             {
-                List<ProductDataModel> productDatas = new List<ProductDataModel>();
-                List<SubjectDataModel> subjectDatas = new List<SubjectDataModel>();
-                Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
-                Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
-                if(Createview.Productdata.Count==0)
-                {
-                    productDatas.Add(new ProductDataModel {
-                        Id_Product = 0
-                        ,
-                        NameProduct = ""
-                        ,
-                        Unit = ""
-                        ,
-                        AmtProduct = 0
-                        ,
-                        Price_Per_Piece = 0
-                        ,
-                        status="Open"
-                    }) ;
-                    Createview.Productdata = productDatas;
-                }
-                if(Createview.Subjectdata.Count==0)
-                {
-                    subjectDatas.Add(new SubjectDataModel
-                    {
-                        Id_Subject = 0
-                        ,
-                        Subject=""
-                        ,
-                        status="Open"
-                    });
-                    Createview.Subjectdata = subjectDatas;
-                }
-                
-
-                
 
             }
             //----Edit Form Page
@@ -100,12 +65,14 @@ namespace PRS_System.Controllers
             return View(Createview);
         }
         [HttpPost]
-        public async Task<IActionResult>  AddDataProcurement(CreateFormModel Procurement)
+        public async Task<IActionResult>  AddDataProcurement(FormPRSModel Procurement)
         {
             try
             {
-                //if (ModelState.IsValid)
-                //{
+                Console.WriteLine("Check"+ Procurement.id_tor);
+                //------Add New form to database
+                if (Procurement.id_tor == 0)
+                {
                     string uniquefile = null;
                     string filepath = null;
                     if (Procurement.FilePDF != null)
@@ -120,9 +87,9 @@ namespace PRS_System.Controllers
                     }
                     Procurement.User_ID = HttpContext.Session.GetString("USER_ID").ToString();
                     Console.WriteLine("Check");
-                //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
-                _formService.AddFormDetailData(Procurement.FormDataDetail());
-                int id_tor = _formService.GetMaximumID_TOR();
+                    //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
+                    _formService.AddFormDetailData(Procurement.FormDataDetail());
+                    Procurement.id_tor = _formService.GetMaximumID_TOR();
                     //--------------------------------
                     _formService.AddProductData(Procurement.Productdata, Procurement.id_tor);
                     _formService.AddSubjectData(Procurement.Subjectdata, Procurement.id_tor);
@@ -132,37 +99,9 @@ namespace PRS_System.Controllers
                 //----Edit Form to Database
                 else if(Procurement.id_tor != 0)
                 {
-                    // Delete Product กับ Subject ที่ต้องการจะลบ
-                    string[] listdelete_idProduct = Procurement.IndexProDelete.Split(",");
-                    for (int i = 0; i < listdelete_idProduct.Length; i++)
+                    for(int i=0;i<=Procurement.Productdata.Count;i++)
                     {
-                        int id_productdelete = int.Parse(listdelete_idProduct[i]);
-                        if(id_productdelete!=0)
-                        {
-                            _formService.DeleteFormProductData(id_productdelete);
-                        }
-                        
-                    }
-                    string[] listdelete_idSubject = Procurement.IndexSubdelete.Split(",");
-                    for (int i = 0; i < listdelete_idSubject.Length; i++)
-                    {
-                        int id_productdelete = int.Parse(listdelete_idSubject[i]);
-                        if (id_productdelete != 0)
-                        {
-                            _formService.DeleteFormSubjectData(id_productdelete);
-                        }
-
-                    }
-                    //-----------------------------------------
-                    for (int i=0;i<=Procurement.Productdata.Count;i++)
-                    {
-                        if(Procurement.Productdata[i].Id_Product!=0)
-                        {
-                            
-                        }
-                        
-                        
-                        
+                        string[]  listdelete_idProduct = Procurement.IndexDelete.Split(",");
 
                     }
                 }
@@ -178,7 +117,7 @@ namespace PRS_System.Controllers
                 //                                             select error.ErrorMessage).ToList());
                 //    return Json(new { status = "error", detail = errorList, errorMessage = "Add fail" });
                 //}
-               
+
             }
             catch(Exception ex)
             {
@@ -190,7 +129,7 @@ namespace PRS_System.Controllers
 
            
         }
-        public IActionResult AddDataSuppies(CreateFormModel Suppies)
+        public IActionResult AddDataSuppies(FormPRSModel Suppies)
         {
             return View();
         }

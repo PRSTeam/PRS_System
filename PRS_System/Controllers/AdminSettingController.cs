@@ -11,8 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using PRS_System.Models.Information;
 
 namespace PRS_System.Controllers
 {
@@ -22,31 +20,24 @@ namespace PRS_System.Controllers
         private readonly ILogger<AdminSettingController> _logger;
         private readonly IAccountService _accountService;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly IInformationService _informationService;
-
         public AdminSettingController(ILogger<AdminSettingController> logger, 
                                       IWebHostEnvironment hostEnvironment,
-                                      IAccountService accountService,
-                                      IInformationService informationService)
+                                      IAccountService accountService)
         {
             _logger = logger;
             _hostingEnvironment = hostEnvironment;
             _accountService = accountService;
-            _informationService = informationService;
         }
-
         public IActionResult Showlistuser(ShowListUserModel datauser)
         {
             
             //datauser.userdata = _accountService.GetDataUser(user_id);
             return View();
         }
-
         public IActionResult Addnewuser()
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult Addnewuserdata(AddnewuserdataModel AddnewuserModel)
         {
@@ -124,65 +115,15 @@ namespace PRS_System.Controllers
             }
            
         }
-
         public IActionResult EditUser(string user_id)
         {
             EdituserdataModel datauser = new EdituserdataModel();
             datauser.userdata = _accountService.GetDataUser(user_id);
             return View(datauser);
         }
-
         public IActionResult EditUserdata()
         {
             return View();
-        }
-
-        public IActionResult InformationSetting()
-        {
-            if(HttpContext.Session.GetString("type_person") == "Admin")
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index","formPRS");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> InformationSetting(InfomationModel infor_data)
-        {
-            if (HttpContext.Session.GetString("type_person") == "Admin")
-            {
-                try {
-                    string uniquefile = null;
-                    string filepath = null;
-
-                    if (infor_data.FilePDF != null)
-                    {
-                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
-                        string filename = infor_data.FilePDF.FileName;
-                        string[] fileextension = filename.Split(".");
-                        uniquefile = filename + "." + fileextension[1];
-                        filepath = Path.Combine(uploadfile, uniquefile);
-                        infor_data.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
-                        infor_data.FilePath = uniquefile;
-                    }
-
-                    Console.WriteLine("Check");
-                    _informationService.AddNewsDetailData(infor_data.ToAddNews());
-                    
-                    return Json(new { status = "success", Messege = "Add Complete" });
-                }
-                catch (Exception ex)
-                {
-                    return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new performance testing" });
-                }
-            }
-            else
-            {
-                return RedirectToAction("Index", "formPRS");
-            }
         }
     }
 }
