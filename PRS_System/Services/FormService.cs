@@ -30,7 +30,7 @@ namespace PRS_System.Services
                 command.Connection = connect;
 
                 int maximum = GetMaximumID_TOR() + 1;
-                command.CommandText = @"INSERT INTO PRS_MAIN_TOR (ID_TOR,ID_Room,NAME_TOR,DESC_TOR,DIRECTOR_1,DIRECTOR_2,DIRECTOR_3,AMT_QUTATATION,AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE,NAME_OTHER_DOC,AMT_OTHER_DOC,DOC_FILE,OWNER_ID,TOR_DATE) VALUES(@ID_TOR,@ID_Room,@NAME_TOR,@DESC_TOR,@DIRECTOR_1,@DIRECTOR_2,@DIRECTOR_3,@AMT_QUTATATION,@AMT_STUDENTLIST_PAGE,@AMT_BUGGET_PAGE,@NAME_OTHER_DC,@AMT_OTHER_DOC,@DOC_FILE,@OWNER_ID,@TOR_DATE) ";
+                command.CommandText = @"INSERT INTO PRS_MAIN_TOR (ID_TOR,ID_Room,NAME_TOR,DESC_TOR,DIRECTOR_1,DIRECTOR_2,DIRECTOR_3,AMT_QUTATATION,@AMT_SCOP_PAGE,AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE,NAME_OTHER_DOC,AMT_OTHER_DOC,DOC_FILE,OWNER_ID,TOR_DATE) VALUES(@ID_TOR,@ID_Room,@NAME_TOR,@DESC_TOR,@DIRECTOR_1,@DIRECTOR_2,@DIRECTOR_3,@AMT_QUTATATION,@AMT_STUDENTLIST_PAGE,@AMT_BUGGET_PAGE,@NAME_OTHER_DC,@AMT_OTHER_DOC,@DOC_FILE,@OWNER_ID,@TOR_DATE) ";
 
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)maximum ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_Room", (object)formdetaildata.idRoom ?? DBNull.Value));
@@ -39,7 +39,8 @@ namespace PRS_System.Services
                 command.Parameters.Add(new SqlParameter("@DIRECTOR_1", (object)formdetaildata.diractor_1 ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DIRECTOR_2", (object)formdetaildata.diractor_2 ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DIRECTOR_3", (object)formdetaildata.diractor_3 ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@AMT_QUTATATION", (object)formdetaildata.scopeWork ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_QUTATATION", (object)formdetaildata.quotationNum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_SCOP_PAGE", (object)formdetaildata.scopeWork ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@AMT_STUDENTLIST_PAGE", (object)formdetaildata.docNum ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@AMT_BUGGET_PAGE", (object)formdetaildata.budgetDoc ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@NAME_OTHER_DC", (object)formdetaildata.otherSupport ?? DBNull.Value));
@@ -416,10 +417,43 @@ namespace PRS_System.Services
             
         }
 
-        public void EditFormDetailData(FormPRSDataModel formdetaildata)
+        public void EditFormDetailData(FormPRSDataModel formdetaildata,int id_tor)
         {
 
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+               
+                command.CommandText = @"UPDATE PRS_MAIN_TOR SET ID_TOR=@ID_TOR,ID_Room=@ID_Room,NAME_TOR=@NAME_TOR,DESC_TOR=@DESC_TOR,DIRECTOR_1=@DIRECTOR_1,DIRECTOR_2=@DIRECTOR_2,DIRECTOR_3=@DIRECTOR_3,AMT_QUTATATION=@AMT_QUTATATION,AMT_SCOP_PAGE=@AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE=@AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE=@AMT_BUGGET_PAGE,NAME_OTHER_DOC=@NAME_OTHER_DOC,AMT_OTHER_DOC=@AMT_OTHER_DOC,DOC_FILE=@DOC_FILE,OWNER_ID=@OWNER_ID,TOR_DATE=@TOR_DATE WHERE ID_TOR=@ID_TOR";
+
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_Room", (object)formdetaildata.idRoom ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@NAME_TOR", (object)formdetaildata.nameProcument ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DESC_TOR", (object)formdetaildata.description_1 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DIRECTOR_1", (object)formdetaildata.diractor_1 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DIRECTOR_2", (object)formdetaildata.diractor_2 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DIRECTOR_3", (object)formdetaildata.diractor_3 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_QUTATATION", (object)formdetaildata.quotationNum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_SCOP_PAGE", (object)formdetaildata.scopeWork ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_STUDENTLIST_PAGE", (object)formdetaildata.docNum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_BUGGET_PAGE", (object)formdetaildata.budgetDoc ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@NAME_OTHER_DOC", (object)formdetaildata.otherSupport ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@AMT_OTHER_DOC", (object)formdetaildata.otherSupport_num ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DOC_FILE", (object)formdetaildata.FilePath ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@OWNER_ID", (object)formdetaildata.User_ID ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@TOR_DATE", DateTime.Now.ToString("yyyy-MM-dd ", new CultureInfo("en-US"))));
+                command.ExecuteNonQuery();
+
+                connect.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void EditFormProductlData(ProductDataModel formdetaildata)
@@ -453,34 +487,75 @@ SET NAME_PRODUCT = @NAMEPRODUCT ,AMT_PRODUCT=@AMT_PRODUCT,UNIT_PRODUCT=@UNT_PROD
 
         }
 
-        public void EditFormSubjectData(List<SubjectDataModel> formdetaildata, int subject)
+        public void EditFormSubjectData(SubjectDataModel formdetaildata)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+                command.CommandText = @"UPDATE PRS_TOR_SUBJECT 
+SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT 
+                                            WHERE ID_PRODUCT_LIST=@IDSUBJECT";
+
+                command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)formdetaildata.Id_Subject ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@SUBJECT", (object)formdetaildata.Subject ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void DeleteFormProductData(int ID_Product)
         {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"DELETE FROM PRS_TOR_PRODUCT_LIST WHERE ID_PRODUCT_LIST=@ID_Product;";
+                command.Parameters.Add(new SqlParameter("@ID_Product", (object)ID_Product ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
 
-            SqlConnection connect = new SqlConnection(_connectionString);
-            SqlCommand command = new SqlCommand();
-            connect.Open();
-            command.Connection = connect;
-            command.CommandText = @"DELETE FROM PRS_TOR_PRODUCT_LIST WHERE ID_PRODUCT_LIST=@ID_Product;";
-            command.Parameters.Add(new SqlParameter("@ID_Product", (object)ID_Product ?? DBNull.Value));
-            command.ExecuteNonQuery();
-            connect.Close();
-            throw new NotImplementedException();
+            
+           
         }
 
         public void DeleteFormSubjectData(int ID_Subject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"DELETE FROM PRS_TOR_SUBJECT WHERE ID_SUBJECT_LIST=@ID_Subject;";
+                command.Parameters.Add(new SqlParameter("@ID_Subject", (object)ID_Subject ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void EditFormSubjectData(SubjectDataModel formdetaildata, int id_subject)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void UpdateAddProductData(ProductDataModel formdetaildata, int id_tor)
         {
@@ -511,10 +586,31 @@ SET NAME_PRODUCT = @NAMEPRODUCT ,AMT_PRODUCT=@AMT_PRODUCT,UNIT_PRODUCT=@UNT_PROD
 
         }
 
-        public void UpdateAddSubjectData(SubjectDataModel formdetaildata, int ID_TOR)
+        public void UpdateAddSubjectData(SubjectDataModel formdetaildata, int id_tor)
         {
 
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                int maximum = GetMaximumID_SUBJECT_LIST();
+                command.CommandText = @"Insert Into PRS_TOR_SUBJECT(ID_SUBJECT_LIST,ID_TOR,SUBJECT) 
+                                            VALUES(@IDSUBJECT,@IDTOR,@SUBJECT)";
+                command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)(maximum + 1) ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@SUBJECT", (object)formdetaildata.Subject ?? DBNull.Value));
+                
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

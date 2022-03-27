@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="~/css/font-awesome.css">
     <link rel="stylesheet" href="~/css/ui_form.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -39,7 +42,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" class="w3-container w3-card-4 w3-light-grey">
+                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;"  class="w3-container w3-card-4 w3-light-grey ">
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
                                 <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
@@ -341,9 +344,9 @@
 </body>
 
 </html>
-<script src="js/vendor/jquery-1.10.2.min.js"></script>
-<script src="js/min/plugins.min.js"></script>
-<script src="js/min/main.min.js"></script>
+<script src="~/js/vendor/jquery-1.10.2.min.js"></script>
+<script src="~/js/min/plugins.min.js"></script>
+<script src="~/js/min/main.min.js"></script>
 <script>
     @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count  : 1;}
      @{int countsubject2 = Model.Subjectdata != null ? Model.Subjectdata.Count  : 1;}
@@ -581,10 +584,11 @@
 </script>
 @section Scripts{
     <script>
-    function AJAXSubmit(oFormElement) {
+        async  function AJAXSubmit(oFormElement) {
             try {
                 var form = document.getElementById("createform");
                 const url = "@Url.Action("AddDataProcurement", "FormPRS")";
+                console.log(url);
                 const formData = new FormData(form);
                 $.ajax({
                     type: "POST",
