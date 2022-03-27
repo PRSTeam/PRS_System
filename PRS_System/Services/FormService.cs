@@ -52,14 +52,14 @@ namespace PRS_System.Services
 
                 connect.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
         }
 
-        public void AddSubjectData(List<SubjectDataModel> formdetaildata,int id_tor)
+        public void AddSubjectData(List<SubjectDataModel> formdetaildata, int id_tor)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace PRS_System.Services
             }
         }
 
-        public void AddProductData(List<ProductDataModel> formdetaildata,int id_tor)
+        public void AddProductData(List<ProductDataModel> formdetaildata, int id_tor)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace PRS_System.Services
                     int maximum = GetMaximumID_PRODUCT_LIST();
                     command.CommandText = @"Insert Into PRS_TOR_PRODUCT_LIST(ID_PRODUCT_LIST,ID_TOR,NAME_PRODUCT,AMT_PRODUCT,UNIT_PRODUCT,PRICE_PER_PIECE) 
                                             VALUES(@IDPRODUCT,@IDTOR,@NAMEPRODUCT,@AMT_PRODUCT,@UNT_PRODUCT,@PRICE_PER_PIECE)";
-                    command.Parameters.Add(new SqlParameter("@IDPRODUCT", (object)(maximum+1) ?? DBNull.Value));
+                    command.Parameters.Add(new SqlParameter("@IDPRODUCT", (object)(maximum + 1) ?? DBNull.Value));
                     command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
                     command.Parameters.Add(new SqlParameter("@NAMEPRODUCT", (object)item.NameProduct ?? DBNull.Value));
                     command.Parameters.Add(new SqlParameter("@AMT_PRODUCT", (object)item.AmtProduct ?? DBNull.Value));
@@ -108,7 +108,7 @@ namespace PRS_System.Services
                     connect.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -172,7 +172,7 @@ namespace PRS_System.Services
             {
                 throw ex;
             }
-            
+
         }
 
         public int GetMaximumID_COM()
@@ -203,7 +203,7 @@ namespace PRS_System.Services
             {
                 throw ex;
             }
-            
+
         }
 
         public int GetMaximumID_ASSIST()
@@ -234,7 +234,7 @@ namespace PRS_System.Services
             {
                 throw ex;
             }
-            
+
         }
 
         public int GetMaximumID_SUBJECT_LIST()
@@ -265,7 +265,7 @@ namespace PRS_System.Services
             {
                 throw ex;
             }
-           
+
         }
 
         public FormPRSModel GetValuesFormPRS(int id_tor)
@@ -281,11 +281,11 @@ namespace PRS_System.Services
                 command.Parameters.Add(new SqlParameter("id_tor", (object)id_tor ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
-                while(reader.Read())
+                while (reader.Read())
                 {
                     model.idRoom = reader["ID_ROOM"] != DBNull.Value ? (string)reader["ID_ROOM"] : "";
-                    model.nameProcument= reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : "";
-                    model.description_1= reader["DESC_TOR"] != DBNull.Value ? (string)reader["DESC_TOR"] : "";
+                    model.nameProcument = reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : "";
+                    model.description_1 = reader["DESC_TOR"] != DBNull.Value ? (string)reader["DESC_TOR"] : "";
                     model.diractor_1 = reader["DIRECTOR_1"] != DBNull.Value ? (string)reader["DIRECTOR_1"] : "";
                     model.diractor_2 = reader["DIRECTOR_2"] != DBNull.Value ? (string)reader["DIRECTOR_2"] : "";
                     model.diractor_3 = reader["DIRECTOR_3"] != DBNull.Value ? (string)reader["DIRECTOR_3"] : "";
@@ -296,12 +296,12 @@ namespace PRS_System.Services
                     model.otherSupport_num = reader["AMT_OTHER_DOC"] != DBNull.Value ? (int)reader["AMT_OTHER_DOC"] : 0;
                     model.FilePath = reader["DOC_FILE"] != DBNull.Value ? (string)reader["DOC_FILE"] : "";
                     model.status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : "";
-                    model.User_ID = reader["OWNER_ID"] != DBNull.Value ? (string)reader["OWNER_ID"] : "";                  
+                    model.User_ID = reader["OWNER_ID"] != DBNull.Value ? (string)reader["OWNER_ID"] : "";
                 }
                 con.Close();
                 return model;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -324,7 +324,7 @@ namespace PRS_System.Services
                 {
                     model.Add(new ProductDataModel
                     {
-                        Id_Product= reader["ID_PRODUCT_LIST"] != DBNull.Value ? (int)reader["ID_PRODUCT_LIST"] : 0
+                        Id_Product = reader["ID_PRODUCT_LIST"] != DBNull.Value ? (int)reader["ID_PRODUCT_LIST"] : 0
                         ,
                         NameProduct = reader["NAME_PRODUCT"] != DBNull.Value ? (string)reader["NAME_PRODUCT"] : ""
                         ,
@@ -335,7 +335,7 @@ namespace PRS_System.Services
                         Price_Per_Piece = reader["PRICE_PER_PIECE"] != DBNull.Value ? (double)reader["PRICE_PER_PIECE"] : 0
                         ,
                         status = "Open"
-                    }) ;
+                    });
                 }
                 con.Close();
                 return model;
@@ -363,7 +363,7 @@ namespace PRS_System.Services
                 {
                     model.Add(new SubjectDataModel
                     {
-                        Subject= reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
+                        Subject = reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
                         ,
                         status = "Open"
                     });
@@ -381,7 +381,7 @@ namespace PRS_System.Services
         {
             try
             {
-               List<FormPRSDataModel> model = new List<FormPRSDataModel>();
+                List<FormPRSDataModel> model = new List<FormPRSDataModel>();
                 SqlConnection con = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
                 con.Open();
@@ -392,7 +392,7 @@ namespace PRS_System.Services
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    
+
                     model.Add(new FormPRSDataModel()
                     {
                         id_tor = reader["ID_TOR"] != DBNull.Value ? (int)reader["ID_TOR"] : 0
@@ -402,22 +402,22 @@ namespace PRS_System.Services
                         Status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : ""
                         ,
                         Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
-                    }) ;
-                   
-                    
+                    });
+
+
                 }
                 con.Close();
                 return model;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-            
+
+
         }
 
-        public void EditFormDetailData(FormPRSDataModel formdetaildata,int id_tor)
+        public void EditFormDetailData(FormPRSDataModel formdetaildata, int id_tor)
         {
 
             try
@@ -427,7 +427,7 @@ namespace PRS_System.Services
                 connect.Open();
                 command.Connection = connect;
 
-               
+
                 command.CommandText = @"UPDATE PRS_MAIN_TOR SET ID_TOR=@ID_TOR,ID_Room=@ID_Room,NAME_TOR=@NAME_TOR,DESC_TOR=@DESC_TOR,DIRECTOR_1=@DIRECTOR_1,DIRECTOR_2=@DIRECTOR_2,DIRECTOR_3=@DIRECTOR_3,AMT_QUTATATION=@AMT_QUTATATION,AMT_SCOP_PAGE=@AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE=@AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE=@AMT_BUGGET_PAGE,NAME_OTHER_DOC=@NAME_OTHER_DOC,AMT_OTHER_DOC=@AMT_OTHER_DOC,DOC_FILE=@DOC_FILE,OWNER_ID=@OWNER_ID,TOR_DATE=@TOR_DATE WHERE ID_TOR=@ID_TOR";
 
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
@@ -527,13 +527,13 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.ExecuteNonQuery();
                 connect.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
 
-            
-           
+
+
         }
 
         public void DeleteFormSubjectData(int ID_Subject)
@@ -555,7 +555,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
             }
         }
 
-        
+
 
         public void UpdateAddProductData(ProductDataModel formdetaildata, int id_tor)
         {
@@ -602,7 +602,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)(maximum + 1) ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SUBJECT", (object)formdetaildata.Subject ?? DBNull.Value));
-                
+
                 command.ExecuteNonQuery();
                 connect.Close();
 
