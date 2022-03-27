@@ -72,15 +72,15 @@ namespace PRS_System.Services
                 while (reader.Read())
                 {
                     UserDataModel user = new UserDataModel();
-                    user.UserID=reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    user.UserID = reader["TH_NAME"] != DBNull.Value ? reader["TH_NAME"].ToString() : null;
-                    user.UserID = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
-                    user.UserID = reader["THAI_NAME_FULL"] != DBNull.Value ? reader["THAI_NAME_FULL"].ToString() : null;
-                    user.UserID = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
-                    user.UserID = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
-                    user.UserID = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
-                    user.UserID = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
-                    user.UserID = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
+                    user.UserID = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
+                    user.Prefix_NameThai = reader["PRE_NAME"] != DBNull.Value ? reader["PRE_NAME"].ToString() : null;
+                    user.Full_NameThai = reader["FULL_NAME"] != DBNull.Value ? reader["FULL_NAME"].ToString() : null;
+                    user.Operate_Pos = reader["OPERATING_POS"] != DBNull.Value ? reader["OPERATING_POS"].ToString() : null;
+                    user.Manage_Pos = reader["MANAGEMENT_POS"] != DBNull.Value ? reader["MANAGEMENT_POS"].ToString() : null;
+                    user.Email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null;
+                    user.ESignature = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                    user.Category = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
+                    user.Status = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
                     userdata.Add(user);
                 }
                 connect.Close();
@@ -137,11 +137,14 @@ namespace PRS_System.Services
                 while (reader.Read())
                 {
                     userdata.UserID = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
-                    userdata.Prefix_NameThai = reader["TH_NAME"] != DBNull.Value ? reader["TH_NAME"].ToString() : null;
-                    userdata.Prefix_NameEng = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
-                    userdata.Full_NameThai = reader["TH_NAME_FULL"] != DBNull.Value ? reader["TH_NAME_FULL"].ToString() : null;
-                    userdata.Full_NameEng = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
-                    userdata.User_Type = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
+                    userdata.Prefix_NameThai = reader["PRE_NAME"] != DBNull.Value ? reader["PRE_NAME"].ToString() : null;
+                    //userdata.Prefix_NameEng = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
+                    userdata.Full_NameThai = reader["FULL_NAME"] != DBNull.Value ? reader["FULL_NAME"].ToString() : null;
+                    userdata.Operate_Pos = reader["OPERATING_POS"] != DBNull.Value ? reader["OPERATING_POS"].ToString() : null;
+                    userdata.Manage_Pos = reader["MANAGEMENT_POS"] != DBNull.Value ? reader["MANAGEMENT_POS"].ToString() : null;
+                    //userdata.Full_NameEng = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
+                    //userdata.User_Type = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
+                    userdata.Email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null;
                     userdata.ESignature = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
                     userdata.Category = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
                     userdata.Status = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;

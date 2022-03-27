@@ -12,11 +12,11 @@
         {
             if (img.Header == "รูปปก")
             {
-                img_slide += num + "% { background-image: url(../img/information/" + img.FilePath + ")}";
+                img_slide += num + "% { background-image: url(../File/information/" + img.FilePath + ")}";
                 num =+ num + ViewBag.count_img;
                 if (ViewBag.st_pic == null)
                 {
-                    ViewBag.st_pic = "url(../img/information/" + img.FilePath + ")";
+                    ViewBag.st_pic = "url(../File/information/" + img.FilePath + ")";
                 }
 
             }

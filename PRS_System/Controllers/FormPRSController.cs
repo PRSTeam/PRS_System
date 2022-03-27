@@ -28,13 +28,21 @@ namespace PRS_System.Controllers
             _hostingEnvironment = hostingEnvironment;
             _accountService = accountService;
         }
+
         public IActionResult Index(IndexListFormModel indexmodel)
         {
-            string user_id = HttpContext.Session.GetString("uid").ToString();
-            indexmodel.ListForm= _formService.GetnamePRS(user_id);
-            return View(indexmodel);
-
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                string user_id = HttpContext.Session.GetString("uid").ToString();
+                indexmodel.ListForm = _formService.GetnamePRS(user_id);
+                return View(indexmodel);
+            }
         }
+
         public IActionResult form(int id_tor,FormPRSModel Createview)
         {
             //----Add Form Page
@@ -91,8 +99,9 @@ namespace PRS_System.Controllers
             Createview.id_tor = id_tor;
             return View(Createview);
         }
+        
         [HttpPost]
-        public async Task<IActionResult>  AddDataProcurement(FormPRSModel Procurement)
+        public async Task<IActionResult> AddDataProcurement(FormPRSModel Procurement)
         {
             try
             {
@@ -193,22 +202,37 @@ namespace PRS_System.Controllers
 
            
         }
+        
         public IActionResult AddDataSuppies(FormPRSModel Suppies)
         {
             return View();
         }
+        
         public IActionResult AddDataApprover(CreatedResult Approver)
         {
-            return View();
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                // เพิ่มโค้ด
+                return View();
+            }
+            else
+            {
+                //เก็บ Temp ไว้ใช้สำหรับเช็คค่าตอน Login ว่ามาจากการกดลิงค์ใน Email
+                TempData["ApproverData"] = Approver;
+                return RedirectToAction("Index", "Login");
+            }
         }
+        
         public IActionResult Showlistuser()
         {
             return View();
         }
+        
         public IActionResult Addnewuser()
         {
             return View();
         }
+        
         public IActionResult Addnewuserdata()
         {
 

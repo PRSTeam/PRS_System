@@ -124,7 +124,16 @@ namespace PRS_System.Controllers
                 //1=teacher, 2=staff
                 if (HttpContext.Session.GetString("type_person") == "1" || HttpContext.Session.GetString("type_person") == "2")
                 {
-                    return RedirectToAction("Index", "FormPRS");
+                    //ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
+                    if (TempData["ApproverData"] != null)
+                    {
+                        //TempData.Keep("ApproverData");
+                        return RedirectToAction("AddDataApprover", "FormPRS");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "FormPRS");
+                    }
                 }
                 else
                 {

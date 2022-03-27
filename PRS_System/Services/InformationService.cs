@@ -4,6 +4,7 @@ using PRS_System.Models.Information;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace PRS_System.Services
 {
@@ -27,7 +28,7 @@ namespace PRS_System.Services
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
                 command.Connection = connect;
-                command.CommandText = @"SELECT * FROM PRS_INFORMATION";
+                command.CommandText = @"SELECT * FROM PRS_INFORMATION ORDER BY TOPIC, POST_DATE DESC";
                 connect.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -60,7 +61,47 @@ namespace PRS_System.Services
                 command.Parameters.AddWithValue("@header", infdata.Header);
                 command.Parameters.AddWithValue("@desc", infdata.Description);
                 command.Parameters.AddWithValue("@Name", infdata.FilePath);
-                command.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CreateSpecificCulture("en-US")));
+                connect.Open();
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Caught Exception: {0}", e.ToString());
+                throw e;
+            }
+        }
+
+        public void Del_data(string filename)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                command.Connection = connect;
+                command.CommandText = @"DELETE FROM PRS_INFORMATION WHERE FILE_NAME = @Name";
+                command.Parameters.AddWithValue("@Name", filename);
+                connect.Open();
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Caught Exception: {0}", e.ToString());
+                throw e;
+            }
+        }
+
+        public void Add_data(string tabname)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                command.Connection = connect;
+                command.CommandText = @"INSERT INTO PRS_INFORMATION (TOPIC) VALUES(@header)";
+                command.Parameters.AddWithValue("@header", tabname);
                 connect.Open();
                 command.ExecuteNonQuery();
                 connect.Close();

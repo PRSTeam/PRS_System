@@ -28,7 +28,7 @@ namespace PRS_System.Controllers
         {
             string h = null;
             int img_count = 0;
-            foreach (InfomationModel i in _informationService.ShowInformation())
+            foreach (var i in _informationService.ShowInformation())
             {
                 if (i.Header.ToString() != "รูปปก")
                 {

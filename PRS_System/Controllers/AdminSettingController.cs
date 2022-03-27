@@ -16,14 +16,14 @@ using PRS_System.Models.Information;
 
 namespace PRS_System.Controllers
 {
-    
-    public class AdminSettingController : Controller     
+
+    public class AdminSettingController : Controller
     {
         private readonly ILogger<AdminSettingController> _logger;
         private readonly IAccountService _accountService;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IInformationService _informationService;
-        public AdminSettingController(ILogger<AdminSettingController> logger, 
+        public AdminSettingController(ILogger<AdminSettingController> logger,
                                       IWebHostEnvironment hostEnvironment,
                                       IAccountService accountService,
                                       IInformationService informationService)
@@ -35,7 +35,7 @@ namespace PRS_System.Controllers
         }
         public IActionResult Showlistuser(ShowListUserModel datauser)
         {
-            
+
             //datauser.userdata = _accountService.GetDataUser(user_id);
             return View();
         }
@@ -46,10 +46,10 @@ namespace PRS_System.Controllers
         [HttpPost]
         public IActionResult Addnewuserdata(AddnewuserdataModel AddnewuserModel)
         {
-           
+
             try
             {
-                
+
                 if (string.IsNullOrWhiteSpace(AddnewuserModel.Status))
                 {
                     ModelState.AddModelError("Status", "กรุณากดเลือกสถานะผู้ใช้");
@@ -58,7 +58,7 @@ namespace PRS_System.Controllers
                 {
                     ModelState.AddModelError("UserID", "กรุณากรอกUserID");
                 }
-                if(string.IsNullOrWhiteSpace(AddnewuserModel.User_Type))
+                if (string.IsNullOrWhiteSpace(AddnewuserModel.User_Type))
                 {
                     ModelState.AddModelError("User Type", "กรุณากรอกตำแหน่ง");
                 }
@@ -82,12 +82,12 @@ namespace PRS_System.Controllers
                 {
                     ModelState.AddModelError("Category", "กรุณากรอกประเภทผู้ใช้");
                 }
-                
 
-                if(ModelState.IsValid)
+
+                if (ModelState.IsValid)
                 {
                     //-------สร้างรูปภาพ ลายเซ็น
-                    if(AddnewuserModel.ESignature !=null)
+                    if (AddnewuserModel.ESignature != null)
                     {
                         string filesig = AddnewuserModel.ESignature;
                         string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
@@ -97,28 +97,28 @@ namespace PRS_System.Controllers
                         UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(fileName);
                         _accountService.AddNewUser(userdata);
                     }
-                   
+
                     ////-------------------------
                     ////--------แอดข้อมูล User
-                    
+
                     return Json(new { status = "success", Messege = "Add Complete" });
                 }
                 else
                 {
                     string errorList = string.Join("<br/> -------------- <br/> ", (from item in ModelState.Values
-                                                             from error in item.Errors
-                                                             select error.ErrorMessage).ToList());
+                                                                                   from error in item.Errors
+                                                                                   select error.ErrorMessage).ToList());
                     return Json(new { status = "error", detail = errorList, errorMessage = "Add Fail" });
                 }
-               
+
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new User" });
             }
-           
+
         }
 
         public IActionResult EditUser(string user_id)
@@ -135,50 +135,247 @@ namespace PRS_System.Controllers
 
         public IActionResult InformationSetting()
         {
-            if (HttpContext.Session.GetString("type_person") == "Admin")
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                return View();
+                if (HttpContext.Session.GetString("type_person") == "Admin")
+                {
+                    ViewBag.item_pic = null;
+                    string h = null;
+                    int i = 0;
+                    foreach (var item in _informationService.ShowInformation())
+                    {
+                        if (item.Header.ToString() == "รูปปก")
+                        {
+                            i++;
+                            ViewBag.item_pic += "<tr><th>" + i + "</th>";
+                            ViewBag.item_pic += "<td><img src = '../File/Information/" + item.FilePath.ToString() + "' alt = '" + item.FilePath.ToString() + "'></td>";
+                            ViewBag.item_pic += "<td>" + item.Description.ToString() + "</td>";
+                            ViewBag.item_pic += "<td>" + item.Date.ToString() + "</td>";
+                            ViewBag.item_pic += "<td><span class='btn-action'>";
+                            ViewBag.item_pic += "<button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + item.FilePath.ToString() + "'> Delete </a></button>";
+                            ViewBag.item_pic += "</span></td></tr>";
+                        }
+                        else
+                        {
+                            if (h == null)
+                            {
+                                h += item.Header.ToString();
+                            }
+                            else
+                            {
+                                h += "," + item.Header.ToString();
+                            }
+
+                        }
+
+                    }
+
+                    for (int n = i; n < 5; n++)
+                    {
+                        n++;
+                        ViewBag.item_pic += "<tr><th>" + n + "</th>";
+                        ViewBag.item_pic += "<td>-</td>";
+                        ViewBag.item_pic += "<td>-</td>";
+                        ViewBag.item_pic += "<td>-</td>";
+                        ViewBag.item_pic += "<td><span class='btn-action'>";
+                        ViewBag.item_pic += "<button type='button' class='btn btn-upload' onclick='toggle()'> Upload </button>";
+                        ViewBag.item_pic += "</span></td></tr>";
+                    }
+
+                    string[] str = h.Split(",");
+                    IEnumerable<string> result = str.Distinct();
+
+                    string[] data = result.ToArray();
+
+                    ViewBag.tab_header_topic = data;
+
+                    for (int m = 0; m < data.Length; m++)
+                    {
+                        if (m == 0)
+                        {
+                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a></li><input type='text' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' style='display:none;'>";
+                            ViewBag.tab_body = "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
+                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab'>Delete Tab</button></div>";
+                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename'><button>Submit</button></div></div>";
+                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>Add News</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
+                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> Description </th><th style='width:15%'> Date </th><th> Action </th></tr></thead><tbody>";
+
+                            int t = 0;
+                            foreach (var desc in _informationService.ShowInformation())
+                            {
+                                if (desc.Header == data[m])
+                                {
+                                    t++;
+                                    if (desc.FilePath == null && desc.Description == null && desc.Date == null)
+                                    {
+                                        ViewBag.tab_body += "";
+                                    }
+                                    else
+                                    {
+                                        ViewBag.tab_body += "<tr><th>" + t + "</th>";
+                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "'>" + desc.Description.ToString() + "</a></td>";
+                                        ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
+                                        ViewBag.tab_body += "<td><span class='btn-action'><button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + desc.FilePath.ToString() + "'> Delete </a></button></span></td></tr>";
+                                    }
+                                    
+                                }
+                            }
+                            ViewBag.tab_body += "</tbody></table></div></div></div>";
+                        }
+                        else
+                        {
+                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a></li><input type='text' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' style='display:none;'>";
+
+                            ViewBag.tab_body += "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
+                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab'>Delete Tab</button></div>";
+                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename'><button>Submit</button></div></div>";
+                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>Add News</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
+                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> Description </th><th style='width:15%'> Date </th><th> Action </th></tr></thead><tbody>";
+
+                            int t = 0;
+                            foreach (var desc in _informationService.ShowInformation())
+                            {
+                                if (desc.Header == data[m])
+                                {
+                                    t++;
+                                    if (desc.FilePath == null && desc.Description == null && desc.Date == null)
+                                    {
+                                        ViewBag.tab_body += "";
+                                    }
+                                    else
+                                    {
+                                        ViewBag.tab_body += "<tr><th>" + t + "</th>";
+                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "'>" + desc.Description.ToString() + "</a></td>";
+                                        ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
+                                        ViewBag.tab_body += "<td><span class='btn-action'><button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + desc.FilePath.ToString() + "'> Delete </a></button></span></td></tr>";
+                                    }
+                                    
+                                }
+                            }
+                            ViewBag.tab_body += "</tbody></table></div></div></div>";
+                        }
+                    }
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "formPRS");
+                }
             }
             else
             {
-                return RedirectToAction("Index", "formPRS");
+                return RedirectToAction("Index", "Login");
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> InformationSetting(InfomationModel infor_data)
         {
-            if (HttpContext.Session.GetString("type_person") == "Admin")
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                try
+                if (HttpContext.Session.GetString("type_person") == "Admin")
                 {
-                    string uniquefile = null;
-                    string filepath = null;
-
-                    if (infor_data.FilePDF != null)
+                    try
                     {
-                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
-                        string filename = infor_data.FilePDF.FileName;
-                        string[] fileextension = filename.Split(".");
-                        uniquefile = filename + "." + fileextension[1];
-                        filepath = Path.Combine(uploadfile, uniquefile);
-                        infor_data.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
-                        infor_data.FilePath = uniquefile;
+                        string uniquefile = null;
+                        string filepath = null;
+
+                        if (infor_data.FilePic != null)
+                        {
+                            string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
+                            string filename = infor_data.FilePic.FileName;
+                            string[] fileextension = filename.Split(".");
+                            //uniquefile = filename + "." + fileextension[1];
+                            filepath = Path.Combine(uploadfile, filename);
+                            infor_data.FilePic.CopyTo(new FileStream(filepath, FileMode.Create));
+                            infor_data.FilePath = filename;
+                            if (infor_data.Description == null) infor_data.Description = filepath;
+                        }
+                        else if (infor_data.FilePDF != null)
+                        {
+                            string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
+                            string filename = infor_data.FilePDF.FileName;
+                            string[] fileextension = filename.Split(".");
+                            //uniquefile = filename + "." + fileextension[1];
+                            filepath = Path.Combine(uploadfile, filename);
+                            infor_data.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
+                            infor_data.FilePath = filename;
+                        }
+                        else
+                        {
+                            return Json(new { status = "error", detail = "Error", errorMessage = "Have a problem while adding new performance testing" });
+                        }
+
+                        Console.WriteLine("Check");
+                        _informationService.AddNewsDetailData(infor_data.ToAddNews());
+
+                        return RedirectToAction("InformationSetting", "AdminSetting");
+                        //return Json(new { status = "success", Messege = "Add Complete" });
                     }
-
-                    Console.WriteLine("Check");
-                    _informationService.AddNewsDetailData(infor_data.ToAddNews());
-
-                    return Json(new { status = "success", Messege = "Add Complete" });
+                    catch (Exception ex)
+                    {
+                        return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new performance testing" });
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new performance testing" });
+                    return RedirectToAction("Index", "formPRS");
                 }
             }
             else
             {
-                return RedirectToAction("Index", "formPRS");
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteData(string filename)
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                if (HttpContext.Session.GetString("type_person") == "Admin")
+                {
+                    //ลบไฟล์
+                    var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
+                    string[] fileList = System.IO.Directory.GetFiles(rootFolderPath, filename);
+                    foreach (var file in fileList)
+                    {
+                        System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                        System.IO.File.Delete(file);
+                    }
+
+                    _informationService.Del_data(filename);
+                    return RedirectToAction("InformationSetting", "AdminSetting");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "formPRS");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult addTab(InfomationModel data)
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                if (HttpContext.Session.GetString("type_person") == "Admin")
+                {
+                    _informationService.Add_data(data.tabname);
+                    return RedirectToAction("InformationSetting", "AdminSetting");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "formPRS");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
             }
         }
     }
