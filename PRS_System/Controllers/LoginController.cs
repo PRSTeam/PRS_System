@@ -45,17 +45,28 @@ namespace PRS_System.Controllers
             {
                 if (data.Username == "Admin" && data.Password == "1234")
                 {
-                    var result_chk = _accountService.CheckLogin(data.Username);
+                    try
+                    {
+                        var result_chk = _accountService.CheckLogin(data.Username);
 
-                    HttpContext.Session.SetString("AccessToken", "1234567890");
-                    HttpContext.Session.SetString("uid", result_chk.UserID);
-                    HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
-                    HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
-                    HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
-                    HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
-                    HttpContext.Session.SetString("position", result_chk.User_Type);
-                    HttpContext.Session.SetString("type_person", result_chk.Category);
+                        HttpContext.Session.SetString("AccessToken", "1234567890");
+                        HttpContext.Session.SetString("uid", result_chk.UserID);
+                        HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
+                        HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
+                        HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
+                        HttpContext.Session.SetString("mail", result_chk.Email);
+                        HttpContext.Session.SetString("type_person", result_chk.Category);
 
+                        //HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
+                        //HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
+                        //HttpContext.Session.SetString("position", result_chk.User_Type);
+
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "เกิดข้อผิดพลาด" });
+                    }
                     return Json(new { status = "success" });
                     //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
                 }
@@ -98,28 +109,50 @@ namespace PRS_System.Controllers
                 HttpContext.Session.SetString("AccessToken", AuthModel.AccessToken);
 
                 var userinfoResponse = JsonConvert.DeserializeObject<OAuth2TestTool.MVC.Models.UserInfoResponseModel>(AuthModel.UserInfo);
-                HttpContext.Session.SetString("thainame", userinfoResponse.thainame);
-                HttpContext.Session.SetString("first_name", userinfoResponse.first_name);
-                HttpContext.Session.SetString("last_name", userinfoResponse.last_name);
-                HttpContext.Session.SetString("cn", userinfoResponse.cn);
-                HttpContext.Session.SetString("givenname", userinfoResponse.givenname);
-                HttpContext.Session.SetString("surname", userinfoResponse.surname);
-                HttpContext.Session.SetString("thaiprename", userinfoResponse.thaiprename);
-                HttpContext.Session.SetString("jobtype", userinfoResponse.jobtype);
-                HttpContext.Session.SetString("type_person", userinfoResponse.type_person);
-                HttpContext.Session.SetString("position", userinfoResponse.position);
-                HttpContext.Session.SetString("position_id", userinfoResponse.position_id);
-                HttpContext.Session.SetString("campus", userinfoResponse.campus);
-                HttpContext.Session.SetString("faculty", userinfoResponse.faculty);
-                HttpContext.Session.SetString("faculty_id", userinfoResponse.faculty_id);
-                HttpContext.Session.SetString("department", userinfoResponse.department);
-                HttpContext.Session.SetString("department_id", userinfoResponse.department_id);
-                HttpContext.Session.SetString("advisor_id", userinfoResponse.advisor_id);
-                HttpContext.Session.SetString("mail", userinfoResponse.mail);
-                HttpContext.Session.SetString("google_mail", userinfoResponse.google_mail);
-                HttpContext.Session.SetString("office365_mail", userinfoResponse.office365_mail);
-                HttpContext.Session.SetString("userprincipalname", userinfoResponse.userprincipalname);
-                HttpContext.Session.SetString("uid", userinfoResponse.uid);
+                //ชื่อเต็มภาษาไทย
+                HttpContext.Session.SetString("thainame", userinfoResponse.thainame); //มหาราช ทศศะ
+                //ชื่อต้นภาษาไทย
+                HttpContext.Session.SetString("first_name", userinfoResponse.first_name); //มหาราช
+                //นามสกุลภาษาไทย
+                HttpContext.Session.SetString("last_name", userinfoResponse.last_name); //ทศศะ
+                //ชื่อเต็มภาษาอังกฤษ
+                HttpContext.Session.SetString("cn", userinfoResponse.cn); //maharat tossa
+                //ชื่อต้นภาษาอังกฤษ
+                HttpContext.Session.SetString("givenname", userinfoResponse.givenname); //maharat
+                //นามสกุลภาษาอังกฤษ
+                HttpContext.Session.SetString("surname", userinfoResponse.surname); //tossa
+                //คำนำหน้าชื่อ
+                HttpContext.Session.SetString("thaiprename", userinfoResponse.thaiprename); //นาย
+                //ลักษณะงานตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("jobtype", userinfoResponse.jobtype); //ข้าราชการ สาย ก.
+                //ประเภทบุคคลตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("type_person", userinfoResponse.type_person); //ประเภทบุคคล: 1=teacher,2=staff,3=student ,4=alumni,5=guest,6=emailfac,7=kol,8=nondegree
+                //ตำแหน่งตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("position", userinfoResponse.position); //ตำแหน่ง เช่น นักวิชาการคอมพิวเตอร์, อาจารย์
+                //รหัสตำแหน่งตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("position_id", userinfoResponse.position_id); //รหัสตำแหน่ง: 001-004 = Teacher (!(001-004)) = Staff
+                //วิทยาเขตสังกัด
+                HttpContext.Session.SetString("campus", userinfoResponse.campus); //B=วิทยาเขตบางเขน, K = วิทยาเขตกำแพงแสน, C = วิทยาเขตสกลนคร, S = วิทยาเขตศรีราชา
+                //ชื่อคณะสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("faculty", userinfoResponse.faculty); //สำนักบริการคอมพิวเตอร์
+                //รหัสคณะสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("faculty_id", userinfoResponse.faculty_id); //B20
+                //ชื่อภาควิชาสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("department", userinfoResponse.department); //ฝ่ายระบบคอมพิวเตอร์และเครือข่าย
+                //รหัสภาควิชาสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("department_id", userinfoResponse.department_id); //B20xx
+                //รหัสอาจารย์ (เฉพาะอาจารย์)
+                HttpContext.Session.SetString("advisor_id", userinfoResponse.advisor_id); //รหัสอาจารย์ เช่น D4021
+                //KU Mail รวม alias ทั้งหมด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("mail", userinfoResponse.mail); //อีเมล cpcmrt@ku.ac.th, maharat.t@ku.ac.th
+                //Google Mail
+                HttpContext.Session.SetString("google_mail", userinfoResponse.google_mail); //อีเมล KU-Google เช่น maharat.t@ku.th
+                //MS Live Mail
+                HttpContext.Session.SetString("office365_mail", userinfoResponse.office365_mail); //อีเมล KU-Office เช่น maharat.t@live.ku.th
+                //Login ID format ใหม่
+                HttpContext.Session.SetString("userprincipalname", userinfoResponse.userprincipalname); //maharat.t
+                //Login ID format เดิม (อายุชั่วคราว 3 ปี)
+                HttpContext.Session.SetString("uid", userinfoResponse.uid); //cpcmrt
 
                 //1=teacher, 2=staff
                 if (HttpContext.Session.GetString("type_person") == "1" || HttpContext.Session.GetString("type_person") == "2")
