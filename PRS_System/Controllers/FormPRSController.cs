@@ -206,6 +206,7 @@ namespace PRS_System.Controllers
 
         public IActionResult AddDataSuppies(FormPRSModel Suppies)
         {
+
             return View();
         }
         

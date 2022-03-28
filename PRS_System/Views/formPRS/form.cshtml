@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;"  class="w3-container w3-card-4 w3-light-grey ">
+                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;" class="w3-container w3-card-4 w3-light-grey ">
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
                                 <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
@@ -54,14 +54,14 @@
                                 <input class="w3-input w3-border w3-round" type="text" asp-for="nameProcument" placeholder="Ex.ขอให้จัดซื้ออุปกรณ์" size="50" required>
 
                                 <p>คำอธิบายและเหตุผลถึงการจัดซื้อหรือจ้าง</p>
-                                <textarea class="w3-input w3-border w3-round"  asp-for="description_1" cols="50" rows="6"
+                                <textarea class="w3-input w3-border w3-round" asp-for="description_1" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea>
                             </fieldset>
                             <hr>
                             <fieldset class="col-md-4 col-sm-8">
                                 <b>เหตุผลในการสนับสนุน</b><br><br>
-                                
-                                <input type="checkbox" asp-for="supportType" value="1"   >
+
+                                <input type="checkbox" asp-for="supportType" value="1">
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชา</label>
                                 <br>
 
@@ -162,7 +162,7 @@
                             <hr>
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายการเอกสารแนบการพิจารณา</b><br>
-                                
+
                                 <input id="checkbox1" type="checkbox" value="@(Model.quotationNum != 0 ?  "true":" false" )">
                                 <label>ใบเสนอราคา จำนวน</label>
                                 <input type="number" asp-for="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
@@ -214,7 +214,9 @@
 
                             </fieldset>
                             <!-- form_ผู้จัดซื้อ -->
+                        </form>
                             <!-- form_ฝ่ายพัสดุ -->
+                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post">
                             <div class="page-section" id="form">
                                 <div class="row">
                                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
@@ -270,9 +272,12 @@
                                 {
                                     <button id="Editbutton" class="button button4" type="submit">แก้ไขเอกสาร</button>
                                 }
-
-
                             </fieldset>
+                        </form>
+                            
+
+
+                            
                             <!-- form_ฝ่ายพัสดุ -->
                             <!-- form_ฝ่ายอนุมัติ -->
                             <div class="page-section" id="form">
@@ -328,7 +333,7 @@
                             </fieldset>
                             <!-- form_ฝ่ายอนุมัติ -->
 
-                        </form>
+                        
                     </div> <!-- .contact-form -->
                 </div>
                 <hr>
