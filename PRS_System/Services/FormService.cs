@@ -363,10 +363,12 @@ namespace PRS_System.Services
                 {
                     model.Add(new SubjectDataModel
                     {
-                        Subject= reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
+                        Id_Subject = reader["ID_SUBJECT_LIST"] != DBNull.Value ? (int)reader["ID_SUBJECT_LIST"] : 0
+                        ,
+                        Subject = reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
                         ,
                         status = "Open"
-                    });
+                    }) ;
                 }
                 con.Close();
                 return model;
@@ -499,7 +501,7 @@ SET NAME_PRODUCT = @NAMEPRODUCT ,AMT_PRODUCT=@AMT_PRODUCT,UNIT_PRODUCT=@UNT_PROD
 
                 command.CommandText = @"UPDATE PRS_TOR_SUBJECT 
 SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT 
-                                            WHERE ID_PRODUCT_LIST=@IDSUBJECT";
+                                            WHERE ID_SUBJECT_LIST=@IDSUBJECT";
 
                 command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)formdetaildata.Id_Subject ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SUBJECT", (object)formdetaildata.Subject ?? DBNull.Value));

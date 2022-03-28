@@ -36,6 +36,7 @@ namespace PRS_System.Models.FormModel
         public string diractor_3 { get; set; }
         public string IndexProDelete { get; set; }
         public string IndexSubdelete { get; set; }
+        public string checkboxquotation { get; set; }
         //---------------------------------------
 
         public string definition { get; set; }

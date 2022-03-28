@@ -41,7 +41,7 @@ namespace PRS_System.Controllers
             if(id_tor==0)
             {
                 List<ProductDataModel> productdata = new List<ProductDataModel>();
-                List<SubjectDataModel> subjectdata = new List<SubjectDataModel>();
+                //List<SubjectDataModel> subjectdata = new List<SubjectDataModel>();
                 productdata.Add(new ProductDataModel
                 {
                     Id_Product = 0
@@ -57,17 +57,18 @@ namespace PRS_System.Controllers
                     status="open"
                 }) ;
                 Createview.Productdata = productdata;
-                subjectdata.Add(new SubjectDataModel
-                {
-                    Id_Subject = 0
-                    ,
-                    Subject = ""
-                    ,
-                    status="Open"
-                }) ;
-                Createview.Subjectdata = subjectdata;
-               
-               
+                //subjectdata.Add(new SubjectDataModel
+                //{
+                //    Id_Subject = 0
+                //    ,
+                //    Subject = ""
+                //    ,
+                //    status="Open"
+                //}) ;
+                //Createview.Subjectdata = subjectdata;
+                Createview.diractor_2 = "";
+                Createview.diractor_3 = "";
+
             }
             //----Edit Form Page
             else if(id_tor!=0)
@@ -75,6 +76,7 @@ namespace PRS_System.Controllers
                 double sumvalue = 0;
                 double vaxvalue = 0;
                 Createview = _formService.GetValuesFormPRS(id_tor);
+                
                 Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
                 for(int i=0;i<Createview.Productdata.Count;i++)
                 {
