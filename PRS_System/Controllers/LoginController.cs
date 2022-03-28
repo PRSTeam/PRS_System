@@ -163,7 +163,7 @@ namespace PRS_System.Controllers
                     if (TempData["ApproverData"] != null)
                     {
                         //TempData.Keep("ApproverData");
-                        return RedirectToAction("AddDataApprover", "FormPRS");
+                        return RedirectToAction("form", "FormPRS");
                     }
                     else
                     {

@@ -37,59 +37,72 @@ namespace PRS_System.Controllers
         }
         public IActionResult form(int id_tor, FormPRSModel Createview)
         {
-            //----Add Form Page
-            if (id_tor == 0)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                List<ProductDataModel> productdata = new List<ProductDataModel>();
-                List<SubjectDataModel> subjectdata = new List<SubjectDataModel>();
-                productdata.Add(new ProductDataModel
+                // เพิ่มโค้ด
+                if (id_tor == 0)
                 {
-                    Id_Product = 0
-                    ,
-                    AmtProduct = 0
-                    ,
-                    Unit = ""
-                    ,
-                    NameProduct = ""
-                    ,
-                    Price_Per_Piece = 0
-                    ,
-                    status = "open"
-                });
-                Createview.Productdata = productdata;
-                subjectdata.Add(new SubjectDataModel
-                {
-                    Id_Subject = 0
-                    ,
-                    Subject = ""
-                    ,
-                    status = "Open"
-                });
-                Createview.Subjectdata = subjectdata;
+                    List<ProductDataModel> productdata = new List<ProductDataModel>();
+                    //List<SubjectDataModel> subjectdata = new List<SubjectDataModel>();
+                    productdata.Add(new ProductDataModel
+                    {
+                        Id_Product = 0
+                        ,
+                        AmtProduct = 0
+                        ,
+                        Unit = ""
+                        ,
+                        NameProduct = ""
+                        ,
+                        Price_Per_Piece = 0
+                        ,
+                        status = "open"
+                    });
+                    Createview.Productdata = productdata;
+                    //subjectdata.Add(new SubjectDataModel
+                    //{
+                    //    Id_Subject = 0
+                    //    ,
+                    //    Subject = ""
+                    //    ,
+                    //    status="Open"
+                    //}) ;
+                    //Createview.Subjectdata = subjectdata;
+                    Createview.diractor_2 = "";
+                    Createview.diractor_3 = "";
 
-
-            }
-            //----Edit Form Page
-            else if (id_tor != 0)
-            {
-                double sumvalue = 0;
-                double vaxvalue = 0;
-                Createview = _formService.GetValuesFormPRS(id_tor);
-                Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
-                for (int i = 0; i < Createview.Productdata.Count; i++)
-                {
-                    vaxvalue = (0.07) * (sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece));
-                    sumvalue = sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece);
                 }
-                Createview.vaxproduct = Math.Round(vaxvalue, 2);
-                Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
-                Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                //----Edit Form Page
+                else if (id_tor != 0)
+                {
+                    double sumvalue = 0;
+                    double vaxvalue = 0;
+                    Createview = _formService.GetValuesFormPRS(id_tor);
+
+                    Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
+                    for (int i = 0; i < Createview.Productdata.Count; i++)
+                    {
+                        vaxvalue = (0.07) * (sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece));
+                        sumvalue = sumvalue + (Createview.Productdata[i].AmtProduct * Createview.Productdata[i].Price_Per_Piece);
+                    }
+                    Createview.vaxproduct = Math.Round(vaxvalue, 2);
+                    Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
+                    Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                }
+                Console.WriteLine("Check" + id_tor);
+                string user_id = HttpContext.Session.GetString("uid").ToString();
+                Createview.FilePath = _accountService.GetSignature(user_id);
+                Createview.id_tor = id_tor;
+                return View(Createview);
             }
-            Console.WriteLine("Check" + id_tor);
-            string user_id = HttpContext.Session.GetString("uid").ToString();
-            Createview.FilePath = _accountService.GetSignature(user_id);
-            Createview.id_tor = id_tor;
-            return View(Createview);
+            else
+            {
+                //เก็บ Temp ไว้ใช้สำหรับเช็คค่าตอน Login ว่ามาจากการกดลิงค์ใน Email
+                TempData["ApproverData"] = Createview;
+                return RedirectToAction("Index", "Login");
+            }
+            //----Add Form Page
+            
         }
         [HttpPost]
         public async Task<IActionResult> AddDataProcurement(FormPRSModel Procurement)
@@ -204,22 +217,13 @@ namespace PRS_System.Controllers
 
         public IActionResult AddDataSuppies(FormPRSModel Suppies)
         {
+
             return View();
         }
         
         public IActionResult AddDataApprover(CreatedResult Approver)
         {
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
-            {
-                // เพิ่มโค้ด
-                return View();
-            }
-            else
-            {
-                //เก็บ Temp ไว้ใช้สำหรับเช็คค่าตอน Login ว่ามาจากการกดลิงค์ใน Email
-                TempData["ApproverData"] = Approver;
-                return RedirectToAction("Index", "Login");
-            }
+            return View();
         }
         
         public IActionResult Showlistuser()

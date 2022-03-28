@@ -363,10 +363,12 @@ namespace PRS_System.Services
                 {
                     model.Add(new SubjectDataModel
                     {
+                        Id_Subject = reader["ID_SUBJECT_LIST"] != DBNull.Value ? (int)reader["ID_SUBJECT_LIST"] : 0
+                        ,
                         Subject = reader["SUBJECT"] != DBNull.Value ? (string)reader["SUBJECT"] : ""
                         ,
                         status = "Open"
-                    });
+                    }) ;
                 }
                 con.Close();
                 return model;
@@ -499,7 +501,7 @@ SET NAME_PRODUCT = @NAMEPRODUCT ,AMT_PRODUCT=@AMT_PRODUCT,UNIT_PRODUCT=@UNT_PROD
 
                 command.CommandText = @"UPDATE PRS_TOR_SUBJECT 
 SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT 
-                                            WHERE ID_PRODUCT_LIST=@IDSUBJECT";
+                                            WHERE ID_SUBJECT_LIST=@IDSUBJECT";
 
                 command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)formdetaildata.Id_Subject ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SUBJECT", (object)formdetaildata.Subject ?? DBNull.Value));
@@ -603,6 +605,85 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SUBJECT", (object)formdetaildata.Subject ?? DBNull.Value));
 
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AddDataSupplies(FormPRSModel datasupplies , int id_tor)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                int maximum = GetMaximumID_ORDER_DIRACT() + 1;
+                command.CommandText = @"Insert Into PRS_ORDER_DIRACT(ID_ORDER,ID_TOR,ORDER_DIRACT1,ORDER_DIRACT2,DEFINITION_GROUP) 
+                                            VALUES(@IDORDER,@IDTOR,@ORDER_DIRACT1,@ORDER_DIRACT2,@DEFINITION_GROUP)";
+                command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)(maximum + 1) ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ORDER_DIRACT1", (object)datasupplies.name_select1 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ORDER_DIRACT2", (object)datasupplies.name_select2 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ORDER_DIRACT2", (object)datasupplies.definition ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int GetMaximumID_ORDER_DIRACT()
+        {
+            try
+            {
+                /// DECLARE VARIABLE
+                int maximum = 0;
+
+                /// CONNECTION OPEN
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT max(ID_ORDER) MAXIMUM FROM PRS_ODER_DIRACT";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    maximum = reader["MAXIMUM"] != DBNull.Value ? (int)reader["MAXIMUM"] : 0;
+                }
+                reader.Close();
+                con.Close();
+
+                return maximum;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void updatestatusform(string status ,int id_tor)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"update PRS_MAIN_TOR set STATUS=@STATUS WHERE ID_TOR=@ID_TOR)";
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@STATUS", (object)status ?? DBNull.Value));
                 command.ExecuteNonQuery();
                 connect.Close();
 

@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="sweetalert2.all.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 
 <body>
@@ -42,7 +44,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;"  class="w3-container w3-card-4 w3-light-grey ">
+                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;" class="w3-container w3-card-4 w3-light-grey ">
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
                                 <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
@@ -52,12 +54,13 @@
                                 <input class="w3-input w3-border w3-round" type="text" asp-for="nameProcument" placeholder="Ex.ขอให้จัดซื้ออุปกรณ์" size="50" required>
 
                                 <p>คำอธิบายและเหตุผลถึงการจัดซื้อหรือจ้าง</p>
-                                <textarea class="w3-input w3-border w3-round" name="message" asp-for="description_1" cols="50" rows="6"
+                                <textarea class="w3-input w3-border w3-round" asp-for="description_1" cols="50" rows="6"
                                           placeholder="คำอธิบาย"></textarea>
                             </fieldset>
                             <hr>
                             <fieldset class="col-md-4 col-sm-8">
                                 <b>เหตุผลในการสนับสนุน</b><br><br>
+
                                 <input type="checkbox" asp-for="supportType" value="1">
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชา</label>
                                 <br>
@@ -82,9 +85,6 @@
                                                     <button type="button" id="buttonsub@(i)" class="delete" onclick="deletesubjectfield(@i,'Subjectdata[@i].status','Subjectdata[@i].Id_Subject')">Delete</button>
                                                 }
                                             </div>
-
-
-
 
                                         }
 
@@ -162,33 +162,34 @@
                             <hr>
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายการเอกสารแนบการพิจารณา</b><br>
-                                <input id="checkBox" name="" type="checkbox">
+
+                                <input id="checkbox1" type="checkbox" value="@(Model.quotationNum != 0 ?  "true":" false" )">
                                 <label>ใบเสนอราคา จำนวน</label>
                                 <input type="number" asp-for="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
                                 <label>หน้า</label>
                                 <br>
 
-                                <input id="checkBox" name="" type="checkbox">
+                                <input id="checkbox2" name="" type="checkbox" value="@(Model.scopeWork != 0 ?  "true":" false" )">
                                 <label>ขอบเขตของงาน/รายละเอียดคุณลักษณะ</label>
                                 <input type="number" asp-for="scopeWork" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <label>*กรณีจัดซื้อจัดจ้างวงเงินตั้งเเต่ 100,000 บาทขึ้นไป</label>
                                 <br>
 
-                                <input id="checkBox" name="" type="checkbox">
+                                <input id="checkbox3" name="" type="checkbox" value="@(Model.docNum != 0 ? "true":" false")">
                                 <label>เอกสารรายชื่อนิสิตในการลงททะเบียนเรียนรายวิชาโครงงาน/ปัญหาพิเศษ จำนวน</label>
                                 <input type="number" asp-for="docNum" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <br>
 
-                                <input id="checkBox" name="" type="checkbox">
+                                <input id="checkbox4" name="" type="checkbox" value="@(Model.budgetDoc != 0 ? "true":" false")">
                                 <label>เอกสารที่ได้รับอนุมัติงบประมาณ จำนวน</label>
                                 <input type="number" asp-for="budgetDoc" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <label>*กรณีปรับแผนซื้อครุภัณฑ์</label>
                                 <br>
 
-                                <input id="checkBox" name="" type="checkbox">
+                                <input id="checkbox5" name="" type="checkbox" value="@(Model.otherSupport_num !=0  && Model.otherSupport != "" ? "true":" false")">
                                 <label>เอกสารประกอบอื่นๆ(ถ้ามี) ได้แก่</label>
                                 <input type="text" asp-for="otherSupport" placeholder="ชื่อเอกสารอื่นๆ">
                                 <label>จำนวน</label>
@@ -200,20 +201,23 @@
                                 <br><br>
 
                                 <button type="button" class="button button7" id="showimage1" onclick="showimage(1)">เซ็นอนุมัติ</button><img id="signature1" src="~/img/signature/@Model.FilePath" style="display:none" /><br>
-                                <button class="button button2">บันทึกร่างเอกสาร</button>
+                                <input asp-for="buttonstatus" style="display:none" />
+                                <button class="button button2" type="button" value="Sent" onclick="sentstatus('Draft','PRS')">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button button4" type="submit">แก้ไขเอกสาร</button>
+                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS')">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
                             <!-- form_ผู้จัดซื้อ -->
+                        </form>
                             <!-- form_ฝ่ายพัสดุ -->
+                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post">
                             <div class="page-section" id="form">
                                 <div class="row">
                                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
@@ -258,20 +262,23 @@
                                 <input class="w3-input w3-border w3-round" type="text" value="ประธานกรรมการดำเนินงาน" disabled />
                                 <br>
 
-
-                                <button class="button button2">บันทึกร่างเอกสาร</button>
+                                <input asp-for="buttonstatus" style="display:none" />
+                                <input  type="button" class="button button2" value="draft" onclick="sentstatus('Draft','supplies')">บันทึกร่างเอกสาร
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                    <button  class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','supplies')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button button4" type="submit">แก้ไขเอกสาร</button>
+                                    <button  class="button button4" type="submit" onclick="sentstatus('Sent','supplies')">แก้ไขเอกสาร</button>
                                 }
-
-
                             </fieldset>
+                        </form>
+                            
+
+
+                            
                             <!-- form_ฝ่ายพัสดุ -->
                             <!-- form_ฝ่ายอนุมัติ -->
                             <div class="page-section" id="form">
@@ -327,7 +334,7 @@
                             </fieldset>
                             <!-- form_ฝ่ายอนุมัติ -->
 
-                        </form>
+                        
                     </div> <!-- .contact-form -->
                 </div>
                 <hr>
@@ -348,8 +355,21 @@
 <script src="~/js/min/plugins.min.js"></script>
 <script src="~/js/min/main.min.js"></script>
 <script>
+    window.onload = function () {
+        for (var i = 1; i <= 5 ; i++)
+        {
+            var checkbox = document.getElementById("checkbox" + i).value;
+            if (checkbox == "true") {
+
+                document.getElementById("checkbox" + i).checked = true;
+            }
+        }
+        var checkboxquotation = document.getElementById("checkboxquotation").value;
+    };
+</script>
+<script>
     @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count  : 1;}
-     @{int countsubject2 = Model.Subjectdata != null ? Model.Subjectdata.Count  : 1;}
+     @{int countsubject2 = Model.Subjectdata != null ? Model.Subjectdata.Count  : 0;}
     var y = @countproduct2 ;
     var x = @countsubject2;
     var listindexdelete = "";
@@ -361,7 +381,21 @@
         var max_object = 20;
         var object = $(".container2");
         var add_object = $(".add_form_object");
-
+        var id_tor = document.getElementById("id_tor").value;
+        $("#Editsubmit").click(function () {
+            Email.send({
+                Host: "smtp.gmail.com",
+                Username: "chinopas.muangthai@gmail.com",
+                Password: "aukijdfxsurfnmlu",
+                To: 'chinopas.m@ku.th',
+                From: "chinopas.muangthai@gmail.com",
+                Subject: "Test send Email",
+                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304"+"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
+            })
+                .then(function (message) {
+                    alert("mail sent successfully")
+                });
+        });
 
         $(add_button).click(function (e) {
             e.preventDefault();
@@ -369,11 +403,10 @@
                 var text = `<div id="fieldsubject[string]"><input size= 180 type="text" id="Subjectdata[[string]].Subject" name="Subjectdata[[string]].Subject" placeholder="รหัสวิชา" required/>
                                                 <input type="number" id="Subjectdata[[string]].Id_Subject" name="Subjectdata[[string]].Id_Subject" value="0" style="display:none" placeholder="รหัสวิชา" required>
 
-                                                <input type="number" id="Subjectdata[[string]].Id_Subject" name="Subjectdata[string]].Id_Subject" value="0" style="display:none" placeholder="รหัสวิชา" required>
-
                                                 <input type="text" id="Subjectdata[[string]].status" Name="Subjectdata[[string]].status" value="Open" style="display:none" readonly>
 <button type="button" id="buttonsub[string]" class="delete" onclick="deletesubjectfield([string],'Subjectdata[[string]].status','Subjectdata[[string]].Id_Subject')">Delete</button>`;
                 text = text.replaceAll('[string]', x.toString());
+                console.log("Current List X=" + x);
                 x++;
                 $(wrapper).append(text); //add input box
 
@@ -410,7 +443,18 @@
                 }
             });
 
-        });
+    });
+    function sentstatus(value,field) {
+        document.getElementById("buttonstatus").value = value;
+        alert("sent status success")
+        if (field == "PRS") {
+            document.getElementById("createform").submit();
+        }
+        else if (field == "supplies") {
+            document.getElementById("suppliesform").submit();
+        }
+       
+    }
     function deleteproductfield(index, status, Id_Product) {
         var indexdelete = document.getElementById(Id_Product).value;
         listindexdelete = indexdelete + "," + listindexdelete;
@@ -469,21 +513,30 @@
 
         }
     function deletesubjectfield(index, status, id_subject) {
+        console.log("Check Error1");
         var indexdelete = document.getElementById(id_subject).value;
         listsubdelete = indexdelete + "," + listsubdelete;
+        console.log("Check Error2");
         if (listsubdelete.charAt(listsubdelete.length - 1) == ',') {
-            console.log("check At , ")
+            console.log(listsubdelete)
             listsubdelete = listsubdelete.substring(0, listsubdelete.length - 1)
         }
         document.getElementById("IndexSubdelete").value = listsubdelete;
         console.log(listsubdelete)
+        console.log("Check Error3");
+        if (x != 0) {
+            console.log("Check Error4");
             let field_delete = document.getElementById("fieldsubject" + index);
             console.log("fieldsubject" + index);
             document.getElementById(status).value = "Close";
             field_delete.remove();
-            console.log("x=" + x);
+            console.log("Current List X=" + x);
             x--;
+            
+            console.log("New List X=" + x);
+            console.log("Check Error5");
             for (i = index; i < x; i++) {
+                console.log("Check Error6");
                 let nposition = i + 1;
                 console.log("fieldsubject" + (i - 1));
                 let presfield = document.getElementById("fieldsubject" + nposition.toString());
@@ -503,13 +556,22 @@
 
                 let presbutdelete = document.getElementById("buttonsub" + nposition.toString());
                 presbutdelete.setAttribute("id", "buttonsub" + (nposition - 1).toString());
-                presbutdelete.setAttribute("onclick", "deletesubjectfield(" + (nposition - 1).toString() + ",'Subjectdata[" + (nposition - 1).toString() + "].status" + ",'Subjectdata[" + (nposition - 1).toString() + "].Id_Subject'" + ")");
+                presbutdelete.setAttribute("onclick", "deletesubjectfield(" + (nposition - 1).toString() + ",'Subjectdata[" + (nposition - 1).toString() + "].status'" + ",'Subjectdata[" + (nposition - 1).toString() + "].Id_Subject'" + ")");
 
 
             }
-            if (x == 0) {
-                x = 1;
-            }
+        }
+        
+        else if( x== 0)
+        {
+            console.log("Check Error7");
+            let field_delete = document.getElementById("fieldsubject" + index);
+            console.log("fieldsubject" + index);
+            document.getElementById(status).value = "Close";
+            field_delete.remove();
+        }
+            
+            
         }
 
 

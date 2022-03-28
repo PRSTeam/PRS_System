@@ -32,5 +32,10 @@ namespace PRS_System.IServices
         public void DeleteFormProductData(int ID_Product);
 
         public void DeleteFormSubjectData(int ID_Subject);
+
+        public void AddDataSupplies(FormPRSModel datasupplies ,int id_tor);
+        public int GetMaximumID_ORDER_DIRACT();
+
+        public void updatestatusform(string status);
     }
 }
