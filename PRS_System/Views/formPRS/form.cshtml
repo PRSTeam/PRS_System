@@ -201,15 +201,16 @@
                                 <br><br>
 
                                 <button type="button" class="button button7" id="showimage1" onclick="showimage(1)">เซ็นอนุมัติ</button><img id="signature1" src="~/img/signature/@Model.FilePath" style="display:none" /><br>
-                                <button class="button button2">บันทึกร่างเอกสาร</button>
+                                <input asp-for="buttonstatus" style="display:none" />
+                                <button class="button button2" type="button" value="Sent" onclick="sentstatus('Draft','PRS')">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button id="Editsubmit" class="button button4" type="submit">แก้ไขเอกสาร</button>
+                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS')">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
@@ -261,16 +262,16 @@
                                 <input class="w3-input w3-border w3-round" type="text" value="ประธานกรรมการดำเนินงาน" disabled />
                                 <br>
 
-
-                                <button class="button button2">บันทึกร่างเอกสาร</button>
+                                <input asp-for="buttonstatus" style="display:none" />
+                                <input  type="button" class="button button2" value="draft" onclick="sentstatus('Draft','supplies')">บันทึกร่างเอกสาร
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit">ส่งเอกสาร</button>
+                                    <button  class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','supplies')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button id="Editbutton" class="button button4" type="submit">แก้ไขเอกสาร</button>
+                                    <button  class="button button4" type="submit" onclick="sentstatus('Sent','supplies')">แก้ไขเอกสาร</button>
                                 }
                             </fieldset>
                         </form>
@@ -442,7 +443,18 @@
                 }
             });
 
-        });
+    });
+    function sentstatus(value,field) {
+        document.getElementById("buttonstatus").value = value;
+        alert("sent status success")
+        if (field == "PRS") {
+            document.getElementById("createform").submit();
+        }
+        else if (field == "supplies") {
+            document.getElementById("suppliesform").submit();
+        }
+       
+    }
     function deleteproductfield(index, status, Id_Product) {
         var indexdelete = document.getElementById(Id_Product).value;
         listindexdelete = indexdelete + "," + listindexdelete;
