@@ -6,6 +6,7 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
+    font-family: 'Kanit', sans-serif;
 }
 
 
@@ -78,7 +79,6 @@
         position: absolute;
         top: 1em;
         padding: 1px;
-        font-family: sans-serif;
         font-size: .8em;
         letter-spacing: 1px;
         color: rgb(120, 120, 120);
@@ -332,10 +332,10 @@
 }
 
     .add-news-field table {
-        width: 90%;
+        width: 100%;
         font-size: 16px;
         color: #444;
-        white-space: nowrap;
+        /*white-space: nowrap;*/
         border-collapse: collapse;
     }
 

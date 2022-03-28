@@ -7,6 +7,7 @@ namespace PRS_System.Models.Information
     {
         public string Header { get; set; }
         public string Description { get; set; }
+        public IFormFile FilePic { get; set; }
         public IFormFile FilePDF { get; set; }
         public string FilePath { get; set; }
         public string Date { get; set; }
@@ -20,5 +21,8 @@ namespace PRS_System.Models.Information
             addnews.Date = Date;
             return addnews;
         }
+
+        public string tabname { get; set; }
+        
     }
 }

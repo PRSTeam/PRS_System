@@ -49,14 +49,18 @@ function toggle() {
     popup.classList.toggle('active-blur');
 }
 
-var btnUpload = $("#upload_file"),
-    btnOuter = $(".button_outer");
+var btnUpload = $("#FilePic");
+var btnOuter = $(".button_outer");
+
+//var text_header = $('#tabHeader').val();
+
 btnUpload.on("change", function (e) {
     var ext = btnUpload.val().split('.').pop().toLowerCase();
     if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-        $(".error_msg").text("Not an Image...");
-    } else {
-        $(".error_msg").text("");
+        $(".error_msg").show();
+    }
+    else {
+        $(".error_msg").hide;
         btnOuter.addClass("file_uploading");
         setTimeout(function () {
             btnOuter.addClass("file_uploaded");
@@ -64,11 +68,15 @@ btnUpload.on("change", function (e) {
         var uploadedFile = URL.createObjectURL(e.target.files[0]);
         setTimeout(function () {
             $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
+            $("#uploaded_view").append('<input type="text" id="Header" name="Header" style="display:none;" />');
+            $("#Header").val("#tabHeader")
             $(".panel").hide();
+            $(".btn-create").show();
         }, 3500);
     }
 });
 $(".file_remove").on("click", function (e) {
+    $(".btn-create").hide();
     $("#uploaded_view").removeClass("show");
     $("#uploaded_view").find("img").remove();
     btnOuter.removeClass("file_uploading");
@@ -85,48 +93,50 @@ function togglefile() {
     popupfile.classList.toggle('active-blur');
 }
 
-var btnfileUpload = $('#upload_file_news'),
-    btnOuterfile = $('.button_outer_file');
+var btnfileUpload = $('#FilePDF');
+var btnOuterfile = $('.button_outer_file');
+
+//var text_header = $('#tabHeader').val();
+var input = document.getElementById('FilePDF');
+
 btnfileUpload.on("change", function (e) {
     var extfile = btnfileUpload.val().split('.').pop().toLowerCase();
     if ($.inArray(extfile, ['pdf', 'dos']) == -1) {
-        $(".error_msg").text("Not an PDF or DOS.....");
+        $(".error_msg").show();
     } else {
-        $(".erro_msg").text("");
+        $(".error_msg").hide();
         btnOuterfile.addClass("file_uploading_file");
         setTimeout(function () {
             btnOuterfile.addClass("file_uploaded_file");
         }, 3000);
         var uploadedFile = URL.createObjectURL(e.target.files[0]);
         setTimeout(function () {
-            $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
-            $(".panel").hide();
+            $("#upload_news_view").append('<a href="' + uploadedFile + '" target="_blank">' + e.target.files[0].name + '</a>');
+            $("#upload_news_view").append('<input type="text" id="Header" name="Header" style="display:none;" />');
+            $("#Header").val("#tabHeader")
+            $("#upload_news_view").addClass("show");
+            $(".panel-file").hide();
+            $(".btn-create-file").show();
         }, 3500);
 
 
     }
 });
 $(".file_news_remove").on("click", function (e) {
+    $(".btn-create-file").hide();
     $("#upload_news_view").removeClass("show");
-    $("#upload_news_view").find("img").remove();
+    $("#upload_news_view").find("a").remove();
     btnOuterfile.removeClass("file_uploading_file");
     btnOuterfile.removeClass("file_uploaded_file");
-    $("#.panel_file").show();
+    $(".panel-file").show();
 });
 
-var input = document.getElementById('upload_file_news');
-var infoArea = document.getElementById('file-upload-filename');
-
-input.addEventListener('change', showFileName);
-
-function showFileName(event) {
-
-    // the change event gives us the input it occurred in 
-    var input = event.srcElement;
-
-    // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-    var fileName = input.files[0].name;
-
-    // use fileName however fits your app best, i.e. add it into a div
-    infoArea.textContent = 'File name: ' + fileName;
+function addtabname() {
+    var tabname = $("#tabname").val();
+    if (tabname == "" || tabname == undefined || tabname.trim() == "") {
+        alert("กรุณาระบุชื่อแท็บ");
+    }
+    else {
+        window.location.href = "@Url.Action('Action Name', 'Controller Name')";
+    }
 }
