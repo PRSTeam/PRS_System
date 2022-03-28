@@ -53,6 +53,8 @@ namespace PRS_System.Controllers
                         HttpContext.Session.SetString("uid", result_chk.UserID);
                         HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
                         HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
+                        HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
+                        HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
                         HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
                         HttpContext.Session.SetString("mail", result_chk.Email);
                         HttpContext.Session.SetString("type_person", result_chk.Category);

@@ -28,7 +28,7 @@ namespace PRS_System.Services
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
                 command.Connection = connect;
-                command.CommandText = @"SELECT * FROM PRS_INFORMATION ORDER BY TOPIC, POST_DATE DESC";
+                command.CommandText = @"SELECT * FROM PRS_INFORMATION ORDER BY POST_DATE DESC";
                 connect.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -57,7 +57,7 @@ namespace PRS_System.Services
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
                 command.Connection = connect;
-                command.CommandText = @"INSERT INTO PRS_INFORMATION (TOPIC, DESCRIPTION, FILE_NAME, POST_DATE) VALUES(@header, @desc, @Name, @date)";
+                command.CommandText = @"if ((SELECT COUNT(FILE_NAME) FROM PRS_INFORMATION WHERE TOPIC = @header) = 0) begin UPDATE PRS_INFORMATION SET DESCRIPTION = @desc, FILE_NAME = @Name, POST_DATE = @date WHERE TOPIC = @header end else begin INSERT INTO PRS_INFORMATION (TOPIC, DESCRIPTION, FILE_NAME, POST_DATE) VALUES(@header, @desc, @Name, @date) end";
                 command.Parameters.AddWithValue("@header", infdata.Header);
                 command.Parameters.AddWithValue("@desc", infdata.Description);
                 command.Parameters.AddWithValue("@Name", infdata.FilePath);
@@ -93,15 +93,57 @@ namespace PRS_System.Services
             }
         }
 
-        public void Add_data(string tabname)
+        public void Add_tab(string tabname)
         {
             try
             {
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
                 command.Connection = connect;
-                command.CommandText = @"INSERT INTO PRS_INFORMATION (TOPIC) VALUES(@header)";
+                command.CommandText = @"INSERT INTO PRS_INFORMATION (TOPIC, POST_DATE) VALUES(@header, @date)";
                 command.Parameters.AddWithValue("@header", tabname);
+                command.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CreateSpecificCulture("en-US")));
+                connect.Open();
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Caught Exception: {0}", e.ToString());
+                throw e;
+            }
+        }
+
+        public void Del_tab(string tabname)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                command.Connection = connect;
+                command.CommandText = @"DELETE FROM PRS_INFORMATION WHERE TOPIC = @header";
+                command.Parameters.AddWithValue("@header", tabname);
+                connect.Open();
+                command.ExecuteNonQuery();
+                connect.Close();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Caught Exception: {0}", e.ToString());
+                throw e;
+            }
+        }
+
+        public void Rename_tab(string old_tabname, string new_tabname)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                command.Connection = connect;
+                command.CommandText = @"UPDATE PRS_INFORMATION SET TOPIC = @new_header WHERE TOPIC = @old_header";
+                command.Parameters.AddWithValue("@old_header", old_tabname);
+                command.Parameters.AddWithValue("@new_header", new_tabname);
                 connect.Open();
                 command.ExecuteNonQuery();
                 connect.Close();

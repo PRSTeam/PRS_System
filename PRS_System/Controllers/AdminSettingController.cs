@@ -193,10 +193,10 @@ namespace PRS_System.Controllers
                     {
                         if (m == 0)
                         {
-                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a></li><input type='text' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' style='display:none;'>";
+                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' /></li>";
                             ViewBag.tab_body = "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
-                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab'>Delete Tab</button></div>";
-                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename'><button>Submit</button></div></div>";
+                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>Delete Tab</button></div>";
+                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename' id='rename' name='rename' /><button onclick='renametab()'>Submit</button></div></div>";
                             ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>Add News</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
                             ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> Description </th><th style='width:15%'> Date </th><th> Action </th></tr></thead><tbody>";
 
@@ -206,16 +206,16 @@ namespace PRS_System.Controllers
                                 if (desc.Header == data[m])
                                 {
                                     t++;
-                                    if (desc.FilePath == null && desc.Description == null && desc.Date == null)
+                                    if (desc.FilePath == null && desc.Description == null)
                                     {
                                         ViewBag.tab_body += "";
                                     }
                                     else
                                     {
                                         ViewBag.tab_body += "<tr><th>" + t + "</th>";
-                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "'>" + desc.Description.ToString() + "</a></td>";
+                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
                                         ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                        ViewBag.tab_body += "<td><span class='btn-action'><button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + desc.FilePath.ToString() + "'> Delete </a></button></span></td></tr>";
+                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> Delete </button></span></td></tr>";
                                     }
                                     
                                 }
@@ -224,11 +224,11 @@ namespace PRS_System.Controllers
                         }
                         else
                         {
-                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a></li><input type='text' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' style='display:none;'>";
+                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' ></li>";
 
                             ViewBag.tab_body += "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
-                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab'>Delete Tab</button></div>";
-                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename'><button>Submit</button></div></div>";
+                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>Delete Tab</button></div>";
+                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename' id='rename' name='rename' /><button onclick='renametab()'>Submit</button></div></div>";
                             ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>Add News</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
                             ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> Description </th><th style='width:15%'> Date </th><th> Action </th></tr></thead><tbody>";
 
@@ -238,16 +238,16 @@ namespace PRS_System.Controllers
                                 if (desc.Header == data[m])
                                 {
                                     t++;
-                                    if (desc.FilePath == null && desc.Description == null && desc.Date == null)
+                                    if (desc.FilePath == null && desc.Description == null)
                                     {
                                         ViewBag.tab_body += "";
                                     }
                                     else
                                     {
                                         ViewBag.tab_body += "<tr><th>" + t + "</th>";
-                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "'>" + desc.Description.ToString() + "</a></td>";
+                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
                                         ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                        ViewBag.tab_body += "<td><span class='btn-action'><button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + desc.FilePath.ToString() + "'> Delete </a></button></span></td></tr>";
+                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "'/><button type='button' class='btn btn-delete' onclick='deletefile()'> Delete </button></span></td></tr>";
                                     }
                                     
                                 }
@@ -345,7 +345,7 @@ namespace PRS_System.Controllers
                     }
 
                     _informationService.Del_data(filename);
-                    return RedirectToAction("InformationSetting", "AdminSetting");
+                    return Json(new { status = "success" });
                 }
                 else
                 {
@@ -359,14 +359,79 @@ namespace PRS_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult addTab(InfomationModel data)
+        public IActionResult addTab(string tabname)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
                 if (HttpContext.Session.GetString("type_person") == "Admin")
                 {
-                    _informationService.Add_data(data.tabname);
-                    return RedirectToAction("InformationSetting", "AdminSetting");
+                    _informationService.Add_tab(tabname);
+                    return Json(new { status = "success" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "formPRS");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult deleteTab(string tabname)
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                if (HttpContext.Session.GetString("type_person") == "Admin")
+                {
+                    var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
+                    var filename = _informationService.ShowInformation();
+                    string[] fileList = null;
+                    foreach (var item in filename)
+                    {
+                        if (item.FilePath != null && item.Header == tabname)
+                        {
+                            fileList = System.IO.Directory.GetFiles(rootFolderPath, item.FilePath);
+                            foreach (var file in fileList)
+                            {
+                                System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                                System.IO.File.Delete(file);
+                            }
+                        }
+                    }
+
+                    //string[] fileList = System.IO.Directory.GetFiles(rootFolderPath,);
+                    //foreach (var file in fileList)
+                    //{
+                    //    System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                    //    System.IO.File.Delete(file);
+                    //}
+
+                    _informationService.Del_tab(tabname);
+                    return Json(new { status = "success" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "formPRS");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult renameTab(string old_tabname, string new_tabname)
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                if (HttpContext.Session.GetString("type_person") == "Admin")
+                {
+                    _informationService.Rename_tab(old_tabname, new_tabname);
+                    return Json(new { status = "success" });
                 }
                 else
                 {

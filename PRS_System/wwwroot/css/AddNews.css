@@ -9,7 +9,9 @@
     font-family: 'Kanit', sans-serif;
 }
 
-
+.cur{
+    display:block;
+}
 /* body {
     background-color: #000;
     color: #fff;
@@ -668,6 +670,7 @@
 .btn-delete {
     background-color: #dc3545;
     border-color: #dc3545;
+    color: white;
 }
 
 /* Upload file *************************************************************************************************** */

@@ -140,8 +140,8 @@ namespace PRS_System.Services
                     userdata.Prefix_NameThai = reader["PRE_NAME"] != DBNull.Value ? reader["PRE_NAME"].ToString() : null;
                     //userdata.Prefix_NameEng = reader["ENG_NAME"] != DBNull.Value ? reader["ENG_NAME"].ToString() : null;
                     userdata.Full_NameThai = reader["FULL_NAME"] != DBNull.Value ? reader["FULL_NAME"].ToString() : null;
-                    userdata.Operate_Pos = reader["OPERATING_POS"] != DBNull.Value ? reader["OPERATING_POS"].ToString() : null;
-                    userdata.Manage_Pos = reader["MANAGEMENT_POS"] != DBNull.Value ? reader["MANAGEMENT_POS"].ToString() : null;
+                    userdata.Operate_Pos = reader["OPERATING_POS"] != DBNull.Value ? reader["OPERATING_POS"].ToString() : "-";
+                    userdata.Manage_Pos = reader["MANAGEMENT_POS"] != DBNull.Value ? reader["MANAGEMENT_POS"].ToString() : "-";
                     //userdata.Full_NameEng = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
                     //userdata.User_Type = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
                     userdata.Email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null;

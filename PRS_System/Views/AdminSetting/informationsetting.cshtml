@@ -80,18 +80,14 @@
                                 <h2>Add New Tab</h2>
                             </div>
                             <div class="add-field">
-                                <form asp-action="addTab" asp-controller="AdminSetting" method="post">
-                                <label>
+                                <label asp-for="tabname">
                                     <p class="label-txt">The first field</p>
-                                    <input type="text" class="input" id="tabname" asp-for="tabname">
+                                    <input type="text" class="input" asp-for="tabname">
                                     <div class="line-box">
                                         <div class="line"></div>
                                     </div>
                                 </label>
-                                
-                                    <button>Add</button>
-                                </form>
-                                
+                                <button onclick="addtab()">Add</button>
                             </div>
                         </div>
                     </div>
@@ -151,13 +147,6 @@
                             </td>
                             <td>20/03/2022</td>
                             </tr>
-                            <tr>
-                            <th>3</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
                             </tbody>
                             </table>
                             </div>
@@ -204,13 +193,6 @@
                             </tr>
                             <tr>
                             <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>3</th>
                             <td>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
                             </td>
@@ -265,13 +247,6 @@
                             </td>
                             <td>20/03/2022</td>
                             </tr>
-                            <tr>
-                            <th>3</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
                             </tbody>
                             </table>
                             </div>
@@ -316,13 +291,6 @@
                             </tr>
                             <tr>
                             <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>3</th>
                             <td>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
                             </td>
@@ -376,13 +344,6 @@
                             </td>
                             <td>20/03/2022</td>
                             </tr>
-                            <tr>
-                            <th>3</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
                             </tbody>
                             </table>
                             </div>
@@ -411,7 +372,7 @@
                     <div class="panel">
                         <div class="button_outer">
                             <div class="btn_upload">
-                                <input type="file" id="FilePic" name="FilePic" accept=".png, .jpg, .jpeg"/> Selete Photo
+                                <input type="file" id="FilePic" name="FilePic" accept=".png, .jpg, .jpeg" /> Selete Photo
                             </div>
                             <div class="processing_bar"></div>
                             <div class="success_box"></div>
@@ -447,13 +408,13 @@
                     <div class="panel-file">
                         <div class="button_outer_file">
                             <div class="btn_upload_file">
-                                <input type="file" id="FilePDF" name="FilePDF" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .txt, .pdf"/> Selete File
+                                <input type="file" id="FilePDF" name="FilePDF" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf" /> Selete File
                             </div>
                             <div class="processing_bar_file"></div>
                             <div class="success_box_file"></div>
                         </div>
                     </div>
-                    <div class="error_msg" style="display:none;">Not an PDF or DOS.....</div>
+                    <div class="error_msg" style="display:none;">Not an pdf, doc and xls .....</div>
                     <div class="upload_file_news_view" id="upload_news_view">
                         <span class="file_news_remove">X</span>
                         @*<div id="file-upload-filename"></div>*@
@@ -470,18 +431,182 @@
 @section Scripts{
 <script src="~/js/AddNews.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function(){
-        $("#addtabname").click(function(event){
-           var tabname = $("#tabname").val();
-            if (tabname == "" || tabname == undefined || tabname.trim() == "") {
-                alert("กรุณาระบุชื่อแท็บ");
-            }
-            else {
-                var url = "@Url.Action("addTab", "AdminSetting")?tabname=" + $("#tabname").val();
-                window.location.href = url;
-            }
-        });
+        var c_tab = $('rename');
+        c_tab.on("change", function(){
+            c_tab = $('rename').val();
+        })
     })
 
+    function addtab() {
+        var txt_tb = $("#tabname").val();
+        if (txt_tb == "" || txt_tb == undefined || txt_tb.trim() == "") {
+                alert("กรุณาระบุชื่อแท็บ");
+                document.getElementById("tabname").focus();
+        }
+        else {
+            try {
+                const url = '@Url.Action("addTab", "AdminSetting")?tabname=' + txt_tb;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    //data: JSON.stringify({ 'tabname': txt_tb }),
+                    contentType: false,
+                    dataType: "JSON",
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                html: data.detail,
+                                showConfirmButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById("tabname").focus();
+                                    //document.getElementById("password").value='';
+                                }
+                            });
+                        }
+                        if (data.status == "success") {
+                            window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                        }
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                    }
+                });
+            }
+            catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    }
+
+    function deletetab(){
+        var txt_tb = $("#tabHeader").val();
+        try {
+            const url = '@Url.Action("deleteTab", "AdminSetting")?tabname=' + txt_tb;
+            $.ajax({
+                type: "POST",
+                url: url,
+                //data: JSON.stringify({ 'tabname': txt_tb }),
+                 contentType: false,
+                 dataType: "JSON",
+                 processData: false,
+                 success: function (data) {
+                     console.log(data);
+                     if (data.status == "error") {
+                         Swal.fire({
+                             icon: 'error',
+                             title: data.errorMessage,
+                             html: data.detail,
+                             showConfirmButton: true,
+                         }).then((result) => {
+                             if (result.isConfirmed) {
+                                 window.origin;
+                             }
+                         });
+                     }
+                     if (data.status == "success") {
+                         window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                     }
+                 },
+                 error: function (err) {
+                     console.log("Error", err);
+                     alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                 }
+            });
+        }
+        catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function deletefile(){
+        var txt_file = $("#file_name").val();
+        try {
+            const url = '@Url.Action("DeleteData", "AdminSetting")?filename=' + txt_file;
+            $.ajax({
+                type: "POST",
+                url: url,
+                //data: JSON.stringify({ 'tabname': txt_tb }),
+                 contentType: false,
+                 dataType: "JSON",
+                 processData: false,
+                 success: function (data) {
+                     console.log(data);
+                     if (data.status == "error") {
+                         Swal.fire({
+                             icon: 'error',
+                             title: data.errorMessage,
+                             html: data.detail,
+                             showConfirmButton: true,
+                         }).then((result) => {
+                             if (result.isConfirmed) {
+                                 window.origin;
+                             }
+                         });
+                     }
+                     if (data.status == "success") {
+                         window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                     }
+                 },
+                 error: function (err) {
+                     console.log("Error", err);
+                     alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                 }
+            });
+        }
+        catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function renametab(){
+        //var n_tab = $('#rename').val();
+        var n_tab = $('.tab-content-news:visible').find('input').val();
+        var o_tab = $('.current-news').find('a').text();
+        console.log(o_tab+","+n_tab);
+        try {
+            const url = '@Url.Action("renameTab", "AdminSetting")?old_tabname=' + o_tab + '&new_tabname=' + n_tab;
+            $.ajax({
+                type: "POST",
+                url: url,
+                //data: JSON.stringify({ 'tabname': txt_tb }),
+                 contentType: false,
+                 dataType: "JSON",
+                 processData: false,
+                 success: function (data) {
+                     console.log(data);
+                     if (data.status == "error") {
+                         Swal.fire({
+                             icon: 'error',
+                             title: data.errorMessage,
+                             html: data.detail,
+                             showConfirmButton: true,
+                         }).then((result) => {
+                             if (result.isConfirmed) {
+                                 window.origin;
+                             }
+                         });
+                     }
+                     if (data.status == "success") {
+                         window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                     }
+                 },
+                 error: function (err) {
+                     console.log("Error", err);
+                     alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                 }
+            });
+        }
+        catch (error) {
+            console.error('Error:', error);
+        }
+    }
 </script>
 }

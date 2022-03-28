@@ -68,8 +68,8 @@ btnUpload.on("change", function (e) {
         var uploadedFile = URL.createObjectURL(e.target.files[0]);
         setTimeout(function () {
             $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
-            $("#uploaded_view").append('<input type="text" id="Header" name="Header" style="display:none;" />');
-            $("#Header").val("#tabHeader")
+            $("#uploaded_view").append('<input type="hidden" id="Header" name="Header" />');
+            $("#Header").val("รูปปก");
             $(".panel").hide();
             $(".btn-create").show();
         }, 3500);
@@ -85,7 +85,7 @@ $(".file_remove").on("click", function (e) {
 });
 
 // ********************************************************************************************
-// แก้
+// Upload file
 function togglefile() {
     var blur = document.getElementById('blur');
     blur.classList.toggle('active-blur');
@@ -97,11 +97,15 @@ var btnfileUpload = $('#FilePDF');
 var btnOuterfile = $('.button_outer_file');
 
 //var text_header = $('#tabHeader').val();
+//var text_header = $('.current-news').find('a').text();
+//console.log(text_header);
 var input = document.getElementById('FilePDF');
 
 btnfileUpload.on("change", function (e) {
+    var text_header = $('.current-news').find('a').text();
+    console.log(text_header);
     var extfile = btnfileUpload.val().split('.').pop().toLowerCase();
-    if ($.inArray(extfile, ['pdf', 'dos']) == -1) {
+    if ($.inArray(extfile, ['xlsx', 'xls', 'doc', 'docx', 'ppt', 'pptx', 'pdf']) == -1) {
         $(".error_msg").show();
     } else {
         $(".error_msg").hide();
@@ -112,8 +116,8 @@ btnfileUpload.on("change", function (e) {
         var uploadedFile = URL.createObjectURL(e.target.files[0]);
         setTimeout(function () {
             $("#upload_news_view").append('<a href="' + uploadedFile + '" target="_blank">' + e.target.files[0].name + '</a>');
-            $("#upload_news_view").append('<input type="text" id="Header" name="Header" style="display:none;" />');
-            $("#Header").val("#tabHeader")
+            $("#upload_news_view").append('<input type="hidden" id="Header" name="Header" />');
+            $("#Header").val(text_header);
             $("#upload_news_view").addClass("show");
             $(".panel-file").hide();
             $(".btn-create-file").show();
@@ -130,13 +134,3 @@ $(".file_news_remove").on("click", function (e) {
     btnOuterfile.removeClass("file_uploaded_file");
     $(".panel-file").show();
 });
-
-function addtabname() {
-    var tabname = $("#tabname").val();
-    if (tabname == "" || tabname == undefined || tabname.trim() == "") {
-        alert("กรุณาระบุชื่อแท็บ");
-    }
-    else {
-        window.location.href = "@Url.Action('Action Name', 'Controller Name')";
-    }
-}
