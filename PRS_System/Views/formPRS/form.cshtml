@@ -66,7 +66,7 @@
                                 <br>
 
                                 <div class="container1">
-                                    <button class="add_form_field" type="button">
+                                    <button id="addsubject" class="add_form_field" type="button">
                                         Add &nbsp;
                                         <span style="font-size:16px; font-weight:bold;">+ </span>
                                     </button>
@@ -107,14 +107,14 @@
                             <hr>
 
                             <fieldset class="col-md-4 col-sm-6">
-                                <b>รายการสินค้า</b><br>
-                                <button class="add_form_object" type="button">
-                                    Add &nbsp;
-                                    <span style="font-size:16px; font-weight:bold;">+ </span>
-                                </button>
+                                
                                 <input type="text" asp-for="IndexProDelete" value="@Model.IndexProDelete" style="display:none" readonly>
                                 <div class="container2">
-
+                                    <b>รายการสินค้า</b><br>
+                                    <button id="addproduct" class="add_form_object" type="button">
+                                        Add &nbsp;
+                                        <span style="font-size:16px; font-weight:bold;">+ </span>
+                                    </button>
                                     @{int countproduct = Model.Productdata != null ? Model.Productdata.Count : 0;}
                                     @for (int i = 0; i < countproduct; i++)
                                     {
@@ -217,7 +217,8 @@
                             <!-- form_ผู้จัดซื้อ -->
                         </form>
                             <!-- form_ฝ่ายพัสดุ -->
-                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post">
+        
+                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post" >
                             <div class="page-section" id="form">
                                 <div class="row">
                                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
@@ -227,20 +228,20 @@
                             </div>
                             <fieldset class="col-md-4 col-sm-8">
                                 <label>ลำดับการดำเนินการจัดซื้อจัดจ้าง</label><br>
-                                <label>1.</label>
-                                <select name="name_select" asp-for="name_select1" onchange="ChangeTopic(1)">
-                                    <option value="science">หัวหน้าภาควิชา</option>
-                                    <option value="science">หัวหน้าฝ่ายสนับสนุนงานกลาง</option>
-                                    <option value="science">หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</option>
+                                <label>1.เลือก หัวหน้าภาควิชา/หัวหน้าฝ่ายสนับสนุน/หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</label>
+                                <select asp-for="name_select1">
+                                    <option value="หัวหน้าภาควิชา">หัวหน้าภาควิชา</option>
+                                    <option value="หัวหน้าฝ่ายสนับสนุนงานกลาง">หัวหน้าฝ่ายสนับสนุนงานกลาง</option>
+                                    <option value="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา">หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</option>
                                 </select><br>
-                                <label>2.</label>
-                                <select name="name_select" asp-for="name_select2" onchange="ChangeTopic(2)">
-                                    <option value="science">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์</option>
-                                    <option value="science">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</option>
+                                <label>2.เลือก ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์/ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</label>
+                                <select asp-for="name_select2">
+                                    <option value="ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์</option>
+                                    <option value="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</option>
                                 </select><br><br>
 
                                 <label>ภาควิชา</label><br>
-                                <input type="radio" asp-for="definition" value="ภาควิชา">
+                                <input type="radio" asp-for="definition" value="ปกติ" required checked>
                                 <label>ภาคปกติ</label>
                                 <br>
                                 <label>1.</label>
@@ -250,7 +251,7 @@
                                 <input class="w3-input w3-border w3-round" type="text" value="หัวหน้าสำนักงานเลขานุการ" disabled />
                                 <br>
 
-                                <input type="radio" asp-for="definition" value="พิเศษ">
+                                <input type="radio" asp-for="definition" value="พิเศษ" required>
                                 <label>ภาคพิเศษ</label><br><br>
                                 <label>1.</label>
                                 <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนานการ" disabled />
@@ -261,18 +262,12 @@
                                 <label>3.</label>
                                 <input class="w3-input w3-border w3-round" type="text" value="ประธานกรรมการดำเนินงาน" disabled />
                                 <br>
-
-                                <input asp-for="buttonstatus" style="display:none" />
-                                <input  type="button" class="button button2" value="draft" onclick="sentstatus('Draft','supplies')">บันทึกร่างเอกสาร
+                                <input asp-for="id_tor" style="display:none" />
+                                <input asp-for="buttonstatus_2" style="display:none" />
+                                <button type="button" class="button button2" onclick="sentstatus('Return to Requester','supplies')">ส่งคืนเพื่อแก้ไข</button>
                                 <button class="button button3">Export PDF</button>
-                                @if (Model.id_tor == 0)
-                                {
-                                    <button  class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','supplies')">ส่งเอกสาร</button>
-                                }
-                                @if (Model.id_tor != 0)
-                                {
-                                    <button  class="button button4" type="submit" onclick="sentstatus('Sent','supplies')">แก้ไขเอกสาร</button>
-                                }
+                                <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval','supplies')">ส่งให้ผู้อนุมัติ</button>
+
                             </fieldset>
                         </form>
                             
@@ -364,16 +359,21 @@
                 document.getElementById("checkbox" + i).checked = true;
             }
         }
-        var checkboxquotation = document.getElementById("checkboxquotation").value;
+        @*@{ string checkformprs=}
+        var checklogin=
+        var checkformprs=*@
+        
+       
     };
 </script>
 <script>
     @{int countproduct2 = Model.Productdata != null ? Model.Productdata.Count  : 1;}
-     @{int countsubject2 = Model.Subjectdata != null ? Model.Subjectdata.Count  : 0;}
+    @{int countsubject2 = Model.Subjectdata != null ? Model.Subjectdata.Count  : 0;}
     var y = @countproduct2 ;
     var x = @countsubject2;
     var listindexdelete = "";
     var listsubdelete = "";
+
     $(document).ready(function () {
         var max_fields = 10;
         var wrapper = $(".container1");
@@ -381,7 +381,39 @@
         var max_object = 20;
         var object = $(".container2");
         var add_object = $(".add_form_object");
+
         var id_tor = document.getElementById("id_tor").value;
+        // check form prs จัดซื้อว่า ชื่อ ตรงกันหรือไม่ เอาชื่อที่ login กับ ชื่อ ที่เคยกรอกมาเช็คกัน สถานะจะแก้ไขได้ก็ต่อเมื่อ สถานะ เป็น Return to Requester และจะแอดได้ก็ต่อเมื่อสถานะ เป็น ""
+        @{ string checkloginuser = Model.login_userid != "" ? Model.login_userid:"";
+            string statusform = Model.status != "" ? Model.status : "";
+            string checkownerid = Model.User_ID != "" ? Model.User_ID : Model.login_userid;
+            string category_user = Model.category_user;
+            }
+        var checkloginuser ="@checkloginuser";
+        var statusform ="@statusform";
+        var checkuserid = "@checkownerid";
+        var checkcategory_user="@category_user";
+
+        if (checkloginuser != checkuserid || statusform =="Sent") {
+            $("#createform").children('fieldset').children('input').prop("disabled", true);
+            $("#createform").children('fieldset').children('textarea').prop("disabled", true);
+            $("#createform").children('fieldset').children('button').prop("disabled", true);
+            $("#addsubject").prop("disabled", true);
+            $("#addproduct").prop("disabled", true);
+            for (let i = 0; i < x; i++) {
+                $("#fieldsubject" + i).children('input').prop("disabled", true);
+                $("#fieldsubject" + i).children('button').prop("disabled", true);
+            }
+            for (let i = 0; i < y; i++) {
+                $("#field" + i).children('input').prop("disabled", true);
+                $("#field" + i).children('button').prop("disabled", true);
+            }
+        }
+        if (checkcategory_user != "Admin" || statusform== "Sent to Approval")
+        {
+            $("#suppliesform").children('fieldset').children().prop("disabled", true);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------
         $("#Editsubmit").click(function () {
             Email.send({
                 Host: "smtp.gmail.com",
@@ -396,6 +428,7 @@
                     alert("mail sent successfully")
                 });
         });
+
 
         $(add_button).click(function (e) {
             e.preventDefault();
@@ -445,15 +478,18 @@
 
     });
     function sentstatus(value,field) {
-        document.getElementById("buttonstatus").value = value;
-        alert("sent status success")
         if (field == "PRS") {
+            document.getElementById("buttonstatus").value = value;
+            alert("PRS status success")
             document.getElementById("createform").submit();
         }
         else if (field == "supplies") {
-            document.getElementById("suppliesform").submit();
+            document.getElementById("buttonstatus_2").value = value;
+            alert("supplies status success")
+            @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
+                document.getElementById("suppliesform").submit();
         }
-       
+
     }
     function deleteproductfield(index, status, Id_Product) {
         var indexdelete = document.getElementById(Id_Product).value;
@@ -532,7 +568,7 @@
             field_delete.remove();
             console.log("Current List X=" + x);
             x--;
-            
+
             console.log("New List X=" + x);
             console.log("Check Error5");
             for (i = index; i < x; i++) {
@@ -561,7 +597,7 @@
 
             }
         }
-        
+
         else if( x== 0)
         {
             console.log("Check Error7");
@@ -570,8 +606,8 @@
             document.getElementById(status).value = "Close";
             field_delete.remove();
         }
-            
-            
+
+
         }
 
 

@@ -27,11 +27,11 @@ $(document).ready(function () {
     $(add_object).click(function (e) {
         e.preventDefault();
         if (y < max_object) {
-            var text = `<div><label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล.">
+            var text = `<div>
+                            <label>ชื่อสินค้า</label><input type="text" id="Productdata[[string]].NameProduct" Name="Productdata[[string]].NameProduct" placeholder="บิ๊กเกอร์ 50 มล.">
                             <label>จำนวนสินค้า</label><input type="text" id="Productdata[[string]].AmtProduct" Name="Productdata[[string]].AmtProduct" placeholder="99">
                             <label>หน่วยสินค้า</label><input type="text" id="Productdata[[string]].Unit" Name="Productdata[[string]].Unit" placeholder="อัน">
                             <label>ราคาต่อหน่วย</label><input type="text" id="Productdata[[string]].Price_Per_Piece" Name="Productdata[[string]].Price_Per_Piece" placeholder="100"/><a href="#" class="delete">Delete</a></div>`;
-
             text = text.replaceAll('[string]', y.toString());
             y++;
             $(object).append(utf8.encode(text)); //add input box

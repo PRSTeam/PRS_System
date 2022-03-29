@@ -88,10 +88,12 @@ namespace PRS_System.Controllers
                     Createview.vaxproduct = Math.Round(vaxvalue, 2);
                     Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
                     Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                    
                 }
                 Console.WriteLine("Check" + id_tor);
-                string user_id = HttpContext.Session.GetString("uid").ToString();
-                Createview.FilePath = _accountService.GetSignature(user_id);
+                Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
+                Createview.category_user= HttpContext.Session.GetString("type_person").ToString();
+                Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
                 Createview.id_tor = id_tor;
                 return View(Createview);
             }
@@ -217,7 +219,25 @@ namespace PRS_System.Controllers
 
         public IActionResult AddDataSuppies(FormPRSModel Suppies)
         {
-
+            if(Suppies.status== "Sent to Approval")
+            {
+                FormPRSModel check_order_data = _formService.Get_PRS_ORDER_DIRACT(Suppies.id_tor);
+                if(check_order_data!=null)
+                {
+                    _formService.updatestatusform(Suppies.buttonstatus_2);
+                }
+                else if(check_order_data == null)
+                {
+                    _formService.updatestatusform(Suppies.buttonstatus_2);
+                    _formService.AddDataSupplies(Suppies, Suppies.id_tor);
+                }
+                
+            }
+            else if (Suppies.status == "Return to Requester")
+            {
+                _formService.updatestatusform(Suppies.buttonstatus_2);
+            }
+            
             return View();
         }
         

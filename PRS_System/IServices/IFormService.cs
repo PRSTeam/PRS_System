@@ -36,6 +36,10 @@ namespace PRS_System.IServices
         public void AddDataSupplies(FormPRSModel datasupplies ,int id_tor);
         public int GetMaximumID_ORDER_DIRACT();
 
+        public FormPRSModel Get_PRS_ORDER_DIRACT(int id_tor);
+
         public void updatestatusform(string status);
+
+        public void UpdateDataOrder_Suppies(FormPRSModel data,int id_tor);
     }
 }

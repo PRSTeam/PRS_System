@@ -38,6 +38,15 @@ namespace PRS_System.Models.FormModel
         public string IndexSubdelete { get; set; }
         public string checkboxquotation { get; set; }
         public string buttonstatus { get; set; }
+        public string buttonstatus_2 { get; set; }
+        public string buttonstatus_3 { get; set; }
+        public int id_order { get; set; }
+        public UserDataModel user { get; set; }
+
+        public string login_userid { get; set; }
+        public string category_user { get; set; }
+
+        public string type_user { get; set; }
         //---------------------------------------
 
         public string definition { get; set; }

@@ -631,7 +631,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ORDER_DIRACT1", (object)datasupplies.name_select1 ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ORDER_DIRACT2", (object)datasupplies.name_select2 ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ORDER_DIRACT2", (object)datasupplies.definition ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DEFINITION_GROUP", (object)datasupplies.definition ?? DBNull.Value));
                 command.ExecuteNonQuery();
                 connect.Close();
 
@@ -695,6 +695,41 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
         }
 
         public void updatestatusform(string status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FormPRSModel Get_PRS_ORDER_DIRACT(int id_tor)
+        {
+            try
+            {
+                FormPRSModel data = new FormPRSModel();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT *  FROM PRS_ODER_DIRACT";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    data.id_order = reader["ID_ORDER"] != DBNull.Value ? (int)reader["ID_ORDER"] : 0;
+                    data.name_select1 = reader["ORDER_DIRACT1"] != DBNull.Value ? (string)reader["ORDER_DIRACT1"] : "";
+                    data.name_select2 = reader["ORDER_DIRACT2"] != DBNull.Value ? (string)reader["ORDER_DIRACT2"] : "";
+                    data.definition = reader["DEFINITION_GROUP"] != DBNull.Value ? (string)reader["DEFINITION_GROUP"] : "";
+                }
+                reader.Close();
+                con.Close();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void UpdateDataOrder_Suppies(FormPRSModel data, int id_tor)
         {
             throw new NotImplementedException();
         }
