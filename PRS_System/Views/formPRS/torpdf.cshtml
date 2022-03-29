@@ -15,7 +15,7 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="~/css/table.css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -70,17 +70,13 @@
                         <table id="customers" align = 'center'>
                             <thead>
                                 <tr>
-                                    <th>ลำดับที่</th>
-                                    <th>รายการ</th>
-                                    <th>จำนวน</th>
-                                    <th>จำนวนนับ</th>
+                                    <th rowspan="2">ลำดับที่</th>
+                                    <th rowspan="2">รายการ</th>
+                                    <th rowspan="2">จำนวน</th>
+                                    <th rowspan="2">จำนวนนับ</th>
                                     <th colspan="2">ราคา<br></th>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                     <td>ต่อหน่วย(บาท)</td>
                                     <td>รวม(บาท)</td>
                                 </tr>
@@ -90,26 +86,30 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>รวมเป็นเงินทั้งสิ้น</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td colspan="2">รวมเป็นเงินทั้งสิ้น</td>
                                 <td></td>
-                                <td>(ภาษีมูลค่าเพิ่ม 7 %)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2">(ภาษีมูลค่าเพิ่ม 7 %)</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td>ตัวอักษร</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>รวมทั้งสิ้น</td>
+                                <td colspan="2"></td>
+                                
+                                <td colspan="2">รวมทั้งสิ้น</td>
                                 <td></td>
                             </tr>
-                        </table>
+                        </table><br><br><br>
 
                         <p align = 'right'>.....................................................</p>
                         <p align = 'right'>(นางสาวสำราญ นามโคตร)</p>
