@@ -693,5 +693,10 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 throw ex;
             }
         }
+
+        public void updatestatusform(string status)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
