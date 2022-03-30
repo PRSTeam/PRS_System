@@ -35,6 +35,7 @@ namespace PRS_System.Services
                 {
                     InfomationModel dt = new InfomationModel();
                     dt.Header = reader["TOPIC"] != DBNull.Value ? reader["TOPIC"].ToString() : null;
+                    dt.Section = reader["SECTION"] != DBNull.Value ? reader["SECTION"].ToString() : null;
                     dt.Description = reader["DESCRIPTION"] != DBNull.Value ? reader["DESCRIPTION"].ToString() : null;
                     dt.FilePath = reader["FILE_NAME"] != DBNull.Value ? reader["FILE_NAME"].ToString() : null;
                     dt.Date = reader["POST_DATE"] != DBNull.Value ? reader["POST_DATE"].ToString() : null;

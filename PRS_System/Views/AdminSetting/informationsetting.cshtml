@@ -18,23 +18,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
       integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
-<title>ViewData["Title"]</title>
+<title>@ViewData["Title"]</title>
 }
 
 <body>
     <div class="container-tab" id="blur">
         <div class="position-tab">
-            <h1>Infomation</h1>
+            <h1>@ViewData["Title"]</h1>
             <ul class="tab-menu">
-                <li class="current"><a href="#tab-1">Upload Image</a></li>
-                <li><a href="#tab-2">Add News</a></li>
+                <li class="current"><a href="#tab-1">Banner</a></li>
+                <li><a href="#tab-2">ข่าวประชาสัมพันธ์</a></li>
             </ul>
 
             <div class="tab" id="blur">
                 <div class="tab-content" id="tab-1">
                     <div class="container">
                         <div class="design">
-                            <h2>Upload Photo</h2>
+                            <h2>รูปภาพ Banner</h2>
                         </div>
                         <table>
                             <thead>
@@ -43,7 +43,7 @@
                                     <th>Photo</th>
                                     <th>Description</th>
                                     <th>Date</th>
-                                    <th>Action</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,17 +77,17 @@
                     <div class="container-body">
                         <div class="con-add">
                             <div class="title-add">
-                                <h2>Add New Tab</h2>
+                                <h2>เพิ่มแท็บใหม่</h2>
                             </div>
                             <div class="add-field">
-                                <label asp-for="tabname">
-                                    <p class="label-txt">The first field</p>
-                                    <input type="text" class="input" asp-for="tabname">
+                                <label for="tabname">
+                                    <p class="label-txt">เพิ่มแท็บใหม่</p>
+                                    <input type="text" class="input" id="tabname" name="tabname">
                                     <div class="line-box">
                                         <div class="line"></div>
                                     </div>
                                 </label>
-                                <button onclick="addtab()">Add</button>
+                                <button onclick="addtab()">เพิ่มแท็บ</button>
                             </div>
                         </div>
                     </div>
@@ -372,20 +372,20 @@
                     <div class="panel">
                         <div class="button_outer">
                             <div class="btn_upload">
-                                <input type="file" id="FilePic" name="FilePic" accept=".png, .jpg, .jpeg" /> Selete Photo
+                                <input type="file" id="FilePic" name="FilePic" accept=".png, .jpg, .jpeg" /> เลือกภาพ
                             </div>
                             <div class="processing_bar"></div>
                             <div class="success_box"></div>
                         </div>
                     </div>
-                    <div class="error_msg" style="display:none;">"Not an Image..."</div>
+                    <div class="error_msg" style="display:none;">"กรุณาเลือกไฟล์รูปภาพ"</div>
                     <div class="uploaded_file_view" id="uploaded_view">
                         <span class="file_remove">X</span>
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" class="btn btn-create" style="display:none;">Create</button>
+                    <button type="submit" class="btn btn-create" style="display:none;">เพิ่ม</button>
                 </div>
             </div>
         </form>
@@ -408,20 +408,20 @@
                     <div class="panel-file">
                         <div class="button_outer_file">
                             <div class="btn_upload_file">
-                                <input type="file" id="FilePDF" name="FilePDF" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf" /> Selete File
+                                <input type="file" id="FilePDF" name="FilePDF" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf" /> เลือกไฟล์
                             </div>
                             <div class="processing_bar_file"></div>
                             <div class="success_box_file"></div>
                         </div>
                     </div>
-                    <div class="error_msg" style="display:none;">Not an pdf, doc and xls .....</div>
+                    <div class="error_msg" style="display:none;">กรุณาเลือกไฟล์นามสกุล .xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf</div>
                     <div class="upload_file_news_view" id="upload_news_view">
                         <span class="file_news_remove">X</span>
                         @*<div id="file-upload-filename"></div>*@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-create-file" style="display:none;">Create</button>
+                    <button type="submit" class="btn btn-create-file" style="display:none;">เพิ่ม</button>
                 </div>
             </div>
         </form>

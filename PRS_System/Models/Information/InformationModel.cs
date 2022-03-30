@@ -6,6 +6,7 @@ namespace PRS_System.Models.Information
     public class InfomationModel
     {
         public string Header { get; set; }
+        public string Section { get; set; }
         public string Description { get; set; }
         public IFormFile FilePic { get; set; }
         public IFormFile FilePDF { get; set; }
@@ -16,13 +17,11 @@ namespace PRS_System.Models.Information
         {
             InfomationModel addnews = new InfomationModel();
             addnews.Header = Header;
+            addnews.Section = Section;
             addnews.Description = Description;
             addnews.FilePath = FilePath;
             addnews.Date = Date;
             return addnews;
         }
-
-        public string tabname { get; set; }
-        
     }
 }

@@ -152,7 +152,7 @@ namespace PRS_System.Controllers
                             ViewBag.item_pic += "<td>" + item.Description.ToString() + "</td>";
                             ViewBag.item_pic += "<td>" + item.Date.ToString() + "</td>";
                             ViewBag.item_pic += "<td><span class='btn-action'>";
-                            ViewBag.item_pic += "<button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + item.FilePath.ToString() + "'> Delete </a></button>";
+                            ViewBag.item_pic += "<button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + item.FilePath.ToString() + "'> ลบ </a></button>";
                             ViewBag.item_pic += "</span></td></tr>";
                         }
                         else
@@ -178,7 +178,7 @@ namespace PRS_System.Controllers
                         ViewBag.item_pic += "<td>-</td>";
                         ViewBag.item_pic += "<td>-</td>";
                         ViewBag.item_pic += "<td><span class='btn-action'>";
-                        ViewBag.item_pic += "<button type='button' class='btn btn-upload' onclick='toggle()'> Upload </button>";
+                        ViewBag.item_pic += "<button type='button' class='btn btn-upload' onclick='toggle()'> อัพโหลด </button>";
                         ViewBag.item_pic += "</span></td></tr>";
                     }
 
@@ -195,10 +195,10 @@ namespace PRS_System.Controllers
                         {
                             ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' /></li>";
                             ViewBag.tab_body = "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
-                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>Delete Tab</button></div>";
-                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename' id='rename' name='rename' /><button onclick='renametab()'>Submit</button></div></div>";
-                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>Add News</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
-                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> Description </th><th style='width:15%'> Date </th><th> Action </th></tr></thead><tbody>";
+                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
+                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อแท็บ' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
+                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มข่าว</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
+                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
 
                             int t = 0;
                             foreach (var desc in _informationService.ShowInformation())
@@ -215,7 +215,7 @@ namespace PRS_System.Controllers
                                         ViewBag.tab_body += "<tr><th>" + t + "</th>";
                                         ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
                                         ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> Delete </button></span></td></tr>";
+                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
                                     }
                                     
                                 }
@@ -227,10 +227,10 @@ namespace PRS_System.Controllers
                             ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' ></li>";
 
                             ViewBag.tab_body += "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
-                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>Rename " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>Delete Tab</button></div>";
-                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='Rename' id='rename' name='rename' /><button onclick='renametab()'>Submit</button></div></div>";
-                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>Add News</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
-                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> Description </th><th style='width:15%'> Date </th><th> Action </th></tr></thead><tbody>";
+                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
+                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อแท็บ' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
+                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มข่าว</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
+                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
 
                             int t = 0;
                             foreach (var desc in _informationService.ShowInformation())
@@ -247,7 +247,7 @@ namespace PRS_System.Controllers
                                         ViewBag.tab_body += "<tr><th>" + t + "</th>";
                                         ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
                                         ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "'/><button type='button' class='btn btn-delete' onclick='deletefile()'> Delete </button></span></td></tr>";
+                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "'/><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
                                     }
                                     
                                 }

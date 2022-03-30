@@ -101,10 +101,10 @@
                                 </div>
 
                                 <label>สถานะผู้ใช้</label><br>
-                                <input asp-for="Status" type="radio" value="Working">
-                                <label>Working</label>
-                                <input asp-for="Status" type="radio" value="Quit">
-                                <label>Quit</label><br><br>
+                                <input asp-for="Status" type="radio" value="Active">
+                                <label>Active</label>
+                                <input asp-for="Status" type="radio" value="Inactive">
+                                <label>Inactive</label><br><br>
 
                                 <button id="clearBtn" type="button">Clear signature</button>
                                 <button type="submit" id="submitBtn">Submit</button>
@@ -116,11 +116,11 @@
 
                 <hr>
 
-                <div class="row" id="footer">
+                @*<div class="row" id="footer">
                     <div class="col-md-12 text-center">
                         <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
                     </div>
-                </div>
+                </div>*@
             </div>
 
         </div>

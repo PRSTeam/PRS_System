@@ -9,9 +9,10 @@
     font-family: 'Kanit', sans-serif;
 }
 
-.cur{
-    display:block;
+#tab-1 tbody tr {
+    height: 100px;
 }
+
 /* body {
     background-color: #000;
     color: #fff;
