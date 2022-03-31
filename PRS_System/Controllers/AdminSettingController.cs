@@ -35,9 +35,19 @@ namespace PRS_System.Controllers
         }
         public IActionResult Showlistuser(ShowListUserModel datauser)
         {
-
+            if (string.IsNullOrWhiteSpace(datauser.UserID))
+            {
+                datauser.UserID = "";
+            }
+            datauser.userdata = _accountService.GetDataUser(datauser.UserID);
             //datauser.userdata = _accountService.GetDataUser(user_id);
-            return View();
+            return View(datauser);
+        }
+        public IActionResult Searchlistuser(string user_id, ShowListUserModel datauser)
+        {
+            datauser.userdata = _accountService.GetDataUser(user_id);
+            //datauser.userdata = _accountService.GetDataUser(user_id);
+            return View(datauser);
         }
         public IActionResult Addnewuser()
         {
@@ -50,38 +60,38 @@ namespace PRS_System.Controllers
             try
             {
 
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.Status))
-                {
-                    ModelState.AddModelError("Status", "กรุณากดเลือกสถานะผู้ใช้");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.UserID))
-                {
-                    ModelState.AddModelError("UserID", "กรุณากรอกUserID");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.User_Type))
-                {
-                    ModelState.AddModelError("User Type", "กรุณากรอกตำแหน่ง");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameThai))
-                {
-                    ModelState.AddModelError("Prefix NameThai", "กรุณากดเลือกคำนำหน้าไทย");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameEng))
-                {
-                    ModelState.AddModelError("Prefix NameEng", "กรุณากดเลือกคำนำหน้าภาษาอังกฤษ");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameThai))
-                {
-                    ModelState.AddModelError("Full NameThai", "กรุณากรอกชื่อจริง");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameEng))
-                {
-                    ModelState.AddModelError("Full NameEng", "กรุณากรอกชื่อจริงภาษาอังกฤษ");
-                }
-                if (string.IsNullOrWhiteSpace(AddnewuserModel.Category))
-                {
-                    ModelState.AddModelError("Category", "กรุณากรอกประเภทผู้ใช้");
-                }
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Status))
+                //{
+                //    ModelState.AddModelError("Status", "กรุณากดเลือกสถานะผู้ใช้");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.UserID))
+                //{
+                //    ModelState.AddModelError("UserID", "กรุณากรอกUserID");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.User_))
+                //{
+                //    ModelState.AddModelError("User Type", "กรุณากรอกตำแหน่ง");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameThai))
+                //{
+                //    ModelState.AddModelError("Prefix NameThai", "กรุณากดเลือกคำนำหน้าไทย");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameEng))
+                //{
+                //    ModelState.AddModelError("Prefix NameEng", "กรุณากดเลือกคำนำหน้าภาษาอังกฤษ");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameThai))
+                //{
+                //    ModelState.AddModelError("Full NameThai", "กรุณากรอกชื่อจริง");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameEng))
+                //{
+                //    ModelState.AddModelError("Full NameEng", "กรุณากรอกชื่อจริงภาษาอังกฤษ");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Category))
+                //{
+                //    ModelState.AddModelError("Category", "กรุณากรอกประเภทผู้ใช้");
+                //}
 
 
                 if (ModelState.IsValid)

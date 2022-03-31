@@ -49,16 +49,16 @@
                             <div class="row">
 
                                 <label>ID ผู้ใช้</label><br>
-                                <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20"><br><br>
+                                <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required><br><br>
                                 <label>ชื่อ นามสกุล</label><br>
-                                <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20"><br><br>
+                                <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20" required><br><br>
                                 <label>ตำแหน่งปฏิบัติงาน</label><br>
-                                <select asp-for="User_Type">
+                                <select asp-for="User_Type_Operation" required>
                                     <option value="นักวิชาการเงินและบัญชี ชำนาญการ">นักวิชาการเงินและบัญชี ชำนาญการ</option>
                                 </select><br><br>
 
                                 <label>ตำแหน่งบริหาร</label><br>
-                                <select asp-for="User_Type">
+                                <select asp-for="User_Type_Magnement">
                                     <option value="">เลือกตำแหน่ง</option>
                                     <option value="หัวหน้าภาควิชา">หัวหน้าภาควิชา</option>
                                     <option value="หัวหน้าฝ่ายสนับสนุนงานกลาง">หัวหน้าฝ่ายสนับสนุนงานกลาง</option>
@@ -75,13 +75,16 @@
 
 
                                 <br><br>
+                                <label>Email (*Gmail)</label>
+                                <br>
+                                <input type="email" asp-for="Email" required />
+                                <br><br>
                                 <label>คำนำหน้าชื่อ</label><br>
-                                <input asp-for="Prefix_NameThai" type="radio" value="นาย">
-                                <label>นาย</label>
-                                <input asp-for="Prefix_NameThai" type="radio" value="นาง">
-                                <label>นาง</label>
-                                <input asp-for="Prefix_NameThai" type="radio" value="นางสาว">
-                                <label>นางสาว</label>
+                                <select asp-for="Prefix_NameThai" required>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นาง">นางสาว</option>
+                                </select>
                                 <br><br>
 
                                 <label>หมวดหมู่ผู้ใช้</label><br>
@@ -131,6 +134,9 @@
 </body>
 
 </html>
+<script>
+    document.ge
+</script>
 @section Scripts{
     <script>
     function AJAXSubmit(oFormElement) {

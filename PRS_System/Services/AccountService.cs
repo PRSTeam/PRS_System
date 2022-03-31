@@ -30,13 +30,12 @@ namespace PRS_System.Services
                 SqlCommand command = new SqlCommand();
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"INSERT INTO PRS_PERSON (ID_USER,TH_NAME,ENG_NAME,TH_NAME_FULL,ENG_NAME_FULL,USER_TYPE,SIGNATURE,CATEGORY,STATUS) VALUES(@ID_USER,@TH_NAME,@ENG_NAME,@TH_NAME_FULL,@ENG_NAME_FULL,@USER_TYPE,@SIGNATURE,@CATEGORY,@STATUS) ";
+                command.CommandText = @"insert into PRS_PERSON (ID_USER,PRE_NAME,FULL_NAME,OPERATING_POS,MAGNEMENT_POS,EMAIL,[SIGNATURE],CATEGORY,[STATUS]) VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@TH_NAME_FULL,@User_Type_Operation,@User_Type_Magnement,@SIGNATURE,@CATEGORY,@STATUS) ";
                 command.Parameters.Add(new SqlParameter("@ID_USER",(object)datauser.UserID ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@TH_NAME", (object)datauser.Full_NameThai ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ENG_NAME", (object)datauser.Full_NameEng ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@TH_NAME_FULL", (object)datauser.Prefix_NameThai ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ENG_NAME_FULL", (object)datauser.Prefix_NameEng ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@USER_TYPE", (object)datauser.User_Type ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@FULLNAME", (object)datauser.Full_NameThai ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@PRE_NAME", (object)datauser.Prefix_NameThai ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@User_Type_Operation", (object)datauser.User_Type_Operation ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@User_Type_Magnement", (object)datauser.User_Type_Magnement?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SIGNATURE", (object)datauser.ImgName ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@CATEGORY", (object)datauser.Category ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@STATUS", (object)datauser.Status ?? DBNull.Value));
@@ -65,8 +64,8 @@ namespace PRS_System.Services
                 SqlCommand command = new SqlCommand();
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER=@ID_USER";
-                command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
+                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER like '%"+user_id+"%'";
+                //command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())

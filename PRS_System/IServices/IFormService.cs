@@ -17,6 +17,7 @@ namespace PRS_System.IServices
 
         public int GetMaximumID_ASSIST();
         public List<FormPRSDataModel> GetnamePRS(string user_id);
+        public List<FormPRSDataModel> GetListSuppies();
         public int GetMaximumID_SUBJECT_LIST();
         public FormPRSModel GetValuesFormPRS(int id_tor);
         public List<ProductDataModel> GetValuesFormPRSProduct(int id_tor);
@@ -38,7 +39,7 @@ namespace PRS_System.IServices
 
         public FormPRSModel Get_PRS_ORDER_DIRACT(int id_tor);
 
-        public void updatestatusform(string status);
+        public void updatestatusform(string status,int id_tor);
 
         public void UpdateDataOrder_Suppies(FormPRSModel data,int id_tor);
     }

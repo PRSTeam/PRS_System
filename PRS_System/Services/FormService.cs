@@ -430,7 +430,7 @@ namespace PRS_System.Services
                 command.Connection = connect;
 
 
-                command.CommandText = @"UPDATE PRS_MAIN_TOR SET ID_TOR=@ID_TOR,ID_Room=@ID_Room,NAME_TOR=@NAME_TOR,DESC_TOR=@DESC_TOR,DIRECTOR_1=@DIRECTOR_1,DIRECTOR_2=@DIRECTOR_2,DIRECTOR_3=@DIRECTOR_3,AMT_QUTATATION=@AMT_QUTATATION,AMT_SCOP_PAGE=@AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE=@AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE=@AMT_BUGGET_PAGE,NAME_OTHER_DOC=@NAME_OTHER_DOC,AMT_OTHER_DOC=@AMT_OTHER_DOC,DOC_FILE=@DOC_FILE,OWNER_ID=@OWNER_ID,TOR_DATE=@TOR_DATE WHERE ID_TOR=@ID_TOR";
+                command.CommandText = @"UPDATE PRS_MAIN_TOR SET ID_TOR=@ID_TOR,ID_Room=@ID_Room,NAME_TOR=@NAME_TOR,DESC_TOR=@DESC_TOR,DIRECTOR_1=@DIRECTOR_1,DIRECTOR_2=@DIRECTOR_2,DIRECTOR_3=@DIRECTOR_3,AMT_QUTATATION=@AMT_QUTATATION,AMT_SCOP_PAGE=@AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE=@AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE=@AMT_BUGGET_PAGE,NAME_OTHER_DOC=@NAME_OTHER_DOC,AMT_OTHER_DOC=@AMT_OTHER_DOC,DOC_FILE=@DOC_FILE,STATUS=@STATUS,OWNER_ID=@OWNER_ID,TOR_DATE=@TOR_DATE WHERE ID_TOR=@ID_TOR";
 
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_Room", (object)formdetaildata.idRoom ?? DBNull.Value));
@@ -446,6 +446,7 @@ namespace PRS_System.Services
                 command.Parameters.Add(new SqlParameter("@NAME_OTHER_DOC", (object)formdetaildata.otherSupport ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@AMT_OTHER_DOC", (object)formdetaildata.otherSupport_num ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DOC_FILE", (object)formdetaildata.FilePath ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@STATUS", (object)formdetaildata.buttonstatus ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@OWNER_ID", (object)formdetaildata.User_ID ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@TOR_DATE", DateTime.Now.ToString("yyyy-MM-dd ", new CultureInfo("en-US"))));
                 command.ExecuteNonQuery();
@@ -681,8 +682,8 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 SqlCommand command = new SqlCommand();
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"update PRS_MAIN_TOR set STATUS=@STATUS WHERE ID_TOR=@ID_TOR)";
-                command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
+                command.CommandText = @"update PRS_MAIN_TOR set STATUS=@STATUS WHERE ID_TOR=@ID_TOR";
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@STATUS", (object)status ?? DBNull.Value));
                 command.ExecuteNonQuery();
                 connect.Close();
@@ -694,10 +695,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
             }
         }
 
-        public void updatestatusform(string status)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public FormPRSModel Get_PRS_ORDER_DIRACT(int id_tor)
         {
@@ -708,7 +706,8 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 SqlCommand command = new SqlCommand();
                 con.Open();
                 command.Connection = con;
-                command.CommandText = "SELECT *  FROM PRS_ODER_DIRACT";
+                command.CommandText = "SELECT *  FROM PRS_ORDER_DIRACT WHERE ID_TOR=@ID_TOR";
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
@@ -732,6 +731,49 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
         public void UpdateDataOrder_Suppies(FormPRSModel data, int id_tor)
         {
             throw new NotImplementedException();
+        }
+
+        public List<FormPRSDataModel> GetListSuppies()
+        {
+            try
+            {
+               List<FormPRSDataModel> data = new List<FormPRSDataModel>();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = @"SELECT *
+                                        from PRS_MAIN_TOR
+                                        LEFT JOIN PRS_PERSON
+                                        ON PRS_MAIN_TOR.OWNER_ID = PRS_PERSON.ID_USER";
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    data.Add(new FormPRSDataModel
+                    {
+                        id_tor= reader["ID_TOR"] != DBNull.Value ? (int)reader["ID_TOR"] : 0
+                        ,
+                        nameProcument = reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : ""
+                        ,
+                        Status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : ""
+                        ,
+                        Fullname_PRS = reader["FULL_NAME"] != DBNull.Value ? (string)reader["FULL_NAME"] : ""
+                        ,
+                        Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
+
+                    });
+                    
+                }
+                reader.Close();
+                con.Close();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -13,14 +13,17 @@ namespace PRS_System.Models.Setting
         public string UserID { get; set; }
         [Required]
         public string Full_NameThai { get; set; }
-        [Required]
+        
         public string Full_NameEng { get; set; }
         [Required]
         public string Prefix_NameThai { get; set; }
-        [Required]
+        
         public string Prefix_NameEng { get; set; }
         [Required]
-        public string User_Type { get; set; }
+        public string User_Type_Operation { get; set; }
+        public string User_Type_Magnement{ get; set; }
+        [Required]
+        public string Email { get; set; }
         [Required]
         public string Category { get; set; }
         [Required]
@@ -36,7 +39,8 @@ namespace PRS_System.Models.Setting
             addnewuserdata.Full_NameEng = Full_NameEng;
             addnewuserdata.Prefix_NameThai = Prefix_NameThai;
             addnewuserdata.Prefix_NameEng = Prefix_NameEng;
-            addnewuserdata.User_Type = User_Type;
+            addnewuserdata.User_Type_Operation = User_Type_Operation;
+            addnewuserdata.User_Type_Magnement = User_Type_Magnement;
             addnewuserdata.Category = Category;
             addnewuserdata.Status = Status;
             addnewuserdata.ImgName = ImgName;

@@ -30,8 +30,14 @@ namespace PRS_System.Controllers
         }
         public IActionResult Index(IndexListFormModel indexmodel)
         {
+            indexmodel.category_user = HttpContext.Session.GetString("type_person").ToString();
             string user_id = HttpContext.Session.GetString("uid").ToString();
             indexmodel.ListForm = _formService.GetnamePRS(user_id);
+            if(indexmodel.category_user=="Admin")
+            {
+                indexmodel.ListSuppies = _formService.GetListSuppies();
+            }
+            
             return View(indexmodel);
 
         }
@@ -93,7 +99,7 @@ namespace PRS_System.Controllers
                 Console.WriteLine("Check" + id_tor);
                 Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
                 Createview.category_user= HttpContext.Session.GetString("type_person").ToString();
-                Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
+                //Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
                 Createview.id_tor = id_tor;
                 return View(Createview);
             }
@@ -119,10 +125,10 @@ namespace PRS_System.Controllers
                     string filepath = null;
                     if (Procurement.FilePDF != null)
                     {
-                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\ListFormUser");
+                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\FileDocUser");
                         string filename = Procurement.FilePDF.FileName;
                         string[] fileextension = filename.Split(".");
-                        uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + fileextension[1];/* + "_" + editdata.ImagePicture.FileName*/
+                        uniquefile = fileextension[0] + "__"+ DateTime.Now.ToString("yyyyMMddHHmmss") + "." + fileextension[1];/* + "_" + editdata.ImagePicture.FileName*/
                         filepath = Path.Combine(uploadfile, uniquefile);
                         Procurement.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
                         Procurement.FilePath = uniquefile;
@@ -141,6 +147,18 @@ namespace PRS_System.Controllers
                 //----Edit Form to Database
                 else if (Procurement.id_tor != 0)
                 {
+                    string uniquefile = null;
+                    string filepath = null;
+                    if (Procurement.FilePDF != null)
+                    {
+                        string uploadfile = Path.Combine(_hostingEnvironment.WebRootPath, "File\\FileDocUser");
+                        string filename = Procurement.FilePDF.FileName;
+                        string[] fileextension = filename.Split(".");
+                        uniquefile =fileextension[0]+"__"+ DateTime.Now.ToString("yyyyMMddHHmmss") + "." + fileextension[1];/* + "_" + editdata.ImagePicture.FileName*/
+                        filepath = Path.Combine(uploadfile, uniquefile);
+                        Procurement.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
+                        Procurement.FilePath = uniquefile;
+                    }
                     Procurement.User_ID = HttpContext.Session.GetString("uid").ToString();
                     _formService.EditFormDetailData(Procurement.FormDataDetail(), Procurement.id_tor);
                     if (Procurement.IndexProDelete != null)
@@ -219,26 +237,39 @@ namespace PRS_System.Controllers
 
         public IActionResult AddDataSuppies(FormPRSModel Suppies)
         {
-            if(Suppies.status== "Sent to Approval")
+            try
             {
-                FormPRSModel check_order_data = _formService.Get_PRS_ORDER_DIRACT(Suppies.id_tor);
-                if(check_order_data!=null)
+                if (Suppies.buttonstatus_2 == "Sent to Approval")
                 {
-                    _formService.updatestatusform(Suppies.buttonstatus_2);
+                    FormPRSModel check_order_data = _formService.Get_PRS_ORDER_DIRACT(Suppies.id_tor);
+                    //checkว่าค้นหาข้อมูลจัดซื้อว่ามีหรือไม่ ถ้าไม่มีให้เพิ่ม ถ้ามีให้แก้ไข
+                    if (check_order_data != null)
+                    {
+                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                    }
+                    else if (check_order_data == null)
+                    {
+                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                        _formService.AddDataSupplies(Suppies, Suppies.id_tor);
+                    }
+                    
+
                 }
-                else if(check_order_data == null)
+                else if (Suppies.buttonstatus_2 == "Return to Requester")
                 {
-                    _formService.updatestatusform(Suppies.buttonstatus_2);
-                    _formService.AddDataSupplies(Suppies, Suppies.id_tor);
+                    _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                   
                 }
-                
+                return Json(new { status = "success", Messege = Suppies.buttonstatus_2+" Complete" });
+
             }
-            else if (Suppies.status == "Return to Requester")
+            catch(Exception ex)
             {
-                _formService.updatestatusform(Suppies.buttonstatus_2);
+                return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new performance testing" });
             }
             
-            return View();
+            
+            
         }
         
         public IActionResult AddDataApprover(CreatedResult Approver)
