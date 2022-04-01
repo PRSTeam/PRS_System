@@ -30,12 +30,14 @@ namespace PRS_System.Services
                 SqlCommand command = new SqlCommand();
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"insert into PRS_PERSON (ID_USER,PRE_NAME,FULL_NAME,OPERATING_POS,MAGNEMENT_POS,EMAIL,[SIGNATURE],CATEGORY,[STATUS]) VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@TH_NAME_FULL,@User_Type_Operation,@User_Type_Magnement,@SIGNATURE,@CATEGORY,@STATUS) ";
+                command.CommandText = @"insert into PRS_PERSON (ID_USER,PRE_NAME,FULL_NAME,OPERATING_POS,MANAGEMENT_POS,EMAIL,[SIGNATURE],CATEGORY,[STATUS]) 
+VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@User_Type_Operation,@User_Type_Magnement,@Email,@SIGNATURE,@CATEGORY,@STATUS) ";
                 command.Parameters.Add(new SqlParameter("@ID_USER",(object)datauser.UserID ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@FULLNAME", (object)datauser.Full_NameThai ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@PRE_NAME", (object)datauser.Prefix_NameThai ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@User_Type_Operation", (object)datauser.User_Type_Operation ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@User_Type_Magnement", (object)datauser.User_Type_Magnement?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@Email", (object)datauser.Email ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SIGNATURE", (object)datauser.ImgName ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@CATEGORY", (object)datauser.Category ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@STATUS", (object)datauser.Status ?? DBNull.Value));
@@ -55,7 +57,7 @@ namespace PRS_System.Services
             throw new NotImplementedException();
         }
 
-        public List<UserDataModel>GetDataUser(string user_id)
+        public List<UserDataModel>GetDataUser(string keyword)
         {
             try
             {
@@ -64,7 +66,8 @@ namespace PRS_System.Services
                 SqlCommand command = new SqlCommand();
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER like '%"+user_id+"%'";
+                command.CommandText = @"select * from PRS_PERSON 
+WHERE ID_USER like '%"+ keyword + "%' or PRE_NAME like '%" + keyword + "%' or FULL_NAME like '%" + keyword + "%' or OPERATING_POS like '%" + keyword + "%' or MANAGEMENT_POS like '%" + keyword + "%' or EMAIL like '%" + keyword + "%' or CATEGORY like '%" + keyword + "%' or [STATUS] like '%" + keyword + "%' ";
                 //command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();

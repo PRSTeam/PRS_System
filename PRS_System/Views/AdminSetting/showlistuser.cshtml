@@ -47,10 +47,14 @@
                             <button id="newuser" class="button button4">
                                 Add New User
                             </button>
-                            <fieldset class="col-md-4 col-sm-8">
-                                <label>Keyword</label>
-                                <input class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="Key..">
-                            </fieldset>
+                            <form asp-action="Showlistuser" asp-controller="AdminSetting">
+                                <fieldset class="col-md-4 col-sm-8">
+                                    <label>Keyword</label>
+                                    <input asp-for="Keyword" class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="Key..">
+                                    <button type ="submit">ค้นหา</button>
+                                </fieldset>
+                            </form>
+                            
                         </div>
                     </div>
                     <div class="row">
@@ -67,7 +71,6 @@
                             @foreach (var item in Model.userdata)
                             {
                                 <tr>
-
                                     <td>@item.UserID</td>
                                     <td>@item.Prefix_NameThai @item.Full_NameThai</td>
                                     <td>@item.Operate_Pos @(item.Manage_Pos == null ? "":"/"+ item.Manage_Pos) </td>
@@ -77,8 +80,6 @@
                                         <button class="button button2">Edit</button>
                                         <button class="button button3">Delete</button>
                                     </td>
-                                    
-
                                 </tr>
                             }
                             </table>

@@ -118,8 +118,8 @@
 
         // Set up the UI
 
-        var sigText = document.getElementById("sig-dataUrl");
-        var sigImage = document.getElementById("sig-image");
+        //var sigText = document.getElementById("sig-dataUrl");
+        var sigimage = document.getelementbyid("sig-image");
         var clearBtn = document.getElementById("clearBtn");
         var submitBtn = document.getElementById("submitBtn");
         var inputsig = document.getElementById("ESignature");
@@ -130,16 +130,18 @@
         //    clearCanvas();
         //    sigText.innerHTML = "Data URL for your signature will go here!";
         //    sigImage.setAttribute("src", "");
-        //}, false);
+        }, false);
         submitBtn.addEventListener("click", function (e) {
             var dataUrl = canvas.toDataURL();
-            sigText.innerHTML = dataUrl;
+            ////sigText.innerHTML = dataUrl;
             sigImage.setAttribute("src", dataUrl);
-            console.log(dataUrl);
+            
         }, false);
         $("#user-form").submit(function () {
             var sigurl = canvas.toDataURL();
+            
             $(inputsig).val(sigurl);
+            
         });
 
     })();

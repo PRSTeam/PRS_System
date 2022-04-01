@@ -28,7 +28,7 @@ namespace PRS_System.Models.Setting
         public string Category { get; set; }
         [Required]
         public string Status { get; set; }
-        [Required]
+        
         public string ESignature { get; set; }
 
         public UserDataModel ToAddnewuserdata(string ImgName)

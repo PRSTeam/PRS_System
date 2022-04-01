@@ -20,11 +20,11 @@
     <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="~/js/EsignatureCanvas.js"></script>
-    <script src="js/vendor/jquery-1.10.2.min.js"></script>
-    <script src="js/min/plugins.min.js"></script>
-    <script src="js/min/main.min.js"></script>
-    <script src="js/addinput.js"></script>
+    @*<script src="~/js/EsignatureCanvas.js"></script>*@
+    <script src="~/js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="~/js/min/plugins.min.js"></script>
+    <script src="~/js/min/main.min.js"></script>
+    <script src="~/js/addinput.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
 
@@ -90,7 +90,7 @@
                                 <label>หมวดหมู่ผู้ใช้</label><br>
                                 <input asp-for="Category" type="radio" value="Admin">
                                 <label>Admin</label>
-                                <input asp-for="Category" type="radio" value="User">
+                                <input asp-for="Category" type="radio" value="User" checked>
                                 <label>User</label><br><br>
 
                                 <label>ลายเซ็น</label><br><br>
@@ -104,7 +104,7 @@
                                 </div>
 
                                 <label>สถานะผู้ใช้</label><br>
-                                <input asp-for="Status" type="radio" value="Active">
+                                <input asp-for="Status" type="radio" value="Active" checked>
                                 <label>Active</label>
                                 <input asp-for="Status" type="radio" value="Inactive">
                                 <label>Inactive</label><br><br>
@@ -135,15 +135,166 @@
 
 </html>
 <script>
-    document.ge
+    $(document).ready(function () {
+        (function () {
+            window.requestAnimFrame = (function (callback) {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.oRequestAnimationFrame ||
+                    window.msRequestAnimaitonFrame ||
+                    function (callback) {
+                        window.setTimeout(callback, 1000 / 60);
+                    };
+            })();
+
+            var canvas = document.getElementById("sig-canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.strokeStyle = "#222222";
+            ctx.lineWidth = 4;
+
+            var drawing = false;
+            var mousePos = {
+                x: 0,
+                y: 0
+            };
+            var lastPos = mousePos;
+
+            canvas.addEventListener("mousedown", function (e) {
+                drawing = true;
+                lastPos = getMousePos(canvas, e);
+            }, false);
+
+            canvas.addEventListener("mouseup", function (e) {
+                drawing = false;
+            }, false);
+
+            canvas.addEventListener("mousemove", function (e) {
+                mousePos = getMousePos(canvas, e);
+            }, false);
+
+            // Add touch event support for mobile
+            canvas.addEventListener("touchstart", function (e) {
+
+            }, false);
+
+            canvas.addEventListener("touchmove", function (e) {
+                var touch = e.touches[0];
+                var me = new MouseEvent("mousemove", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(me);
+            }, false);
+
+            canvas.addEventListener("touchstart", function (e) {
+                mousePos = getTouchPos(canvas, e);
+                var touch = e.touches[0];
+                var me = new MouseEvent("mousedown", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(me);
+            }, false);
+
+            canvas.addEventListener("touchend", function (e) {
+                var me = new MouseEvent("mouseup", {});
+                canvas.dispatchEvent(me);
+            }, false);
+
+            function getMousePos(canvasDom, mouseEvent) {
+                var rect = canvasDom.getBoundingClientRect();
+                return {
+                    x: mouseEvent.clientX - rect.left,
+                    y: mouseEvent.clientY - rect.top
+                }
+            }
+
+            function getTouchPos(canvasDom, touchEvent) {
+                var rect = canvasDom.getBoundingClientRect();
+                return {
+                    x: touchEvent.touches[0].clientX - rect.left,
+                    y: touchEvent.touches[0].clientY - rect.top
+                }
+            }
+
+            function renderCanvas() {
+                if (drawing) {
+                    ctx.moveTo(lastPos.x, lastPos.y);
+                    ctx.lineTo(mousePos.x, mousePos.y);
+                    ctx.stroke();
+                    lastPos = mousePos;
+                }
+            }
+
+            // Prevent scrolling when touching the canvas
+            document.body.addEventListener("touchstart", function (e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+            }, false);
+            document.body.addEventListener("touchend", function (e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+            }, false);
+            document.body.addEventListener("touchmove", function (e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+            }, false);
+
+            (function drawLoop() {
+                requestAnimFrame(drawLoop);
+                renderCanvas();
+            })();
+
+            function clearCanvas() {
+                canvas.width = canvas.width;
+            }
+
+            // Set up the UI
+
+            //var sigText = document.getElementById("sig-dataUrl");
+            //var sigImage = document.getElementById("sig-image");
+            var clearBtn = document.getElementById("clearBtn");
+            var submitBtn = document.getElementById("submitBtn");
+            var inputsig = document.getElementById("ESignature");
+            $(clearBtn).click(function () {
+                clearCanvas();
+            });
+            //clearBtn.addEventListener("click", function (e) {
+            //    clearCanvas();
+            //    sigText.innerHTML = "Data URL for your signature will go here!";
+            //    sigImage.setAttribute("src", "");
+            //}, false);
+            //submitBtn.addEventListener("click", function (e) {
+            //    var dataUrl = canvas.toDataURL();
+            //    sigText.innerHTML = dataUrl;
+            //    sigImage.setAttribute("src", dataUrl);
+            //    console.log(dataUrl);
+
+            //}, false);
+            //$("#user-form").submit(function () {
+            //    var sigurl = canvas.toDataURL();
+            //    $(inputsig).val(sigurl);
+            //});
+
+        })();
+
+    })
 </script>
 @section Scripts{
     <script>
-    function AJAXSubmit(oFormElement) {
-            try {
+
+    async function AJAXSubmit(oFormElement) {
+        try {
+            var sigurl = document.getElementById("sig-canvas").toDataURL();
+            $("#ESignature").val(sigurl);
                 var form = document.getElementById("user-form");
                 const url = "@Url.Action("Addnewuserdata", "AdminSetting")";
                 const formData = new FormData(form);
+
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -162,7 +313,7 @@
                                 confirmButtonText: 'Ok'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.href ="@Url.Action("Addnewuser", "AdminSetting")";
+                                    location.href ="@Url.Action("Showlistuser", "AdminSetting")";
                                 }
                             });
 
@@ -187,4 +338,5 @@
         }
     </script>
 }
+
 

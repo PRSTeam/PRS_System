@@ -9,7 +9,7 @@ namespace PRS_System.IServices
     public interface IAccountService
     {
         public void AddNewUser(UserDataModel datauser);
-        public List<UserDataModel> GetDataUser(string user_id);
+        public List<UserDataModel> GetDataUser(string keyword);
         public string GetSignature(string user_id);
         IEnumerable<UserDataModel> GetAllAccountWithKeyword(string keyword);
         public UserDataModel CheckLogin(string user_id);

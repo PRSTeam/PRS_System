@@ -35,11 +35,11 @@ namespace PRS_System.Controllers
         }
         public IActionResult Showlistuser(ShowListUserModel datauser)
         {
-            if (string.IsNullOrWhiteSpace(datauser.UserID))
+            if (string.IsNullOrWhiteSpace(datauser.Keyword))
             {
                 datauser.UserID = "";
             }
-            datauser.userdata = _accountService.GetDataUser(datauser.UserID);
+            datauser.userdata = _accountService.GetDataUser(datauser.Keyword);
             //datauser.userdata = _accountService.GetDataUser(user_id);
             return View(datauser);
         }
@@ -54,7 +54,7 @@ namespace PRS_System.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Addnewuserdata(AddnewuserdataModel AddnewuserModel)
+        public async Task< IActionResult> Addnewuserdata(AddnewuserdataModel AddnewuserModel)
         {
 
             try
