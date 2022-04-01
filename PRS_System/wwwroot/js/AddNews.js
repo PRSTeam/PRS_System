@@ -23,9 +23,7 @@ $(document).ready(function () {
         $(".tab-content").not(tab).css("display", "none");
         $(tab).show();
     });
-});
 
-$(document).ready(function () {
     $(".tab-menu-news a").click(function (event) {
         event.preventDefault();
         $(this).parent().addClass("current-news");
@@ -35,6 +33,17 @@ $(document).ready(function () {
         $(tab).show();
     });
 });
+
+//$(document).ready(function () {
+//    $(".tab-menu-news a").click(function (event) {
+//        event.preventDefault();
+//        $(this).parent().addClass("current-news");
+//        $(this).parent().siblings().removeClass("current-news");
+//        var tab = $(this).attr("href");
+//        $(".tab-content-news").not(tab).css("display", "none");
+//        $(tab).show();
+//    });
+//});
 
 
 
@@ -60,7 +69,7 @@ btnUpload.on("change", function (e) {
         $(".error_msg").show();
     }
     else {
-        $(".error_msg").hide;
+        $(".error_msg").hide();
         btnOuter.addClass("file_uploading");
         setTimeout(function () {
             btnOuter.addClass("file_uploaded");
