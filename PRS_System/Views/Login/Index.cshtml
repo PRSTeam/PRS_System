@@ -90,7 +90,6 @@
                     dataType: "JSON",
                     processData: false,
                     success: function (data) {
-
                         console.log(data);
                         if (data.status == "error") {
                             Swal.fire({
@@ -106,7 +105,15 @@
                             });
                         }
                         if (data.status == "success") {
-                            window.location = "@Url.Action("Index", "FormPRS")";
+                            debugger
+                            if (data.temp != null)
+                            {
+                                window.location = "@Url.Action("form", "FormPRS")?id_tor=" + data.temp;
+                            }
+                            else
+                            {
+                                window.location = "@Url.Action("Index", "FormPRS")";
+                            }
                         }
                     },
                     error: function (err) {
