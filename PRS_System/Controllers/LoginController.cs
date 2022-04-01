@@ -72,7 +72,7 @@ namespace PRS_System.Controllers
                     return Json(new { status = "success" });
                     //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
                 }
-                else if (!string.IsNullOrEmpty(data.Username))
+                else if (!string.IsNullOrEmpty(data.Username) && !string.IsNullOrEmpty(data.Password))
                 {
                     try
                     {
