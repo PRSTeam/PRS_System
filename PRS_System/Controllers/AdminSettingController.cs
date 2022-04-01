@@ -151,6 +151,7 @@ namespace PRS_System.Controllers
                 {
                     ViewBag.item_pic = null;
                     string h = null;
+                    string s = null;
                     int i = 0;
                     foreach (var item in _informationService.ShowInformation())
                     {
@@ -164,6 +165,17 @@ namespace PRS_System.Controllers
                             ViewBag.item_pic += "<td><span class='btn-action'>";
                             ViewBag.item_pic += "<button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + item.FilePath.ToString() + "'> ลบ </a></button>";
                             ViewBag.item_pic += "</span></td></tr>";
+                        }
+                        else if (item.Header.ToString() == "เอกสารดาวน์โหลด")
+                        {
+                            if (s == null)
+                            {
+                                s += item.Section.ToString();
+                            }
+                            else
+                            {
+                                s += "," + item.Section.ToString();
+                            }
                         }
                         else
                         {
@@ -192,78 +204,94 @@ namespace PRS_System.Controllers
                         ViewBag.item_pic += "</span></td></tr>";
                     }
 
-                    string[] str = h.Split(",");
-                    IEnumerable<string> result = str.Distinct();
+                    string[] str_header = h.Split(",");
+                    IEnumerable<string> result_header = str_header.Distinct();
+                    string[] data_header = result_header.ToArray();
 
-                    string[] data = result.ToArray();
+                    string[] str_section = s.Split(",");
+                    IEnumerable<string> result_section = str_section.Distinct();
+                    string[] data_section = result_section.ToArray();
 
-                    ViewBag.tab_header_topic = data;
+                    ViewBag.tab_header_topic = data_header;
 
-                    for (int m = 0; m < data.Length; m++)
+                    var result_data = _informationService.ShowInformation();
+
+                    for (int m = 0; m < data_header.Length; m++)
                     {
                         if (m == 0)
                         {
-                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' /></li>";
-                            ViewBag.tab_body = "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
-                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
-                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อแท็บ' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
-                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มข่าว</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
-                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
-
-                            int t = 0;
-                            foreach (var desc in _informationService.ShowInformation())
-                            {
-                                if (desc.Header == data[m])
-                                {
-                                    t++;
-                                    if (desc.FilePath == null && desc.Description == null)
-                                    {
-                                        ViewBag.tab_body += "";
-                                    }
-                                    else
-                                    {
-                                        ViewBag.tab_body += "<tr><th>" + t + "</th>";
-                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
-                                        ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
-                                    }
-                                    
-                                }
-                            }
-                            ViewBag.tab_body += "</tbody></table></div></div></div>";
+                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data_header[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data_header[m].ToString() + "' /></li>";
                         }
                         else
                         {
-                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data[m].ToString() + "' ></li>";
-
-                            ViewBag.tab_body += "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
-                            ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
-                            ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อแท็บ' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
-                            ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มข่าว</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
-                            ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
-
-                            int t = 0;
-                            foreach (var desc in _informationService.ShowInformation())
-                            {
-                                if (desc.Header == data[m])
-                                {
-                                    t++;
-                                    if (desc.FilePath == null && desc.Description == null)
-                                    {
-                                        ViewBag.tab_body += "";
-                                    }
-                                    else
-                                    {
-                                        ViewBag.tab_body += "<tr><th>" + t + "</th>";
-                                        ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
-                                        ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                        ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "'/><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
-                                    }
-                                    
-                                }
-                            }
-                            ViewBag.tab_body += "</tbody></table></div></div></div>";
+                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data_header[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data_header[m].ToString() + "' ></li>";
                         }
+                        ViewBag.tab_body += "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
+                        ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data_header[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
+                        ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อแท็บ' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
+                        ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มข่าว</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
+                        ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
+
+                        int t = 0;
+                        foreach (var desc in result_data)
+                        {
+                            if (desc.Header == data_header[m])
+                            {
+                                t++;
+                                if (desc.FilePath == null && desc.Description == null)
+                                {
+                                    ViewBag.tab_body += "";
+                                }
+                                else
+                                {
+                                    ViewBag.tab_body += "<tr><th>" + t + "</th>";
+                                    ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
+                                    ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
+                                    ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
+                                }
+
+                            }
+                        }
+                        ViewBag.tab_body += "</tbody></table></div></div></div>";
+
+                        //for (int n = 0; n < data_section.Length; n++)
+                        //{
+                        //    if (n == 0)
+                        //    {
+                        //        ViewBag.section_header = "<li class='current-section'><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' /></li>";
+                        //    }
+                        //    else
+                        //    {
+                        //        ViewBag.section_header += "<li><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' ></li>";
+                        //    }
+                        //    ViewBag.tab_body += "<div id='tab-section" + (n + 1) + "' class='tab-content-section'>";
+                        //    ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อหัวข้อเอกสาร : " + data_section[n].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบหัวข้อเอกสาร</button></div>";
+                        //    ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อหัวข้อเอกสาร' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
+                        //    ViewBag.tab_body += "<div class='add-section'><div class='btn2 btn-add-tab'><h3>เพิ่มเอกสาร</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
+                        //    ViewBag.tab_body += "<div class='add-section-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
+
+                        //    int u = 0;
+                        //    foreach (var desc in result_data)
+                        //    {
+                        //        if (desc.Header == "เอกสารดาวน์โหลด" && desc.Section == data_section[n])
+                        //        {
+                        //            t++;
+                        //            if (desc.FilePath == null && desc.Description == null)
+                        //            {
+                        //                ViewBag.section_body += "";
+                        //            }
+                        //            else
+                        //            {
+                        //                ViewBag.section_body += "<tr><th>" + u + "</th>";
+                        //                ViewBag.section_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
+                        //                ViewBag.section_body += "<td>" + desc.Date.ToString() + "</td>";
+                        //                ViewBag.section_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
+                        //            }
+
+                        //        }
+                        //    }
+                        //    ViewBag.section_body += "</tbody></table></div></div></div>";
+                        //}
                     }
                     return View();
                 }

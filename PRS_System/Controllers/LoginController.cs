@@ -72,6 +72,34 @@ namespace PRS_System.Controllers
                     return Json(new { status = "success" });
                     //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
                 }
+                else if (!string.IsNullOrEmpty(data.Username) && !string.IsNullOrEmpty(data.Password))
+                {
+                    try
+                    {
+                        var result_chk = _accountService.CheckLogin(data.Username);
+
+                        HttpContext.Session.SetString("AccessToken", "1234567890");
+                        HttpContext.Session.SetString("uid", result_chk.UserID);
+                        HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
+                        HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
+                        HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
+                        HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
+                        //HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
+                        HttpContext.Session.SetString("mail", result_chk.Email);
+                        HttpContext.Session.SetString("type_person", result_chk.Category);
+
+                        //HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
+                        //HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
+                        //HttpContext.Session.SetString("position", result_chk.User_Type);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "เกิดข้อผิดพลาด" });
+                    }
+                    return Json(new { status = "success" });
+                }
                 else
                 {
                     return Json(new { status = "error", detail = "กรุณาลองใหม่อีกครั้ง", errorMessage = "ชื่อผู้ใช้งาน หรือรหัสผ่านไม่ถูกต้อง" });

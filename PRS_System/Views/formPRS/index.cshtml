@@ -117,13 +117,17 @@
                 <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                 <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
                 <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
-                <li class="dropdown">
+                @if (Context.Session.GetString("type_person").ToString() == "Admin")
+                {
+                    <li class="dropdown">
                     <i class="fa fa-cog"></i>Admin Setting
                     <div class="dropdown-content">
                         <a href="@Url.Action("ShowListuser","AdminSetting")" id="Admin_Setting">Admin Control</a>
                         <a href="@Url.Action("informationsetting","AdminSetting")" id="Information_Setting">Information Control</a>
                     </div>
                 </li>
+                }
+                
                 @if (!string.IsNullOrEmpty(Context.Session.GetString("AccessToken")))
                 {
                     <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Logout</a></li>

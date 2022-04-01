@@ -28,6 +28,7 @@
             <ul class="tab-menu">
                 <li class="current"><a href="#tab-1">Banner</a></li>
                 <li><a href="#tab-2">ข่าวประชาสัมพันธ์</a></li>
+                <li><a href="#tab-3">เอกสารดาวน์โหลด</a></li>
             </ul>
 
             <div class="tab" id="blur">
@@ -40,9 +41,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Photo</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
+                                    <th>รูปภาพ</th>
+                                    <th>คำอธิบาย</th>
+                                    <th>วันที่</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -70,8 +71,7 @@
                     </div>
                 </div>
 
-                <!-- ******************************************************************************************** -->
-
+                <!-- ************************************************ -->
 
                 <div class="tab-content" id="tab-2">
                     <div class="container-body">
@@ -351,6 +351,285 @@
                             </div>*@
                     </div>
                 </div>
+
+                <div class="tab-content" id="tab-3">
+                    <div class="container-body">
+                        <div class="con-add">
+                            <div class="title-add">
+                                <h2>หัวข้อเอกสาร</h2>
+                            </div>
+                            <div class="add-field">
+                                <label for="tabname">
+                                    <p class="label-txt">หัวข้อเอกสารใหม่</p>
+                                    <input type="text" class="input" id="tabname" name="tabname">
+                                    <div class="line-box">
+                                        <div class="line"></div>
+                                    </div>
+                                </label>
+                                <button onclick="addtab()">หัวข้อเอกสาร</button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="tab-menu-news">
+                        @Html.Raw(ViewBag.section_header)
+                        @*<li class="current-news"><a href="#tab-news1">Tab 1</a></li>
+                            <li><a href="#tab-news2">Tab 2</a></li>
+                            <li><a href="#tab-news3">Tab 3</a></li>
+                            <li><a href="#tab-news4">Tab 4</a></li>
+                            <li><a href="#tab-news5">Tab 5</a></li>*@
+                    </ul>
+
+
+
+                    <div class="tab-news" id="blur-file">
+                        @Html.Raw(ViewBag.section_body)
+                        @*<div id="tab-news1" class="tab-content-news">
+                            <div class="rename-tag">
+                            <div class="btn2 btn-delete-tab">
+                            <h3>Rename Tab</h3>
+                            <button class="delete-tab">Delete Tab</button>
+                            </div>
+                            <div class="rename-con">
+                            <input class="rename-input" type="text" placeholder="Rename">
+                            <button>Submit</button>
+                            </div>
+                            </div>
+
+                            <div class="add-news">
+                            <div class="btn2 btn-add-tab">
+                            <h3>Add News</h3>
+                            <button class="add-tab fa-solid fa-plus" onclick="togglefile()"></button>
+
+                            </div>
+
+                            <div class="add-news-field">
+                            <table>
+                            <thead>
+                            <tr>
+                            <th>No</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <th>1</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            <tr>
+                            <th>2</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            </div>
+                            </div>*@
+
+
+
+                        @*<div id="tab-news2" class="tab-content-news">
+                            <div class="rename-tag">
+                            <div class="btn2 btn-delete-tab">
+                            <h3>Rename Tab2</h3>
+                            <button class="delete-tab">Delete Tab</button>
+                            </div>
+                            <div class="rename-con">
+                            <input class="rename-input" type="text" placeholder="Rename">
+                            <button>Submit</button>
+                            </div>
+                            </div>
+
+                            <div class="add-news">
+                            <div class="btn2 btn-add-tab">
+                            <h3>Add News</h3>
+                            <button class="add-tab fa-solid fa-plus"></button>
+
+                            </div>
+
+                            <div class="add-news-field">
+                            <table>
+                            <thead>
+                            <tr>
+                            <th>No</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <th>1</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            <tr>
+                            <th>2</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            </div>
+                            </div>*@
+
+                        @*<div id="tab-news3" class="tab-content-news">
+                            <div class="rename-tag">
+                            <div class="btn2 btn-delete-tab">
+                            <h3>Rename Tab3</h3>
+                            <button class="delete-tab">Delete Tab</button>
+                            </div>
+                            <div class="rename-con">
+                            <input class="rename-input" type="text" placeholder="Rename">
+                            <button>Submit</button>
+                            </div>
+                            </div>
+
+                            <div class="add-news">
+                            <div class="btn2 btn-add-tab">
+                            <h3>Add News</h3>
+                            <button class="add-tab fa-solid fa-plus"></button>
+
+                            </div>
+
+                            <div class="add-news-field">
+                            <table>
+                            <thead>
+                            <tr>
+                            <th>No</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <th>1</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            <tr>
+                            <th>2</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            </div>
+                            </div>*@
+
+                        @*<div id="tab-news4" class="tab-content-news">
+                            <div class="rename-tag">
+                            <div class="btn2 btn-delete-tab">
+                            <h3>Rename Tab4</h3>
+                            <button class="delete-tab">Delete Tab</button>
+                            </div>
+                            <div class="rename-con">
+                            <input class="rename-input" type="text" placeholder="Rename">
+                            <button>Submit</button>
+                            </div>
+                            </div>
+
+                            <div class="add-news">
+                            <div class="btn2 btn-add-tab">
+                            <h3>Add News</h3>
+                            <button class="add-tab fa-solid fa-plus"></button>
+
+                            </div>
+
+                            <div class="add-news-field">
+                            <table>
+                            <thead>
+                            <tr>
+                            <th>No</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <th>1</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            <tr>
+                            <th>2</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            </div>
+                            </div>*@
+
+                        @*<div id="tab-news5" class="tab-content-news">
+                            <div class="rename-tag">
+                            <div class="btn2 btn-delete-tab">
+                            <h3>Rename Tab5</h3>
+                            <button class="delete-tab">Delete Tab</button>
+                            </div>
+                            <div class="rename-con">
+                            <input class="rename-input" type="text" placeholder="Rename">
+                            <button>Submit</button>
+                            </div>
+                            </div>
+
+                            <div class="add-news">
+                            <div class="btn2 btn-add-tab">
+                            <h3>Add News</h3>
+                            <button class="add-tab fa-solid fa-plus"></button>
+
+                            </div>
+                            <div class="add-news-field">
+                            <table>
+                            <thead>
+                            <tr>
+                            <th>No</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <th>1</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            <tr>
+                            <th>2</th>
+                            <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
+                            </td>
+                            <td>20/03/2022</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                            </div>
+                            </div>*@
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -361,10 +640,10 @@
         <!-- <label for="" class="close-btn"  onclick="toggle()">X</label> -->
         <form method="post" enctype="multipart/form-data" asp-controller="AdminSetting" asp-action="InformationSetting">
             <div class="form">
-                <h2>Upload</h2>
+                <h2>อัพโหลดภาพ Banner</h2>
                 <div class="form-element">
-                    <label asp-for="Description">Description</label>
-                    <input type="text" id="Description" name="Description" placeholder="Description">
+                    <label asp-for="Description">คำอธิบาย</label>
+                    <input type="text" id="Description" name="Description" placeholder="คำอธิบาย">
                 </div>
 
                 <!-- Upload img -->
@@ -396,10 +675,10 @@
         <label class="close-btn-file" onclick="togglefile()">x</label>
         <form method="post" enctype="multipart/form-data" asp-controller="AdminSetting" asp-action="InformationSetting">
             <div class="form-file">
-                <h2>News</h2>
+                <h2>เพิ่มข่าว</h2>
                 <div class="form-element-file">
-                    <label asp-for="Description">Description</label>
-                    <input type="text" id="Description" name="Description" placeholder="Description">
+                    <label asp-for="Description">คำอธิบาย</label>
+                    <input type="text" id="Description" name="Description" placeholder="คำอธิบาย">
                 </div>
 
                 <!-- Upload file -->

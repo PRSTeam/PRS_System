@@ -26,11 +26,28 @@ namespace PRS_System.Controllers
 
         public IActionResult Index()
         {
+
             string h = null;
+            string s = null;
             int img_count = 0;
             foreach (var i in _informationService.ShowInformation())
             {
-                if (i.Header.ToString() != "รูปปก")
+                if (i.Header.ToString() == "รูปปก")
+                {
+                    img_count = img_count + 1;
+                }
+                else if (i.Header.ToString() == "เอกสารดาวน์โหลด")
+                {
+                    if (s == null)
+                    {
+                        s += i.Section.ToString();
+                    }
+                    else
+                    {
+                        s += "," + i.Section.ToString();
+                    }
+                }
+                else
                 {
                     if (h == null)
                     {
@@ -41,63 +58,81 @@ namespace PRS_System.Controllers
                         h += "," + i.Header.ToString();
                     }
                 }
-                else
-                {
-                    img_count = img_count + 1;
-                }
             }
             ViewBag.count_img = 100 / img_count;
 
-            string[] str = h.Split(",");
-            IEnumerable<string> result = str.Distinct();
+            string[] str_header = h.Split(",");
+            IEnumerable<string> result_header = str_header.Distinct();
+            string[] data_header = result_header.ToArray();
 
-            string[] data = result.ToArray();
+            string[] str_section = s.Split(",");
+            IEnumerable<string> result_section = str_section.Distinct();
+            string[] data_section = result_section.ToArray();
 
-            ViewBag.tab_header_topic = data;
-            ViewBag.css_tab_header = data.Length;
+            ViewBag.tab_header_topic = data_header;
+            ViewBag.css_tab_header = data_header.Length + 1;
 
-            for (int i = 0; i < data.Length; i++)
+            var result_data = _informationService.ShowInformation();
+
+            for (int n_header = 0; n_header < data_header.Length; n_header++)
             {
-                if (i == 0)
+                if (n_header == 0)
                 {
                     ViewBag.tab_header = "<div class='actives tab-desc'>";
-                    ViewBag.tab_header += "<h3>" + data[i] + "</h3>";
-                    ViewBag.tab_header += "</div>";
-
                     ViewBag.tab_body = "<div class='actives tab-desc'>";
-                    foreach (var desc in _informationService.ShowInformation())
-                    {
-                        if (desc.Header == data[i])
-                        {
-                            ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
-                            ViewBag.tab_body += desc.Description + "</a></p>";
-                            ViewBag.tab_body += "<hr>";
-                        }
-                    }
-                    ViewBag.tab_body += "</div>";
                 }
                 else
                 {
                     ViewBag.tab_header += "<div class='tab-desc'>";
-                    ViewBag.tab_header += "<h3>" + data[i] + "</h3>";
-                    ViewBag.tab_header += "</div>";
-
                     ViewBag.tab_body += "<div class='tab-desc'>";
-                    foreach (var desc in _informationService.ShowInformation())
-                    {
-                        if (desc.Header == data[i])
-                        {
-                            ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
-                            ViewBag.tab_body += desc.Description + "</a></p>";
-                            ViewBag.tab_body += "<hr>";
-                        }
-                    }
-                    ViewBag.tab_body += "</div>";
                 }
+
+                ViewBag.tab_header += "<h3>" + data_header[n_header] + "</h3>";
+                ViewBag.tab_header += "</div>";
+
+                foreach (var desc in result_data)
+                {
+                    if (desc.Header == data_header[n_header])
+                    {
+                        //ViewBag.tab_body += "<h4>" + desc.Section + "</h4>";
+
+
+                        ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
+                        ViewBag.tab_body += desc.Description + "</a></p>";
+                        ViewBag.tab_body += "<hr>";
+                    }
+                    //ViewBag.tab_body += "<hr>";
+                }
+                ViewBag.tab_body += "</div>";
             }
+
+            ViewBag.tab_header += "<div class='tab-desc'>";
+            ViewBag.tab_header += "<h3>เอกสารดาวน์โหลด</h3>";
+            ViewBag.tab_header += "</div>";
+
+            ViewBag.tab_body += "<div class='tab-desc'>";
+
+            for (int n_section = 0; n_section < data_section.Length; n_section++)
+            {
+                ViewBag.tab_body += "<h4>" + data_section[n_section] + "</h4>";
+                foreach (var desc in result_data)
+                {
+                    if (desc.Header == "เอกสารดาวน์โหลด" && desc.Section == data_section[n_section])
+                    {
+                        ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
+                        ViewBag.tab_body += desc.Description + "</a></p>";
+                        //ViewBag.tab_body += "<hr>";
+                    }
+                }
+                ViewBag.tab_body += "<hr>";
+            }
+            ViewBag.tab_body += "</div>";
 
             return View(_informationService.ShowInformation());
         }
+
+    }
+}
 
         //public IActionResult GetSessionData(string txt)
         //{
@@ -112,5 +147,3 @@ namespace PRS_System.Controllers
         //        return RedirectToAction("Index");
         //    }
         //}
-    }
-}

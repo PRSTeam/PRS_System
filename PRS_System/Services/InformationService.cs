@@ -28,7 +28,7 @@ namespace PRS_System.Services
                 SqlConnection connect = new SqlConnection(_connectionString);
                 SqlCommand command = new SqlCommand();
                 command.Connection = connect;
-                command.CommandText = @"SELECT * FROM PRS_INFORMATION ORDER BY POST_DATE DESC";
+                command.CommandText = @"SELECT * FROM PRS_INFORMATION ORDER BY TOPIC, POST_DATE DESC";
                 connect.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
