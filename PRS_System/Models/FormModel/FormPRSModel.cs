@@ -72,6 +72,7 @@ namespace PRS_System.Models.FormModel
             formprs_data.diractor_3 = diractor_3;
             formprs_data.FilePath = FilePath;
             formprs_data.User_ID = User_ID;
+            formprs_data.buttonstatus = buttonstatus;
             return formprs_data;
         }
     }

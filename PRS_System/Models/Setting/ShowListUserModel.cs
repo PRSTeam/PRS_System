@@ -26,21 +26,22 @@ namespace PRS_System.Models.Setting
         public string Status { get; set; }
 
         public string ESignature { get; set; }
-        public IEnumerable<UserDataModel> userdata { get; internal set; }
+#nullable enable
+        public List<UserDataModel>? userdata { get; set; }
 
-        public UserDataModel ToShowuserdata(string ImgName)
-        {
-            UserDataModel showuserdata = new UserDataModel();
-            showuserdata.UserID = UserID;
-            showuserdata.Full_NameThai = Full_NameThai;
-            showuserdata.Full_NameEng = Full_NameEng;
-            showuserdata.Prefix_NameThai = Prefix_NameThai;
-            showuserdata.Prefix_NameEng = Prefix_NameEng;
-            showuserdata.User_Type = User_Type;
-            showuserdata.Category = Category;
-            showuserdata.Status = Status;
-            showuserdata.ImgName = ImgName;
-            return showuserdata;
-        }
+        //public UserDataModel ToShowuserdata(string ImgName)
+        //{
+        //    UserDataModel showuserdata = new UserDataModel();
+        //    showuserdata.UserID = UserID;
+        //    showuserdata.Full_NameThai = Full_NameThai;
+        //    showuserdata.Full_NameEng = Full_NameEng;
+        //    showuserdata.Prefix_NameThai = Prefix_NameThai;
+        //    showuserdata.Prefix_NameEng = Prefix_NameEng;
+        //    showuserdata.User_Type = User_Type;
+        //    showuserdata.Category = Category;
+        //    showuserdata.Status = Status;
+        //    showuserdata.ImgName = ImgName;
+        //    return showuserdata;
+        //}
     }
 }

@@ -20,7 +20,8 @@ namespace PRS_System.Models.Data
 
         public string Full_NameEng { get; set; }
         public string Prefix_NameEng { get; set; }
-        public string User_Type { get; set; }
+        public string User_Type_Operation { get; set; }
+        public string User_Type_Magnement { get; set; }
         public string ImgName { get; set; }
     }
 }

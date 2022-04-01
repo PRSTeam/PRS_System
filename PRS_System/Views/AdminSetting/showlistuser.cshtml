@@ -64,30 +64,24 @@
                                 <th>Status</th>
                                 <th>Function</th>
                             </tr>
-                           
-                            <tr>
-                                <td>B6130200277</td>
-                                <td>������ ���ͧ��</td>
-                                <td>���Ե</td>
-                                <td>Admin</td>
-                                <td>Working</td>
-                                <td>
-                                    <button class="button button2">Edit</button>
-                                    <button class="button button3">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>B6130200129</td>
-                                <td>���§�� �ҭ���ѡ��</td>
-                                <td>���Ե</td>
-                                <td>Admin</td>
-                                <td>Working</td>
-                                <td>
-                                    <button class="button button2">Edit</button>
-                                    <button class="button button3">Delete</button>
-                                </td>
-                            </tr>
-                        </table>
+                            @foreach (var item in Model.userdata)
+                            {
+                                <tr>
+
+                                    <td>@item.UserID</td>
+                                    <td>@item.Prefix_NameThai @item.Full_NameThai</td>
+                                    <td>@item.Operate_Pos @(item.Manage_Pos == null ? "":"/"+ item.Manage_Pos) </td>
+                                    <td>@item.Category</td>
+                                    <td>@item.Status</td>
+                                    <td>
+                                        <button class="button button2">Edit</button>
+                                        <button class="button button3">Delete</button>
+                                    </td>
+                                    
+
+                                </tr>
+                            }
+                            </table>
                     </div>
                 </div>
                 <hr>

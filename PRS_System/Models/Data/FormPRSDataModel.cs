@@ -30,5 +30,7 @@ namespace PRS_System.Models.Data
         public DateTime? Date { get; set; }
         public string? FilePath { get; set; }
         public string? User_ID { get; set; }
+        public string Fullname_PRS { get; set; }
+        public string buttonstatus { get; set; }
     }
 }

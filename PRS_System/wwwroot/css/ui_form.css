@@ -130,7 +130,8 @@ h2 {
 select {
     width: 100%;
     padding: 6px 10px;
-    border: none;
+    border: 1px;
     border-radius: 4px;
     background-color: #d8fafa;
+    font-family: 'Kanit', sans-serif
 }

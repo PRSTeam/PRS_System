@@ -163,33 +163,33 @@
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายการเอกสารแนบการพิจารณา</b><br>
 
-                                <input id="checkbox1" type="checkbox" value="@(Model.quotationNum != 0 ?  "true":" false" )">
+                                <input id="checkbox1" type="checkbox" value="@(Model.quotationNum != 0 ? "true" : " false" )">
                                 <label>ใบเสนอราคา จำนวน</label>
                                 <input type="number" asp-for="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
                                 <label>หน้า</label>
                                 <br>
 
-                                <input id="checkbox2" name="" type="checkbox" value="@(Model.scopeWork != 0 ?  "true":" false" )">
+                                <input id="checkbox2" name="" type="checkbox" value="@(Model.scopeWork != 0 ? "true" : " false" )">
                                 <label>ขอบเขตของงาน/รายละเอียดคุณลักษณะ</label>
                                 <input type="number" asp-for="scopeWork" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <label>*กรณีจัดซื้อจัดจ้างวงเงินตั้งเเต่ 100,000 บาทขึ้นไป</label>
                                 <br>
 
-                                <input id="checkbox3" name="" type="checkbox" value="@(Model.docNum != 0 ? "true":" false")">
+                                <input id="checkbox3" name="" type="checkbox" value="@(Model.docNum != 0 ? "true" : " false")">
                                 <label>เอกสารรายชื่อนิสิตในการลงททะเบียนเรียนรายวิชาโครงงาน/ปัญหาพิเศษ จำนวน</label>
                                 <input type="number" asp-for="docNum" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <br>
 
-                                <input id="checkbox4" name="" type="checkbox" value="@(Model.budgetDoc != 0 ? "true":" false")">
+                                <input id="checkbox4" name="" type="checkbox" value="@(Model.budgetDoc != 0 ? "true" : " false")">
                                 <label>เอกสารที่ได้รับอนุมัติงบประมาณ จำนวน</label>
                                 <input type="number" asp-for="budgetDoc" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <label>*กรณีปรับแผนซื้อครุภัณฑ์</label>
                                 <br>
 
-                                <input id="checkbox5" name="" type="checkbox" value="@(Model.otherSupport_num !=0  && Model.otherSupport != "" ? "true":" false")">
+                                <input id="checkbox5" name="" type="checkbox" value="@(Model.otherSupport_num != 0 && Model.otherSupport != "" ? "true" : " false")">
                                 <label>เอกสารประกอบอื่นๆ(ถ้ามี) ได้แก่</label>
                                 <input type="text" asp-for="otherSupport" placeholder="ชื่อเอกสารอื่นๆ">
                                 <label>จำนวน</label>
@@ -198,11 +198,23 @@
                                 <br><br>
                                 <b>ไฟล์แนบ</b> <br>
                                 <input type="file" accept="application/pdf" asp-for="FilePDF" multiple>
+                                <br>
+                                <b>ไฟล์แนบล่าสุด</b> <br>
+                                @{ if (Model.FilePath != "")
+                                    {
+                                        <a href="~/File/FileDocUser/@Model.FilePath">@Model.FilePath</a>
+                                    }
+                                    else if (Model.FilePath == "")
+                                    {
+                                        <b>ไม่มีไฟล์แนบล่าสุด</b>
+                                    }
+
+                                }
                                 <br><br>
 
                                 <button type="button" class="button button7" id="showimage1" onclick="showimage(1)">เซ็นอนุมัติ</button><img id="signature1" src="~/img/signature/@Model.FilePath" style="display:none" /><br>
                                 <input asp-for="buttonstatus" style="display:none" />
-                                <button class="button button2" type="button" value="Sent" onclick="sentstatus('Draft','PRS')">บันทึกร่างเอกสาร</button>
+                                <button class="button button2" type="submit" value="Sent" onclick="sentstatus('Draft','PRS')">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
@@ -264,7 +276,7 @@
                                 <br>
                                 <input asp-for="id_tor" style="display:none" />
                                 <input asp-for="buttonstatus_2" style="display:none" />
-                                <button type="button" class="button button2" onclick="sentstatus('Return to Requester','supplies')">ส่งคืนเพื่อแก้ไข</button>
+                                <button  type="button" class="button button2" onclick="sentstatus('Return to Requester','supplies')">ส่งคืนเพื่อแก้ไข</button>
                                 <button class="button button3">Export PDF</button>
                                 <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval','supplies')">ส่งให้ผู้อนุมัติ</button>
 
@@ -409,10 +421,12 @@
                 $("#field" + i).children('button').prop("disabled", true);
             }
         }
-        if (checkcategory_user != "Admin" || statusform== "Sent to Approval")
+        //---- Check Form Suppies
+        if (checkcategory_user != "Admin" || statusform != "Return to Requester" || statusform == "Sent" || statusform == "Draft")
         {
             $("#suppliesform").children('fieldset').children().prop("disabled", true);
         }
+        $().val()
         //------------------------------------------------------------------------------------------------------------------------------------------------------------
         $("#Editsubmit").click(function () {
             Email.send({
@@ -480,14 +494,60 @@
     function sentstatus(value,field) {
         if (field == "PRS") {
             document.getElementById("buttonstatus").value = value;
-            alert("PRS status success")
-            document.getElementById("createform").submit();
+            //alert("PRS status success")
+            //document.getElementById("createform").submit();
         }
         else if (field == "supplies") {
             document.getElementById("buttonstatus_2").value = value;
             alert("supplies status success")
             @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
-                document.getElementById("suppliesform").submit();
+            try {
+                var form = document.getElementById("suppliesform");
+                const url = "@Url.Action("AddDataSuppies", "FormPRS")";
+                console.log(url);
+                const formData = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData, // ดึงข้อมุลในฟอร์ม
+                    contentType: false,
+                    dataType: "JSON",
+                    processData: false,
+                    success: function (data) {
+
+                        console.log(data);
+                        if (data.status == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: data.messege,
+                                showConfirmButton: true,
+                                confirmButtonText: 'Ok'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href ="@Url.Action("index", "FormPRS")";
+                                }
+                            });
+
+                        }
+                        else if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                html: data.detail,
+                                showConfirmButton: true,
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("Error save fail");
+                    }
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            //document.getElementById("suppliesform").submit();
+
         }
 
     }

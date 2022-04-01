@@ -62,44 +62,51 @@
                                     </div>
                                     <div class="row">
 
-                                        <label>ID �����</label><br>
-                                        <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20"><br><br>
-                                        <label>���ͨ�ԧ������</label><br>
-                                        <input type="text" asp-for="Full_NameThai" placeholder="Ex.������ ���ͧ��" size="20"><br><br>
-                                        <label>���ͨ�ԧ�����ѧ���</label><br>
-                                        <input type="text" asp-for="Full_NameEng" placeholder="Ex.Chinopas Muangthai" size="20"><br><br>
-
-                                        <label>���˹觧ҹ�����</label><br>
-                                        <select asp-for="User_Type">
-                                            <option value="science">���Ե</option>
+                                        <label>ID ผู้ใช้</label><br>
+                                        <input type="text" asp-for="UserID" placeholder="Ex.sfcsrc" size="20"><br><br>
+                                        <label>ชื่อ นามสกุล</label><br>
+                                        <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20"><br><br>
+                                        <label>ตำแหน่งปฏิบัติงาน</label><br>
+                                        <select asp-for="User_Type_Operation">
+                                            <option value="นักวิชาการเงินและบัญชี ชำนาญการ">นักวิชาการเงินและบัญชี ชำนาญการ</option>
                                         </select><br><br>
 
-                                        <label>Mr./Mrs./Miss/Ms.</label><br><br>
-                                        <input asp-for="Prefix_NameEng" type="radio" value="Mr.">
-                                        <label>Mr.</label>
-                                        <input asp-for="Prefix_NameEng" type="radio" value="Mrs.">
-                                        <label>Mrs.</label>
-                                        <input asp-for="Prefix_NameEng" type="radio" value="Miss.">
-                                        <label>Miss.</label>
-                                        <input asp-for="Prefix_NameEng" type="radio" value="Ms.">
-                                        <label>Ms.</label>
+                                        <label>ตำแหน่งบริหาร</label><br>
+                                        <select asp-for="User_Type_Magnement">
+                                            <option value="">เลือกตำแหน่ง</option>
+                                            <option value="หัวหน้าภาควิชา">หัวหน้าภาควิชา</option>
+                                            <option value="หัวหน้าฝ่ายสนับสนุนงานกลาง">หัวหน้าฝ่ายสนับสนุนงานกลาง</option>
+                                            <option value="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา">หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</option>
+                                            <option value="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์</option>
+                                            <option value="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีและสื่อสาร">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีและสื่อสาร</option>
+                                            <option value="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา">หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</option>
+                                            <option value="นักวิเคราะห์นโยบายและแผนชำนาญการ">นักวิเคราะห์นโยบายและแผนชำนาญการ</option>
+                                            <option value="หัวหน้าสำนักงานเลขานุการ">หัวหน้าสำนักงานเลขานุการ</option>
+                                            <option value="นักวิเคราะห์นโยบายและแผนชำนาญการ">นักวิเคราะห์นโยบายและแผนชำนาญการ</option>
+                                            <option value="กรรมการและเลขานุการ">กรรมการและเลขานุการ</option>
+                                            <option value="ประธานกรรมการดำเนินงานฯ">กรรมการและเลขานุการฯ</option>
+                                        </select><br><br>
+
+
                                         <br><br>
-                                        <label>�ӹ�˹�Ҫ���</label><br>
-                                        <input asp-for="Prefix_NameThai" type="radio" value="���">
-                                        <label>���</label>
-                                        <input asp-for="Prefix_NameThai" type="radio" value="�ҧ">
-                                        <label>�ҧ</label>
-                                        <input asp-for="Prefix_NameThai" type="radio" value="�ҧ���">
-                                        <label>�ҧ���</label>
+                                        <label>Email (*Gmail)</label>
+                                        <input type="email" asp-for="Email" />
+                                        <br><br>
+                                        <label>คำนำหน้าชื่อ</label><br>
+                                        <select asp-for="Prefix_NameThai">
+                                            <option value="นาย">นาย</option>
+                                            <option value="นาง">นาง</option>
+                                            <option value="นาง">นางสาว</option>
+                                        </select>
                                         <br><br>
 
-                                        <label>��Ǵ��������</label><br>
+                                        <label>หมวดหมู่ผู้ใช้</label><br>
                                         <input asp-for="Category" type="radio" value="Admin">
                                         <label>Admin</label>
                                         <input asp-for="Category" type="radio" value="User">
                                         <label>User</label><br><br>
 
-                                        <label>�����</label><br><br>
+                                        <label>ลายเซ็น</label><br><br>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <canvas id="sig-canvas" width="620" height="160" style="border-style:dashed">
@@ -109,11 +116,11 @@
                                             <input type="hidden" asp-for="ESignature" />
                                         </div>
 
-                                        <label>ʶҹм����</label><br>
-                                        <input asp-for="Status" type="radio" value="Working">
-                                        <label>Working</label>
-                                        <input asp-for="Status" type="radio" value="Quit">
-                                        <label>Quit</label><br><br>
+                                        <label>สถานะผู้ใช้</label><br>
+                                        <input asp-for="Status" type="radio" value="Active">
+                                        <label>Active</label>
+                                        <input asp-for="Status" type="radio" value="Inactive">
+                                        <label>Inactive</label><br><br>
 
                                         <button id="clearBtn" type="button">Clear signature</button>
                                         <button type="submit" id="submitBtn">Submit</button>
@@ -141,9 +148,9 @@
                     </select><br><br>
 
                     <label>Category</label><br>
-                    <input id="checkBox" name="" type="checkbox">
+                    <input asp-for="Category" type="checkbox">
                     <label>Admin</label>
-                    <input id="checkBox" name="" type="checkbox">
+                    <input asp-for="Category"  type="checkbox">
                     <label>User</label><br><br>
 
                     <label>Signature</label><br><br>
