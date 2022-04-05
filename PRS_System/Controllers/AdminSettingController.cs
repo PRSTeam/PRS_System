@@ -247,7 +247,7 @@ namespace PRS_System.Controllers
                                     ViewBag.tab_body += "<tr><th>" + t + "</th>";
                                     ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
                                     ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                    ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile('" + desc.FilePath.ToString() + "')'> ลบ </button></span></td></tr>";
+                                    ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile(\"" + desc.FilePath.ToString() + "\")'> ลบ </button></span></td></tr>";
                                 }
 
                             }

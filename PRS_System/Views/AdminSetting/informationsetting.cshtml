@@ -507,8 +507,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#tabname").focus();
-                }
-                else{
                     blur.classList.toggle('active-blur');
                 }
             });
@@ -583,9 +581,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#secname").focus();
-                }
-                else
-                {
                     blur.classList.toggle('active-blur');
                 }
             });
@@ -773,9 +768,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $(".current-news#rename").focus();
-                }
-                else
-                {
                     blur.classList.toggle('active-blur');
                 }
             });
@@ -851,6 +843,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $(".current-section#rename").focus();
+                    blur.classList.toggle('active-blur');
                 }
             });
         }
