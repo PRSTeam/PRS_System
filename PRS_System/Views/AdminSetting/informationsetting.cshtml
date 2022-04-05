@@ -15,6 +15,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
       integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -102,7 +103,7 @@
 
 
 
-                    <div class="tab-news" id="blur-file">
+                    <div class="tab-news" id="blur">
                         @Html.Raw(ViewBag.tab_body)
                         @*<div id="tab-news1" class="tab-content-news">
                             <div class="rename-tag">
@@ -152,8 +153,6 @@
                             </div>
                             </div>
                             </div>*@
-
-
 
                         @*<div id="tab-news2" class="tab-content-news">
                             <div class="rename-tag">
@@ -352,282 +351,34 @@
                     </div>
                 </div>
 
+                <!-- ************************************************ -->
+
                 <div class="tab-content" id="tab-3">
                     <div class="container-body">
                         <div class="con-add">
                             <div class="title-add">
-                                <h2>หัวข้อเอกสาร</h2>
+                                <h2>เพิ่มหัวข้อเอกสารใหม่</h2>
                             </div>
                             <div class="add-field">
-                                <label for="tabname">
-                                    <p class="label-txt">หัวข้อเอกสารใหม่</p>
-                                    <input type="text" class="input" id="tabname" name="tabname">
+                                <label for="secname">
+                                    <p class="label-txt">ชื่อหัวข้อเอกสารใหม่</p>
+                                    <input type="text" class="input" id="secname" name="secname">
                                     <div class="line-box">
                                         <div class="line"></div>
                                     </div>
                                 </label>
-                                <button onclick="addtab()">หัวข้อเอกสาร</button>
+                                <button onclick="addsec()">เพิ่มหัวข้อเอกสาร</button>
                             </div>
                         </div>
                     </div>
-                    <ul class="tab-menu-news">
+                    <ul class="tab-menu-section">
                         @Html.Raw(ViewBag.section_header)
-                        @*<li class="current-news"><a href="#tab-news1">Tab 1</a></li>
-                            <li><a href="#tab-news2">Tab 2</a></li>
-                            <li><a href="#tab-news3">Tab 3</a></li>
-                            <li><a href="#tab-news4">Tab 4</a></li>
-                            <li><a href="#tab-news5">Tab 5</a></li>*@
                     </ul>
 
 
 
-                    <div class="tab-news" id="blur-file">
+                    <div class="tab-section" id="blur">
                         @Html.Raw(ViewBag.section_body)
-                        @*<div id="tab-news1" class="tab-content-news">
-                            <div class="rename-tag">
-                            <div class="btn2 btn-delete-tab">
-                            <h3>Rename Tab</h3>
-                            <button class="delete-tab">Delete Tab</button>
-                            </div>
-                            <div class="rename-con">
-                            <input class="rename-input" type="text" placeholder="Rename">
-                            <button>Submit</button>
-                            </div>
-                            </div>
-
-                            <div class="add-news">
-                            <div class="btn2 btn-add-tab">
-                            <h3>Add News</h3>
-                            <button class="add-tab fa-solid fa-plus" onclick="togglefile()"></button>
-
-                            </div>
-
-                            <div class="add-news-field">
-                            <table>
-                            <thead>
-                            <tr>
-                            <th>No</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <th>1</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            </div>
-                            </div>*@
-
-
-
-                        @*<div id="tab-news2" class="tab-content-news">
-                            <div class="rename-tag">
-                            <div class="btn2 btn-delete-tab">
-                            <h3>Rename Tab2</h3>
-                            <button class="delete-tab">Delete Tab</button>
-                            </div>
-                            <div class="rename-con">
-                            <input class="rename-input" type="text" placeholder="Rename">
-                            <button>Submit</button>
-                            </div>
-                            </div>
-
-                            <div class="add-news">
-                            <div class="btn2 btn-add-tab">
-                            <h3>Add News</h3>
-                            <button class="add-tab fa-solid fa-plus"></button>
-
-                            </div>
-
-                            <div class="add-news-field">
-                            <table>
-                            <thead>
-                            <tr>
-                            <th>No</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <th>1</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            </div>
-                            </div>*@
-
-                        @*<div id="tab-news3" class="tab-content-news">
-                            <div class="rename-tag">
-                            <div class="btn2 btn-delete-tab">
-                            <h3>Rename Tab3</h3>
-                            <button class="delete-tab">Delete Tab</button>
-                            </div>
-                            <div class="rename-con">
-                            <input class="rename-input" type="text" placeholder="Rename">
-                            <button>Submit</button>
-                            </div>
-                            </div>
-
-                            <div class="add-news">
-                            <div class="btn2 btn-add-tab">
-                            <h3>Add News</h3>
-                            <button class="add-tab fa-solid fa-plus"></button>
-
-                            </div>
-
-                            <div class="add-news-field">
-                            <table>
-                            <thead>
-                            <tr>
-                            <th>No</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <th>1</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            </div>
-                            </div>*@
-
-                        @*<div id="tab-news4" class="tab-content-news">
-                            <div class="rename-tag">
-                            <div class="btn2 btn-delete-tab">
-                            <h3>Rename Tab4</h3>
-                            <button class="delete-tab">Delete Tab</button>
-                            </div>
-                            <div class="rename-con">
-                            <input class="rename-input" type="text" placeholder="Rename">
-                            <button>Submit</button>
-                            </div>
-                            </div>
-
-                            <div class="add-news">
-                            <div class="btn2 btn-add-tab">
-                            <h3>Add News</h3>
-                            <button class="add-tab fa-solid fa-plus"></button>
-
-                            </div>
-
-                            <div class="add-news-field">
-                            <table>
-                            <thead>
-                            <tr>
-                            <th>No</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <th>1</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            </div>
-                            </div>*@
-
-                        @*<div id="tab-news5" class="tab-content-news">
-                            <div class="rename-tag">
-                            <div class="btn2 btn-delete-tab">
-                            <h3>Rename Tab5</h3>
-                            <button class="delete-tab">Delete Tab</button>
-                            </div>
-                            <div class="rename-con">
-                            <input class="rename-input" type="text" placeholder="Rename">
-                            <button>Submit</button>
-                            </div>
-                            </div>
-
-                            <div class="add-news">
-                            <div class="btn2 btn-add-tab">
-                            <h3>Add News</h3>
-                            <button class="add-tab fa-solid fa-plus"></button>
-
-                            </div>
-                            <div class="add-news-field">
-                            <table>
-                            <thead>
-                            <tr>
-                            <th>No</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            <th>1</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            <tr>
-                            <th>2</th>
-                            <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ab?
-                            </td>
-                            <td>20/03/2022</td>
-                            </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                            </div>
-                            </div>*@
                     </div>
                 </div>
             </div>
@@ -682,7 +433,6 @@
                 </div>
 
                 <!-- Upload file -->
-                <!-- แก้ -->
                 <div class="container-upload-file">
                     <div class="panel-file">
                         <div class="button_outer_file">
@@ -693,10 +443,44 @@
                             <div class="success_box_file"></div>
                         </div>
                     </div>
-                    <div class="error_msg" style="display:none;">กรุณาเลือกไฟล์นามสกุล .xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf</div>
-                    <div class="upload_file_news_view" id="upload_news_view">
+                    <div class="error_msg" style="display:none;">กรุณาเลือกเฉพาะไฟล์นามสกุล<br />.xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf</div>
+                    <div class="uploaded_file_news_view" id="uploaded_news_view">
                         <span class="file_news_remove">X</span>
                         @*<div id="file-upload-filename"></div>*@
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-create-file" style="display:none;">เพิ่ม</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Upload section file -->
+    <div class="container-popup-section" id="popup-section">
+        <label class="close-btn-section" onclick="togglesection()">x</label>
+        <form method="post" enctype="multipart/form-data" asp-controller="AdminSetting" asp-action="InformationSetting">
+            <div class="form-section">
+                <h2>เพิ่มเอกสาร</h2>
+                <div class="form-element-section">
+                    <label asp-for="Description">คำอธิบาย</label>
+                    <input type="text" id="Description" name="Description" placeholder="คำอธิบาย">
+                </div>
+
+                <!-- Upload section file -->
+                <div class="container-upload-section">
+                    <div class="panel-section">
+                        <div class="button_outer_section">
+                            <div class="btn_upload_section">
+                                <input type="file" id="FilePDF" name="FilePDF" accept=".xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf" /> เลือกไฟล์
+                            </div>
+                            <div class="processing_bar_section"></div>
+                            <div class="success_box_section"></div>
+                        </div>
+                    </div>
+                    <div class="error_msg" style="display:none;">กรุณาเลือกเฉพาะไฟล์นามสกุล<br />.xlsx, .xls, .doc, .docx, .ppt, .pptx, .pdf</div>
+                    <div class="uploaded_file_section_view" id="uploaded_section_view">
+                        <span class="file_section_remove">X</span>
                     </div>
                 </div>
                 <div>
@@ -710,182 +494,479 @@
 @section Scripts{
 <script src="~/js/AddNews.js"></script>
 <script type="text/javascript">
-
-    $(document).ready(function(){
-        var c_tab = $('rename');
-        c_tab.on("change", function(){
-            c_tab = $('rename').val();
-        })
-    })
-
+    var blur = document.getElementById('blur');
     function addtab() {
         var txt_tb = $("#tabname").val();
         if (txt_tb == "" || txt_tb == undefined || txt_tb.trim() == "") {
-                alert("กรุณาระบุชื่อแท็บ");
-                document.getElementById("tabname").focus();
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'warning',
+                title: 'ผิดพลาด',
+                html: 'กรุณาระบุชื่อแท็บต้องการเพิ่ม',
+                showConfirmButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#tabname").focus();
+                }
+                else{
+                    blur.classList.toggle('active-blur');
+                }
+            });
         }
         else {
-            try {
-                const url = '@Url.Action("addTab", "AdminSetting")?tabname=' + txt_tb;
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    //data: JSON.stringify({ 'tabname': txt_tb }),
-                    contentType: false,
-                    dataType: "JSON",
-                    processData: false,
-                    success: function (data) {
-                        console.log(data);
-                        if (data.status == "error") {
-                            Swal.fire({
-                                icon: 'error',
-                                title: data.errorMessage,
-                                html: data.detail,
-                                showConfirmButton: true,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    document.getElementById("tabname").focus();
-                                    //document.getElementById("password").value='';
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'info',
+                title: 'ต้องเพิ่มแท็บใหม่หรือไม่ ?',
+                html: 'ชื่อแท็บที่ต้องการเพิ่ม : ' + txt_tb,
+                showConfirmButton: true,
+                confirmButtonText: 'เพิ่ม',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const url = '@Url.Action("addTab", "AdminSetting")?tabname=' + txt_tb;
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            //data: JSON.stringify({ 'tabname': txt_tb }),
+                            contentType: false,
+                            dataType: "JSON",
+                            processData: false,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.status == "error") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: data.errorMessage,
+                                        html: data.detail,
+                                        showConfirmButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById("tabname").focus();
+                                        }
+                                    });
                                 }
-                            });
-                        }
-                        if (data.status == "success") {
-                            window.location = "@Url.Action("informationsetting", "AdminSetting")";
-                        }
-                    },
-                    error: function (err) {
-                        console.log("Error", err);
-                        alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                                if (data.status == "success") {
+                                    window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                                }
+                            },
+                            error: function (err) {
+                                console.log("Error", err);
+                                alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                            }
+                        });
                     }
-                });
-            }
-            catch (error) {
-                console.error('Error:', error);
-            }
+                    catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+                else{
+                    blur.classList.toggle('active-blur');
+                }
+            });
+        }
+    }
+
+    function addsec() {
+        var txt_sc = $("#secname").val();
+        if (txt_sc == "" || txt_sc == undefined || txt_sc.trim() == "")
+        {
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'warning',
+                title: 'ผิดพลาด',
+                html: 'กรุณาระบุชื่อหัวข้อใหม่ที่ต้องการเพิ่ม',
+                showConfirmButton: true,
+                confirmButtonText: 'ตกลง',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#secname").focus();
+                }
+                else
+                {
+                    blur.classList.toggle('active-blur');
+                }
+            });
+        }
+        else {
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'info',
+                title: 'ต้องเพิ่มหัวข้อใหม่หรือไม่ ?',
+                html: 'ชื่อหัวข้อที่ต้องการเพิ่ม : ' + txt_sc,
+                showConfirmButton: true,
+                confirmButtonText: 'ตกลง',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const url = '@Url.Action("addTab", "AdminSetting")?tabname=เอกสารดาวน์โหลด&secname=' + txt_sc;
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            //data: JSON.stringify({ 'tabname': txt_tb }),
+                            contentType: false,
+                            dataType: "JSON",
+                            processData: false,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.status == "error") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: data.errorMessage,
+                                        html: data.detail,
+                                        showConfirmButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById("secname").focus();
+                                        }
+                                    });
+                                }
+                                if (data.status == "success") {
+                                    window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                                }
+                            },
+                            error: function (err) {
+                                console.log("Error", err);
+                                alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                            }
+                        });
+                    }
+                    catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+                else
+                {
+                    blur.classList.toggle('active-blur');
+                }
+            });
         }
     }
 
     function deletetab(){
-        var txt_tb = $("#tabHeader").val();
-        try {
-            const url = '@Url.Action("deleteTab", "AdminSetting")?tabname=' + txt_tb;
-            $.ajax({
-                type: "POST",
-                url: url,
-                //data: JSON.stringify({ 'tabname': txt_tb }),
-                 contentType: false,
-                 dataType: "JSON",
-                 processData: false,
-                 success: function (data) {
-                     console.log(data);
-                     if (data.status == "error") {
-                         Swal.fire({
-                             icon: 'error',
-                             title: data.errorMessage,
-                             html: data.detail,
-                             showConfirmButton: true,
-                         }).then((result) => {
-                             if (result.isConfirmed) {
-                                 window.origin;
-                             }
-                         });
-                     }
-                     if (data.status == "success") {
-                         window.location = "@Url.Action("informationsetting", "AdminSetting")";
-                     }
-                 },
-                 error: function (err) {
-                     console.log("Error", err);
-                     alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
-                 }
-            });
-        }
-        catch (error) {
-            console.error('Error:', error);
-        }
+        var txt_tb = $('.current-news').find('a').text();
+        blur.classList.toggle('active-blur');
+        Swal.fire({
+            icon: 'info',
+            title: 'ต้องการลบแท็บ ' + txt_tb + ' หรือไม่ ?',
+            html: 'เอกสารในแท็บ ' + txt_tb + ' จะถูกลบทั้งหมด',
+            showConfirmButton: true,
+            confirmButtonText: 'ตกลง',
+            showCancelButton: true,
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    const url = '@Url.Action("deleteTab", "AdminSetting")?tabname=' + txt_tb;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        contentType: false,
+                        dataType: "JSON",
+                        processData: false,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.status == "error") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: data.errorMessage,
+                                    html: data.detail,
+                                    showConfirmButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.origin;
+                                    }
+                                });
+                            }
+                            if (data.status == "success") {
+                                window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                            }
+                        },
+                        error: function (err) {
+                            console.log("Error", err);
+                            alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                        }
+                    });
+                }
+                catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+            else
+            {
+                blur.classList.toggle('active-blur');
+            }
+        });
     }
 
-    function deletefile(){
-        var txt_file = $("#file_name").val();
-        try {
-            const url = '@Url.Action("DeleteData", "AdminSetting")?filename=' + txt_file;
-            $.ajax({
-                type: "POST",
-                url: url,
-                //data: JSON.stringify({ 'tabname': txt_tb }),
-                 contentType: false,
-                 dataType: "JSON",
-                 processData: false,
-                 success: function (data) {
-                     console.log(data);
-                     if (data.status == "error") {
-                         Swal.fire({
-                             icon: 'error',
-                             title: data.errorMessage,
-                             html: data.detail,
-                             showConfirmButton: true,
-                         }).then((result) => {
-                             if (result.isConfirmed) {
-                                 window.origin;
-                             }
-                         });
-                     }
-                     if (data.status == "success") {
-                         window.location = "@Url.Action("informationsetting", "AdminSetting")";
-                     }
-                 },
-                 error: function (err) {
-                     console.log("Error", err);
-                     alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
-                 }
-            });
-        }
-        catch (error) {
-            console.error('Error:', error);
-        }
+    function deletefile(filename){
+        //var txt_file = $("#file_name").val();
+        blur.classList.toggle('active-blur');
+        Swal.fire({
+            icon: 'info',
+            title: 'ต้องการลบเอกสารนี้หรือไม่ ?',
+            html: 'เอกสาร ' + filename + ' จะถูกลบ',
+            showConfirmButton: true,
+            confirmButtonText: 'ตกลง',
+            showCancelButton: true,
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    const url = '@Url.Action("DeleteData", "AdminSetting")?filename=' + filename;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        contentType: false,
+                        dataType: "JSON",
+                        processData: false,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.status == "error") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: data.errorMessage,
+                                    html: data.detail,
+                                    showConfirmButton: true
+                                });//.then((result) => {
+                                //    if (result.isConfirmed) {
+                                //        window.origin;
+                                //    }
+                                //});
+                            }
+                            if (data.status == "success") {
+                                window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                            }
+                        },
+                        error: function (err) {
+                            console.log("Error", err);
+                            alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                        }
+                    });
+                }
+                catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+            else
+            {
+                blur.classList.toggle('active-blur');
+            }
+        });
     }
 
     function renametab(){
-        //var n_tab = $('#rename').val();
         var n_tab = $('.tab-content-news:visible').find('input').val();
         var o_tab = $('.current-news').find('a').text();
-        console.log(o_tab+","+n_tab);
-        try {
-            const url = '@Url.Action("renameTab", "AdminSetting")?old_tabname=' + o_tab + '&new_tabname=' + n_tab;
-            $.ajax({
-                type: "POST",
-                url: url,
-                //data: JSON.stringify({ 'tabname': txt_tb }),
-                 contentType: false,
-                 dataType: "JSON",
-                 processData: false,
-                 success: function (data) {
-                     console.log(data);
-                     if (data.status == "error") {
-                         Swal.fire({
-                             icon: 'error',
-                             title: data.errorMessage,
-                             html: data.detail,
-                             showConfirmButton: true,
-                         }).then((result) => {
-                             if (result.isConfirmed) {
-                                 window.origin;
-                             }
-                         });
-                     }
-                     if (data.status == "success") {
-                         window.location = "@Url.Action("informationsetting", "AdminSetting")";
-                     }
-                 },
-                 error: function (err) {
-                     console.log("Error", err);
-                     alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
-                 }
+        if(n_tab == "" || n_tab == undefined || n_tab.trim() == ""){
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'warning',
+                title: 'ผิดพลาด',
+                html: 'กรุณาระบุชื่อแท็บใหม่ที่ต้องการเปลี่ยน',
+                showConfirmButton: true,
+                confirmButtonText: 'ตกลง',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(".current-news#rename").focus();
+                }
+                else
+                {
+                    blur.classList.toggle('active-blur');
+                }
             });
         }
-        catch (error) {
-            console.error('Error:', error);
+        else
+        {
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'info',
+                title: 'ต้องการเปลี่ยนชื่อแท็บ ' + o_tab + ' หรือไม่ ?',
+                html: 'ชื่อใหม่ของแท็บคือ ' + n_tab,
+                showConfirmButton: true,
+                confirmButtonText: 'ตกลง',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const url = '@Url.Action("renameTab", "AdminSetting")?old_tabname=' + o_tab + '&new_tabname=' + n_tab;
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            contentType: false,
+                            dataType: "JSON",
+                            processData: false,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.status == "error") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: data.errorMessage,
+                                        html: data.detail,
+                                        showConfirmButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.origin;
+                                        }
+                                    });
+                                }
+                                if (data.status == "success") {
+                                    window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                                }
+                            },
+                            error: function (err) {
+                                console.log("Error", err);
+                                alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                            }
+                        });
+                    }
+                    catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+                else
+                {
+                    blur.classList.toggle('active-blur');
+                }
+            });
         }
+    }
+
+    function renamesec(){
+        var n_tab = $('.tab-content-section:visible').find('input').val();
+        var o_tab = $('.current-section').find('a').text();
+        if(n_tab == "" || n_tab == undefined || n_tab.trim() == ""){
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'warning',
+                title: 'ผิดพลาด',
+                html: 'กรุณาระบุชื่อหัวข้อที่ต้องการเปลี่ยน',
+                showConfirmButton: true,
+                confirmButtonText: 'ตกลง',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(".current-section#rename").focus();
+                }
+            });
+        }
+        else
+        {
+            blur.classList.toggle('active-blur');
+            Swal.fire({
+                icon: 'info',
+                title: 'ต้องการเปลี่ยนชื่อหัวข้อ ' + o_tab + ' หรือไม่ ?',
+                html: 'ชื่อใหม่ของหัวข้อคือ ' + n_tab,
+                showConfirmButton: true,
+                confirmButtonText: 'ตกลง',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const url = '@Url.Action("renameTab", "AdminSetting")?old_tabname=' + o_tab + '&new_tabname=' + n_tab + '&header=เอกสารดาวน์โหลด';
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            //data: JSON.stringify({ 'tabname': txt_tb }),
+                            contentType: false,
+                            dataType: "JSON",
+                            processData: false,
+                            success: function (data) {
+                                console.log(data);
+                                if (data.status == "error") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: data.errorMessage,
+                                        html: data.detail,
+                                        showConfirmButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.origin;
+                                        }
+                                    });
+                                }
+                                if (data.status == "success") {
+                                    window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                                }
+                            },
+                            error: function (err) {
+                                console.log("Error", err);
+                                alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                            }
+                        });
+                    }
+                    catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+                else
+                {
+                    blur.classList.toggle('active-blur');
+                }
+            });
+        }
+    }
+
+    function deletesec(){
+        var txt_sc = $('.current-section').find('a').text();
+        blur.classList.toggle('active-blur');
+        Swal.fire({
+            icon: 'info',
+            title: 'ต้องการลบหัวข้อ ' + txt_sc + ' หรือไม่ ?',
+            html: 'เอกสารในหัวข้อ ' + txt_sc + ' จะถูกลบทั้งหมด',
+            showConfirmButton: true,
+            confirmButtonText: 'ตกลง',
+            showCancelButton: true,
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    const url = '@Url.Action("deleteTab", "AdminSetting")?tabname=เอกสารดาวน์โหลด&secname=' + txt_sc;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        //data: JSON.stringify({ 'tabname': txt_tb }),
+                        contentType: false,
+                        dataType: "JSON",
+                        processData: false,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.status == "error") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: data.errorMessage,
+                                    html: data.detail,
+                                    showConfirmButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.origin;
+                                    }
+                                });
+                            }
+                            if (data.status == "success") {
+                                window.location = "@Url.Action("informationsetting", "AdminSetting")";
+                            }
+                        },
+                        error: function (err) {
+                            console.log("Error", err);
+                            alert("เกิดข้อผิดพลาด ไม่สามารถใช้งานระบบได้");
+                        }
+                    });
+                }
+                catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+            else
+            {
+                blur.classList.toggle('active-blur');
+            }
+        });
     }
 </script>
 }
