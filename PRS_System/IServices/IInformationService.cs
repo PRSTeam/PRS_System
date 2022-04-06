@@ -8,8 +8,8 @@ namespace PRS_System.IServices
         public List<InfomationModel> ShowInformation();
         public void AddNewsDetailData(InfomationModel infdata);
         public void Del_data(string filename);
-        public void Add_tab(string tabname);
-        public void Del_tab(string tabname);
-        public void Rename_tab(string old_tabname, string new_tabname);
+        public void Add_tab(string tabname, string secname);
+        public void Del_tab(string tabname, string secname);
+        public void Rename_tab(string old_tabname, string new_tabname, string header);
     }
 }
