@@ -75,6 +75,26 @@
             color: #5f6d7e;
         }
 
+        .banner-bg {
+	        padding: 260px 80px;
+	        position: relative;
+	        background: url('~/img/login/image_science.jpg');
+	        background-repeat: no-repeat;
+	        background-position: center;
+	        background-size: cover;
+	        z-index: 2;
+        }
+
+        .banner-overlay {
+	        position: absolute;
+	        width: 100%;
+	        height: 100%;
+	        background: rgba($dark-bg, 0.4);
+	        top: 0;
+	        left: 0;
+	        z-index: 3;
+        }
+
     </style>
 </head>
 <body>
@@ -135,14 +155,6 @@
             </ul>
         </div> <!-- .main-navigation -->
     </div> <!-- .sidebar-menu -->
-
-
-    <div class="banner-bg" id="home">
-        <div class="banner-overlay"></div>
-        <div class="welcome-text">
-           
-        </div>
-    </div>
 
     <!-- MAIN CONTENT -->
     <div class="main-content">
