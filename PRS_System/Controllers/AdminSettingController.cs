@@ -93,7 +93,7 @@ namespace PRS_System.Controllers
                 //    ModelState.AddModelError("Category", "กรุณากรอกประเภทผู้ใช้");
                 //}
 
-
+                string fileName = null;
                 if (ModelState.IsValid)
                 {
                     //-------สร้างรูปภาพ ลายเซ็น
@@ -101,12 +101,24 @@ namespace PRS_System.Controllers
                     {
                         string filesig = AddnewuserModel.ESignature;
                         string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
-                        string fileName = AddnewuserModel.UserID + "_" + uniquefile + ".png";
+                         fileName = AddnewuserModel.UserID + "_" + uniquefile + ".png";
                         string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
                         System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(AddnewuserModel.ESignature.Replace("data:image/png;base64,", string.Empty)));
+                        
+                    }
+                    UserDataModel checkposition = _accountService.CheckPositionManegment(AddnewuserModel.User_Type_Magnement);
+                    if (checkposition == null)
+                    {
                         UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(fileName);
                         _accountService.AddNewUser(userdata);
+
                     }
+                    else if (checkposition != null && AddnewuserModel.UserID != checkposition.UserID)
+                    {
+                        return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + AddnewuserModel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });                   
+
+                    }
+                    
 
                     ////-------------------------
                     ////--------แอดข้อมูล User
@@ -135,12 +147,111 @@ namespace PRS_System.Controllers
         {
             EdituserdataModel datauser = new EdituserdataModel();
             datauser.userdata = _accountService.GetDataUser(user_id);
+            datauser.UserID = datauser.userdata[0].UserID;
+            datauser.Prefix_NameThai = datauser.userdata[0].Prefix_NameThai;
+            datauser.Status = datauser.userdata[0].Status;
+            datauser.User_Type_Operation= datauser.userdata[0].Operate_Pos;
+            datauser.User_Type_Magnement = datauser.userdata[0].Manage_Pos;
+            datauser.Full_NameThai = datauser.userdata[0].Full_NameThai;
+            datauser.ESignature = datauser.userdata[0].ESignature;
+            datauser.Email = datauser.userdata[0].Email;
+            datauser.Category = datauser.userdata[0].Category;
             return View(datauser);
         }
 
-        public IActionResult EditUserdata()
+        public async Task<IActionResult> EditUserdata(EdituserdataModel datamodel)
         {
-            return View();
+            try
+            {
+
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Status))
+                //{
+                //    ModelState.AddModelError("Status", "กรุณากดเลือกสถานะผู้ใช้");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.UserID))
+                //{
+                //    ModelState.AddModelError("UserID", "กรุณากรอกUserID");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.User_))
+                //{
+                //    ModelState.AddModelError("User Type", "กรุณากรอกตำแหน่ง");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameThai))
+                //{
+                //    ModelState.AddModelError("Prefix NameThai", "กรุณากดเลือกคำนำหน้าไทย");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Prefix_NameEng))
+                //{
+                //    ModelState.AddModelError("Prefix NameEng", "กรุณากดเลือกคำนำหน้าภาษาอังกฤษ");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameThai))
+                //{
+                //    ModelState.AddModelError("Full NameThai", "กรุณากรอกชื่อจริง");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Full_NameEng))
+                //{
+                //    ModelState.AddModelError("Full NameEng", "กรุณากรอกชื่อจริงภาษาอังกฤษ");
+                //}
+                //if (string.IsNullOrWhiteSpace(AddnewuserModel.Category))
+                //{
+                //    ModelState.AddModelError("Category", "กรุณากรอกประเภทผู้ใช้");
+                //}
+
+                string fileName = null;
+                if (ModelState.IsValid)
+                {
+                    
+                    //-------สร้างรูปภาพ ลายเซ็น
+                    if (datamodel.ESignature != null)
+                    {
+                        string filesig = datamodel.ESignature;
+                        string uniquefile = DateTime.Now.ToString("yyyyMMddHHmmss");
+                        fileName = datamodel.UserID + "_" + uniquefile + ".png";
+                        string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
+                        System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(datamodel.ESignature.Replace("data:image/png;base64,", string.Empty)));
+                        
+                        
+                    }
+                    string checksignature=_accountService.GetSignature(datamodel.UserID);
+                    if(checksignature!=null)
+                    {
+                        fileName = checksignature;
+                    }
+                    UserDataModel userdata = datamodel.ToEdituserdata(fileName);
+                    UserDataModel checkposition = _accountService.CheckPositionManegment(datamodel.User_Type_Magnement);
+                    if (checkposition.Manage_Pos == null)
+                    {
+                        
+                        
+                    }
+                    else if (checkposition.Manage_Pos != null && datamodel.UserID != checkposition.UserID && checkposition.UserID!=null)
+                    {
+                        return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + datamodel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });
+                        goto errorreturn;
+
+                    }
+                    _accountService.EditUser(userdata);
+                    return Json(new { status = "success", Messege = "Edit Complete" });
+                errorreturn:
+                    Console.WriteLine("Error");
+
+                }
+                else
+                {
+                    string errorList = string.Join("<br/> -------------- <br/> ", (from item in ModelState.Values
+                                                                                   from error in item.Errors
+                                                                                   select error.ErrorMessage).ToList());
+                    return Json(new { status = "error", detail = errorList, errorMessage = "Edit Fail" });
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new User" });
+            }
+           
         }
 
         public IActionResult InformationSetting()

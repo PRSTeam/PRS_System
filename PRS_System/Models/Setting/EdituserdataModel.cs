@@ -30,19 +30,21 @@ namespace PRS_System.Models.Setting
         public string ESignature { get; set; }
         public List<UserDataModel> userdata { get; set; }
 
-        //public UserDataModel ToEdituserdata(string ImgName)
-        //{
-        //    UserDataModel edituserdata = new UserDataModel();
-        //    edituserdata.UserID = UserID;
-        //    edituserdata.Full_NameThai = Full_NameThai;
-        //    edituserdata.Full_NameEng = Full_NameEng;
-        //    edituserdata.Prefix_NameThai = Prefix_NameThai;
-        //    edituserdata.Prefix_NameEng = Prefix_NameEng;
-        //    edituserdata.User_Type = User_Type;
-        //    edituserdata.Category = Category;
-        //    edituserdata.Status = Status;
-        //    edituserdata.ImgName = ImgName;
-        //    return edituserdata;
-        //}
+        public UserDataModel ToEdituserdata(string ImgName)
+        {
+            UserDataModel edituserdata = new UserDataModel();
+            edituserdata.UserID = UserID;
+            edituserdata.Full_NameThai = Full_NameThai;
+            edituserdata.Full_NameEng = Full_NameEng;
+            edituserdata.Prefix_NameThai = Prefix_NameThai;
+            edituserdata.Prefix_NameEng = Prefix_NameEng;
+            edituserdata.User_Type_Magnement= User_Type_Magnement;
+            edituserdata.User_Type_Operation = User_Type_Operation;
+            edituserdata.Email = Email;
+            edituserdata.Category = Category;
+            edituserdata.Status = Status;
+            edituserdata.ImgName = ImgName;
+            return edituserdata;
+        }
     }
 }

@@ -405,22 +405,24 @@
         var statusform ="@statusform";
         var checkuserid = "@checkownerid";
         var checkcategory_user="@category_user";
-
-        if (checkloginuser != checkuserid || statusform =="Sent") {
-            $("#createform").children('fieldset').children('input').prop("disabled", true);
-            $("#createform").children('fieldset').children('textarea').prop("disabled", true);
-            $("#createform").children('fieldset').children('button').prop("disabled", true);
-            $("#addsubject").prop("disabled", true);
-            $("#addproduct").prop("disabled", true);
-            for (let i = 0; i < x; i++) {
-                $("#fieldsubject" + i).children('input').prop("disabled", true);
-                $("#fieldsubject" + i).children('button').prop("disabled", true);
-            }
-            for (let i = 0; i < y; i++) {
-                $("#field" + i).children('input').prop("disabled", true);
-                $("#field" + i).children('button').prop("disabled", true);
+        if (id_tor != 0) {
+            if (checkloginuser != checkuserid || (statusform == "Sent")) {
+                $("#createform").children('fieldset').children('input').prop("disabled", true);
+                $("#createform").children('fieldset').children('textarea').prop("disabled", true);
+                $("#createform").children('fieldset').children('button').prop("disabled", true);
+                $("#addsubject").prop("disabled", true);
+                $("#addproduct").prop("disabled", true);
+                for (let i = 0; i < x; i++) {
+                    $("#fieldsubject" + i).children('input').prop("disabled", true);
+                    $("#fieldsubject" + i).children('button').prop("disabled", true);
+                }
+                for (let i = 0; i < y; i++) {
+                    $("#field" + i).children('input').prop("disabled", true);
+                    $("#field" + i).children('button').prop("disabled", true);
+                }
             }
         }
+        
         //---- Check Form Suppies
         if (checkcategory_user != "Admin" || statusform != "Return to Requester" || statusform == "Sent" || statusform == "Draft")
         {

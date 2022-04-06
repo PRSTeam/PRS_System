@@ -1,4 +1,4 @@
-﻿@model PRS_System.Models.Setting.AddnewuserdataModel
+﻿@model PRS_System.Models.Setting.EdituserdataModel
 @using PRS_System.Controllers
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -38,12 +38,12 @@
         <div class="fluid-container">
             <div>
                 <div class="row">
-                   <div class="w3-container w3-light-blue w3-hover-text-light-grey">
-                     <h1>Add New User</h1>
-                   </div>
-            </div>
+                    <div class="w3-container w3-light-blue w3-hover-text-light-grey">
+                        <h1>Add New User</h1>
+                    </div>
+                </div>
                 <!-- Form -->
-                <form class="w3-container w3-card-4 w3-light-grey" id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
+                <form class="w3-container w3-card-4 w3-light-grey" id="user-form" method="post" enctype="multipart/form-data" asp-action="EditUserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
                     <div class="page-section" id="add">
                         <fieldset class="col-md-4 col-sm-6">
                             <div class="row">
@@ -77,7 +77,7 @@
                                 <br><br>
                                 <label>Email (*Gmail)</label>
                                 <br>
-                                <input type="text" asp-for="Email" required />
+                                <input type="text" asp-for="Email"  required />
                                 <br><br>
                                 <label>คำนำหน้าชื่อ</label><br>
                                 <select asp-for="Prefix_NameThai" required>
@@ -88,9 +88,9 @@
                                 <br><br>
 
                                 <label>หมวดหมู่ผู้ใช้</label><br>
-                                <input asp-for="Category" type="radio" value="Admin">
+                                <input asp-for="Category" class="category2" type="radio" value="Admin">
                                 <label>Admin</label>
-                                <input asp-for="Category" type="radio" value="User" checked>
+                                <input asp-for="Category" class="category3" type="radio" value="User" >
                                 <label>User</label><br><br>
 
                                 <label>ลายเซ็น</label><br><br>
@@ -104,9 +104,9 @@
                                 </div>
 
                                 <label>สถานะผู้ใช้</label><br>
-                                <input asp-for="Status" type="radio" value="Active" checked>
+                                <input asp-for="Status" class="status2" type="radio" value="Active" >
                                 <label>Active</label>
-                                <input asp-for="Status" type="radio" value="Inactive">
+                                <input asp-for="Status" class="status3" type="radio" value="Inactive">
                                 <label>Inactive</label><br><br>
 
                                 <button id="clearBtn" type="button">Clear signature</button>
@@ -120,22 +120,33 @@
                 <hr>
 
                 @*<div class="row" id="footer">
-                    <div class="col-md-12 text-center">
-                        <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
-                    </div>
-                </div>*@
+                        <div class="col-md-12 text-center">
+                            <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
+                        </div>
+                    </div>*@
             </div>
 
         </div>
     </div>
 
-    
+
 
 </body>
 
 </html>
 <script>
+    window.onload = function () {
+        var statusinput =@(Model.Status == "Active" ?"status2":"status3");
+        var categoryinput =@(Model.Category == "Admin" ? "category2" : "category3");
+        document.getElementsByClassName(statusinput).checked = true;
+        document.getElementsByClassName(categoryinput).checked = true;
+    }
+
+
+</script>
+<script>
     $(document).ready(function () {
+        
         (function () {
             window.requestAnimFrame = (function (callback) {
                 return window.requestAnimationFrame ||
@@ -292,7 +303,7 @@
             var sigurl = document.getElementById("sig-canvas").toDataURL();
             $("#ESignature").val(sigurl);
                 var form = document.getElementById("user-form");
-                const url = "@Url.Action("Addnewuserdata", "AdminSetting")";
+                const url = "@Url.Action("EditUserdata", "AdminSetting")";
                 const formData = new FormData(form);
 
                 $.ajax({
