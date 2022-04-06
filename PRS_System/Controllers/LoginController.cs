@@ -43,7 +43,7 @@ namespace PRS_System.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if (data.Username == "Admin" && data.Password == "1234")
+                if ((data.Username == "Admin" && data.Password == "1234") || (!string.IsNullOrEmpty(data.Username) && !string.IsNullOrEmpty(data.Password)))
                 {
                     try
                     {
@@ -59,46 +59,31 @@ namespace PRS_System.Controllers
                         HttpContext.Session.SetString("mail", result_chk.Email);
                         HttpContext.Session.SetString("type_person", result_chk.Category);
 
-                        //HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
-                        //HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
-                        //HttpContext.Session.SetString("position", result_chk.User_Type);
-
+                        ////ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
+                        //if (TempData["ApproverData"] != null)
+                        //{
+                        //    TempData.Keep("ApproverData");
+                        //    return RedirectToAction("form", "FormPRS", new { id_tor = TempData["ApproverData"] });
+                        //}
+                        //else
+                        //{
+                        //    return RedirectToAction("Index", "FormPRS");
+                        //}
+                        if(TempData["ApproverData"] != null)
+                        {
+                            TempData.Keep("ApproverData");
+                            return Json(new { status = "success" , temp = TempData["ApproverData"] });
+                        }
+                        else
+                        {
+                            return Json(new { status = "success"});
+                        }
                         
                     }
                     catch (Exception ex)
                     {
                         return Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "เกิดข้อผิดพลาด" });
                     }
-                    return Json(new { status = "success" });
-                    //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
-                }
-                else if (!string.IsNullOrEmpty(data.Username) && !string.IsNullOrEmpty(data.Password))
-                {
-                    try
-                    {
-                        var result_chk = _accountService.CheckLogin(data.Username);
-
-                        HttpContext.Session.SetString("AccessToken", "1234567890");
-                        HttpContext.Session.SetString("uid", result_chk.UserID);
-                        HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
-                        HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
-                        HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
-                        HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
-                        //HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
-                        HttpContext.Session.SetString("mail", result_chk.Email);
-                        HttpContext.Session.SetString("type_person", result_chk.Category);
-
-                        //HttpContext.Session.SetString("cn", result_chk.Full_NameEng);
-                        //HttpContext.Session.SetString("ENG_NAME_FULL", result_chk.Prefix_NameEng);
-                        //HttpContext.Session.SetString("position", result_chk.User_Type);
-
-
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "เกิดข้อผิดพลาด" });
-                    }
-                    return Json(new { status = "success" });
                 }
                 else
                 {
@@ -190,8 +175,8 @@ namespace PRS_System.Controllers
                     //ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
                     if (TempData["ApproverData"] != null)
                     {
-                        //TempData.Keep("ApproverData");
-                        return RedirectToAction("form", "FormPRS");
+                        TempData.Keep("ApproverData");
+                        return RedirectToAction("form", "FormPRS", new {id_tor = TempData["ApproverData"] });
                     }
                     else
                     {

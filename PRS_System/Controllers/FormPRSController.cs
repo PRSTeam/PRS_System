@@ -106,7 +106,7 @@ namespace PRS_System.Controllers
             else
             {
                 //เก็บ Temp ไว้ใช้สำหรับเช็คค่าตอน Login ว่ามาจากการกดลิงค์ใน Email
-                TempData["ApproverData"] = Createview;
+                TempData["ApproverData"] = id_tor;
                 return RedirectToAction("Index", "Login");
             }
             //----Add Form Page

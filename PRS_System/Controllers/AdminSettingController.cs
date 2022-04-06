@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PRS_System.Models.Setting;
 using PRS_System.Models.Data;
 using PRS_System.IServices;
+using System;
 using System.IO;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
@@ -274,7 +274,7 @@ namespace PRS_System.Controllers
                             ViewBag.item_pic += "<td>" + item.Description.ToString() + "</td>";
                             ViewBag.item_pic += "<td>" + item.Date.ToString() + "</td>";
                             ViewBag.item_pic += "<td><span class='btn-action'>";
-                            ViewBag.item_pic += "<button type='button' class='btn btn-delete'><a href='/AdminSetting/DeleteData?filename=" + item.FilePath.ToString() + "'> ลบ </a></button>";
+                            ViewBag.item_pic += "<button type='button' class='btn btn-delete' onclick='deletefile(\"" + item.FilePath.ToString() + "\")'> ลบ </button>";
                             ViewBag.item_pic += "</span></td></tr>";
                         }
                         else if (item.Header.ToString() == "เอกสารดาวน์โหลด")
@@ -358,52 +358,53 @@ namespace PRS_System.Controllers
                                     ViewBag.tab_body += "<tr><th>" + t + "</th>";
                                     ViewBag.tab_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
                                     ViewBag.tab_body += "<td>" + desc.Date.ToString() + "</td>";
-                                    ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
+                                    ViewBag.tab_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile(\"" + desc.FilePath.ToString() + "\")'> ลบ </button></span></td></tr>";
                                 }
 
                             }
                         }
                         ViewBag.tab_body += "</tbody></table></div></div></div>";
-
-                        //for (int n = 0; n < data_section.Length; n++)
-                        //{
-                        //    if (n == 0)
-                        //    {
-                        //        ViewBag.section_header = "<li class='current-section'><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' /></li>";
-                        //    }
-                        //    else
-                        //    {
-                        //        ViewBag.section_header += "<li><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' ></li>";
-                        //    }
-                        //    ViewBag.tab_body += "<div id='tab-section" + (n + 1) + "' class='tab-content-section'>";
-                        //    ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อหัวข้อเอกสาร : " + data_section[n].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบหัวข้อเอกสาร</button></div>";
-                        //    ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อหัวข้อเอกสาร' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
-                        //    ViewBag.tab_body += "<div class='add-section'><div class='btn2 btn-add-tab'><h3>เพิ่มเอกสาร</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
-                        //    ViewBag.tab_body += "<div class='add-section-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
-
-                        //    int u = 0;
-                        //    foreach (var desc in result_data)
-                        //    {
-                        //        if (desc.Header == "เอกสารดาวน์โหลด" && desc.Section == data_section[n])
-                        //        {
-                        //            t++;
-                        //            if (desc.FilePath == null && desc.Description == null)
-                        //            {
-                        //                ViewBag.section_body += "";
-                        //            }
-                        //            else
-                        //            {
-                        //                ViewBag.section_body += "<tr><th>" + u + "</th>";
-                        //                ViewBag.section_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
-                        //                ViewBag.section_body += "<td>" + desc.Date.ToString() + "</td>";
-                        //                ViewBag.section_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile()'> ลบ </button></span></td></tr>";
-                        //            }
-
-                        //        }
-                        //    }
-                        //    ViewBag.section_body += "</tbody></table></div></div></div>";
-                        //}
                     }
+
+                    for (int n = 0; n < data_section.Length; n++)
+                    {
+                        if (n == 0)
+                        {
+                            ViewBag.section_header = "<li class='current-section'><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' /></li>";
+                        }
+                        else
+                        {
+                            ViewBag.section_header += "<li><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' ></li>";
+                        }
+                        ViewBag.section_body += "<div id='tab-section" + (n + 1) + "' class='tab-content-section'>";
+                        ViewBag.section_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อหัวข้อเอกสาร : " + data_section[n].ToString() + "</h3><button class='delete-tab' onclick='deletesec()'>ลบหัวข้อเอกสาร</button></div>";
+                        ViewBag.section_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อหัวข้อเอกสาร' id='rename' name='rename' /><button onclick='renamesec()'>เปลี่ยนชื่อ</button></div></div>";
+                        ViewBag.section_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มเอกสาร</h3><button class='add-tab fa-solid fa-plus' onclick='togglesection()'></button></div>";
+                        ViewBag.section_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
+
+                        int u = 0;
+                        foreach (var desc in result_data)
+                        {
+                            if (desc.Header == "เอกสารดาวน์โหลด" && desc.Section == data_section[n])
+                            {
+                                u++;
+                                if (desc.FilePath == null && desc.Description == null)
+                                {
+                                    ViewBag.section_body += "";
+                                }
+                                else
+                                {
+                                    ViewBag.section_body += "<tr><th>" + u + "</th>";
+                                    ViewBag.section_body += "<td><a href='../File/Information/" + desc.FilePath.ToString() + "' target='_blank'>" + desc.Description.ToString() + "</a></td>";
+                                    ViewBag.section_body += "<td>" + desc.Date.ToString() + "</td>";
+                                    ViewBag.section_body += "<td><span class='btn-action'><input type='hidden' id='file_name' value='" + desc.FilePath.ToString() + "' /><button type='button' class='btn btn-delete' onclick='deletefile(\"" + desc.FilePath.ToString() + "\")'> ลบ </button></span></td></tr>";
+                                }
+
+                            }
+                        }
+                        ViewBag.section_body += "</tbody></table></div></div></div>";
+                    }
+
                     return View();
                 }
                 else
@@ -486,11 +487,12 @@ namespace PRS_System.Controllers
                 {
                     //ลบไฟล์
                     var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
-                    string[] fileList = System.IO.Directory.GetFiles(rootFolderPath, filename);
+                    string[] fileList = Directory.GetFiles(rootFolderPath, filename);
                     foreach (var file in fileList)
                     {
-                        System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                        //System.Diagnostics.Debug.WriteLine(file + "will be deleted");
                         System.IO.File.Delete(file);
+                        Console.WriteLine(file + "deleted");
                     }
 
                     _informationService.Del_data(filename);
@@ -508,13 +510,13 @@ namespace PRS_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult addTab(string tabname)
+        public IActionResult addTab(string tabname, string secname)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
                 if (HttpContext.Session.GetString("type_person") == "Admin")
                 {
-                    _informationService.Add_tab(tabname);
+                    _informationService.Add_tab(tabname, secname);
                     return Json(new { status = "success" });
                 }
                 else
@@ -529,7 +531,7 @@ namespace PRS_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult deleteTab(string tabname)
+        public IActionResult deleteTab(string tabname, string secname)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
@@ -540,7 +542,7 @@ namespace PRS_System.Controllers
                     string[] fileList = null;
                     foreach (var item in filename)
                     {
-                        if (item.FilePath != null && item.Header == tabname)
+                        if ((item.FilePath != null && item.Header == tabname) || (item.FilePath != null && item.Header == tabname && item.Section == secname))
                         {
                             fileList = System.IO.Directory.GetFiles(rootFolderPath, item.FilePath);
                             foreach (var file in fileList)
@@ -558,7 +560,7 @@ namespace PRS_System.Controllers
                     //    System.IO.File.Delete(file);
                     //}
 
-                    _informationService.Del_tab(tabname);
+                    _informationService.Del_tab(tabname, secname);
                     return Json(new { status = "success" });
                 }
                 else
@@ -573,13 +575,13 @@ namespace PRS_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult renameTab(string old_tabname, string new_tabname)
+        public IActionResult renameTab(string old_tabname, string new_tabname, string header)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
                 if (HttpContext.Session.GetString("type_person") == "Admin")
                 {
-                    _informationService.Rename_tab(old_tabname, new_tabname);
+                    _informationService.Rename_tab(old_tabname, new_tabname, header);
                     return Json(new { status = "success" });
                 }
                 else
