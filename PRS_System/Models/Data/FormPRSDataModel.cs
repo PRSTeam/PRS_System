@@ -32,5 +32,9 @@ namespace PRS_System.Models.Data
         public string? User_ID { get; set; }
         public string Fullname_PRS { get; set; }
         public string buttonstatus { get; set; }
+
+        public int id_com { get; set; }
+        public string comment { get; set; }
+
     }
 }

@@ -94,6 +94,34 @@ namespace PRS_System.Controllers
                     Createview.vaxproduct = Math.Round(vaxvalue, 2);
                     Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
                     Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                    if(Createview.status == "Sent to Approval")
+                    {
+                        FormPRSModel order_diract = new FormPRSModel();
+                        order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);
+                        Createview.id_order = order_diract.id_order;
+                        Createview.name_select1 = order_diract.name_select1;
+                        Createview.name_select2 = order_diract.name_select2;
+                        Createview.definition = order_diract.definition;
+                        Createview.last_approval = _formService.GetLastApproval(id_tor);
+                        if (Createview.last_approval == "" )
+                        {
+                            Createview.last_approval = order_diract.name_select1;
+                        }
+                        if(Createview.definition=="ปกติ")
+                        {
+                            Createview.des_approval = _formService.GetCommentApproval(id_tor, Createview.name_select1);
+                            Createview.des_approval2 = _formService.GetCommentApproval(id_tor, Createview.name_select2);
+                            Createview.des_approval3 = _formService.GetCommentApproval(id_tor, "นักวิเคราะห์นโยบายและแผนการชำนาญการ");
+                            Createview.des_approval4 = _formService.GetCommentApproval(id_tor, "หัวหน้าสำนักงานเลขานุการ");
+                        }
+                        else if(Createview.definition=="พิเศษ")
+                        {
+
+                        }
+
+                        
+                    }
+                    
                     
                 }
                 Console.WriteLine("Check" + id_tor);
@@ -243,14 +271,15 @@ namespace PRS_System.Controllers
                 {
                     FormPRSModel check_order_data = _formService.Get_PRS_ORDER_DIRACT(Suppies.id_tor);
                     //checkว่าค้นหาข้อมูลจัดซื้อว่ามีหรือไม่ ถ้าไม่มีให้เพิ่ม ถ้ามีให้แก้ไข
-                    if (check_order_data != null)
+                    if (check_order_data.id_order != 0)
                     {
                         _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
                     }
-                    else if (check_order_data == null)
+                    else if (check_order_data.id_order == 0)
                     {
-                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
                         _formService.AddDataSupplies(Suppies, Suppies.id_tor);
+                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                        
                     }
                     
 
@@ -272,11 +301,20 @@ namespace PRS_System.Controllers
             
         }
         
-        public IActionResult AddDataApprover(CreatedResult Approver)
+        public IActionResult AddDataApprover(FormPRSModel Approver)
+        {
+
+            return View();
+        }
+        public IActionResult productpdf(int id_tor)
         {
             return View();
         }
-        
+        public IActionResult torpdf(int id_tor)
+        {
+            return View();
+        }
+
         public IActionResult Showlistuser()
         {
             return View();

@@ -211,9 +211,11 @@
                                         }
 
                                     <td>
-                                        <button  style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button button2" onclick="formpage(@item.id_tor)">View</button>
+                                        <button style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button button2" onclick="formpage(@item.id_tor)">View</button>
                                         <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button2" onclick="formpage(@item.id_tor)">Edit</button>
                                         <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button3">Delete</button>
+                                        <button type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
+                                        <button type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                         @*<button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button4">Draft</button>*@
                                     </td>
                                         <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
@@ -295,5 +297,11 @@
 <script>
     function formpage(id_tor) {
            location.href = "@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor;
+    }
+    function torpdf(id_tor) {
+        location.href = "@Url.Action("torpdf", "FormPRS")"+"?id_tor="+id_tor;
+    }
+    function productpdf(id_tor) {
+        location.href = "@Url.Action("productpdf", "FormPRS")"+"?id_tor="+id_tor;
     }
 </script>

@@ -42,5 +42,8 @@ namespace PRS_System.IServices
         public void updatestatusform(string status,int id_tor);
 
         public void UpdateDataOrder_Suppies(FormPRSModel data,int id_tor);
+        public string GetLastApproval(int id_tor);
+
+        public string GetCommentApproval(int id_tor,string nameapproval);
     }
 }

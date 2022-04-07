@@ -248,7 +248,7 @@
                                 </select><br>
                                 <label>2.เลือก ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์/ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</label>
                                 <select asp-for="name_select2">
-                                    <option value="ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์</option>
+                                    <option value="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์</option>
                                     <option value="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</option>
                                 </select><br><br>
 
@@ -257,7 +257,7 @@
                                 <label>ภาคปกติ</label>
                                 <br>
                                 <label>1.</label>
-                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำระการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนาญการ" disabled />
                                 <br>
                                 <label>2.</label>
                                 <input class="w3-input w3-border w3-round" type="text" value="หัวหน้าสำนักงานเลขานุการ" disabled />
@@ -266,13 +266,13 @@
                                 <input type="radio" asp-for="definition" value="พิเศษ" required>
                                 <label>ภาคพิเศษ</label><br><br>
                                 <label>1.</label>
-                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนานการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนาญการ" disabled />
                                 <br>
                                 <label>2.</label>
-                                <input class="w3-input w3-border w3-round" type="text" value="กรรมการและเลขานุการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="กรรมการและเลขานุการฯ" disabled />
                                 <br>
                                 <label>3.</label>
-                                <input class="w3-input w3-border w3-round" type="text" value="ประธานกรรมการดำเนินงาน" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="ประธานกรรมการดำเนินงานฯ" disabled />
                                 <br>
                                 <input asp-for="id_tor" style="display:none" />
                                 <input asp-for="buttonstatus_2" style="display:none" />
@@ -288,56 +288,108 @@
                             
                             <!-- form_ฝ่ายพัสดุ -->
                             <!-- form_ฝ่ายอนุมัติ -->
-                            <div class="page-section" id="form">
+                            <div class="page-section" id="form"style="display:@(Model.status == "Sent to Approval" ? "block" : "none")">
                                 <div class="row">
                                     <div class="w3-container w3-cyan w3-hover-text-light-grey">
                                         <h2>สำหรับฝ่ายอนุมัติ</h2>
                                     </div>
                                 </div>
                             </div>
-                            <fieldset class="col-md-4 col-sm-8">
-                                <h4>1.หัวหน้าภาควิชา</h4>
-                                <label>ความคิดเห็น</label><br>
-                                <textarea class="w3-input w3-border w3-round" name="message" id="headDescrip" cols="50" rows="6"
-                                          placeholder="คำอธิบาย"></textarea><br><br>
-                                <label>ลายเซ็น</label><br><br>
+                            <fieldset class="col-md-4 col-sm-8" style="display:@(Model.status == "Sent to Approval" ? "block" : "none")">
+                                <form id="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "fieldapproval2":"fieldapproval3")" name="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                    <h4>1. @Model.name_select1</h4>
+                                    <label>ความคิดเห็น</label><br>
+                                    <textarea class="w3-input w3-border w3-round" id="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "des_approval":"")" name="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "des_approval":"")" cols="50" rows="6"
+                                              placeholder="คำอธิบาย"></textarea><br><br>
+                                    <label>ลายเซ็น</label><br><br>
+                                    <input type="text" id="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "buttonstatus_3":"")" name="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "buttonstatus_3":"")" style="display:none" />
+                                    <button class="button button7">เซ็นอนุมัติ</button><br>
+                                    <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2')">ส่งคืนเพื่อแก้ไข</button>
+                                    <button class="button button6" onclick="sentstatus('Sent to Approval','fieldapproval2')">เห็นชอบ</button>
+                                </form>
 
-                                <button class="button button7">เซ็นอนุมัติ</button><br>
-                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                <button class="button button6">เห็นชอบ</button>
                                 <br><br>
+                                <form id="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "fieldapproval2":"fieldapproval3")" name="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                    <h4>2. @Model.name_select2</h4>
+                                    <label>ความคิดเห็น</label><br>
+                                    <textarea class="w3-input w3-border w3-round" id="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร"? "des_approval":"")" name="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "des_approval":"")" cols="50" rows="6"
+                                              placeholder="คำอธิบาย"></textarea><br><br>
+                                    <label>ลายเซ็น</label><br><br>
+                                    <input type="text" id="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร"? "buttonstatus_3":"")" name="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "buttonstatus_3":"")" style="display:none" />
 
-                                <h4>2.ผู้ประสารงานห้องปฏิบัติการวิทยาศาสต์</h4>
-                                <label>ความคิดเห็น</label><br>
-                                <textarea class="w3-input w3-border w3-round" name="message" id="sciencelabDescrip" cols="50" rows="6"
-                                          placeholder="คำอธิบาย"></textarea><br><br>
-                                <label>ลายเซ็น</label><br><br>
+                                    <button class="button button7">เซ็นอนุมัติ</button><br>
+                                    <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2')">ส่งคืนเพื่อแก้ไข</button>
+                                    <button class="button button6" onclick="sentstatus('Sent to Approval','fieldapproval2')">เห็นชอบ</button>
+                                </form>
 
-                                <button class="button button7">เซ็นอนุมัติ</button><br>
-                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                <button class="button button6">เห็นชอบ</button>
                                 <br><br>
+                                @{
 
-                                <h4>3.นักวิเคราะห์นโยบายและแผนการชำระการ</h4>
-                                <label>ความคิดเห็น</label><br>
-                                <textarea class="w3-input w3-border w3-round" name="message" id="analystDescrip" cols="50" rows="6"
-                                          placeholder="คำอธิบาย"></textarea><br><br>
-                                <label>ลายเซ็น</label><br><br>
+                                    if (Model.definition == "ปกติ")
+                                    {
 
-                                <button class="button button7">เซ็นอนุมัติ</button><br>
-                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                <button class="button button6">เห็นชอบ</button>
-                                <br><br>
+                                        <form id="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำระการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                            <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
+                                            <label>ความคิดเห็น</label><br>
+                                            <textarea class="w3-input w3-border w3-round" name="message" id="analystDescrip" cols="50" rows="6"
+                                                      placeholder="คำอธิบาย"></textarea><br><br>
+                                            <label>ลายเซ็น</label><br><br>
 
-                                <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
-                                <label>ความคิดเห็น</label><br>
-                                <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
-                                          placeholder="คำอธิบาย"></textarea><br><br>
-                                <label>ลายเซ็น</label><br><br>
+                                            <button class="button button7">เซ็นอนุมัติ</button><br>
+                                            <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                            <button class="button button6">เห็นชอบ</button>
+                                        </form>
+                                        <br><br>
+                                        <form>
+                                            <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
+                                            <label>ความคิดเห็น</label><br>
+                                            <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
+                                                      placeholder="คำอธิบาย"></textarea><br><br>
+                                            <label>ลายเซ็น</label><br><br>
 
-                                <button class="button button7">เซ็นอนุมัติ</button><br>
-                                <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                <button class="button button6">เห็นชอบ</button>
+                                            <button class="button button7">เซ็นอนุมัติ</button><br>
+                                            <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                            <button class="button button6">เห็นชอบ</button>
+                                        </form>
+
+
+                                    }
+                                    else if (Model.definition == "พิเศษ")
+                                    {
+                                        <h4>3.นักวิเคราะห์นโยบายและแผนการชำระการ</h4>
+                                        <label>ความคิดเห็น</label><br>
+                                        <textarea class="w3-input w3-border w3-round" name="message" id="analystDescrip" cols="50" rows="6"
+                                                  placeholder="คำอธิบาย"></textarea><br><br>
+                                        <label>ลายเซ็น</label><br><br>
+
+                                        <button class="button button7">เซ็นอนุมัติ</button><br>
+                                        <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                        <button class="button button6">เห็นชอบ</button>
+                                        <br><br>
+
+                                        <h4>4.กรรมการเลขานุการฯ</h4>
+                                        <label>ความคิดเห็น</label><br>
+                                        <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
+                                                  placeholder="คำอธิบาย"></textarea><br><br>
+                                        <label>ลายเซ็น</label><br><br>
+
+                                        <button class="button button7">เซ็นอนุมัติ</button><br>
+                                        <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                        <button class="button button6">เห็นชอบ</button>
+
+                                        <h4>5.ประธานกรรมการดำเนินการฯ</h4>
+                                        <label>ความคิดเห็น</label><br>
+                                        <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
+                                                  placeholder="คำอธิบาย"></textarea><br><br>
+                                        <label>ลายเซ็น</label><br><br>
+
+                                        <button class="button button7">เซ็นอนุมัติ</button><br>
+                                        <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
+                                        <button class="button button6">เห็นชอบ</button>
+                                    }
+                                }
+
+
                             </fieldset>
                             <!-- form_ฝ่ายอนุมัติ -->
 
@@ -406,7 +458,8 @@
         var checkuserid = "@checkownerid";
         var checkcategory_user="@category_user";
         if (id_tor != 0) {
-            if (checkloginuser != checkuserid || (statusform == "Sent")) {
+
+            if (checkloginuser != checkuserid || statusform == "Sent" || statusform == "Sent to Approval" || statusform == "Approved" ) {
                 $("#createform").children('fieldset').children('input').prop("disabled", true);
                 $("#createform").children('fieldset').children('textarea').prop("disabled", true);
                 $("#createform").children('fieldset').children('button').prop("disabled", true);
@@ -422,13 +475,17 @@
                 }
             }
         }
-        
+
         //---- Check Form Suppies
-        if (checkcategory_user != "Admin" || statusform != "Return to Requester" || statusform == "Sent" || statusform == "Draft")
+        if (checkcategory_user != "Admin" || statusform != "Sent")
         {
+
             $("#suppliesform").children('fieldset').children().prop("disabled", true);
         }
-        $().val()
+        $("#fieldapproval3").children('input').prop("disabled", true);
+        $("#fieldapproval3").children('textarea').prop("disabled", true);
+        $("#fieldapproval3").children('button').prop("disabled", true);
+
         //------------------------------------------------------------------------------------------------------------------------------------------------------------
         $("#Editsubmit").click(function () {
             Email.send({
@@ -493,6 +550,7 @@
             });
 
     });
+    //function sentstatusapproval(id_user,)
     function sentstatus(value,field) {
         if (field == "PRS") {
             document.getElementById("buttonstatus").value = value;
@@ -501,7 +559,7 @@
         }
         else if (field == "supplies") {
             document.getElementById("buttonstatus_2").value = value;
-            alert("supplies status success")
+
             @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
             try {
                 var form = document.getElementById("suppliesform");
@@ -526,7 +584,7 @@
                                 confirmButtonText: 'Ok'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    location.href ="@Url.Action("index", "FormPRS")";
+                                    location.href = "@Url.Action("index", "FormPRS")";
                                 }
                             });
 
@@ -550,6 +608,56 @@
             }
             //document.getElementById("suppliesform").submit();
 
+        }
+        else if (field == "fieldapproval2") {
+            document.getElementById("buttonstatus_3").value = value;
+
+            @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
+            try {
+                var form = document.getElementById('fieldapproval2');
+                const url = "@Url.Action("AddDataApprover", "FormPRS")";
+                console.log(url);
+                const formData = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData, // ดึงข้อมุลในฟอร์ม
+                    contentType: false,
+                    dataType: "JSON",
+                    processData: false,
+                    success: function (data) {
+
+                        console.log(data);
+                        if (data.status == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: data.messege,
+                                showConfirmButton: true,
+                                confirmButtonText: 'Ok'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("index", "FormPRS")";
+                                }
+                            });
+
+                        }
+                        else if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                html: data.detail,
+                                showConfirmButton: true,
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("Error save fail");
+                    }
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
 
     }

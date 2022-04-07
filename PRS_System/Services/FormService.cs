@@ -627,8 +627,8 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.Connection = connect;
                 int maximum = GetMaximumID_ORDER_DIRACT() + 1;
                 command.CommandText = @"Insert Into PRS_ORDER_DIRACT(ID_ORDER,ID_TOR,ORDER_DIRACT1,ORDER_DIRACT2,DEFINITION_GROUP) 
-                                            VALUES(@IDORDER,@IDTOR,@ORDER_DIRACT1,@ORDER_DIRACT2,@DEFINITION_GROUP)";
-                command.Parameters.Add(new SqlParameter("@IDSUBJECT", (object)(maximum + 1) ?? DBNull.Value));
+                                            VALUES(@ID_ORDER,@IDTOR,@ORDER_DIRACT1,@ORDER_DIRACT2,@DEFINITION_GROUP)";
+                command.Parameters.Add(new SqlParameter("@ID_ORDER", (object)(maximum) ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ORDER_DIRACT1", (object)datasupplies.name_select1 ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ORDER_DIRACT2", (object)datasupplies.name_select2 ?? DBNull.Value));
@@ -655,7 +655,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 SqlCommand command = new SqlCommand();
                 con.Open();
                 command.Connection = con;
-                command.CommandText = "SELECT max(ID_ORDER) MAXIMUM FROM PRS_ODER_DIRACT";
+                command.CommandText = "SELECT max(ID_ORDER) MAXIMUM FROM PRS_ORDER_DIRACT";
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
@@ -769,6 +769,65 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 con.Close();
 
                 return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetLastApproval(int id_tor)
+        {
+            string lastposition = "";
+            try
+            {
+                FormPRSModel data = new FormPRSModel();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT MAX(ID_COM),COMMENT,COMMENT_DATE,DEFINITION  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR GROUP BY ID_TOR,COMMENT,COMMENT_DATE,DEFINITION";
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {                  
+                    lastposition = reader["ID_COM"] != DBNull.Value ? (string)reader["ID_COM"] : "";
+                }
+                reader.Close();
+                con.Close();
+
+                return lastposition;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetCommentApproval(int id_tor, string nameapproval)
+        {
+            string comment = "";
+            try
+            {
+                FormPRSModel data = new FormPRSModel();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE,DEFINITION  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_tor ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    comment = reader["COMMENT"] != DBNull.Value ? (string)reader["COMMENT"] : null;
+                }
+                reader.Close();
+                con.Close();
+
+                return comment;
             }
             catch (Exception ex)
             {
