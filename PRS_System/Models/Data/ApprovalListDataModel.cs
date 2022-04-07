@@ -7,6 +7,6 @@ namespace PRS_System.Models.Data
 {
     public class ApprovalListDataModel
     {
-        
+        public string Email { get; set; }
     }
 }

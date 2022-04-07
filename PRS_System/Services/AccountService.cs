@@ -227,5 +227,95 @@ WHERE ID_USER=@ID_USER ";
                 throw ex;
             }
         }
+
+        public string GetUserid(string type_magnement)
+        {
+            try
+            {
+                string user_id = "";
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"select * from PRS_PERSON WHERE MANAGEMENT_POS = @MANAGEMENT_POS";
+                command.Parameters.Add(new SqlParameter("@MANAGEMENT_POS", (object)type_magnement ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                   
+                    user_id = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() :null;
+                    
+                }
+                connect.Close();
+                return user_id;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetUserEmail(string type_magnement)
+        {
+            try
+            {
+                string email = "";
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"select * from PRS_PERSON WHERE MANAGEMENT_POS = @MANAGEMENT_POS";
+                command.Parameters.Add(new SqlParameter("@MANAGEMENT_POS", (object)type_magnement ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null;
+
+                }
+                connect.Close();
+                return email;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ApprovalListDataModel> GetAllAdminEmail()
+        {
+            try
+            {
+                List<ApprovalListDataModel> dataModels = new List<ApprovalListDataModel>();
+                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+
+                connect.Open();
+                command.Connection = connect;
+                command.CommandText = @"select * from PRS_PERSON WHERE CATEGORY = 'Admin' ";
+                
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    dataModels.Add(new ApprovalListDataModel 
+                    { 
+                        Email= reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null
+                    }) ;
+
+                }
+                connect.Close();
+                return dataModels;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
