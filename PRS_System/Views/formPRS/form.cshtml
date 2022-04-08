@@ -229,11 +229,11 @@
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit" value="Sent" onclick="send_emailto_admin()">ส่งเอกสาร</button>
+                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button button4" type="submit" onclick="send_emailto_admin()">แก้ไขเอกสาร</button>
+                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS','')">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
@@ -252,13 +252,15 @@
                             <fieldset class="col-md-4 col-sm-8">
                                 <label>ลำดับการดำเนินการจัดซื้อจัดจ้าง</label><br>
                                 <label>1.เลือก หัวหน้าภาควิชา/หัวหน้าฝ่ายสนับสนุน/หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</label>
-                                <select asp-for="name_select1">
-                                    <option value="หัวหน้าภาควิชา">หัวหน้าภาควิชา</option>
+                                <select asp-for="name_select1" onchange="getemail()">
+                                    <option value="">เลือก</option>
+                                    <option value="หัวหน้าภาควิชา" >หัวหน้าภาควิชา</option>
                                     <option value="หัวหน้าฝ่ายสนับสนุนงานกลาง">หัวหน้าฝ่ายสนับสนุนงานกลาง</option>
                                     <option value="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา">หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา</option>
                                 </select><br>
                                 <label>2.เลือก ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์/ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</label>
                                 <select asp-for="name_select2">
+                                    <option value="">เลือก</option>
                                     <option value="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์</option>
                                     <option value="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</option>
                                 </select><br><br>
@@ -288,6 +290,7 @@
                                 <input asp-for="id_tor" style="display:none" />
                                 <input asp-for="buttonstatus_2" style="display:none" />
                                 <input asp-for="User_ID" style="display:none" />
+                                <input  asp-for="Email_approval6" style="display:none"/>
                                 <button  type="button" class="button button2" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                 <button type="button" class="button button3" >Export PDF</button>
                                 <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
@@ -629,7 +632,63 @@
 
 
 
-        }
+    }
+    function getemail() {
+        try {
+            var form = document.getElementById("suppliesform");
+                const url = "@Url.Action("getEmail", "FormPRS")";
+            console.log(url);
+            
+                const formData = new FormData(form);
+            @*var type = document.getElementById("name_select1").value;
+            const url = "@Url.Action("getEmail", "FormPRS")" + "?type=" + type;
+            alert(url);
+                console.log(url);*@
+            //const formData = new FormData(email);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData, // ดึงข้อมุลในฟอร์ม
+                    contentType: false,
+                    dataType: "JSON",
+                    processData: false,
+                    success: function (data) {
+                        document.getElementById("Email_approval6").value = data.email;
+                        
+                        @*console.log(data);
+                        if (data.status == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: data.messege,
+                                showConfirmButton: true,
+                                confirmButtonText: 'Ok'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "@Url.Action("index", "FormPRS")";
+                                }
+                            });
+
+                        }
+                        else if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                html: data.detail,
+                                showConfirmButton: true,
+                            });
+                        }*@
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("Error save fail");
+                    }
+                });
+
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+    }
     function sentstatus(value,field,email) {
         if (field == "PRS") {
             document.getElementById("buttonstatus").value = value;
@@ -641,6 +700,7 @@
 
             @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
             try {
+                var id_tor = document.getElementById("id_tor").value;
                 var form = document.getElementById("suppliesform");
                 const url = "@Url.Action("AddDataSuppies", "FormPRS")";
                 console.log(url);
@@ -683,11 +743,13 @@
                     }
                 });
                 if (value == "Sent to Approval") {
+                    var email2 = document.getElementById("Email_approval6").value;
+                    alert(email2);
                     Email.send({
                         Host: "smtp.gmail.com",
                         Username: "chinopas.muangthai@gmail.com",
                         Password: "aukijdfxsurfnmlu",
-                        To: email,
+                        To: email2.toString(),
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
                         Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
@@ -723,7 +785,7 @@
 
             @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
             try {
-
+                var id_tor = document.getElementById("id_tor").value;
                 var form = document.getElementById('fieldapproval2');
                 const url = "@Url.Action("AddDataApprover", "FormPRS")";
                 console.log(url);
@@ -1036,8 +1098,8 @@
                 });
                 let status = document.getElementById("buttonstatus").value;
                     if (status == "Sent") {
-                    let emailadmin ='@Model.stringlistemail_admin';
-
+                        let emailadmin = '@Model.stringlistemail_admin';
+                         @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
                     const arrayemail = emailadmin.split("/");
                     for (let i = 0; i < arrayemail.length; i++) {
                         Email.send({
@@ -1050,7 +1112,7 @@
                             Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor'
                      })
                             .then(function (message) {
-                                //alert("mail sent successfully")
+                                @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
                             });
 
                     }

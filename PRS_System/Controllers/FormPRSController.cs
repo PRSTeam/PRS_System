@@ -626,5 +626,10 @@ namespace PRS_System.Controllers
 
             return View();
         }
+        public IActionResult getEmail(FormPRSModel type_approval)
+        {
+            type_approval.Email_approval6 = _accountService.GetUserEmail(type_approval.name_select1);
+            return Json(new { status = "success", email = type_approval.Email_approval6 }); ;
+        }
     }
 }
