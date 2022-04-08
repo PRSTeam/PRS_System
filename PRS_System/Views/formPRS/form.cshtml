@@ -199,9 +199,10 @@
                                 <b>ไฟล์แนบ</b> <br>
                                 <input type="file" accept="application/pdf" asp-for="FilePDF" multiple>
                                 <br>
-                                <b>ไฟล์แนบล่าสุด</b> <br>
+
                                 @{ if (Model.FilePath != "")
                                     {
+                                        <b>ไฟล์แนบล่าสุด</b> <br>
                                         <a href="~/File/FileDocUser/@Model.FilePath">@Model.FilePath</a>
                                     }
                                     else if (Model.FilePath == "")
@@ -214,15 +215,15 @@
 
                                 <button type="button" class="button button7" id="showimage1" onclick="showimage(1)">เซ็นอนุมัติ</button><img id="signature1" src="~/img/signature/@Model.FilePath" style="display:none" /><br>
                                 <input asp-for="buttonstatus" style="display:none" />
-                                <button class="button button2" type="submit" value="Sent" onclick="sentstatus('Draft','PRS')">บันทึกร่างเอกสาร</button>
+                                <button class="button button2" type="submit" onclick="sentstatus('Draft','PRS','')">บันทึกร่างเอกสาร</button>
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS')">ส่งเอกสาร</button>
+                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS')">แก้ไขเอกสาร</button>
+                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS','')">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
@@ -248,12 +249,12 @@
                                 </select><br>
                                 <label>2.เลือก ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์/ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</label>
                                 <select asp-for="name_select2">
-                                    <option value="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสารงานห้องปฏิบัติการวิทยาศาสตร์</option>
+                                    <option value="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์">ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์</option>
                                     <option value="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร">ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร</option>
                                 </select><br><br>
 
                                 <label>ภาควิชา</label><br>
-                                <input type="radio" asp-for="definition" value="ปกติ" required checked>
+                                <input type="radio" class="definition4" asp-for="definition" value="ปกติ" required >
                                 <label>ภาคปกติ</label>
                                 <br>
                                 <label>1.</label>
@@ -263,7 +264,7 @@
                                 <input class="w3-input w3-border w3-round" type="text" value="หัวหน้าสำนักงานเลขานุการ" disabled />
                                 <br>
 
-                                <input type="radio" asp-for="definition" value="พิเศษ" required>
+                                <input type="radio" class="definition5" asp-for="definition" value="พิเศษ" required>
                                 <label>ภาคพิเศษ</label><br><br>
                                 <label>1.</label>
                                 <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนาญการ" disabled />
@@ -276,9 +277,10 @@
                                 <br>
                                 <input asp-for="id_tor" style="display:none" />
                                 <input asp-for="buttonstatus_2" style="display:none" />
-                                <button  type="button" class="button button2" onclick="sentstatus('Return to Requester','supplies')">ส่งคืนเพื่อแก้ไข</button>
-                                <button class="button button3">Export PDF</button>
-                                <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval','supplies')">ส่งให้ผู้อนุมัติ</button>
+                                <input asp-for="User_ID" style="display:none" />
+                                <button  type="button" class="button button2" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                <button type="button" class="button button3" >Export PDF</button>
+                                <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval')">ส่งให้ผู้อนุมัติ</button>
 
                             </fieldset>
                         </form>
@@ -296,31 +298,38 @@
                                 </div>
                             </div>
                             <fieldset class="col-md-4 col-sm-8" style="display:@(Model.status == "Sent to Approval" ? "block" : "none")">
-                                <form id="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "fieldapproval2":"fieldapproval3")" name="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                <form id="@((Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
+                                      name="@((Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
+                                      class="@((Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
                                     <h4>1. @Model.name_select1</h4>
                                     <label>ความคิดเห็น</label><br>
-                                    <textarea class="w3-input w3-border w3-round" id="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "des_approval":"")" name="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "des_approval":"")" cols="50" rows="6"
+                                    <textarea class="w3-input w3-border w3-round" asp-for="des_approval" cols="50" rows="6"
                                               placeholder="คำอธิบาย"></textarea><br><br>
                                     <label>ลายเซ็น</label><br><br>
+                                    <input asp-for="last_approval" style="display:none" />
+                                    <input asp-for="id_tor" style="display:none" />
+                                    <input asp-for="User_ID" style="display:none" />
                                     <input type="text" id="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "buttonstatus_3":"")" name="@(Model.last_approval =="หัวหน้าภาควิชา"||Model.last_approval=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.last_approval=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "buttonstatus_3":"")" style="display:none" />
                                     <button class="button button7">เซ็นอนุมัติ</button><br>
-                                    <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2')">ส่งคืนเพื่อแก้ไข</button>
-                                    <button class="button button6" onclick="sentstatus('Sent to Approval','fieldapproval2')">เห็นชอบ</button>
+                                    <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                    <button class="button button6" onclick="sentstatus('Sent to Approval','fieldapproval2','@Model.Email_approval2')">เห็นชอบ</button>
                                 </form>
 
                                 <br><br>
-                                <form id="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "fieldapproval2":"fieldapproval3")" name="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
-                                    <h4>2. @Model.name_select2</h4>
-                                    <label>ความคิดเห็น</label><br>
-                                    <textarea class="w3-input w3-border w3-round" id="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร"? "des_approval":"")" name="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "des_approval":"")" cols="50" rows="6"
-                                              placeholder="คำอธิบาย"></textarea><br><br>
-                                    <label>ลายเซ็น</label><br><br>
-                                    <input type="text" id="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร"? "buttonstatus_3":"")" name="@(Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร" ? "buttonstatus_3":"")" style="display:none" />
-
-                                    <button class="button button7">เซ็นอนุมัติ</button><br>
-                                    <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2')">ส่งคืนเพื่อแก้ไข</button>
-                                    <button class="button button6" onclick="sentstatus('Sent to Approval','fieldapproval2')">เห็นชอบ</button>
-                                </form>
+                                    <form id="@((Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")&&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" name="@((Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" class="@((Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                        <h4>2. @Model.name_select2</h4>
+                                        <label>ความคิดเห็น</label><br>
+                                        <textarea class="w3-input w3-border w3-round" asp-for="des_approval2" cols="50" rows="6"
+                                                  placeholder="คำอธิบาย"></textarea><br><br>
+                                        <label>ลายเซ็น</label><br><br>
+                                        <input type="text" id="@((Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")? "buttonstatus_3":"")" name="@((Model.last_approval =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.last_approval=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "buttonstatus_3":"")" style="display:none" />
+                                        <input asp-for="last_approval" style="display:none" />
+                                        <input asp-for="id_tor" style="display:none" />
+                                        <input asp-for="User_ID" style="display:none" />
+                                        <button class="button button7">เซ็นอนุมัติ</button><br>
+                                        <button class="button button5" onclick="sentstatus('Return to Requester', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                        <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
+                                    </form>
 
                                 <br><br>
                                 @{
@@ -328,69 +337,93 @@
                                     if (Model.definition == "ปกติ")
                                     {
 
-                                        <form id="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำระการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                        <form id="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
                                             <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
                                             <label>ความคิดเห็น</label><br>
-                                            <textarea class="w3-input w3-border w3-round" name="message" id="analystDescrip" cols="50" rows="6"
+                                            <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
                                                       placeholder="คำอธิบาย"></textarea><br><br>
                                             <label>ลายเซ็น</label><br><br>
-
+                                            <input type="text" id="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ"? "buttonstatus_3":"")" name="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
+                                            <input asp-for="last_approval" style="display:none" />
+                                            <input asp-for="id_tor" style="display:none" />
+                                            <input asp-for="User_ID" style="display:none"/>
                                             <button class="button button7">เซ็นอนุมัติ</button><br>
-                                            <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                            <button class="button button6">เห็นชอบ</button>
+                                            <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                            <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
                                         </form>
                                         <br><br>
-                                        <form>
-                                            <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
-                                            <label>ความคิดเห็น</label><br>
-                                            <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
-                                                      placeholder="คำอธิบาย"></textarea><br><br>
-                                            <label>ลายเซ็น</label><br><br>
+                                            <form id="@(Model.last_approval=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.last_approval=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                                <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
+                                                <label>ความคิดเห็น</label><br>
+                                                <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
+                                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                                <label>ลายเซ็น</label><br><br>
+                                                <input type="text" id="@(Model.last_approval=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ"? "buttonstatus_3":"")" name="@(Model.last_approval=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ? "buttonstatus_3":"")" style="display:none" />
+                                                <input asp-for="last_approval" style="display:none" />
+                                                <input asp-for="id_tor" style="display:none" />
+                                                <input asp-for="User_ID" style="display:none" />
+                                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                                <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button class="button button6" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
+                                            </form>
 
-                                            <button class="button button7">เซ็นอนุมัติ</button><br>
-                                            <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                            <button class="button button6">เห็นชอบ</button>
-                                        </form>
 
 
                                     }
                                     else if (Model.definition == "พิเศษ")
                                     {
-                                        <h4>3.นักวิเคราะห์นโยบายและแผนการชำระการ</h4>
-                                        <label>ความคิดเห็น</label><br>
-                                        <textarea class="w3-input w3-border w3-round" name="message" id="analystDescrip" cols="50" rows="6"
-                                                  placeholder="คำอธิบาย"></textarea><br><br>
-                                        <label>ลายเซ็น</label><br><br>
+                                        <form id="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                            <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
+                                            <label>ความคิดเห็น</label><br>
+                                            <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
+                                                      placeholder="คำอธิบาย"></textarea><br><br>
+                                            <label>ลายเซ็น</label><br><br>
+                                            <input type="text" id="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ"? "buttonstatus_3":"")" name="@(Model.last_approval=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
+                                            <input asp-for="last_approval" style="display:none" />
+                                            <input asp-for="id_tor" style="display:none" />
+                                            <input asp-for="User_ID"style="display:none"/>
+                                            <button class="button button7">เซ็นอนุมัติ</button><br>
+                                            <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                            <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
+                                        </form>
 
-                                        <button class="button button7">เซ็นอนุมัติ</button><br>
-                                        <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                        <button class="button button6">เห็นชอบ</button>
                                         <br><br>
+                                            <form id="@(Model.last_approval=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.last_approval=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                                <h4>4.กรรมการเลขานุการฯ</h4>
+                                                <label>ความคิดเห็น</label><br>
+                                                <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
+                                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                                <label>ลายเซ็น</label><br><br>
+                                                <input type="text" id="@(Model.last_approval=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ"? "buttonstatus_3":"")" name="@(Model.last_approval=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ? "buttonstatus_3":"")" style="display:none" />
+                                                <input asp-for="last_approval" style="display:none" />
+                                                <input asp-for="id_tor" style="display:none" />
+                                                <input asp-for="User_ID"  style="display:none"/>
+                                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                                <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
+                                            </form>
 
-                                        <h4>4.กรรมการเลขานุการฯ</h4>
-                                        <label>ความคิดเห็น</label><br>
-                                        <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
-                                                  placeholder="คำอธิบาย"></textarea><br><br>
-                                        <label>ลายเซ็น</label><br><br>
+                                            <form id="@(Model.last_approval=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.last_approval=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                                <h4>5.ประธานกรรมการดำเนินการฯ</h4>
+                                                <label>ความคิดเห็น</label><br>
+                                                <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
+                                                          placeholder="คำอธิบาย"></textarea><br><br>
+                                                <label>ลายเซ็น</label><br><br>
+                                                <input type="text" id="@(Model.last_approval=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ"? "buttonstatus_3":"")" name="@(Model.last_approval=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ? "buttonstatus_3":"")" style="display:none" />
+                                                <input asp-for="last_approval" style="display:none" />
+                                                <input asp-for="id_tor" style="display:none" />
+                                                <input asp-for="User_ID" style="display:none" />
+                                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                                <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button class="button button6" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
+                                            </form>
 
-                                        <button class="button button7">เซ็นอนุมัติ</button><br>
-                                        <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                        <button class="button button6">เห็นชอบ</button>
-
-                                        <h4>5.ประธานกรรมการดำเนินการฯ</h4>
-                                        <label>ความคิดเห็น</label><br>
-                                        <textarea class="w3-input w3-border w3-round" name="message" id="secretarialDescrip" cols="50" rows="6"
-                                                  placeholder="คำอธิบาย"></textarea><br><br>
-                                        <label>ลายเซ็น</label><br><br>
-
-                                        <button class="button button7">เซ็นอนุมัติ</button><br>
-                                        <button class="button button5">ส่งคืนเพื่อแก้ไข</button>
-                                        <button class="button button6">เห็นชอบ</button>
-                                    }
-                                }
+                                            
+                                            }
+                                            }
 
 
-                            </fieldset>
+                                    </fieldset>
                             <!-- form_ฝ่ายอนุมัติ -->
 
                         
@@ -426,8 +459,13 @@
         @*@{ string checkformprs=}
         var checklogin=
         var checkformprs=*@
-        
-       
+        @*var definition = "@(Model.definition== "ปกติ" || Model.definition == null ? "definition4" : "definition5")";
+        var valuedefinition = document.getElementsByClassName(definition).value
+        alert(valuedefinition);
+            document.getElementsByClassNamee(definition).checked = true;*@
+
+
+
     };
 </script>
 <script>
@@ -474,6 +512,8 @@
                     $("#field" + i).children('button').prop("disabled", true);
                 }
             }
+
+
         }
 
         //---- Check Form Suppies
@@ -482,11 +522,13 @@
 
             $("#suppliesform").children('fieldset').children().prop("disabled", true);
         }
-        $("#fieldapproval3").children('input').prop("disabled", true);
-        $("#fieldapproval3").children('textarea').prop("disabled", true);
-        $("#fieldapproval3").children('button').prop("disabled", true);
+        $(".fieldapproval3").children('input').prop("disabled", true);
+        $(".fieldapproval3").children('textarea').prop("disabled", true);
+        $(".fieldapproval3").children('button').prop("disabled", true);
+
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------
+
         $("#Editsubmit").click(function () {
             Email.send({
                 Host: "smtp.gmail.com",
@@ -551,7 +593,34 @@
 
     });
     //function sentstatusapproval(id_user,)
-    function sentstatus(value,field) {
+    function send_emailto_admin() {
+        let emailadmin ='@Model.stringlistemail_admin';
+
+        const arrayemail = emailadmin.split("/");
+        for (let i = 0; i < arrayemail.length; i++) {
+            Email.send({
+                Host: "smtp.gmail.com",
+                Username: "chinopas.muangthai@gmail.com",
+                Password: "aukijdfxsurfnmlu",
+                To: arrayemail[i],
+                From: "chinopas.muangthai@gmail.com",
+                Subject: "Test send Email",
+                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304"+"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
+            })
+                .then(function (message) {
+                    //alert("mail sent successfully")
+                });
+
+        }
+
+
+
+
+
+
+
+        }
+    function sentstatus(value,field,email) {
         if (field == "PRS") {
             document.getElementById("buttonstatus").value = value;
             //alert("PRS status success")
@@ -603,6 +672,36 @@
                         alert("Error save fail");
                     }
                 });
+                if (value == "Sent to Approval") {
+                    Email.send({
+                        Host: "smtp.gmail.com",
+                        Username: "chinopas.muangthai@gmail.com",
+                        Password: "aukijdfxsurfnmlu",
+                        To: email,
+                        From: "chinopas.muangthai@gmail.com",
+                        Subject: "Test send Email",
+                        Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                    })
+                        .then(function (message) {
+                            //alert("mail sent successfully")
+                        });
+                }
+                else if (value == 'Return to Requester') {
+                    Email.send({
+                        Host: "smtp.gmail.com",
+                        Username: "chinopas.muangthai@gmail.com",
+                        Password: "aukijdfxsurfnmlu",
+                        To: email,
+                        From: "chinopas.muangthai@gmail.com",
+                        Subject: "Test send Email",
+                        Body: "สถานะ ส่งคืนเพื่อแก้ไข ขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                    })
+                        .then(function (message) {
+                            //alert("mail sent successfully")
+                        });
+                }
+
+
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -614,6 +713,7 @@
 
             @*location.href = "@Url.Action("index", "FormPRS")" + "?id_tor=" + "@Model.id_tor"+"&&buttonstatus"+value+"";*@
             try {
+
                 var form = document.getElementById('fieldapproval2');
                 const url = "@Url.Action("AddDataApprover", "FormPRS")";
                 console.log(url);
@@ -655,6 +755,34 @@
                         alert("Error save fail");
                     }
                 });
+                if (value == "Sent to Approval") {
+                    Email.send({
+                        Host: "smtp.gmail.com",
+                        Username: "chinopas.muangthai@gmail.com",
+                        Password: "aukijdfxsurfnmlu",
+                        To: email,
+                        From: "chinopas.muangthai@gmail.com",
+                        Subject: "Test send Email",
+                        Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                    })
+                        .then(function (message) {
+                            //alert("mail sent successfully")
+                        });
+                }
+                else if (value == 'Approved') {
+                    Email.send({
+                        Host: "smtp.gmail.com",
+                        Username: "chinopas.muangthai@gmail.com",
+                        Password: "aukijdfxsurfnmlu",
+                        To: email,
+                        From: "chinopas.muangthai@gmail.com",
+                        Subject: "Test send Email",
+                        Body: "คำขอจัดซื้อหรือจ้าง เรื่อง " + '@Model.nameProcument'+" ได้ถูกอนุมัติเห็นชอบแล้ว"
+                    })
+                        .then(function (message) {
+                            //alert("mail sent successfully")
+                        });
+                }
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -854,6 +982,7 @@
     <script>
         async  function AJAXSubmit(oFormElement) {
             try {
+                var id_tor = document.getElementById("id_tor").value;
                 var form = document.getElementById("createform");
                 const url = "@Url.Action("AddDataProcurement", "FormPRS")";
                 console.log(url);
@@ -895,9 +1024,33 @@
                         alert("Error save fail");
                     }
                 });
+                let status = document.getElementById("buttonstatus").value;
+                    if (status == "Sent") {
+                    let emailadmin ='@Model.stringlistemail_admin';
+
+                    const arrayemail = emailadmin.split("/");
+                    for (let i = 0; i < arrayemail.length; i++) {
+                        Email.send({
+                            Host: "smtp.gmail.com",
+                            Username: "chinopas.muangthai@gmail.com",
+                            Password: "aukijdfxsurfnmlu",
+                            To: arrayemail[i],
+                            From: "chinopas.muangthai@gmail.com",
+                            Subject: "Test send Email",
+                            Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                     })
+                            .then(function (message) {
+                                //alert("mail sent successfully")
+                            });
+
+                    }
+                }
             } catch (error) {
                 console.error('Error:', error);
             }
+
+
+
         }
     </script>
 }

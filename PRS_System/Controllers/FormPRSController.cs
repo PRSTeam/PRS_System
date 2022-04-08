@@ -109,14 +109,40 @@ namespace PRS_System.Controllers
                         }
                         if(Createview.definition=="ปกติ")
                         {
-                            Createview.des_approval = _formService.GetCommentApproval(id_tor, Createview.name_select1);
-                            Createview.des_approval2 = _formService.GetCommentApproval(id_tor, Createview.name_select2);
-                            Createview.des_approval3 = _formService.GetCommentApproval(id_tor, "นักวิเคราะห์นโยบายและแผนการชำนาญการ");
-                            Createview.des_approval4 = _formService.GetCommentApproval(id_tor, "หัวหน้าสำนักงานเลขานุการ");
+                            string id_com = "";
+                            string email = "";
+                            id_com = _accountService.GetUserid(Createview.name_select1);
+                            Createview.Email_approval = _accountService.GetUserEmail(Createview.name_select2); // เรียก email ลำดับต่อจากคนปัจจุบัน
+                            Createview.des_approval = _formService.GetCommentApproval(id_tor, id_com);
+
+                            id_com = _accountService.GetUserid(Createview.name_select2);
+                            Createview.Email_approval2 = _accountService.GetUserEmail("นักวิเคราะห์นโยบายและแผนชำนาญการ"); // เรียก email ลำดับต่อจากคนปัจจุบัน
+                            Createview.des_approval2 = _formService.GetCommentApproval(id_tor, id_com);
+
+                            id_com = _accountService.GetUserid("นักวิเคราะห์นโยบายและแผนชำนาญการ");
+                            Createview.Email_approval3 = _accountService.GetUserEmail("หัวหน้าสำนักงานเลขานุการ"); // เรียก email ลำดับต่อจากคนปัจจุบัน
+                            Createview.des_approval3 = _formService.GetCommentApproval(id_tor, id_com);
+
+                            id_com = _accountService.GetUserid("หัวหน้าสำนักงานเลขานุการ");
+                            Createview.des_approval4 = _formService.GetCommentApproval(id_tor, id_com);
                         }
                         else if(Createview.definition=="พิเศษ")
                         {
+                            string id_com = "";
+                            id_com = _accountService.GetUserid(Createview.name_select1);
+                            Createview.des_approval = _formService.GetCommentApproval(id_tor, id_com);
 
+                            id_com = _accountService.GetUserid(Createview.name_select2);
+                            Createview.des_approval2 = _formService.GetCommentApproval(id_tor, id_com);
+
+                            id_com = _accountService.GetUserid("นักวิเคราะห์นโยบายและแผนการชำนาญการ");
+                            Createview.des_approval3 = _formService.GetCommentApproval(id_tor, id_com);
+
+                            id_com = _accountService.GetUserid("กรรมการเลขานุการฯ");
+                            Createview.des_approval4 = _formService.GetCommentApproval(id_tor, id_com);
+
+                            id_com = _accountService.GetUserid("ประธานกรรมการดำเนินการฯ");
+                            Createview.des_approval5 = _formService.GetCommentApproval(id_tor, id_com);
                         }
 
                         
@@ -124,8 +150,26 @@ namespace PRS_System.Controllers
                     
                     
                 }
+                Createview.ListEmailAdmin = _accountService.GetAllAdminEmail();
+                string listemailadmin = "";
+                for (int i = 0; i < Createview.ListEmailAdmin.Count; i++)
+                {
+                    listemailadmin = Createview.ListEmailAdmin[i].Email+"/"+ listemailadmin;
+
+                }
+                if (listemailadmin[listemailadmin.Length - 1] == '/')
+                {
+                    
+                    Createview.stringlistemail_admin = listemailadmin.Substring(0, (listemailadmin.Length - 1));
+                }
+                
                 Console.WriteLine("Check" + id_tor);
                 Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
+                UserDataModel user_login = _accountService.CheckLogin(Createview.login_userid);
+                Createview.Email_Proquement = user_login.Email;
+                Createview.type_user_magnement = HttpContext.Session.GetString("Manage_Pos").ToString();
+                bool check = (Createview.last_approval == "หัวหน้าภาควิชา" || Createview.last_approval == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.last_approval == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Createview.type_user_magnement == "หัวหน้าภาควิชา" || Createview.type_user_magnement == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.type_user_magnement == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา");
+                Console.WriteLine(check);
                 Createview.category_user= HttpContext.Session.GetString("type_person").ToString();
                 //Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
                 Createview.id_tor = id_tor;
@@ -267,18 +311,19 @@ namespace PRS_System.Controllers
         {
             try
             {
+                Suppies.category_user = HttpContext.Session.GetString("type_person").ToString();
                 if (Suppies.buttonstatus_2 == "Sent to Approval")
                 {
                     FormPRSModel check_order_data = _formService.Get_PRS_ORDER_DIRACT(Suppies.id_tor);
                     //checkว่าค้นหาข้อมูลจัดซื้อว่ามีหรือไม่ ถ้าไม่มีให้เพิ่ม ถ้ามีให้แก้ไข
                     if (check_order_data.id_order != 0)
                     {
-                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor, Suppies.category_user);
                     }
                     else if (check_order_data.id_order == 0)
                     {
                         _formService.AddDataSupplies(Suppies, Suppies.id_tor);
-                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                        _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor, Suppies.category_user);
                         
                     }
                     
@@ -286,7 +331,8 @@ namespace PRS_System.Controllers
                 }
                 else if (Suppies.buttonstatus_2 == "Return to Requester")
                 {
-                    _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor);
+                    
+                    _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor,Suppies.User_ID);
                    
                 }
                 return Json(new { status = "success", Messege = Suppies.buttonstatus_2+" Complete" });
@@ -303,8 +349,69 @@ namespace PRS_System.Controllers
         
         public IActionResult AddDataApprover(FormPRSModel Approver)
         {
-
-            return View();
+            Approver.login_userid = HttpContext.Session.GetString("uid").ToString();
+            Approver.category_user = HttpContext.Session.GetString("type_person").ToString();
+            string checkcomment = _formService.GetCommentApproval(Approver.id_tor, Approver.login_userid);
+            if(checkcomment==null)
+            {
+                if(Approver.des_approval!=null)
+                {
+                    Approver.des_approval0 = Approver.des_approval;
+                }
+                else if (Approver.des_approval2 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval2;
+                }
+                else if (Approver.des_approval3 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval3;
+                }
+                else if (Approver.des_approval4 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval4;
+                }
+                else if (Approver.des_approval5 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval5;
+                }
+                
+                _formService.AddCommentApproval(Approver);
+                
+            }
+            else if(checkcomment != null)
+            {
+                if (Approver.des_approval != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval;
+                }
+                else if (Approver.des_approval2 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval2;
+                }
+                else if (Approver.des_approval3 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval3;
+                }
+                else if (Approver.des_approval4 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval4;
+                }
+                else if (Approver.des_approval5 != null)
+                {
+                    Approver.des_approval0 = Approver.des_approval5;
+                }
+                _formService.EditCommentApproval(Approver);
+            }
+            if(Approver.buttonstatus_3== "Sent to Approval" || Approver.buttonstatus_3 == "Approved")
+            {
+                _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.category_user);
+            }
+            else if(Approver.buttonstatus_3 == "Return to Requester")
+            {
+                _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.User_ID);
+            }
+            
+            return Json(new { status = "success", Messege = (checkcomment == null ? "Add Approval" : "Update Approval") + "Complete" }); ;
         }
         public IActionResult productpdf(int id_tor)
         {

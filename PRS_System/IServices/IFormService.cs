@@ -39,11 +39,15 @@ namespace PRS_System.IServices
 
         public FormPRSModel Get_PRS_ORDER_DIRACT(int id_tor);
 
-        public void updatestatusform(string status,int id_tor);
+        public void updatestatusform(string status,int id_tor,string cerrent_flow);
 
         public void UpdateDataOrder_Suppies(FormPRSModel data,int id_tor);
         public string GetLastApproval(int id_tor);
 
         public string GetCommentApproval(int id_tor,string nameapproval);
+        public void AddCommentApproval(FormPRSModel data);
+        public void EditCommentApproval(FormPRSModel data);
+
+        
     }
 }
