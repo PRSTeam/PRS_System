@@ -229,11 +229,11 @@
                                 <button class="button button3">Export PDF</button>
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
+                                    <button class="button button4" type="submit" value="Sent" onclick="send_emailto_admin()">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS','')">แก้ไขเอกสาร</button>
+                                    <button class="button button4" type="submit" onclick="send_emailto_admin()">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
@@ -290,7 +290,7 @@
                                 <input asp-for="User_ID" style="display:none" />
                                 <button  type="button" class="button button2" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                 <button type="button" class="button button3" >Export PDF</button>
-                                <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval')">ส่งให้ผู้อนุมัติ</button>
+                                <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
 
                             </fieldset>
                         </form>

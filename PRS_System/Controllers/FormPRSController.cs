@@ -118,6 +118,7 @@ namespace PRS_System.Controllers
                         {
                             string id_com = "";
                             string email = "";
+                            Createview.Email_approval6 = _accountService.GetUserEmail(Createview.name_select1);
                             id_com = _accountService.GetUserid(Createview.name_select1);
                             Createview.Email_approval = _accountService.GetUserEmail(Createview.name_select2); // เรียก email ลำดับต่อจากคนปัจจุบัน
                             com_ment = _formService.GetCommentApproval(id_tor, id_com);

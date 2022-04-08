@@ -58,6 +58,7 @@ namespace PRS_System.Models.FormModel
         public string desc_assist1 { get; set; }
         public string desc_assist2 { get; set; }
         public string desc_assist3 { get; set; }
+        public string id_assist { get; set; }
         //---------------------------------------
         // Suppiess
         public string definition { get; set; }
@@ -108,6 +109,7 @@ namespace PRS_System.Models.FormModel
         public string Email_approval3 { get; set; }
         public string Email_approval4 { get; set; }
         public string Email_approval5 { get; set; }
+        public string Email_approval6 { get; set; }
 
         public List<ApprovalListDataModel> ListEmailAdmin { get; set; }
         public string stringlistemail_admin { get; set; }

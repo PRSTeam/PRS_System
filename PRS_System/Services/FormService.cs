@@ -824,7 +824,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 SqlCommand command = new SqlCommand();
                 con.Open();
                 command.Connection = con;
-                command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE,DEFINITION  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
+                command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_tor ?? DBNull.Value));
                 SqlDataReader reader;
@@ -987,7 +987,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                                         SET TYPE_ASSIST=@TYPE_ASSIST,REASON_ASSIST=@REASON_ASSIST_DATE,DESC_ASSIST=@DESC_ASSIST
                                         WHERE ID_TOR=@IDTOR";
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)maximum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)data.id_assist ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@TYPE_ASSIST", (object)data.type_assitst ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@REASON_ASSIST", (object)data.supportType ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DESC_ASSIST", (object)data.des_approval0 ?? DBNull.Value));
