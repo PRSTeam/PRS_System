@@ -169,6 +169,11 @@
                             <h4 class="widget-title">History</h4>
                             <p>ตารางหน้าคำขอผู้จัดซื้อ</p>
                             <button class="button button1" id="createbutton">+Create</button>
+
+                            @*keyword*@
+                            <br><label>Search</label>
+                            <input class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="search...">
+                            <button class="button button4" type ="submit">ค้นหา</button>
                             <hr>
                             <table id="customers">
                                 <tr>
@@ -214,8 +219,8 @@
                                         <button style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button button2" onclick="formpage(@item.id_tor)">View</button>
                                         <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button2" onclick="formpage(@item.id_tor)">Edit</button>
                                         <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button3">Delete</button>
-                                        <button type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
-                                        <button type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                        <button class="button button1" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
+                                        <button class="button button3" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                         @*<button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button4">Draft</button>*@
                                     </td>
                                         <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>

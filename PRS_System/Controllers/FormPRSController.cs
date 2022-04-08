@@ -168,7 +168,18 @@ namespace PRS_System.Controllers
 
                     Createview.stringlistemail_admin = listemailadmin.Substring(0, (listemailadmin.Length - 1));
                 }
+                Createview.ListEmailAdmin = _accountService.GetAllAdminEmail();
+                for (int i = 0; i < Createview.ListEmailAdmin.Count; i++)
+                {
+                    listemailadmin = Createview.ListEmailAdmin[i].Email+"/"+ listemailadmin;
 
+                }
+                if (listemailadmin[listemailadmin.Length - 1] == '/')
+                {
+                    
+                    Createview.stringlistemail_admin = listemailadmin.Substring(0, (listemailadmin.Length - 1));
+                }
+                
                 Console.WriteLine("Check" + id_tor);
                 Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
                 UserDataModel user_login = _accountService.CheckLogin(Createview.login_userid);
@@ -176,7 +187,7 @@ namespace PRS_System.Controllers
                 Createview.type_user_magnement = HttpContext.Session.GetString("Manage_Pos").ToString();
                 bool check = (Createview.last_approval == "หัวหน้าภาควิชา" || Createview.last_approval == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.last_approval == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Createview.type_user_magnement == "หัวหน้าภาควิชา" || Createview.type_user_magnement == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.type_user_magnement == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา");
                 Console.WriteLine(check);
-                Createview.category_user = HttpContext.Session.GetString("type_person").ToString();
+                Createview.category_user= HttpContext.Session.GetString("type_person").ToString();
                 //Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
                 Createview.id_tor = id_tor;
                 return View(Createview);
@@ -330,16 +341,16 @@ namespace PRS_System.Controllers
                     {
                         _formService.AddDataSupplies(Suppies, Suppies.id_tor);
                         _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor, Suppies.category_user);
-
+                        
                     }
 
 
                 }
                 else if (Suppies.buttonstatus_2 == "Return to Requester")
                 {
-
-                    _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor, Suppies.User_ID);
-
+                    
+                    _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor,Suppies.User_ID);
+                   
                 }
                 return Json(new { status = "success", Messege = Suppies.buttonstatus_2 + " Complete" });
 

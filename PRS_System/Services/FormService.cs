@@ -678,7 +678,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
             }
         }
 
-        public void updatestatusform(string status, int id_tor, string cerrent_flow)
+        public void updatestatusform(string status ,int id_tor, string cerrent_flow)
         {
             try
             {
@@ -820,9 +820,9 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 SqlCommand command = new SqlCommand();
                 con.Open();
                 command.Connection = con;
-                command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
+                command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE,DEFINITION  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_com ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_tor ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
