@@ -17,7 +17,11 @@ namespace PRS_System.IServices
         IEnumerable<UserDataModel> GetAllAccountWithKeyword(string keyword);
         public UserDataModel CheckLogin(string user_id);
 
-        
+        public string GetUserid(string type_magnement);
+        public string GetUserEmail(string type_magnement);
+        public List<ApprovalListDataModel> GetAllAdminEmail();
+
+
 
     }
 }

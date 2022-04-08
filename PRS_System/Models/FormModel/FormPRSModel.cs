@@ -26,6 +26,7 @@ namespace PRS_System.Models.FormModel
         public int otherSupport_num { get; set; }
         public string supportType { get; set; }
         public string status { get; set; }
+        public DateTime? TOR_DATE { get; set; }
 #nullable enable
         public List<ProductDataModel>? Productdata { get; set; }
         public List<SubjectDataModel>? Subjectdata { get; set; }
@@ -40,15 +41,16 @@ namespace PRS_System.Models.FormModel
         public string buttonstatus { get; set; }
         public string buttonstatus_2 { get; set; }
         public string buttonstatus_3 { get; set; }
+        public string cerrent_flow { get; set; }
         public int id_order { get; set; }
         public UserDataModel user { get; set; }
 
         public string login_userid { get; set; }
         public string category_user { get; set; }
 
-        public string type_user { get; set; }
+        public string type_user_magnement { get; set; }
         //---------------------------------------
-       // Suppiess
+        // Suppiess
         public string definition { get; set; }
         public string name_select1 { get; set; }
         public string name_select2 { get; set; }
@@ -56,14 +58,50 @@ namespace PRS_System.Models.FormModel
 
         //----------------------------------------
         //------Approval------------------------
+        public class CommentDataModel
+        {
+            public string comment { get; set; }
+            public DateTime? com_date { get; set; }
+        }
+
+        public string des_approval0 { get; set; }
+
         public string des_approval { get; set; }
+        public DateTime? date_approval { get; set; }
+        public string name_approval { get; set; }
+        public string esign_approval { get; set; }
+
         public string des_approval2 { get; set; }
+        public DateTime? date_approval2 { get; set; }
+        public string name_approval2 { get; set; }
+        public string esign_approval2 { get; set; }
+
         public string des_approval3 { get; set; }
+        public DateTime? date_approval3 { get; set; }
+        public string name_approval3 { get; set; }
+        public string esign_approval3 { get; set; }
+
         public string des_approval4 { get; set; }
+        public DateTime? date_approval4 { get; set; }
+        public string name_approval4 { get; set; }
+        public string esign_approval4 { get; set; }
+
         public string des_approval5 { get; set; }
+        public DateTime? date_approval5 { get; set; }
+        public string name_approval5 { get; set; }
+        public string esign_approval5 { get; set; }
+
         public string last_approval { get; set; }
 
-        public List<FormPRSDataModel> Listapproval { get; set; }
+        public string Email_Proquement { get; set; }
+        public string Email_approval { get; set; }
+        public string Email_approval2 { get; set; }
+        public string Email_approval3 { get; set; }
+        public string Email_approval4 { get; set; }
+        public string Email_approval5 { get; set; }
+
+        public List<ApprovalListDataModel> ListEmailAdmin { get; set; }
+        public string stringlistemail_admin { get; set; }
         public FormPRSDataModel FormDataDetail()
         {
             FormPRSDataModel formprs_data = new FormPRSDataModel();

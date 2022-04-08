@@ -34,16 +34,20 @@ namespace PRS_System.IServices
 
         public void DeleteFormSubjectData(int ID_Subject);
 
-        public void AddDataSupplies(FormPRSModel datasupplies ,int id_tor);
+        public void AddDataSupplies(FormPRSModel datasupplies, int id_tor);
         public int GetMaximumID_ORDER_DIRACT();
 
         public FormPRSModel Get_PRS_ORDER_DIRACT(int id_tor);
 
-        public void updatestatusform(string status,int id_tor);
+        public void updatestatusform(string status, int id_tor, string cerrent_flow);
 
-        public void UpdateDataOrder_Suppies(FormPRSModel data,int id_tor);
+        public void UpdateDataOrder_Suppies(FormPRSModel data, int id_tor);
         public string GetLastApproval(int id_tor);
 
-        public string GetCommentApproval(int id_tor,string nameapproval);
+        public FormPRSModel.CommentDataModel GetCommentApproval(int id_tor, string nameapproval);
+        public void AddCommentApproval(FormPRSModel data);
+        public void EditCommentApproval(FormPRSModel data);
+
+
     }
 }
