@@ -35,6 +35,14 @@ namespace PRS_System.Models.Data
 
         public int id_com { get; set; }
         public string comment { get; set; }
+        public string cerrent_flow { get; set; }
+        public int id_order { get; set; }
+        public UserDataModel user { get; set; }
+
+        public string login_userid { get; set; }
+        public string category_user { get; set; }
+
+        public string type_user_magnement { get; set; }
 
     }
 }

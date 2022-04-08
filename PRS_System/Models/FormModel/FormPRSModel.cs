@@ -48,8 +48,17 @@ namespace PRS_System.Models.FormModel
         public string category_user { get; set; }
 
         public string type_user_magnement { get; set; }
+        public string assist_input0 { get; set; }
+        public string assist_input1 { get; set; }
+        public string assist_input2 { get; set; }
+
+        public string type_assitst { get; set; }
+        public string detail_assist { get; set; }
+        public string desc_assist1 { get; set; }
+        public string desc_assist2 { get; set; }
+        public string desc_assist3 { get; set; }
         //---------------------------------------
-       // Suppiess
+        // Suppiess
         public string definition { get; set; }
         public string name_select1 { get; set; }
         public string name_select2 { get; set; }

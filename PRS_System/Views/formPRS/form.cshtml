@@ -61,7 +61,7 @@
                             <fieldset class="col-md-4 col-sm-8">
                                 <b>เหตุผลในการสนับสนุน</b><br><br>
 
-                                <input type="checkbox" asp-for="supportType" value="1">
+                                <input type="checkbox" asp-for="type_assitst" value="เพื่อใช้ในการสนับสนุนรายวิชา">
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชา</label>
                                 <br>
 
@@ -93,16 +93,26 @@
                                 <!--ไว้สำหรับการเก็บ idtor เพื่อส่งไปให้แต่ละ Action-->
                                 <input asp-for="id_tor" style="display:none" />
 
-                                <input id="checkBox" name="" type="checkbox">
-                                <label>เพื่อใช้ในการสนับสนุนรายวิชาอื่นๆ</label><br>
-                                <input type="radio" asp-for="supportType" value="2">
+                                <input id="checkBox2"  type="checkbox">
+                                <label>เพื่อใช้ในการสนับสนุน</label><br>
+                                <input type="radio" asp-for="type_assitst" value="โครงการ">
+                                <label>โครงการ</label>
+
+                                <input type="radio" asp-for="type_assitst" value="โครงงาน">
+                                <label>โครงงาน</label>
+                                <input type="radio" asp-for="type_assitst" value="ปัญหาพิเศษ">
+                                <label>ปัญหาพิเศษ</label><br>
+                                <label>เรื่อง</label>
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="detail_assist" placeholder="เรื่อง"><br>
+
+                                <input type="radio" asp-for="supportType" value="ได้รับสนับสนุนจาก">
                                 <label>ได้รับสนับสนุนจาก</label>
-                                <input class="w3-input w3-border w3-round" type="text" name="supportBy" placeholder="ได้รับทุนสนับสนุนจาก"><br>
-                                <input type="radio" asp-for="supportType" value="3">
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="desc_assist1" placeholder="ได้รับทุนสนับสนุนจาก"><br>
+                                <input type="radio" asp-for="supportType" value="ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ">
                                 <label>ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ</label><br>
-                                <input type="radio" asp-for="supportType" value="4">
+                                <input type="radio" asp-for="supportType" value="เหตุผลอื่นๆ">
                                 <label>เหตุผลอื่นๆ</label>
-                                <input class="w3-input w3-border w3-round" type="text" name="other" placeholder="เหตุผลอื่นๆ">
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="desc_assist2" placeholder="เหตุผลอื่นๆ">
                             </fieldset>
                             <hr>
 

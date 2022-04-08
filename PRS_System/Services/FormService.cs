@@ -390,7 +390,7 @@ namespace PRS_System.Services
                 SqlCommand command = new SqlCommand();
                 con.Open();
                 command.Connection = con;
-                command.CommandText = "SELECT ID_TOR,NAME_TOR,STATUS,TOR_DATE   FROM PRS_MAIN_TOR WHERE OWNER_ID =@OWNER_ID";
+                command.CommandText = "SELECT ID_TOR,NAME_TOR,STATUS,CERRENT_FLOW,TOR_DATE   FROM PRS_MAIN_TOR WHERE OWNER_ID =@OWNER_ID";
                 command.Parameters.Add(new SqlParameter("OWNER_ID", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
@@ -406,6 +406,8 @@ namespace PRS_System.Services
                         Status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : ""
                         ,
                         Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
+                        ,
+                        cerrent_flow= reader["CERRENT_FLOW"] != DBNull.Value ? (string)reader["CERRENT_FLOW"] : ""
                     });
 
 
@@ -765,6 +767,8 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                         Fullname_PRS = reader["FULL_NAME"] != DBNull.Value ? (string)reader["FULL_NAME"] : ""
                         ,
                         Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
+                        ,
+                        cerrent_flow = reader["CERRENT_FLOW"] != DBNull.Value ? (string)reader["CERRENT_FLOW"] : ""
 
                     });
                     
@@ -868,7 +872,131 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
 
         public void EditCommentApproval(FormPRSModel data)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+                command.CommandText = @"UPDATE PRS_ORDER_DIRACT
+                                        SET ID_TOR=@IDTOR,ID_COM=@ID_COM,COMMENT=@COMMENT,COMMENT_DATE=@COMMENT_DATE";
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)data.User_ID ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@COMMENT", (object)data.des_approval0 ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@COMMENT_DATE", DateTime.Now.ToString("yyyy-MM-dd ", new CultureInfo("en-US"))));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<FormPRSDataModel> GetListApproval(string id_com)
+        {
+            try
+            {
+                List<FormPRSDataModel> data = new List<FormPRSDataModel>();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = @"SELECT *
+                                        from PRS_COM_COMMENT
+                                        left join PRS_MAIN_TOR
+                                        on PRS_COM_COMMENT.ID_TOR=PRS_MAIN_TOR.ID_TOR
+                                        where PRS_COM_COMMENT.ID_COM=@ID_COM";
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_com ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    data.Add(new FormPRSDataModel
+                    {
+                        id_tor = reader["ID_TOR"] != DBNull.Value ? (int)reader["ID_TOR"] : 0
+                        ,
+                        nameProcument = reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : ""
+                        ,
+                        Status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : ""
+                        ,
+                        Fullname_PRS = reader["FULL_NAME"] != DBNull.Value ? (string)reader["FULL_NAME"] : ""
+                        ,
+                        Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
+                        ,
+                        cerrent_flow = reader["CERRENT_FLOW"] != DBNull.Value ? (string)reader["CERRENT_FLOW"] : ""
+
+                    });
+
+                }
+                reader.Close();
+                con.Close();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AddAssist_TOR(FormPRSModel data)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+                command.CommandText = @"Insert Into PRS_TOR_ASSIST(ID_TOR,ID_ASSIST,TYPE_ASSIST,REASON_ASSIST,DESC_ASSIST) 
+                                            VALUES(@IDTOR,@ID_ASSIST,@TYPE_ASSIST,@REASON_ASSIST,@DESC_ASSIST)";
+                int maximum = GetMaximumID_ASSIST();
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)maximum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@TYPE_ASSIST", (object)data.type_assitst ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@REASON_ASSIST", (object)data.supportType ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DESC_ASSIST", (object)data.desc_assist3 ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void EditAssist_TOR(FormPRSModel data)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+                command.CommandText = @"UPDATE PRS_ORDER_DIRACT
+                                        SET TYPE_ASSIST=@TYPE_ASSIST,REASON_ASSIST=@REASON_ASSIST_DATE,DESC_ASSIST=@DESC_ASSIST
+                                        WHERE ID_TOR=@IDTOR";
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)maximum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@TYPE_ASSIST", (object)data.type_assitst ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@REASON_ASSIST", (object)data.supportType ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DESC_ASSIST", (object)data.des_approval0 ?? DBNull.Value));
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

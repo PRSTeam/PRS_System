@@ -18,6 +18,7 @@ namespace PRS_System.IServices
         public int GetMaximumID_ASSIST();
         public List<FormPRSDataModel> GetnamePRS(string user_id);
         public List<FormPRSDataModel> GetListSuppies();
+        public List<FormPRSDataModel> GetListApproval(string id_com);
         public int GetMaximumID_SUBJECT_LIST();
         public FormPRSModel GetValuesFormPRS(int id_tor);
         public List<ProductDataModel> GetValuesFormPRSProduct(int id_tor);
@@ -47,7 +48,9 @@ namespace PRS_System.IServices
         public string GetCommentApproval(int id_tor,string nameapproval);
         public void AddCommentApproval(FormPRSModel data);
         public void EditCommentApproval(FormPRSModel data);
+        public void AddAssist_TOR(FormPRSModel data);
+        public void EditAssist_TOR(FormPRSModel data);
 
-        
+
     }
 }

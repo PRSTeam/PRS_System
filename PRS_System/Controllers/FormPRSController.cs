@@ -37,6 +37,11 @@ namespace PRS_System.Controllers
             {
                 indexmodel.ListSuppies = _formService.GetListSuppies();
             }
+            UserDataModel magnement_type = _accountService.CheckPositionManegment(indexmodel.category_user);
+            if(magnement_type.Manage_Pos!="")
+            {
+                indexmodel.ListApproval = _formService.GetListApproval(user_id);
+            }
             
             return View(indexmodel);
 
@@ -94,6 +99,7 @@ namespace PRS_System.Controllers
                     Createview.vaxproduct = Math.Round(vaxvalue, 2);
                     Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
                     Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
+                    
                     if(Createview.status == "Sent to Approval")
                     {
                         FormPRSModel order_diract = new FormPRSModel();
@@ -212,7 +218,31 @@ namespace PRS_System.Controllers
                     Procurement.id_tor = _formService.GetMaximumID_TOR();
                     //--------------------------------
                     _formService.AddProductData(Procurement.Productdata, Procurement.id_tor);
-                    _formService.AddSubjectData(Procurement.Subjectdata, Procurement.id_tor);
+                    if(Procurement.Subjectdata!=null)
+                    {
+                        _formService.AddSubjectData(Procurement.Subjectdata, Procurement.id_tor);
+                    }
+                    if (Procurement.supportType != null)
+                    {
+                        if (Procurement.supportType == "ได้รับสนับสนุนจาก")
+                        {
+                            Procurement.desc_assist3 = Procurement.desc_assist1;
+                        }
+                        else if (Procurement.supportType == "ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ")
+                        {
+                            Procurement.desc_assist3 = null;
+                        }
+                        else if (Procurement.supportType == "เหตุผลอื่นๆ")
+                        {
+                            Procurement.desc_assist3 = Procurement.desc_assist2;
+                        }
+                    }
+                    else if(Procurement.type_assitst != "เพื่อใช้ในการสนับสนุนรายวิชา")
+                    {
+                        _formService.AddAssist_TOR(Procurement);
+                    }
+                    
+                    
 
 
                 }
@@ -233,6 +263,7 @@ namespace PRS_System.Controllers
                     }
                     Procurement.User_ID = HttpContext.Session.GetString("uid").ToString();
                     _formService.EditFormDetailData(Procurement.FormDataDetail(), Procurement.id_tor);
+                    if(Procurement.type_assitst=="")
                     if (Procurement.IndexProDelete != null)
                     {
                         // Delete Product กับ Subject ที่ต้องการจะลบ

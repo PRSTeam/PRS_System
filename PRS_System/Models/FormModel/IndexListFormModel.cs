@@ -10,6 +10,7 @@ namespace PRS_System.Models.FormModel
 #nullable enable
         public List<FormPRSDataModel>? ListForm { get; set; }
         public List<FormPRSDataModel>? ListSuppies { get; set; }
+        public List<FormPRSDataModel>? ListApproval { get; set; }
         public string login_userid { get; set; }
         public string category_user { get; set; }
     }
