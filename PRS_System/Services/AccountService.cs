@@ -14,7 +14,7 @@ namespace PRS_System.Services
     {
         private readonly ILogger<AccountService> _logger;
         private readonly string _connectionString;
-        
+
 
         public AccountService(ILogger<AccountService> logger)
         {
@@ -32,11 +32,11 @@ namespace PRS_System.Services
                 command.Connection = connect;
                 command.CommandText = @"insert into PRS_PERSON (ID_USER,PRE_NAME,FULL_NAME,OPERATING_POS,MANAGEMENT_POS,EMAIL,[SIGNATURE],CATEGORY,[STATUS]) 
 VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@User_Type_Operation,@User_Type_Magnement,@Email,@SIGNATURE,@CATEGORY,@STATUS) ";
-                command.Parameters.Add(new SqlParameter("@ID_USER",(object)datauser.UserID ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_USER", (object)datauser.UserID ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@FULLNAME", (object)datauser.Full_NameThai ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@PRE_NAME", (object)datauser.Prefix_NameThai ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@User_Type_Operation", (object)datauser.User_Type_Operation ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@User_Type_Magnement", (object)datauser.User_Type_Magnement?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@User_Type_Magnement", (object)datauser.User_Type_Magnement ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@Email", (object)datauser.Email ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@SIGNATURE", (object)datauser.ImgName ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@CATEGORY", (object)datauser.Category ?? DBNull.Value));
@@ -44,12 +44,12 @@ VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@User_Type_Operation,@User_Type_Magnement,@E
                 command.ExecuteNonQuery();
                 connect.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError("Caught Exception: {0}", ex.ToString());
                 throw ex;
             }
-            
+
         }
 
         public IEnumerable<UserDataModel> GetAllAccountWithKeyword(string keyword)
@@ -57,7 +57,7 @@ VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@User_Type_Operation,@User_Type_Magnement,@E
             throw new NotImplementedException();
         }
 
-        public List<UserDataModel>GetDataUser(string keyword)
+        public List<UserDataModel> GetDataUser(string keyword)
         {
             try
             {
@@ -67,7 +67,7 @@ VALUES(@ID_USER,@PRE_NAME,@FULLNAME,@User_Type_Operation,@User_Type_Magnement,@E
                 connect.Open();
                 command.Connection = connect;
                 command.CommandText = @"select * from PRS_PERSON 
-WHERE ID_USER like '%"+ keyword + "%' or PRE_NAME like '%" + keyword + "%' or FULL_NAME like '%" + keyword + "%' or OPERATING_POS like '%" + keyword + "%' or MANAGEMENT_POS like '%" + keyword + "%' or EMAIL like '%" + keyword + "%' or CATEGORY like '%" + keyword + "%' or [STATUS] like '%" + keyword + "%' ";
+WHERE ID_USER like '%" + keyword + "%' or PRE_NAME like '%" + keyword + "%' or FULL_NAME like '%" + keyword + "%' or OPERATING_POS like '%" + keyword + "%' or MANAGEMENT_POS like '%" + keyword + "%' or EMAIL like '%" + keyword + "%' or CATEGORY like '%" + keyword + "%' or [STATUS] like '%" + keyword + "%' ";
                 //command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
@@ -88,11 +88,11 @@ WHERE ID_USER like '%"+ keyword + "%' or PRE_NAME like '%" + keyword + "%' or FU
                 connect.Close();
                 return userdata;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-           
+
         }
 
         public string GetSignature(string user_id)
@@ -111,7 +111,7 @@ WHERE ID_USER like '%"+ keyword + "%' or PRE_NAME like '%" + keyword + "%' or FU
                 while (reader.Read())
                 {
                     namefile = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
-                   
+
                 }
                 connect.Close();
                 return namefile;
@@ -132,7 +132,7 @@ WHERE ID_USER like '%"+ keyword + "%' or PRE_NAME like '%" + keyword + "%' or FU
 
                 connect.Open();
                 command.Connection = connect;
-                command.CommandText = @"select * from PRS_PERSON WHERE ID_USER = @ID_USER";
+                command.CommandText = @"SELECT * FROM PRS_PERSON WHERE ID_USER = @ID_USER AND STATUS = 'Active'";
                 command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
@@ -244,9 +244,9 @@ WHERE ID_USER=@ID_USER ";
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                   
-                    user_id = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() :null;
-                    
+
+                    user_id = reader["ID_USER"] != DBNull.Value ? reader["ID_USER"].ToString() : null;
+
                 }
                 connect.Close();
                 return user_id;
@@ -297,16 +297,16 @@ WHERE ID_USER=@ID_USER ";
                 connect.Open();
                 command.Connection = connect;
                 command.CommandText = @"select * from PRS_PERSON WHERE CATEGORY = 'Admin' ";
-                
+
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
 
-                    dataModels.Add(new ApprovalListDataModel 
-                    { 
-                        Email= reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null
-                    }) ;
+                    dataModels.Add(new ApprovalListDataModel
+                    {
+                        Email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null
+                    });
 
                 }
                 connect.Close();

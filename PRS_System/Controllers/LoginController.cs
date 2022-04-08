@@ -56,6 +56,7 @@ namespace PRS_System.Controllers
                         HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
                         HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
                         //HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
+                        HttpContext.Session.SetString("ESignature", result_chk.ESignature);
                         HttpContext.Session.SetString("mail", result_chk.Email);
                         HttpContext.Session.SetString("type_person", result_chk.Category);
 
@@ -69,16 +70,16 @@ namespace PRS_System.Controllers
                         //{
                         //    return RedirectToAction("Index", "FormPRS");
                         //}
-                        if(TempData["ApproverData"] != null)
+                        if (TempData["ApproverData"] != null)
                         {
-                            TempData.Keep("ApproverData");
-                            return Json(new { status = "success" , temp = TempData["ApproverData"] });
+                            //TempData.Keep("ApproverData");
+                            return Json(new { status = "success", temp = TempData["ApproverData"] });
                         }
                         else
                         {
-                            return Json(new { status = "success"});
+                            return Json(new { status = "success" });
                         }
-                        
+
                     }
                     catch (Exception ex)
                     {
