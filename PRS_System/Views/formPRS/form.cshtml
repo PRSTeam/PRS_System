@@ -61,7 +61,7 @@
                             <fieldset class="col-md-4 col-sm-8">
                                 <b>เหตุผลในการสนับสนุน</b><br><br>
 
-                                <input type="checkbox" asp-for="type_assitst" value="เพื่อใช้ในการสนับสนุนรายวิชา">
+                                <input type="checkbox" id="Subjectcheck" value="เพื่อใช้ในการสนับสนุนรายวิชา">
                                 <label>เพื่อใช้ในการสนับสนุนรายวิชา</label>
                                 <br>
 
@@ -270,7 +270,7 @@
                                 <label>ภาคปกติ</label>
                                 <br>
                                 <label>1.</label>
-                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนาญการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนชำนาญการ" disabled />
                                 <br>
                                 <label>2.</label>
                                 <input class="w3-input w3-border w3-round" type="text" value="หัวหน้าสำนักงานเลขานุการ" disabled />
@@ -279,7 +279,7 @@
                                 <input type="radio" class="definition5" asp-for="definition" value="พิเศษ" required>
                                 <label>ภาคพิเศษ</label><br><br>
                                 <label>1.</label>
-                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนการชำนาญการ" disabled />
+                                <input class="w3-input w3-border w3-round" type="text" value="นักวิเคราะห์นโยบายและแผนชำนาญการ" disabled />
                                 <br>
                                 <label>2.</label>
                                 <input class="w3-input w3-border w3-round" type="text" value="กรรมการและเลขานุการฯ" disabled />
@@ -337,7 +337,7 @@
                                                   placeholder="คำอธิบาย"></textarea><br><br>
                                         <label>ลายเซ็น</label><br><br>
                                         <input type="text" id="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")? "buttonstatus_3":"")" name="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "buttonstatus_3":"")" style="display:none" />
-                                        <input asp-for="last_approval" value="นักวิเคราะห์นโยบายและแผนการชำนาญการ" style="display:none" />
+                                        <input asp-for="last_approval" value="นักวิเคราะห์นโยบายและแผนชำนาญการ" style="display:none" />
                                         <input asp-for="id_tor" style="display:none" />
                                         
                                         <button class="button button7">เซ็นอนุมัติ</button><br>
@@ -352,7 +352,7 @@
                                     {
 
                                         <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ?"fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
-                                            <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
+                                            <h4>3.นักวิเคราะห์นโยบายและแผนชำนาญการ</h4>
                                             <label>ความคิดเห็น</label><br>
                                             <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
                                                       placeholder="คำอธิบาย"></textarea><br><br>
@@ -386,13 +386,13 @@
                                     }
                                     else if (Model.definition == "พิเศษ")
                                     {
-                                        <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
-                                            <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
+                                        <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
+                                            <h4>3.นักวิเคราะห์นโยบายและแผนชำนาญการ</h4>
                                             <label>ความคิดเห็น</label><br>
                                             <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
                                                       placeholder="คำอธิบาย"></textarea><br><br>
                                             <label>ลายเซ็น</label><br><br>
-                                            <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
+                                            <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
                                             <input asp-for="last_approval" value="กรรมการเลขานุการฯ" style="display:none" />
                                             <input asp-for="id_tor" style="display:none" />
                                             
@@ -1081,6 +1081,9 @@
                                 confirmButtonText: 'Ok'
                             }).then((result) => {
                                 if (result.isConfirmed) {
+                                    
+                                   
+
                                     location.href ="@Url.Action("index", "FormPRS")";
                                 }
                             });
@@ -1101,26 +1104,28 @@
                     }
                 });
                 let status = document.getElementById("buttonstatus").value;
-                    if (status == "Sent") {
-                        let emailadmin = '@Model.stringlistemail_admin';
-                         @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
-                    const arrayemail = emailadmin.split("/");
-                    for (let i = 0; i < arrayemail.length; i++) {
-                        Email.send({
-                            Host: "smtp.gmail.com",
-                            Username: "chinopas.muangthai@gmail.com",
-                            Password: "aukijdfxsurfnmlu",
-                            To: arrayemail[i],
-                            From: "chinopas.muangthai@gmail.com",
-                            Subject: "Test send Email",
-                            Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor'
-                     })
-                            .then(function (message) {
-                                @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
-                            });
+                if (status == "Sent") {
 
-                    }
-                }
+                                            let emailadmin = '@Model.stringlistemail_admin';
+                                             @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
+                                        const arrayemail = emailadmin.split("/");
+                                        for (let i = 0; i < arrayemail.length; i++) {
+                                            Email.send({
+                                                Host: "smtp.gmail.com",
+                                                Username: "chinopas.muangthai@gmail.com",
+                                                Password: "aukijdfxsurfnmlu",
+                                                To: arrayemail[i],
+                                                From: "chinopas.muangthai@gmail.com",
+                                                Subject: "Test send Email",
+                                                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor'
+                                         })
+                                                .then(function (message) {
+                                                    @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
+                                                });
+
+                                        }
+                                    }
+
             } catch (error) {
                 console.error('Error:', error);
             }

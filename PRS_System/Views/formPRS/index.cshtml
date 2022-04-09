@@ -172,8 +172,8 @@
 
                             @*keyword*@
                             <br><label>Search</label>
-                            <input class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="search...">
-                            <button class="button button4" type ="submit">ค้นหา</button>
+                            <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword" placeholder="search...">
+                            <button id="" class="button button4" type ="submit">ค้นหา</button>
                             <hr>
                             <table id="customers">
                                 <tr>
@@ -227,43 +227,48 @@
                                             <button type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                             @*<button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button4">Draft</button>*@
                                         </td>
-                                        <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
+                                        <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
                                     </tr>
                                 }
                             </table>
                             <br>
-                            <p style="display:@(Model.category_user=="Admin"?"block":"None" )">ตารางหน้าฝ่ายพัสดุ</p>
-                            <hr>
-                            <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name of Purchaser</th>
-                                    <th>Procurement Request</th>
-                                    <th>Status</th>
-                                    <th>Currently at</th>
-                                    <th>Function</th>
-                                    <th>Date</th>
-                                </tr>
-                                <tr>
+                            <div style="display:@(Model.category_user=="Admin"?"block":"None" )">
+                                <p >ตารางหน้าฝ่ายพัสดุ</p>
+                                <hr>
+                                <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Name of Purchaser</th>
+                                        <th>Procurement Request</th>
+                                        <th>Status</th>
+                                        <th>Currently at</th>
+                                        <th>Function</th>
+                                        <th>Date</th>
+                                    </tr>
+
                                     @{int countfield2 = Model.ListSuppies != null ? Model.ListSuppies.Count : 0;}
                                     @{
+
                                         @for (int i = 0; i < countfield2; i++)
                                         {
                                             int number2 = i + 1;
                                             FormPRSDataModel item = Model.ListSuppies[i];
                                             if (item.Status != "Return to Requester" && item.Status != "Draft")
                                             {
-                                                <td>@number2</td>
-                                                <td>@item.Fullname_PRS</td>
-                                                <td>@item.nameProcument</td>
-                                                <td>@item.Status</td>
-                                                <td>
-                                                    @item.cerrent_flow
-                                                </td>
-                                                <td>
-                                                    <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
-                                                </td>
-                                                <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
+                                                <tr>
+                                                    <td>@number2</td>
+                                                    <td>@item.Fullname_PRS</td>
+                                                    <td>@item.nameProcument</td>
+                                                    <td>@item.Status</td>
+                                                    <td>
+                                                        @item.cerrent_flow
+                                                    </td>
+                                                    <td>
+                                                        <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
+                                                    </td>
+                                                    <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
+                                                </tr>
+
                                             }
 
 
@@ -272,55 +277,59 @@
 
 
 
-                                </tr>
 
 
-                            </table>
-                            <br>
-                            <p style="display:@(Model.ListApproval.Count==0?"None":"block" )">ตารางหน้าผู้อนุมัตื</p>
-                            <hr>
-                            <table id="customers" style="display:@(Model.ListApproval.Count==0?"none":"block" )">
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name of Purchaser</th>
-                                    <th>Procurement Request</th>
-                                    <th>Status</th>
-                                    <th>Currently at</th>
-                                    <th>Function</th>
-                                    <th>Date</th>
-                                </tr>
-                                <tr>
-                                    @{int countfield3 =  Model.ListApproval.Count ;}
-                                    @{
-                                        @for (int i = 0; i < countfield3; i++)
-                                        {
-                                            int number3 = i + 1;
-                                            FormPRSDataModel item = Model.ListApproval[i];
-                                            if (item.Status != "Return to Requester" && item.Status != "Draft" && item.Status != "Sent")
+
+                                </table>
+                            </div>
+                            <div style="display:@(Model.ListApproval.Count==0?"None":"block" )">
+                                <p >ตารางหน้าผู้อนุมัตื</p>
+                                <hr>
+                                <table id="customers" style="display:@(Model.ListApproval.Count==0?"none":"block" )">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Name of Purchaser</th>
+                                        <th>Procurement Request</th>
+                                        <th>Status</th>
+                                        <th>Currently at</th>
+                                        <th>Function</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    <tr>
+                                        @{int countfield3 = Model.ListApproval.Count;}
+                                        @{
+                                            @for (int i = 0; i < countfield3; i++)
                                             {
-                                                <td>@number3</td>
-                                                <td>@item.Fullname_PRS</td>
-                                                <td>@item.nameProcument</td>
-                                                <td>@item.Status</td>
-                                                <td>
-                                                    @item.cerrent_flow
-                                                </td>
-                                                <td>
-                                                    <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
-                                                </td>
-                                                <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
+                                                int number3 = i + 1;
+                                                FormPRSDataModel item = Model.ListApproval[i];
+                                                if (item.Status != "Return to Requester" && item.Status != "Draft" && item.Status != "Sent")
+                                                {
+                                                    <td>@number3</td>
+                                                    <td>@item.Fullname_PRS</td>
+                                                    <td>@item.nameProcument</td>
+                                                    <td>@item.Status</td>
+                                                    <td>
+                                                        @item.cerrent_flow
+                                                    </td>
+                                                    <td>
+                                                        <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
+                                                    </td>
+                                                    <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
+                                                }
+
+
                                             }
-
-
                                         }
-                                    }
 
 
 
-                                </tr>
+                                    </tr>
 
 
-                            </table>
+                                </table>
+                            </div>
+                            <br>
+                            
                         </div>
                     </div> <!-- #history -->
                 </div>

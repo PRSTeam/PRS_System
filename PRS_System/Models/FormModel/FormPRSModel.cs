@@ -49,6 +49,7 @@ namespace PRS_System.Models.FormModel
         public string category_user { get; set; }
 
         public string type_user_magnement { get; set; }
+        public string type_user_operation { get; set; }
         public string assist_input0 { get; set; }
         public string assist_input1 { get; set; }
         public string assist_input2 { get; set; }
@@ -59,6 +60,7 @@ namespace PRS_System.Models.FormModel
         public string desc_assist2 { get; set; }
         public string desc_assist3 { get; set; }
         public string id_assist { get; set; }
+        public string number_string { get; set; }
         //---------------------------------------
         // Suppiess
         public string definition { get; set; }
