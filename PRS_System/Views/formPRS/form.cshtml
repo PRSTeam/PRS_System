@@ -313,7 +313,7 @@
                             <fieldset class="col-md-4 col-sm-8" style="display:@(Model.status == "Sent to Approval" ? "block" : "none")">
                                 <form id="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       name="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
-                                      class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                      class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
                                     <h4>1. @Model.name_select1</h4>
                                     <label>ความคิดเห็น</label><br>
                                     <textarea class="w3-input w3-border w3-round" asp-for="des_approval" cols="50" rows="6"
@@ -330,7 +330,7 @@
                                 </form>
 
                                 <br><br>
-                                    <form id="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")&&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" name="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" class="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                    <form id="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")&&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" name="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")" class="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
                                         <h4>2. @Model.name_select2</h4>
                                         <label>ความคิดเห็น</label><br>
                                         <textarea class="w3-input w3-border w3-round" asp-for="des_approval2" cols="50" rows="6"
@@ -351,13 +351,13 @@
                                     if (Model.definition == "ปกติ")
                                     {
 
-                                        <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                        <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ?"fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
                                             <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
                                             <label>ความคิดเห็น</label><br>
                                             <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
                                                       placeholder="คำอธิบาย"></textarea><br><br>
                                             <label>ลายเซ็น</label><br><br>
-                                            <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
+                                            <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
                                             <input asp-for="last_approval" value="หัวหน้าสำนักงานเลขานุการ" style="display:none" />
                                             <input asp-for="id_tor" style="display:none" />
                                             
@@ -366,7 +366,7 @@
                                             <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
                                         </form>
                                         <br><br>
-                                            <form id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                            <form id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
                                                 <h4>4.หัวหน้าสำนักงานเลขานุการ</h4>
                                                 <label>ความคิดเห็น</label><br>
                                                 <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
@@ -386,7 +386,7 @@
                                     }
                                     else if (Model.definition == "พิเศษ")
                                     {
-                                        <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                        <form id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนการชำนาญการ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
                                             <h4>3.นักวิเคราะห์นโยบายและแผนการชำนาญการ</h4>
                                             <label>ความคิดเห็น</label><br>
                                             <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
@@ -402,7 +402,7 @@
                                         </form>
 
                                         <br><br>
-                                            <form id="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                            <form id="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
                                                 <h4>4.กรรมการเลขานุการฯ</h4>
                                                 <label>ความคิดเห็น</label><br>
                                                 <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
@@ -417,7 +417,7 @@
                                                 <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
                                             </form>
 
-                                            <form id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" asp-action="AddDataApprover" asp-controller="FormPRS" enctype="multipart/form-data" method="post">
+                                            <form id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
                                                 <h4>5.ประธานกรรมการดำเนินการฯ</h4>
                                                 <label>ความคิดเห็น</label><br>
                                                 <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
@@ -639,7 +639,7 @@
             var form = document.getElementById("suppliesform");
                 const url = "@Url.Action("getEmail", "FormPRS")";
             console.log(url);
-            
+
                 const formData = new FormData(form);
             @*var type = document.getElementById("name_select1").value;
             const url = "@Url.Action("getEmail", "FormPRS")" + "?type=" + type;
@@ -655,7 +655,7 @@
                     processData: false,
                     success: function (data) {
                         document.getElementById("Email_approval6").value = data.email;
-                        
+
                         @*console.log(data);
                         if (data.status == "success") {
                             Swal.fire({
@@ -800,9 +800,11 @@
                     dataType: "JSON",
                     processData: false,
                     success: function (data) {
-                        alert(data.message)
+                        alert(data.status);
                         console.log(data);
                         if (data.status == "success") {
+                            alert("success");
+                            location.href = "@Url.Action("index", "FormPRS")";
                             Swal.fire({
                                 icon: 'success',
                                 title: data.messege,

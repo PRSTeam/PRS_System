@@ -277,9 +277,9 @@
 
                             </table>
                             <br>
-                            <p style="display:@(Model.category_user=="Admin"?"block":"None" )">ตารางหน้าผู้อนุมัตื</p>
+                            <p style="display:@(Model.ListApproval.Count==0?"None":"block" )">ตารางหน้าผู้อนุมัตื</p>
                             <hr>
-                            <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
+                            <table id="customers" style="display:@(Model.ListApproval.Count==0?"none":"block" )">
                                 <tr>
                                     <th>No.</th>
                                     <th>Name of Purchaser</th>

@@ -482,7 +482,7 @@ namespace PRS_System.Controllers
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
                 }
 
-                return Json(new { status = "success", Messege = (checkcomment == null ? "Add Approval" : "Update Approval") + "Complete" });
+                return Json(new { status = "success", messege = (checkcomment.comment == null ? "Add Approval" : "Update Approval") + "Complete" });
             }
             catch (Exception ex)
             {
