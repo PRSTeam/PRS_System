@@ -1047,5 +1047,36 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 throw ex;
             }
         }
+
+        public FormPRSModel GetAssist(int id_tor)
+        {
+            try
+            {
+                FormPRSModel data = new FormPRSModel();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT *  FROM PRS_TOR_ASSIST WHERE ID_TOR=@ID_TOR";
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    data.type_assitst = reader["TYPE_ASSIST"] != DBNull.Value ? (string)reader["TYPE_ASSIST"] : null;
+                    data.detail_assist= reader["DETAIL_ASSIST"] != DBNull.Value ? (string)reader["DETAIL_ASSIST"] : null;
+                    data.supportType= reader["REASON_ASSIST"] != DBNull.Value ? (string)reader["REASON_ASSIST"] : null;
+                    data.desc_assist3= reader["DESC_ASSIST"] != DBNull.Value ? (string)reader["DESC_ASSIST"] : null;
+                }
+                reader.Close();
+                con.Close();
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

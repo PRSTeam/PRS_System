@@ -100,7 +100,18 @@ namespace PRS_System.Controllers
                     Createview.vaxproduct = Math.Round(vaxvalue, 2);
                     Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
                     Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
-                    
+                    FormPRSModel assist = _formService.GetAssist(id_tor);
+                    Createview.type_assitst = assist.type_assitst;
+                    Createview.supportType = assist.supportType;
+                    Createview.detail_assist = assist.detail_assist;
+                    if(Createview.supportType == "ได้รับสนับสนุนจาก")
+                    {
+                        Createview.desc_assist1 = assist.desc_assist3;
+                    }
+                    else if(Createview.supportType == "เหตุผลอื่นๆ")
+                    {
+                        Createview.desc_assist2 = assist.desc_assist3;
+                    }
                     if(Createview.status == "Sent to Approval")
                     {
                         FormPRSModel order_diract = new FormPRSModel();

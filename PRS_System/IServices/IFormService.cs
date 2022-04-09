@@ -52,6 +52,7 @@ namespace PRS_System.IServices
         public void EditCommentApproval(FormPRSModel data);
         public void AddAssist_TOR(FormPRSModel data);
         public void EditAssist_TOR(FormPRSModel data);
+        public FormPRSModel GetAssist(int id_tor);
 
 
     }
