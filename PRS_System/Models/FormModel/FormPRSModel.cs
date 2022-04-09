@@ -65,6 +65,7 @@ namespace PRS_System.Models.FormModel
         public string name_select1 { get; set; }
         public string name_select2 { get; set; }
         public string User_ID { get; set; }
+        public string comment { get; set; }
 
         //----------------------------------------
         //------Approval------------------------

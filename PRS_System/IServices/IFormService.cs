@@ -19,6 +19,7 @@ namespace PRS_System.IServices
         public List<FormPRSDataModel> GetnamePRS(string user_id);
         public List<FormPRSDataModel> GetListSuppies();
         public List<FormPRSDataModel> GetListApproval(string id_com);
+        public List<FormPRSDataModel> GetListApprovalCerrent(string cerrent);
         public int GetMaximumID_SUBJECT_LIST();
         public FormPRSModel GetValuesFormPRS(int id_tor);
         public List<ProductDataModel> GetValuesFormPRSProduct(int id_tor);
@@ -43,9 +44,10 @@ namespace PRS_System.IServices
         public void updatestatusform(string status, int id_tor, string cerrent_flow);
 
         public void UpdateDataOrder_Suppies(FormPRSModel data, int id_tor);
-        public string GetLastApproval(int id_tor);
+       
 
         public FormPRSModel.CommentDataModel GetCommentApproval(int id_tor, string nameapproval);
+        public FormPRSModel GetCommentApproval2(int id_tor, string id_com);
         public void AddCommentApproval(FormPRSModel data);
         public void EditCommentApproval(FormPRSModel data);
         public void AddAssist_TOR(FormPRSModel data);

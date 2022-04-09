@@ -393,7 +393,7 @@ namespace PRS_System.Services
                 con.Open();
                 command.Connection = con;
                 command.CommandText = "SELECT ID_TOR,NAME_TOR,STATUS,CERRENT_FLOW,TOR_DATE   FROM PRS_MAIN_TOR WHERE OWNER_ID =@OWNER_ID";
-                command.Parameters.Add(new SqlParameter("OWNER_ID", (object)user_id ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@OWNER_ID", (object)user_id ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
@@ -786,34 +786,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
             }
         }
 
-        public string GetLastApproval(int id_tor)
-        {
-            string lastposition = "";
-            try
-            {
-                FormPRSModel data = new FormPRSModel();
-                SqlConnection con = new SqlConnection(_connectionString);
-                SqlCommand command = new SqlCommand();
-                con.Open();
-                command.Connection = con;
-                command.CommandText = "SELECT MAX(ID_COM),COMMENT,COMMENT_DATE  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR GROUP BY ID_TOR,COMMENT,COMMENT_DATE";
-                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
-                SqlDataReader reader;
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    lastposition = reader["ID_COM"] != DBNull.Value ? (string)reader["ID_COM"] : "";
-                }
-                reader.Close();
-                con.Close();
-
-                return lastposition;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
 
         public FormPRSModel.CommentDataModel GetCommentApproval(int id_tor, string id_com)
         {
@@ -826,7 +799,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.Connection = con;
                 command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_com ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())
@@ -855,11 +828,11 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 connect.Open();
                 command.Connection = connect;
 
-                command.CommandText = @"Insert Into PRS_ORDER_DIRACT(ID_TOR,ID_COM,COMMENT,COMMENT_DATE) 
+                command.CommandText = @"Insert Into PRS_COM_COMMENT(ID_TOR,ID_COM,COMMENT,COMMENT_DATE) 
                                             VALUES(@IDTOR,@ID_COM,@COMMENT,@COMMENT_DATE)";
 
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_COM", (object)data.User_ID ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)data.login_userid ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@COMMENT", (object)data.des_approval0 ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@COMMENT_DATE", DateTime.Now.ToString("yyyy-MM-dd ", new CultureInfo("en-US"))));
                 command.ExecuteNonQuery();
@@ -882,7 +855,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 connect.Open();
                 command.Connection = connect;
 
-                command.CommandText = @"UPDATE PRS_ORDER_DIRACT
+                command.CommandText = @"UPDATE PRS_COM_COMMENT
                                         SET ID_TOR=@IDTOR,ID_COM=@ID_COM,COMMENT=@COMMENT,COMMENT_DATE=@COMMENT_DATE";
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_COM", (object)data.User_ID ?? DBNull.Value));
@@ -994,6 +967,80 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.ExecuteNonQuery();
                 connect.Close();
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<FormPRSDataModel> GetListApprovalCerrent(string cerrent)
+        {
+            try
+            {
+                List<FormPRSDataModel> model = new List<FormPRSDataModel>();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = @"SELECT *
+                                        from PRS_MAIN_TOR
+                                        LEFT JOIN PRS_PERSON
+                                        ON PRS_MAIN_TOR.OWNER_ID = PRS_PERSON.ID_USER WHERE CERRENT_FLOW =@CERRENT_FLOW";
+                command.Parameters.Add(new SqlParameter("@CERRENT_FLOW", (object)cerrent ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    model.Add(new FormPRSDataModel()
+                    {
+                        id_tor = reader["ID_TOR"] != DBNull.Value ? (int)reader["ID_TOR"] : 0
+                        ,
+                        nameProcument = reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : ""
+                        ,
+                        Status = reader["STATUS"] != DBNull.Value ? (string)reader["STATUS"] : ""
+                        ,
+                        Date = reader["TOR_DATE"] != DBNull.Value ? (DateTime?)reader["TOR_DATE"] : null
+                        ,
+                        cerrent_flow = reader["CERRENT_FLOW"] != DBNull.Value ? (string)reader["CERRENT_FLOW"] : ""
+                        ,
+                        Fullname_PRS=reader["FULL_NAME"] != DBNull.Value ? (string)reader["FULL_NAME"] : ""
+                    });
+
+
+                }
+                con.Close();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public FormPRSModel GetCommentApproval2(int id_tor, string id_com)
+        {
+            try
+            {
+                FormPRSModel data = new FormPRSModel();
+                SqlConnection con = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand();
+                con.Open();
+                command.Connection = con;
+                command.CommandText = "SELECT ID_COM,COMMENT,COMMENT_DATE  FROM PRS_COM_COMMENT WHERE ID_TOR=@ID_TOR AND ID_COM=@ID_COM";
+                command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_com ?? DBNull.Value));
+                SqlDataReader reader;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    data.comment = reader["COMMENT"] != DBNull.Value ? (string)reader["COMMENT"] : null;
+                }
+                reader.Close();
+                con.Close();
+
+                return data;
             }
             catch (Exception ex)
             {

@@ -13,5 +13,6 @@ namespace PRS_System.Models.FormModel
         public List<FormPRSDataModel>? ListApproval { get; set; }
         public string login_userid { get; set; }
         public string category_user { get; set; }
+        public string magnage_pos { get; set; }
     }
 }
