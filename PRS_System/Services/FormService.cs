@@ -30,10 +30,11 @@ namespace PRS_System.Services
                 command.Connection = connect;
 
                 int maximum = GetMaximumID_TOR() + 1;
-                command.CommandText = @"INSERT INTO PRS_MAIN_TOR (ID_TOR,ID_Room,NAME_TOR,DESC_TOR,DIRECTOR_1,DIRECTOR_2,DIRECTOR_3,AMT_QUTATATION,AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE,NAME_OTHER_DOC,AMT_OTHER_DOC,DOC_FILE,STATUS,OWNER_ID,CERRENT_FLOW,TOR_DATE) 
-                                        VALUES(@ID_TOR,@ID_Room,@NAME_TOR,@DESC_TOR,@DIRECTOR_1,@DIRECTOR_2,@DIRECTOR_3,@AMT_QUTATATION,@AMT_SCOP_PAGE,@AMT_STUDENTLIST_PAGE,@AMT_BUGGET_PAGE,@NAME_OTHER_DC,@AMT_OTHER_DOC,@DOC_FILE,@STATUS,@OWNER_ID,@CERRENT_FLOW,@TOR_DATE) ";
+                command.CommandText = @"INSERT INTO PRS_MAIN_TOR (ID_TOR,TYPE_PRS,ID_Room,NAME_TOR,DESC_TOR,DIRECTOR_1,DIRECTOR_2,DIRECTOR_3,AMT_QUTATATION,AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE,NAME_OTHER_DOC,AMT_OTHER_DOC,DOC_FILE,STATUS,OWNER_ID,CERRENT_FLOW,TOR_DATE) 
+                                        VALUES(@ID_TOR,@TYPE_PRS,@ID_Room,@NAME_TOR,@DESC_TOR,@DIRECTOR_1,@DIRECTOR_2,@DIRECTOR_3,@AMT_QUTATATION,@AMT_SCOP_PAGE,@AMT_STUDENTLIST_PAGE,@AMT_BUGGET_PAGE,@NAME_OTHER_DC,@AMT_OTHER_DOC,@DOC_FILE,@STATUS,@OWNER_ID,@CERRENT_FLOW,@TOR_DATE) ";
 
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)maximum ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@TYPE_PRS", (object)formdetaildata.type_PRS ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_Room", (object)formdetaildata.idRoom ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@NAME_TOR", (object)formdetaildata.nameProcument ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DESC_TOR", (object)formdetaildata.description_1 ?? DBNull.Value));
@@ -287,6 +288,7 @@ namespace PRS_System.Services
                 while (reader.Read())
                 {
                     model.idRoom = reader["ID_ROOM"] != DBNull.Value ? (string)reader["ID_ROOM"] : "";
+                    model.type_PRS = reader["TYPE_PRS"] != DBNull.Value ? (string)reader["TYPE_PRS"] : "";
                     model.nameProcument = reader["NAME_TOR"] != DBNull.Value ? (string)reader["NAME_TOR"] : "";
                     model.description_1 = reader["DESC_TOR"] != DBNull.Value ? (string)reader["DESC_TOR"] : "";
                     model.diractor_1 = reader["DIRECTOR_1"] != DBNull.Value ? (string)reader["DIRECTOR_1"] : "";
@@ -438,9 +440,10 @@ namespace PRS_System.Services
                 command.Connection = connect;
 
 
-                command.CommandText = @"UPDATE PRS_MAIN_TOR SET ID_TOR=@ID_TOR,ID_Room=@ID_Room,NAME_TOR=@NAME_TOR,DESC_TOR=@DESC_TOR,DIRECTOR_1=@DIRECTOR_1,DIRECTOR_2=@DIRECTOR_2,DIRECTOR_3=@DIRECTOR_3,AMT_QUTATATION=@AMT_QUTATATION,AMT_SCOP_PAGE=@AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE=@AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE=@AMT_BUGGET_PAGE,NAME_OTHER_DOC=@NAME_OTHER_DOC,AMT_OTHER_DOC=@AMT_OTHER_DOC,DOC_FILE=@DOC_FILE,STATUS=@STATUS,OWNER_ID=@OWNER_ID,CERRENT_FLOW=@CERRENT_FLOW,TOR_DATE=@TOR_DATE WHERE ID_TOR=@ID_TOR";
+                command.CommandText = @"UPDATE PRS_MAIN_TOR SET ID_TOR=@ID_TOR,TYPE_PRS=@TYPE_PRS,ID_Room=@ID_Room,NAME_TOR=@NAME_TOR,DESC_TOR=@DESC_TOR,DIRECTOR_1=@DIRECTOR_1,DIRECTOR_2=@DIRECTOR_2,DIRECTOR_3=@DIRECTOR_3,AMT_QUTATATION=@AMT_QUTATATION,AMT_SCOP_PAGE=@AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE=@AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE=@AMT_BUGGET_PAGE,NAME_OTHER_DOC=@NAME_OTHER_DOC,AMT_OTHER_DOC=@AMT_OTHER_DOC,DOC_FILE=@DOC_FILE,STATUS=@STATUS,OWNER_ID=@OWNER_ID,CERRENT_FLOW=@CERRENT_FLOW,TOR_DATE=@TOR_DATE WHERE ID_TOR=@ID_TOR";
 
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@TYPE_PRS", (object)formdetaildata.type_PRS ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_Room", (object)formdetaildata.idRoom ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@NAME_TOR", (object)formdetaildata.nameProcument ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DESC_TOR", (object)formdetaildata.description_1 ?? DBNull.Value));
@@ -959,11 +962,12 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 connect.Open();
                 command.Connection = connect;
 
-                command.CommandText = @"UPDATE PRS_ORDER_DIRACT
-                                        SET TYPE_ASSIST=@TYPE_ASSIST,REASON_ASSIST=@REASON_ASSIST_DATE,DESC_ASSIST=@DESC_ASSIST
+                command.CommandText = @"UPDATE PRS_TOR_ASSIST
+                                        SET TYPE_ASSIST=@TYPE_ASSIST,DETAIL_ASSIST=@DETAIL_ASSIST,REASON_ASSIST=@REASON_ASSIST,DESC_ASSIST=@DESC_ASSIST
                                         WHERE ID_TOR=@IDTOR";
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)data.id_assist ?? DBNull.Value));
+                //command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)data.id_assist ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DETAIL_ASSIST", (object)data.detail_assist ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@TYPE_ASSIST", (object)data.type_assitst ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@REASON_ASSIST", (object)data.supportType ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DESC_ASSIST", (object)data.des_approval0 ?? DBNull.Value));

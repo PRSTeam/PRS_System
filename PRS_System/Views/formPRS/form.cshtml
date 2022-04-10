@@ -41,12 +41,20 @@
                         <div class="w3-container w3-pale-blue w3-hover-text-teal">
                             <h1>FORM</h1>
                             <h2>สำหรับผู้ทำงานขอจัดซื้อ</h2>
+                            <div align="right">
+                                <button class="button button5" onclick="history.back()">Back</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;" class="w3-container w3-card-4 w3-light-grey ">
+                    <div class="w3-container w3-light-grey">
+                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;" class="w3-container w3-sand">
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
+                                <p>ประเภทเอกสาร</p>
+                                <input type="radio" asp-for="type_PRS" value="ขอซื้อ" />
+                                <label>ขอซื้อ</label>
+                                <input type="radio" asp-for="type_PRS" value="ขอจ้าง" />
+                                <label>ขอจ้าง</label>
                                 <p>รหัสสำหรับห้องปฏิบัติการวิทยาศาสตร์</p>
                                 <input class="w3-input w3-border w3-round" type="text" asp-for="idRoom" placeholder="Ex. LAB 001-001-65009" size="50" required>
 
@@ -241,7 +249,7 @@
                         </form>
                             <!-- form_ฝ่ายพัสดุ -->
         
-                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post" class="w3-container w3-card-4 w3-light-grey ">
+                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post" class="w3-container w3-sand">
                             <div class="page-section" id="form">
                                 <div class="row">
                                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
@@ -310,7 +318,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <fieldset  class="w3-container w3-card-4 w3-light-grey " style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
+                            <fieldset class="w3-container w3-sand" style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
                                 <form id="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       name="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post" >

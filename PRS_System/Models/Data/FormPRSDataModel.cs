@@ -7,7 +7,7 @@ namespace PRS_System.Models.Data
 {
     public class FormPRSDataModel
     {
-
+        public string type_PRS { get; set; }
         public int id_tor { get; set; }
         public string idRoom { get; set; }
         public string nameProcument { get; set; }
