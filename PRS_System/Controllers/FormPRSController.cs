@@ -796,6 +796,19 @@ namespace PRS_System.Controllers
                 Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
                 Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
 
+                FormPRSModel assist = _formService.GetAssist(id_tor);
+                Createview.type_assitst = assist.type_assitst;
+                Createview.supportType = assist.supportType;
+                Createview.detail_assist = assist.detail_assist;
+                if (Createview.supportType == "ได้รับสนับสนุนจาก")
+                {
+                    Createview.desc_assist1 = assist.desc_assist3;
+                }
+                else if (Createview.supportType == "เหตุผลอื่นๆ")
+                {
+                    Createview.desc_assist2 = assist.desc_assist3;
+                }
+
                 if (Createview.status == "Approved")
                 {
                     FormPRSModel order_diract = new FormPRSModel();
@@ -804,11 +817,7 @@ namespace PRS_System.Controllers
                     Createview.name_select1 = order_diract.name_select1;
                     Createview.name_select2 = order_diract.name_select2;
                     Createview.definition = order_diract.definition;
-                    //Createview.last_approval = _formService.GetLastApproval(id_tor);
-                    //if (Createview.last_approval == "")
-                    //{
-                    //    Createview.last_approval = order_diract.name_select1;
-                    //}
+                    
                     FormPRSModel.CommentDataModel com_ment = new FormPRSModel.CommentDataModel();
                     UserDataModel userapproval = new UserDataModel();
                     if (Createview.definition == "ปกติ")
@@ -846,7 +855,7 @@ namespace PRS_System.Controllers
                         id_com = _accountService.GetUserid("หัวหน้าสำนักงานเลขานุการ");
                         com_ment = _formService.GetCommentApproval(id_tor, id_com);
                         Createview.des_approval4 = com_ment.comment;
-                        Createview.date_approval = com_ment.com_date;
+                        Createview.date_approval4 = com_ment.com_date;
                         userapproval = _accountService.CheckPositionManegment("หัวหน้าสำนักงานเลขานุการ");
                         Createview.name_approval4 = userapproval.Prefix_NameThai + userapproval.Full_NameThai;
                         Createview.esign_approval4 = userapproval.ESignature;
@@ -896,29 +905,6 @@ namespace PRS_System.Controllers
                     }
                 }
             }
-            //Createview.ListEmailAdmin = _accountService.GetAllAdminEmail();
-            //string listemailadmin = "";
-            //for (int i = 0; i < Createview.ListEmailAdmin.Count; i++)
-            //{
-            //    listemailadmin = Createview.ListEmailAdmin[i].Email + "/" + listemailadmin;
-
-            //}
-            //if (listemailadmin[listemailadmin.Length - 1] == '/')
-            //{
-
-            //    Createview.stringlistemail_admin = listemailadmin.Substring(0, (listemailadmin.Length - 1));
-            //}
-
-            //Console.WriteLine("Check" + id_tor);
-            //Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
-            //UserDataModel user_login = _accountService.CheckLogin(Createview.login_userid);
-            //Createview.Email_Proquement = user_login.Email;
-            //Createview.type_user_magnement = HttpContext.Session.GetString("Manage_Pos").ToString();
-            //bool check = (Createview.last_approval == "หัวหน้าภาควิชา" || Createview.last_approval == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.last_approval == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Createview.type_user_magnement == "หัวหน้าภาควิชา" || Createview.type_user_magnement == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.type_user_magnement == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา");
-            //Console.WriteLine(check);
-            //Createview.category_user = HttpContext.Session.GetString("type_person").ToString();
-            ////Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
-            //Createview.id_tor = id_tor;
             return View(Createview);
         }
 
