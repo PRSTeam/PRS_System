@@ -231,8 +231,8 @@
                                             <button style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button button2" onclick="formpage(@item.id_tor)">View</button>
                                             <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button2" onclick="formpage(@item.id_tor)">Edit</button>
                                             <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button button3">Delete</button>
-                                            <button type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
-                                            <button type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                            <button class="button button1" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
+                                            <button class="button button4" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                             @*<button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button4">Draft</button>*@
                                         </td>
                                         <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>

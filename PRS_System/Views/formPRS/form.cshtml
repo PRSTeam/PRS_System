@@ -310,10 +310,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <fieldset class="col-md-4 col-sm-8" style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
+                            <fieldset  class="w3-container w3-card-4 w3-light-grey " style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
                                 <form id="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       name="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
-                                      class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
+                                      class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post" >
                                     <h4>1. @Model.name_select1</h4>
                                     <label>ความคิดเห็น</label><br>
                                     <textarea class="w3-input w3-border w3-round" asp-for="des_approval" cols="50" rows="6"
