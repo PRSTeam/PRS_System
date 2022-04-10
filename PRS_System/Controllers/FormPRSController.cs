@@ -33,49 +33,71 @@ namespace PRS_System.Controllers
             indexmodel.category_user = HttpContext.Session.GetString("type_person").ToString();
             indexmodel.magnage_pos = HttpContext.Session.GetString("Manage_Pos").ToString();
             string user_id = HttpContext.Session.GetString("uid").ToString();
+            UserDataModel magnement_type = _accountService.CheckPositionManegment(indexmodel.magnage_pos);
             if (string.IsNullOrWhiteSpace(indexmodel.Keyword))
             {
-                indexmodel.ListForm = _formService.GetnamePRS(user_id);
+                //indexmodel.ListForm = _formService.GetnamePRS(user_id);
+                indexmodel.Keyword = "";
+                indexmodel.ListForm = _formService.SearchPRS_Proqument(user_id, indexmodel.Keyword);
+                if (indexmodel.category_user == "Admin")
+                { 
+                    indexmodel.ListSuppies = _formService.SearchPRS_Suppies(indexmodel.Keyword); 
+                }
+                    
+                if (magnement_type.Manage_Pos != "")
+                { 
+                    indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword, user_id, magnement_type.Manage_Pos); 
+                }
+
+                    
             }
             else
             {
                 indexmodel.ListForm = _formService.SearchPRS_Proqument(user_id, indexmodel.Keyword);
-                
-                
-            }
-            if (string.IsNullOrWhiteSpace(indexmodel.Keyword2))
-            {
                 if (indexmodel.category_user == "Admin")
                 {
-                    indexmodel.ListSuppies = _formService.GetListSuppies();
+                    indexmodel.ListSuppies = _formService.SearchPRS_Suppies(indexmodel.Keyword);
                 }
-                
-            }
-            else
-            {
-                if (indexmodel.category_user == "Admin")
+
+                if (magnement_type.Manage_Pos != "")
                 {
-                    indexmodel.ListSuppies = _formService.SearchPRS_Suppies(indexmodel.Keyword2);
+                    indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword, user_id, magnement_type.Manage_Pos);
                 }
+
+            }
+            //if (string.IsNullOrWhiteSpace(indexmodel.Keyword2))
+            //{
+            //    if (indexmodel.category_user == "Admin")
+            //    {
+            //        indexmodel.ListSuppies = _formService.GetListSuppies();
+            //    }
+                
+            //}
+            //else
+            //{
+            //    if (indexmodel.category_user == "Admin")
+            //    {
+            //        indexmodel.ListSuppies = _formService.SearchPRS_Suppies(indexmodel.Keyword2);
+            //    }
                     
-            }
-            UserDataModel magnement_type = _accountService.CheckPositionManegment(indexmodel.magnage_pos);
-            if (string.IsNullOrWhiteSpace(indexmodel.Keyword3))
-            {
-                if (magnement_type.Manage_Pos != "")
-                {
-                    indexmodel.Keyword3 = "";
-                    indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword3, user_id);
-                    //indexmodel.ListApproval = _formService.GetListApprovalCerrent(magnement_type.Manage_Pos);
-                }
-            }
-            else
-            {
-                if (magnement_type.Manage_Pos != "")
-                {
-                    indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword3, user_id);
-                }      
-            }
+            //}
+            
+            //if (string.IsNullOrWhiteSpace(indexmodel.Keyword3))
+            //{
+            //    if (magnement_type.Manage_Pos != "")
+            //    {
+            //        indexmodel.Keyword3 = "";
+            //        indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword3, user_id, magnement_type.Manage_Pos);
+            //        //indexmodel.ListApproval = _formService.GetListApprovalCerrent(magnement_type.Manage_Pos);
+            //    }
+            //}
+            //else
+            //{
+            //    if (magnement_type.Manage_Pos != "")
+            //    {
+            //        indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword3, user_id, magnement_type.Manage_Pos);
+            //    }      
+            //}
             indexmodel.magnage_pos = magnement_type.Manage_Pos;
             
             
@@ -408,7 +430,8 @@ namespace PRS_System.Controllers
                             _formService.UpdateAddProductData(Procurement.Productdata[i], Procurement.id_tor);
                         }
                     }
-                    for (int i = 0; i < Procurement.Subjectdata.Count; i++)
+                    int countsubject = Procurement.Subjectdata == null ? 0 : Procurement.Subjectdata.Count;
+                    for (int i = 0; i < countsubject; i++)
                     {
                         if (Procurement.Subjectdata[i].Id_Subject != 0)
                         {
@@ -556,13 +579,14 @@ namespace PRS_System.Controllers
                     }
 
                 }
+                UserDataModel user_PRS = _accountService.CheckLogin(Approver.User_ID);
                 if (Approver.buttonstatus_3 == "Sent to Approval" || Approver.buttonstatus_3 == "Approved")
                 {
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
                 }
                 else if (Approver.buttonstatus_3 == "Return to Requester")
                 {
-                    _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
+                    _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, user_PRS.Full_NameThai);
                 }
 
                 return Json(new { status = "success", messege = (checkcomment.comment == null ? "Add Approval" : "Update Approval") + "Complete" });
@@ -1000,11 +1024,11 @@ namespace PRS_System.Controllers
             try
             {
                 _formService.DeleteAllFormTOR(id_tor);
-                return Json(new { status = "success", messege = "Delete Complete" }); ;
+                return Json(new { status = "success", Messege = "Delete Complete" }); ;
             }
             catch(Exception ex)
             {
-                return Json(new { status = "error", message = "Delete Fail" }); ;
+                return Json(new { status = "error", Messege = "Delete Fail" }); ;
             }
             
         }

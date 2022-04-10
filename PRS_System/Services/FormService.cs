@@ -1172,7 +1172,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
             }
         }
 
-        public List<FormPRSDataModel> SearchPRS_Approval(string keyword , string id_com)
+        public List<FormPRSDataModel> SearchPRS_Approval(string keyword , string id_com ,string cerrent_flow)
         {
             try
             {
@@ -1182,12 +1182,11 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 con.Open();
                 command.Connection = con;
                 command.CommandText = @"SELECT PRS_MAIN_TOR.ID_TOR,NAME_TOR,PRS_MAIN_TOR.[STATUS] AS[STATUS],CERRENT_FLOW,FULL_NAME,TOR_DATE
-                                        from PRS_MAIN_TOR
+                                        from PRS_MAIN_TOR												
                                         Left join PRS_PERSON
-										ON PRS_MAIN_TOR.OWNER_ID = PRS_PERSON.ID_USER
-                                        LEFT JOIN PRS_COM_COMMENT
-                                        ON PRS_MAIN_TOR.ID_TOR = PRS_COM_COMMENT.ID_TOR WHERE PRS_COM_COMMENT.ID_COM=@ID_COM AND(NAME_TOR like '%" + keyword + "%'" + "or PRS_MAIN_TOR.STATUS like '%" + keyword + "%' or CERRENT_FLOW like'%" + keyword + "%')";
+                                        ON PRS_MAIN_TOR.OWNER_ID = PRS_PERSON.ID_USER WHERE  PRS_MAIN_TOR.CERRENT_FLOW=@CERRENT_FLOW AND(NAME_TOR like '%" + keyword + "%'" + "or PRS_MAIN_TOR.STATUS like '%" + keyword + "%' or CERRENT_FLOW like'%" + keyword + "%')";
                 command.Parameters.Add(new SqlParameter("@ID_COM", (object)id_com ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@CERRENT_FLOW", (object)cerrent_flow ?? DBNull.Value));
                 SqlDataReader reader;
                 reader = command.ExecuteReader();
                 while (reader.Read())

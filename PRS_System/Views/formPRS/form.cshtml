@@ -88,10 +88,9 @@
                                                 <input type="number" id="Subjectdata[@i].Id_Subject" name="Subjectdata[@i].Id_Subject" value="@item.Id_Subject" style="display:none" placeholder="รหัสวิชา" required>
                                                 <input type="text" id="Subjectdata[@i].Subject" name="Subjectdata[@i].Subject" value="@item.Subject" placeholder="รหัสวิชา" required>
                                                 <input type="text" id="Subjectdata[@i].status" Name="Subjectdata[@i].status" value="@item.status" style="display:none" readonly>
-                                                @if (i > 0)
-                                                {
+                                                
                                                     <button type="button" id="buttonsub@(i)" class="delete" onclick="deletesubjectfield(@i,'Subjectdata[@i].status','Subjectdata[@i].Id_Subject')">Delete</button>
-                                                }
+                                                
                                             </div>
 
                                         }
@@ -329,7 +328,7 @@
                                     <label>ลายเซ็น</label><br><br>
                                     <input asp-for="last_approval" value="@Model.name_select2" style="display:none" />
                                     <input asp-for="id_tor" style="display:none" />
-                                    
+                                    <input asp-for="User_ID" />
                                     
                                     <input type="text" id="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "buttonstatus_3":"")" name="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "buttonstatus_3":"")" style="display:none" />
                                     <button class="button button7">เซ็นอนุมัติ</button><br>
@@ -347,7 +346,7 @@
                                         <input type="text" id="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")? "buttonstatus_3":"")" name="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "buttonstatus_3":"")" style="display:none" />
                                         <input asp-for="last_approval" value="นักวิเคราะห์นโยบายและแผนชำนาญการ" style="display:none" />
                                         <input asp-for="id_tor" style="display:none" />
-                                        
+                                        <input asp-for="User_ID" />
                                         <button class="button button7">เซ็นอนุมัติ</button><br>
                                         <button class="button button5" onclick="sentstatus('Return to Requester', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                         <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval2')">เห็นชอบ</button>
@@ -368,7 +367,7 @@
                                             <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
                                             <input asp-for="last_approval" value="หัวหน้าสำนักงานเลขานุการ" style="display:none" />
                                             <input asp-for="id_tor" style="display:none" />
-                                            
+                                            <input asp-for="User_ID" />
                                             <button class="button button7">เซ็นอนุมัติ</button><br>
                                             <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                             <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
@@ -383,6 +382,7 @@
                                                 <input type="text" id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ? "buttonstatus_3":"")" style="display:none" />
                                                 <input asp-for="last_approval" value="เสร็จสิ้น" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
+                                                <input asp-for="User_ID"/>
                                                 
                                                 <button class="button button7">เซ็นอนุมัติ</button><br>
                                                 <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
@@ -403,7 +403,7 @@
                                             <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
                                             <input asp-for="last_approval" value="กรรมการเลขานุการฯ" style="display:none" />
                                             <input asp-for="id_tor" style="display:none" />
-                                            
+                                            <input asp-for="User_ID" />
                                             <button class="button button7">เซ็นอนุมัติ</button><br>
                                             <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                             <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
@@ -419,7 +419,7 @@
                                                 <input type="text" id="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ? "buttonstatus_3":"")" style="display:none" />
                                                 <input asp-for="last_approval" value="ประธานกรรมการดำเนินการฯ" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
-                                                
+                                                <input asp-for="User_ID" />
                                                 <button class="button button7">เซ็นอนุมัติ</button><br>
                                                 <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                                 <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
@@ -434,7 +434,7 @@
                                                 <input type="text" id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ? "buttonstatus_3":"")" style="display:none" />
                                                 <input asp-for="last_approval" value="เสร็จสิ้น" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
-                                                
+                                                <input asp-for="User_ID" />
                                                 <button class="button button7">เซ็นอนุมัติ</button><br>
                                                 <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                                 <button class="button button6" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
@@ -754,7 +754,7 @@
                 });
                 if (value == "Sent to Approval") {
                     var email2 = document.getElementById("Email_approval6").value;
-                    alert(email2);
+                    //alert(email2);
                     Email.send({
                         Host: "smtp.gmail.com",
                         Username: "chinopas.muangthai@gmail.com",
@@ -863,6 +863,20 @@
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
                         Body: "คำขอจัดซื้อหรือจ้าง เรื่อง " + '@Model.nameProcument'+" ได้ถูกอนุมัติเห็นชอบแล้ว"
+                    })
+                        .then(function (message) {
+                            //alert("mail sent successfully")
+                        });
+                }
+                else if (value == 'Return to Requester') {
+                    Email.send({
+                        Host: "smtp.gmail.com",
+                        Username: "chinopas.muangthai@gmail.com",
+                        Password: "aukijdfxsurfnmlu",
+                        To: email,
+                        From: "chinopas.muangthai@gmail.com",
+                        Subject: "Test send Email",
+                        Body: "สถานะ ส่งคืนเพื่อแก้ไข ขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
                             //alert("mail sent successfully")

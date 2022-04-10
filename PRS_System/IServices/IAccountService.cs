@@ -21,7 +21,7 @@ namespace PRS_System.IServices
         public string GetUserEmail(string type_magnement);
         public List<ApprovalListDataModel> GetAllAdminEmail();
 
-
+        public void DeleteUser(string user_id);
 
     }
 }

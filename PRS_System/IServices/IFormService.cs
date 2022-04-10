@@ -56,7 +56,7 @@ namespace PRS_System.IServices
 
         public List<FormPRSDataModel> SearchPRS_Proqument(string user_id,string keyword);
         public List<FormPRSDataModel> SearchPRS_Suppies(string keyword);
-        public List<FormPRSDataModel> SearchPRS_Approval(string keyword, string id_com);
+        public List<FormPRSDataModel> SearchPRS_Approval(string keyword, string id_com,string cerrent_flow);
 
         public void DeleteAllFormTOR(int id_tor);
 

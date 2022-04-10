@@ -244,10 +244,10 @@
 
                                 <p>ตารางหน้าฝ่ายพัสดุ</p>
                                 <hr>
-                                <form asp-action="index" asp-controller="FormPRS" method="post">
+                                @*<form asp-action="index" asp-controller="FormPRS" method="post">
                                     <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword2" placeholder="search...">
                                     <button id="" class="button button4" type="submit">ค้นหา</button>
-                                </form>
+                                </form>*@
                                 <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
                                     <tr>
                                         <th>No.</th>
@@ -322,10 +322,10 @@
                             <div style="display:@(Model.magnage_pos==""?"None":"block" )">
                                 <p>ตารางหน้าผู้อนุมัติ</p>
                                 <hr>
-                                <form asp-action="index" asp-controller="FormPRS" method="post">
+                                @*<form asp-action="index" asp-controller="FormPRS" method="post">
                                     <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword3" placeholder="search...">
                                     <button id="" class="button button4" type="submit">ค้นหา</button>
-                                </form>
+                                </form>*@
                                 <table id="customers" style="display:@(Model.magnage_pos==""?"none":"block" )">
                                     <tr>
                                         <th>No.</th>

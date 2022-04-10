@@ -317,5 +317,29 @@ WHERE ID_USER=@ID_USER ";
                 throw ex;
             }
         }
+
+        public void DeleteUser(string user_id)
+        {
+            try
+            {
+                SqlConnection connect = new SqlConnection(_connectionString);
+
+                SqlCommand command = new SqlCommand();
+                connect.Open();
+                command.Connection = connect;
+
+                command.CommandText = @"DELETE FROM PRS_PERSON WHERE ID_USER=@ID_USER";
+
+                command.Parameters.Add(new SqlParameter("@ID_USER", (object)user_id ?? DBNull.Value));
+
+                command.ExecuteNonQuery();
+                connect.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

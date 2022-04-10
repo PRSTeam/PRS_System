@@ -96,6 +96,17 @@ namespace PRS_System.Controllers
                 string fileName = null;
                 if (ModelState.IsValid)
                 {
+                    UserDataModel checkid = _accountService.CheckLogin(AddnewuserModel.UserID);
+                    if (checkid.UserID!=null)
+                    {
+                        return Json(new { status = "error", detail = "มีID :" + checkid.UserID + " ในระบบอยู่แล้ว", errorMessage = "Edit Fail" });
+                    }
+                    UserDataModel checkposition = _accountService.CheckPositionManegment(AddnewuserModel.User_Type_Magnement);
+                    if (checkposition.UserID != null && AddnewuserModel.UserID != checkposition.UserID)
+                    {
+                        return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + AddnewuserModel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });
+
+                    }
                     //-------สร้างรูปภาพ ลายเซ็น
                     if (AddnewuserModel.ESignature != null)
                     {
@@ -106,18 +117,14 @@ namespace PRS_System.Controllers
                         System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(AddnewuserModel.ESignature.Replace("data:image/png;base64,", string.Empty)));
                         
                     }
-                    UserDataModel checkposition = _accountService.CheckPositionManegment(AddnewuserModel.User_Type_Magnement);
-                    if (checkposition == null)
+                    
+                    if (checkposition.Manage_Pos == null)
                     {
                         UserDataModel userdata = AddnewuserModel.ToAddnewuserdata(fileName);
                         _accountService.AddNewUser(userdata);
 
                     }
-                    else if (checkposition != null && AddnewuserModel.UserID != checkposition.UserID)
-                    {
-                        return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + AddnewuserModel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });                   
-
-                    }
+                    
                     
 
                     ////-------------------------
@@ -157,6 +164,18 @@ namespace PRS_System.Controllers
             datauser.Email = datauser.userdata[0].Email;
             datauser.Category = datauser.userdata[0].Category;
             return View(datauser);
+        }
+        public IActionResult DeleteUser(string user_id)
+        {
+            try
+            {
+                _accountService.DeleteUser(user_id);
+                return Json(new { status = "success", Messege = "Delete Complete" });
+            }
+            catch(Exception ex)
+            {
+                return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while delete" });
+            }
         }
 
         public async Task<IActionResult> EditUserdata(EdituserdataModel datamodel)
@@ -249,7 +268,7 @@ namespace PRS_System.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while adding new User" });
+                return Json(new { status = "error", detail = ex.ToString(), errorMessage = "Have a problem while Edit User" });
             }
            
         }

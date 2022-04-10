@@ -27,6 +27,9 @@
     <script src="js/vendor/jquery-1.10.2.min.js"></script>
     <script src="js/min/plugins.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
 </head>
 
@@ -81,7 +84,7 @@
                                     <td>@item.Status</td>
                                     <td>
                                         <button onclick="edituser('@item.UserID')" class="button button2">Edit</button>
-                                        <button class="button button3">Delete</button>
+                                        <button class="button button3" onclick="deleteuser('@item.UserID')">Delete</button>
                                     </td>
                                 </tr>
                             }
@@ -108,14 +111,62 @@
     function edituser(userid) {
         location.href = "@Url.Action("edituser", "AdminSetting")" + "?user_id=" + userid;
     }
+    function deleteuser(userid) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var button = $(this);
+                var url = "@Url.Action("DeleteUser", "AdminSetting")" + "?user_id=" + userid
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: button.serialize(), // serializes the form's elements.  //ดึงข้อมุลในฟอร์ม
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status == "success") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: data.messege,
+                                showConfirmButton: true,
+                            }).then((result2) => {
+                                if (result2.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else if (data.status == "error") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: data.errorMessage,
+                                text: data.detail,
+                                showConfirmButton: true,
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log("Error", err);
+                        alert("Error save fail");
+                    }
+                });
+            }
+        });
+    }
 </script>
 <script>
-    @*$(document).ready(function () {
+    $(document).ready(function () {
         $("#newuser").click(function () {
             location.href = "@Url.Action("Addnewuser", "AdminSetting")"+"?id_tor=0";
         });
 
         
 
-});*@
+});
 </script>
