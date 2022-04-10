@@ -39,7 +39,10 @@
             <div>
                 <div class="row">
                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
-                        <h1>Add New User</h1>
+                        <h1>Edit User</h1>
+                        <div align="right">
+                            <button class="button button3">Back</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Form -->
@@ -109,8 +112,8 @@
                                 <input asp-for="Status" class="status3" type="radio" value="Inactive">
                                 <label>Inactive</label><br><br>
 
-                                <button id="clearBtn" type="button">Clear signature</button>
-                                <button type="submit" id="submitBtn">Submit</button>
+                                <button class="button button1" id="clearBtn" type="button">Clear signature</button>
+                                <button class="button button2" type="submit" id="submitBtn">Submit</button>
 
                             </div> <!-- .contact-form -->
                         </fieldset>
