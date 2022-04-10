@@ -112,11 +112,11 @@
     @section Scripts{
     <script type="text/javascript">
         function printpdf(){
-            $("#print_pdf").hide();
+            $("button").hide();
             $("hr").hide();
             $("#footer").hide();
             window.print();
-            $("#print_pdf").show();
+            $("button").show();
             $("hr").show();
             $("#footer").show();
         }
