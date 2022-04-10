@@ -959,11 +959,12 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 connect.Open();
                 command.Connection = connect;
 
-                command.CommandText = @"UPDATE PRS_ORDER_DIRACT
-                                        SET TYPE_ASSIST=@TYPE_ASSIST,REASON_ASSIST=@REASON_ASSIST_DATE,DESC_ASSIST=@DESC_ASSIST
+                command.CommandText = @"UPDATE PRS_TOR_ASSIST
+                                        SET TYPE_ASSIST=@TYPE_ASSIST,DETAIL_ASSIST=@DETAIL_ASSIST,REASON_ASSIST=@REASON_ASSIST,DESC_ASSIST=@DESC_ASSIST
                                         WHERE ID_TOR=@IDTOR";
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)data.id_assist ?? DBNull.Value));
+                //command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)data.id_assist ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@DETAIL_ASSIST", (object)data.detail_assist ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@TYPE_ASSIST", (object)data.type_assitst ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@REASON_ASSIST", (object)data.supportType ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DESC_ASSIST", (object)data.des_approval0 ?? DBNull.Value));
