@@ -193,6 +193,14 @@
                                     <th>Date</th>
                                 </tr>
                                 @{int countfield = Model.ListForm != null ? Model.ListForm.Count : 0;}
+                                @if(countfield ==0)
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            ไม่พบข้อมูลใบคำร้องจัดซื้อหรือจ้าง
+                                        </td>
+                                    </tr>
+                                }
                                 @for (int i = 0; i < countfield; i++)
                                 {
                                     int number = i + 1;
@@ -231,8 +239,8 @@
                                             <button style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button button2" onclick="formpage(@item.id_tor)">View</button>
                                             <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button2" onclick="formpage(@item.id_tor)">Edit</button>
                                             <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button button3">Delete</button>
-                                            <button class="button button1" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
-                                            <button class="button button4" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                            <button class="button button1" style="display:@(item.Status=="Approved"?"block":"None" )" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
+                                            <button class="button button4" style="display:@(item.Status=="Approved"?"block":"None" )" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                             @*<button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button button4">Draft</button>*@
                                         </td>
                                         <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
@@ -248,76 +256,86 @@
                                     <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword2" placeholder="search...">
                                     <button id="" class="button button4" type="submit">ค้นหา</button>
                                 </form>*@
-                                <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
+                            <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name of Purchaser</th>
+                                    <th>Procurement Request</th>
+                                    <th>Status</th>
+                                    <th>
+                                        waiting
+                                    </th>
+                                    <th>Function</th>
+                                    <th>Date</th>
+                                </tr>
+
+                                @{int countfield2 = Model.ListSuppies != null ? Model.ListSuppies.Count : 0;}
+                                @if (countfield2 == 0)
+                                {
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Name of Purchaser</th>
-                                        <th>Procurement Request</th>
-                                        <th>Status</th>
-                                        <th>
-                                            waiting
-                                        </th>
-                                        <th>Function</th>
-                                        <th>Date</th>
+                                        <td colspan="7">
+                                            ไม่พบข้อมูลใบคำร้องจัดซื้อหรือจ้าง
+                                        </td>
                                     </tr>
+                                }
+                                @{
 
-                                    @{int countfield2 = Model.ListSuppies != null ? Model.ListSuppies.Count : 0;}
-                                    @{
-
-                                        @for (int i = 0; i < countfield2; i++)
+                                    @for (int i = 0; i < countfield2; i++)
+                                    {
+                                        int number2 = i + 1;
+                                        FormPRSDataModel item = Model.ListSuppies[i];
+                                        if (item.Status != "Return to Requester" && item.Status != "Draft")
                                         {
-                                            int number2 = i + 1;
-                                            FormPRSDataModel item = Model.ListSuppies[i];
-                                            if (item.Status != "Return to Requester" && item.Status != "Draft")
-                                            {
-                                                <tr>
-                                                    <td>@number2</td>
-                                                    <td>@item.Fullname_PRS</td>
-                                                    <td>@item.nameProcument</td>
-                                                    @{
-                                                        if (item.Status == "Sent")
-                                                        {
-                                                            <td style="color:blue">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Sent to Approval")
-                                                        {
-                                                            <td style="color:cornflowerblue">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Return to Requester")
-                                                        {
-                                                            <td style="color:red">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Approved")
-                                                        {
-                                                            <td style="color:green">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Draft")
-                                                        {
-                                                            <td style="color:black">@item.Status</td>
-                                                        }
+                                            <tr>
+                                                <td>@number2</td>
+                                                <td>@item.Fullname_PRS</td>
+                                                <td>@item.nameProcument</td>
+                                                @{
+                                                    if (item.Status == "Sent")
+                                                    {
+                                                        <td style="color:blue">@item.Status</td>
                                                     }
-                                                    <td>
-                                                        @item.cerrent_flow
-                                                    </td>
-                                                    <td>
-                                                        <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
-                                                        <button  type="button" style="display:@(item.Status=="Return to Requester" || item.Status=="Sent"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button button3">Delete</button>
-                                                    </td>
-                                                    <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
-                                                </tr>
-
-                                            }
-
+                                                    else if (item.Status == "Sent to Approval")
+                                                    {
+                                                        <td style="color:cornflowerblue">@item.Status</td>
+                                                    }
+                                                    else if (item.Status == "Return to Requester")
+                                                    {
+                                                        <td style="color:red">@item.Status</td>
+                                                    }
+                                                    else if (item.Status == "Approved")
+                                                    {
+                                                        <td style="color:green">@item.Status</td>
+                                                    }
+                                                    else if (item.Status == "Draft")
+                                                    {
+                                                        <td style="color:black">@item.Status</td>
+                                                    }
+                                                }
+                                                <td>
+                                                    @item.cerrent_flow
+                                                </td>
+                                                <td>
+                                                    <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
+                                                    <button type="button" style="display:@(item.Status=="Return to Requester" || item.Status=="Sent"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button button3">Delete</button>
+                                                    <button class="button button1" style="display:@(item.Status=="Sent"?"block":"None" )" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
+                                                    <button class="button button4" style="display:@(item.Status=="Sent"?"block":"None" )" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                                </td>
+                                                <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
+                                            </tr>
 
                                         }
+
+
                                     }
+                                }
 
 
 
 
 
 
-                                </table>
+                            </table>
                             </div>
                             <div style="display:@(Model.magnage_pos==""?"None":"block" )">
                                 <p>ตารางหน้าผู้อนุมัติ</p>
@@ -326,72 +344,80 @@
                                     <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword3" placeholder="search...">
                                     <button id="" class="button button4" type="submit">ค้นหา</button>
                                 </form>*@
-                                <table id="customers" style="display:@(Model.magnage_pos==""?"none":"block" )">
+                            <table id="customers" style="display:@(Model.magnage_pos==""?"none":"block" )">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name of Purchaser</th>
+                                    <th>Procurement Request</th>
+                                    <th>Status</th>
+                                    <th>
+                                        waiting
+                                    </th>
+                                    <th>Function</th>
+                                    <th>Date</th>
+                                </tr>
+
+                                @{int countfield3 = Model.ListApproval.Count;}
+                                @if (countfield3 == 0)
+                                {
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Name of Purchaser</th>
-                                        <th>Procurement Request</th>
-                                        <th>Status</th>
-                                        <th>
-                                            waiting
-                                        </th>
-                                        <th>Function</th>
-                                        <th>Date</th>
+                                        <td colspan="7">
+                                            ไม่พบข้อมูลใบคำร้องจัดซื้อหรือจ้าง
+                                        </td>
                                     </tr>
-
-                                    @{int countfield3 = Model.ListApproval.Count;}
-                                    @{
-                                        @for (int i = 0; i < countfield3; i++)
+                                }
+                                @{
+                                    @for (int i = 0; i < countfield3; i++)
+                                    {
+                                        int number3 = i + 1;
+                                        FormPRSDataModel item = Model.ListApproval[i];
+                                        if (item.Status != "Return to Requester" && item.Status != "Draft" && item.Status != "Sent")
                                         {
-                                            int number3 = i + 1;
-                                            FormPRSDataModel item = Model.ListApproval[i];
-                                            if (item.Status != "Return to Requester" && item.Status != "Draft" && item.Status != "Sent")
-                                            {
-                                                <tr>
-                                                    <td>@number3</td>
-                                                    <td>@item.Fullname_PRS</td>
-                                                    <td>@item.nameProcument</td>
-                                                    @if (item.Status == "Sent")
-                                                        {
-                                                            <td style="color:blue">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Sent to Approval")
-                                                        {
-                                                            <td style="color:cornflowerblue">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Return to Requester")
-                                                        {
-                                                            <td style="color:red">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Approved")
-                                                        {
-                                                            <td style="color:green">@item.Status</td>
-                                                        }
-                                                        else if (item.Status == "Draft")
-                                                        {
-                                                            <td style="color:black">@item.Status</td>
-                                                        }
-                                                    <td>
-                                                        @item.cerrent_flow
-                                                    </td>
-                                                    <td>
-                                                        <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
-                                                    </td>
-                                                    <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
-                                                </tr>
-                                                    
-                                                    }
+                                            <tr>
+                                                <td>@number3</td>
+                                                <td>@item.Fullname_PRS</td>
+                                                <td>@item.nameProcument</td>
+                                                @if (item.Status == "Sent")
+                                                {
+                                                    <td style="color:blue">@item.Status</td>
+                                                }
+                                                else if (item.Status == "Sent to Approval")
+                                                {
+                                                    <td style="color:cornflowerblue">@item.Status</td>
+                                                }
+                                                else if (item.Status == "Return to Requester")
+                                                {
+                                                    <td style="color:red">@item.Status</td>
+                                                }
+                                                else if (item.Status == "Approved")
+                                                {
+                                                    <td style="color:green">@item.Status</td>
+                                                }
+                                                else if (item.Status == "Draft")
+                                                {
+                                                    <td style="color:black">@item.Status</td>
+                                                }
+                                                <td>
+                                                    @item.cerrent_flow
+                                                </td>
+                                                <td>
+                                                    <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
+                                                </td>
+                                                <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
+                                            </tr>
+
+                                        }
 
 
-                                                    }
-                                                    }
+                                    }
+                                }
 
 
 
 
 
 
-                                            </table>
+                            </table>
                             </div>
                             <br>
                             
