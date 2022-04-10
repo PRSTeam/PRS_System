@@ -120,9 +120,9 @@
             <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
             <div class="main-navigation responsive-menu">
                 <ul class="navigation">
-                    <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
+                    @*<li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                     <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
-                    <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
+                    <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>*@
                     <li><a href="#setting"><i class="fa fa-cog"></i>Admin Setting</a></li>
                 </ul>
             </div>
@@ -137,9 +137,9 @@
         </div> <!-- top-section -->
         <div class="main-navigation">
             <ul class="navigation">
-                <li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
+                @*<li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                 <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
-                <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>
+                <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>*@
                 @if (Context.Session.GetString("type_person").ToString() == "Admin")
                 {
                     <li class="dropdown">
