@@ -303,14 +303,14 @@
                             
                             <!-- form_ฝ่ายพัสดุ -->
                             <!-- form_ฝ่ายอนุมัติ -->
-                            <div class="page-section" id="form"style="display:@(Model.status == "Sent to Approval" ? "block" : "none")">
+                            <div class="page-section" id="form"style="display:@(Model.status == "Sent to Approval" || Model.status=="Approved" ? "block" : "none")">
                                 <div class="row">
                                     <div class="w3-container w3-cyan w3-hover-text-light-grey">
                                         <h2>สำหรับฝ่ายอนุมัติ</h2>
                                     </div>
                                 </div>
                             </div>
-                            <fieldset class="col-md-4 col-sm-8" style="display:@(Model.status == "Sent to Approval" ? "block" : "none")">
+                            <fieldset class="col-md-4 col-sm-8" style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
                                 <form id="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       name="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
@@ -373,7 +373,7 @@
                                                           placeholder="คำอธิบาย"></textarea><br><br>
                                                 <label>ลายเซ็น</label><br><br>
                                                 <input type="text" id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ? "buttonstatus_3":"")" style="display:none" />
-                                                <input asp-for="last_approval" value="@Model.User_ID" style="display:none" />
+                                                <input asp-for="last_approval" value="เสร็จสิ้น" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
                                                 
                                                 <button class="button button7">เซ็นอนุมัติ</button><br>
@@ -424,7 +424,7 @@
                                                           placeholder="คำอธิบาย"></textarea><br><br>
                                                 <label>ลายเซ็น</label><br><br>
                                                 <input type="text" id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ? "buttonstatus_3":"")" style="display:none" />
-                                                <input asp-for="last_approval" value="@Model.User_ID" style="display:none" />
+                                                <input asp-for="last_approval" value="เสร็จสิ้น" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
                                                 
                                                 <button class="button button7">เซ็นอนุมัติ</button><br>
@@ -514,16 +514,16 @@
             if (checkloginuser != checkuserid || statusform == "Sent" || statusform == "Sent to Approval" || statusform == "Approved" ) {
                 $("#createform").children('fieldset').children('input').prop("disabled", true);
                 $("#createform").children('fieldset').children('textarea').prop("disabled", true);
-                $("#createform").children('fieldset').children('button').prop("disabled", true);
-                $("#addsubject").prop("disabled", true);
-                $("#addproduct").prop("disabled", true);
+                $("#createform").children('fieldset').children('button').hide();
+                $("#addsubject").hide();
+                $("#addproduct").hide();
                 for (let i = 0; i < x; i++) {
                     $("#fieldsubject" + i).children('input').prop("disabled", true);
-                    $("#fieldsubject" + i).children('button').prop("disabled", true);
+                    $("#fieldsubject" + i).children('button').hide();
                 }
                 for (let i = 0; i < y; i++) {
                     $("#field" + i).children('input').prop("disabled", true);
-                    $("#field" + i).children('button').prop("disabled", true);
+                    $("#field" + i).children('button').hide();
                 }
             }
 
@@ -535,10 +535,11 @@
         {
 
             $("#suppliesform").children('fieldset').children().prop("disabled", true);
+            $("#suppliesform").children('fieldset').children('button').hide();
         }
         $(".fieldapproval3").children('input').prop("disabled", true);
         $(".fieldapproval3").children('textarea').prop("disabled", true);
-        $(".fieldapproval3").children('button').prop("disabled", true);
+        $(".fieldapproval3").children('button').hide();
 
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------------

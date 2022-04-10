@@ -31,18 +31,56 @@ namespace PRS_System.Controllers
         public IActionResult Index(IndexListFormModel indexmodel)
         {
             indexmodel.category_user = HttpContext.Session.GetString("type_person").ToString();
-            indexmodel.magnage_pos= HttpContext.Session.GetString("Manage_Pos").ToString();
+            indexmodel.magnage_pos = HttpContext.Session.GetString("Manage_Pos").ToString();
             string user_id = HttpContext.Session.GetString("uid").ToString();
-            indexmodel.ListForm = _formService.GetnamePRS(user_id);
-            if (indexmodel.category_user == "Admin")
+            if (string.IsNullOrWhiteSpace(indexmodel.Keyword))
             {
-                indexmodel.ListSuppies = _formService.GetListSuppies();
+                indexmodel.ListForm = _formService.GetnamePRS(user_id);
+            }
+            else
+            {
+                indexmodel.ListForm = _formService.SearchPRS_Proqument(user_id, indexmodel.Keyword);
+                
+                
+            }
+            if (string.IsNullOrWhiteSpace(indexmodel.Keyword2))
+            {
+                if (indexmodel.category_user == "Admin")
+                {
+                    indexmodel.ListSuppies = _formService.GetListSuppies();
+                }
+                
+            }
+            else
+            {
+                if (indexmodel.category_user == "Admin")
+                {
+                    indexmodel.ListSuppies = _formService.SearchPRS_Suppies(indexmodel.Keyword2);
+                }
+                    
             }
             UserDataModel magnement_type = _accountService.CheckPositionManegment(indexmodel.magnage_pos);
-            if(magnement_type.Manage_Pos!="")
+            if (string.IsNullOrWhiteSpace(indexmodel.Keyword3))
             {
-                indexmodel.ListApproval = _formService.GetListApprovalCerrent(magnement_type.Manage_Pos);
+                if (magnement_type.Manage_Pos != "")
+                {
+                    indexmodel.Keyword3 = "";
+                    indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword3, user_id);
+                    //indexmodel.ListApproval = _formService.GetListApprovalCerrent(magnement_type.Manage_Pos);
+                }
             }
+            else
+            {
+                if (magnement_type.Manage_Pos != "")
+                {
+                    indexmodel.ListApproval = _formService.SearchPRS_Approval(indexmodel.Keyword3, user_id);
+                }      
+            }
+            indexmodel.magnage_pos = magnement_type.Manage_Pos;
+            
+            
+           
+            
             
             return View(indexmodel);
 
@@ -112,7 +150,16 @@ namespace PRS_System.Controllers
                     {
                         Createview.desc_assist2 = assist.desc_assist3;
                     }
-                    if(Createview.status == "Sent to Approval")
+                    if(Createview.status == "Sent" || Createview.status == "Approved" || Createview.status == "Return to Requester")
+                    {
+                        FormPRSModel order_diract = new FormPRSModel();
+                        order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);
+                        Createview.id_order = order_diract.id_order;
+                        Createview.name_select1 = order_diract.name_select1;
+                        Createview.name_select2 = order_diract.name_select2;
+                        Createview.definition = order_diract.definition;
+                    }
+                    if(Createview.status == "Sent to Approval" || Createview.status == "Approved" || Createview.status == "Return to Requester")
                     {
                         FormPRSModel order_diract = new FormPRSModel();
                         order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);
@@ -326,6 +373,25 @@ namespace PRS_System.Controllers
                             }
 
                         }
+                    }
+                    if (Procurement.supportType != null)
+                    {
+                        if (Procurement.supportType == "ได้รับสนับสนุนจาก")
+                        {
+                            Procurement.desc_assist3 = Procurement.desc_assist1;
+                        }
+                        else if (Procurement.supportType == "ไม่ได้รับแหล่งเงินทุนสนับสนุนใดๆ")
+                        {
+                            Procurement.desc_assist3 = null;
+                        }
+                        else if (Procurement.supportType == "เหตุผลอื่นๆ")
+                        {
+                            Procurement.desc_assist3 = Procurement.desc_assist2;
+                        }
+                    }
+                    if (Procurement.type_assitst != "เพื่อใช้ในการสนับสนุนรายวิชา")
+                    {
+                        _formService.EditAssist_TOR(Procurement);
                     }
 
                     //-------Edit and Add New Data----------------------------------
@@ -941,6 +1007,19 @@ namespace PRS_System.Controllers
         {
             type_approval.Email_approval6 = _accountService.GetUserEmail(type_approval.name_select1);
             return Json(new { status = "success", email = type_approval.Email_approval6 }); ;
+        }
+        public IActionResult DeleteFormTOR(int id_tor)
+        {
+            try
+            {
+                _formService.DeleteAllFormTOR(id_tor);
+                return Json(new { status = "success", messege = "Delete Complete" }); ;
+            }
+            catch(Exception ex)
+            {
+                return Json(new { status = "error", message = "Delete Fail" }); ;
+            }
+            
         }
     }
 }
