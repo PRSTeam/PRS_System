@@ -183,3 +183,39 @@ $(".file_section_remove").on("click", function (e) {
     btnOutersection.removeClass("file_uploaded_section");
     $(".panel-section").show();
 });
+
+// ************************************************************************************************************************************
+var btnContainer = document.getElementById("tab-menu")
+var btns = btnContainer.getElementsByClassName("btn-tab")
+
+for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function () {
+        var current = document.getElementsByClassName("active_tab");
+        current[0].className = current[0].className.replace(" active_tab");
+        this.className += " active_tab"
+    })
+}
+
+// ***************************************************************************************************************************************
+var btnContainerNews = document.getElementById("tab_news")
+var btnsnews = btnContainerNews.getElementsByClassName("btn_news")
+
+for (var i = 0; i < btnsnews.length; i++) {
+    btnsnews[i].addEventListener('click', function () {
+        var current = document.getElementsByClassName("active_news");
+        current[0].className = current[0].className.replace(" active_news");
+        this.className += " active_news"
+    })
+}
+
+// *****************************************************************************************************************************************
+var btnContainerSection = document.getElementById("tab_section")
+var btnssection = btnContainerSection.getElementsByClassName("btn_section")
+
+for (var i = 0; i < btnssection.length; i++) {
+    btnssection[i].addEventListener('click', function () {
+        var current = document.getElementsByClassName("active_section");
+        current[0].className = current[0].className.replace(" active_section");
+        this.className += " active_section"
+    })
+}

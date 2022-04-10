@@ -6,7 +6,7 @@
 
     var TOR_DATE = @Model.TOR_DATE.ToString().Split(" ");
 
-    var nameProcument = @Model.nameProcument.Split(" ");
+    //var nameProcument = @Model.nameProcument.Split(" ");
 
     string bahtTxt, n, bahtTH = "";
     double amount;
@@ -122,7 +122,7 @@
                         <p style="margin-left:65%">วันที่ @TOR_DATE[0]</p><br>
 
                         <label>เรื่อง @Model.nameProcument</label>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยข้าพเจ้า @Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame") ตำแหน่ง @Context.Session.GetString("Operate_Pos") มีความประสงค์@nameProcument[0]ตามรายการข้างล่าง โดยมีเหตุผลจำเป็นดังนี้</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยข้าพเจ้า @Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame") ตำแหน่ง @Context.Session.GetString("Operate_Pos") มีความประสงค์@Model.nameProcument ตามรายการข้างล่าง โดยมีเหตุผลจำเป็นดังนี้</p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         
                         @if (Model.Subjectdata != null)
