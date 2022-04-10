@@ -9,6 +9,7 @@ namespace PRS_System.Models.FormModel
 {
     public class FormPRSModel
     {
+        public string type_PRS { get; set; }
         public double vaxproduct { get; set; }
         public double sumproduct { get; set; }
         public int id_tor { get; set; }
@@ -119,6 +120,7 @@ namespace PRS_System.Models.FormModel
         public FormPRSDataModel FormDataDetail()
         {
             FormPRSDataModel formprs_data = new FormPRSDataModel();
+            formprs_data.type_PRS = type_PRS;
             formprs_data.idRoom = idRoom;
             formprs_data.nameProcument = nameProcument;
             formprs_data.description_1 = description_1;

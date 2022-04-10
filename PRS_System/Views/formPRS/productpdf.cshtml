@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="container">
-                        <h4 align='center'>งาน    [  ]จัดซื้อ [  ]จัดจ้าง   จำนวน @Model.Productdata.Count รายการ </h4><br>
+                        <h4 align='center'>งาน    [@(Model.type_PRS =="ขอซื้อ" ? "✓" : "") ]จัดซื้อ [ @(Model.type_PRS =="ขอจ้าง" ? "✓" : "") ]จัดจ้าง   จำนวน @Model.Productdata.Count รายการ </h4><br>
                         <table id="customers" align='center'>
                             <thead>
                                 <tr>

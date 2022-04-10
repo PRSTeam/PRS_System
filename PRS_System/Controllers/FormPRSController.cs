@@ -841,6 +841,7 @@ namespace PRS_System.Controllers
             productdata.TOR_DATE = PRSdata.TOR_DATE;
             productdata.type_user_operation = user_prs.Operate_Pos;
             productdata.nameProcument = user_prs.Full_NameThai;
+            productdata.type_PRS = PRSdata.type_PRS;
             return View(productdata);
         }
         public IActionResult torpdf(int id_tor)
