@@ -350,11 +350,11 @@ namespace PRS_System.Controllers
                     {
                         if (m == 0)
                         {
-                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "'>" + data_header[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data_header[m].ToString() + "' /></li>";
+                            ViewBag.tab_header = "<li class='current-news'><a href ='#tab-news" + (m + 1) + "' class='btn_news active_news'>" + data_header[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data_header[m].ToString() + "' /></li>";
                         }
                         else
                         {
-                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "'>" + data_header[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data_header[m].ToString() + "' ></li>";
+                            ViewBag.tab_header += "<li><a href ='#tab-news" + (m + 1) + "' class='btn_news'>" + data_header[m].ToString() + "</a><input type='hidden' id='tabHeader' name='tabHeader' value='" + data_header[m].ToString() + "' ></li>";
                         }
                         ViewBag.tab_body += "<div id='tab-news" + (m + 1) + "' class='tab-content-news'>";
                         ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data_header[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
@@ -389,11 +389,11 @@ namespace PRS_System.Controllers
                     {
                         if (n == 0)
                         {
-                            ViewBag.section_header = "<li class='current-section'><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' /></li>";
+                            ViewBag.section_header = "<li class='current-section'><a href ='#tab-section" + (n + 1) + "' class='btn_section active_section'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' /></li>";
                         }
                         else
                         {
-                            ViewBag.section_header += "<li><a href ='#tab-section" + (n + 1) + "'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' ></li>";
+                            ViewBag.section_header += "<li><a href ='#tab-section" + (n + 1) + "' class='btn_section'>" + data_section[n].ToString() + "</a><input type='hidden' id='sectionHeader' name='sectionHeader' value='" + data_section[n].ToString() + "' ></li>";
                         }
                         ViewBag.section_body += "<div id='tab-section" + (n + 1) + "' class='tab-content-section'>";
                         ViewBag.section_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อหัวข้อเอกสาร : " + data_section[n].ToString() + "</h3><button class='delete-tab' onclick='deletesec()'>ลบหัวข้อเอกสาร</button></div>";

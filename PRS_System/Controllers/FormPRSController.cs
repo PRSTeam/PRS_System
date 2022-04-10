@@ -877,6 +877,11 @@ namespace PRS_System.Controllers
                 double vaxvalue = 0;
                 Createview = _formService.GetValuesFormPRS(id_tor);
 
+                UserDataModel ownerdata = _accountService.CheckLogin(Createview.User_ID);
+                Createview.own_name = ownerdata.Prefix_NameThai + ownerdata.Full_NameThai;
+                Createview.own_operate = ownerdata.Operate_Pos;
+                Createview.own_esign = ownerdata.ESignature;
+
                 Createview.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
                 for (int i = 0; i < Createview.Productdata.Count; i++)
                 {

@@ -6,7 +6,7 @@
 
     var TOR_DATE = @Model.TOR_DATE.ToString().Split(" ");
 
-    var nameProcument = @Model.nameProcument.Split(" ");
+    //var nameProcument = @Model.nameProcument.Split(" ");
 
     string bahtTxt, n, bahtTH = "";
     double amount;
@@ -122,10 +122,10 @@
                         <p style="margin-left:65%">วันที่ @TOR_DATE[0]</p><br>
 
                         <label>เรื่อง @Model.nameProcument</label>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยข้าพเจ้า @Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame") ตำแหน่ง @Context.Session.GetString("Operate_Pos") มีความประสงค์@nameProcument[0]ตามรายการข้างล่าง โดยมีเหตุผลจำเป็นดังนี้</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยข้าพเจ้า @Model.own_name ตำแหน่ง @Model.own_operate มีความประสงค์@Model.nameProcument ตามรายการข้างล่าง โดยมีเหตุผลจำเป็นดังนี้</p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         
-                        @if (Model.Subjectdata != null)
+                        @if (Model.Subjectdata.Count != 0)
                         {
                             <input id="checkBox" name="" type="checkbox" checked disabled>
                             <label>เพื่อใช้สนับสนุนการเรียนการสอน ดังนี้</label>
@@ -135,7 +135,16 @@
                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp- รายวิชา @sub.Subject</label><br />
                             }
                         }
+                        else
+                        {
+                            <input id="checkBox" name="" type="checkbox" disabled>
+                            <label>เพื่อใช้สนับสนุนการเรียนการสอน ดังนี้</label>
+                            <br>
+                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp-</label><br />
+                        }
+
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                         @if(Model.type_assitst == "โครงการ" || Model.type_assitst == "โครงงาน" || Model.type_assitst == "ปัญหาพิเศษ")
                         {
                             <input id="checkBox" name="" type="checkbox" checked disabled>
@@ -279,13 +288,9 @@
                             </tr>
                         </table><br>
 
-                        <p style="margin-left:65%; text-align:center"><img src="~/img/signature/@Context.Session.GetString("ESignature")" height=50px /></p>
-                        <p style="margin-left:65%; text-align:center">(@Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame"))</p>
-                        <p style="margin-left:65%; text-align:center">ตำแหน่ง @Context.Session.GetString("Operate_Pos")</p>
-
-                        <!-- <p align="right"><img src="~/img/signature/@Context.Session.GetString("ESignature")" height=100px /></p>
-                        <p align="right">(@Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame"))</p>
-                        <p align="right">ตำแหน่ง @Context.Session.GetString("Operate_Pos")</p> -->
+                        <p style="margin-left:65%; text-align:center"><img src="~/img/signature/@Model.own_esign" height=50px /></p>
+                        <p style="margin-left:65%; text-align:center">(@Model.own_name)</p>
+                        <p style="margin-left:65%; text-align:center">ตำแหน่ง @Model.own_operate</p>
 
                         <table id="customers" width="100%">
                             <tr>

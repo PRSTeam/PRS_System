@@ -25,12 +25,23 @@
 <body>
     <div class="container-tab" id="blur">
         <div class="position-tab">
-            <h1>@ViewData["Title"]</h1>
+            <div class="back">
+                <h1>@ViewData["Title"]</h1>
+                <button class="btn" onClick="window.history.back()">ย้อนกลับ</button>
+            </div>
+            <div class="menu-wrapper">
+                <ul class="tab-menu" id="tab-menu">
+                    <li class="current"><a href="#tab-1" class="btn-tab active_tab">Banner</a></li>
+                    <li><a href="#tab-2" class="btn-tab">ข่าวประชาสัมพันธ์</a></li>
+                    <li><a href="#tab-3" class="btn-tab">เอกสารดาวน์โหลด</a></li>
+                </ul>
+            </div>
+            @*<h1>@ViewData["Title"]</h1>
             <ul class="tab-menu">
                 <li class="current"><a href="#tab-1">Banner</a></li>
                 <li><a href="#tab-2">ข่าวประชาสัมพันธ์</a></li>
                 <li><a href="#tab-3">เอกสารดาวน์โหลด</a></li>
-            </ul>
+            </ul>*@
 
             <div class="tab" id="blur">
                 <div class="tab-content" id="tab-1">
@@ -92,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="tab-menu-news">
+                    <ul class="tab-menu-news" id="tab_news">
                         @Html.Raw(ViewBag.tab_header)
                         @*<li class="current-news"><a href="#tab-news1">Tab 1</a></li>
                             <li><a href="#tab-news2">Tab 2</a></li>
@@ -371,7 +382,7 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="tab-menu-section">
+                    <ul class="tab-menu-section" id="tab_section">
                         @Html.Raw(ViewBag.section_header)
                     </ul>
 

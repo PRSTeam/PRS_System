@@ -28,6 +28,12 @@ namespace PRS_System.Models.FormModel
         public string supportType { get; set; }
         public string status { get; set; }
         public DateTime? TOR_DATE { get; set; }
+
+        public string own_name { get; set; }
+        public string own_operate { get; set; }
+        public string own_esign { get; set; }
+
+
 #nullable enable
         public List<ProductDataModel>? Productdata { get; set; }
         public List<SubjectDataModel>? Subjectdata { get; set; }
