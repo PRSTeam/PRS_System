@@ -630,7 +630,7 @@
                         }
 
 
-                        <button class="button button3">Export PDF</button>
+                        <button class="button button3" onclick="printpdf()" id="print_pdf">Export PDF</button>
 
 
 
@@ -652,11 +652,17 @@
     <script src="js/min/plugins.min.js"></script>
     <script src="js/min/main.min.js"></script>
     <script src="js/addinput.js"></script>
+    @section Scripts{
+    <script type="text/javascript">
+        function printpdf(){
+            $("#print_pdf").hide();
+            $("#footer").hide();
+            window.print();
+            $("#print_pdf").show();
+            $("#footer").show();
+        }
+    </script>
+    }
 
 </body>
-@section Scripts{
-<script type="text/javascript">
-
-</script>
-}
 </html>

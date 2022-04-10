@@ -96,11 +96,7 @@
                 </div>
                 <hr>
 
-                @*<div class="row" id="footer">
-                    <div class="col-md-12 text-center">
-                        <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
-                    </div>
-                </div>*@
+                <button class="button button3" onclick="printpdf()" id="print_pdf">Export PDF</button>
             </div>
 
         </div>
@@ -110,7 +106,17 @@
     <script src="js/min/plugins.min.js"></script>
     <script src="js/min/main.min.js"></script>
     <script src="js/addinput.js"></script>
+    @section Scripts{
+    <script type="text/javascript">
+        function printpdf(){
+            $("#print_pdf").hide();
+            $("#footer").hide();
+            window.print();
+            $("#print_pdf").show();
+            $("#footer").show();
+        }
+    </script>
+    }
 
 </body>
-
 </html>
