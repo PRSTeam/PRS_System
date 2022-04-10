@@ -1,4 +1,6 @@
-﻿@*
+﻿@using PRS_System.Controllers
+@model PRS_System.Models.FormModel.FormPRSModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -36,12 +38,12 @@
                     <br>
                     <div class="container">
                         <div class="col-md-12">
-                            <h2 align = 'center'>รายละเอียดแนบท้ายแบบขอให้ซื้อหรือจ้าง ลงวันที่...................................</h2>
+                            <h2 align='center'>รายละเอียดแนบท้ายแบบขอให้ซื้อหรือจ้าง ลงวันที่ @Model.TOR_DATE.Value.ToString("dd-MM-yyyy") </h2>
                         </div>
                     </div>
                     <div class="container">
-                       <h4 align = 'center'>งาน    [  ]จัดซื้อ [  ]จัดจ้าง   จำนวน.............รายการ </h4><br>
-                        <table id="customers" align = 'center'>
+                        <h4 align='center'>งาน    [  ]จัดซื้อ [  ]จัดจ้าง   จำนวน @Model.Productdata.Count รายการ </h4><br>
+                        <table id="customers" align='center'>
                             <thead>
                                 <tr>
                                     <th rowspan="2">ลำดับ</th>
@@ -49,36 +51,44 @@
                                     <th rowspan="2">จำนวน</th>
                                     <th rowspan="2">หน่วยนับ</th>
                                     <th rowspan="2">[  ] ราคามาตราฐาน <br> [  ] ราคาที่ได้มาจากการสืบราคาท้องตลาด <br> (หน่วยละ) </th>
-                                    <th colspan="4">จำนวนและวงเงินที่ขอซื้อครั้งนี้<br></th>
+                                    <th colspan="2">จำนวนและวงเงินที่ขอซื้อครั้งนี้<br></th>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">หน่วยละ</td>
-                                    <td colspan="2">จำนวนเงิน</td>
+                                    <td colspan="1">หน่วยละ</td>
+                                    <td colspan="1">จำนวนเงิน</td>
                                 </tr>
                             </thead>
+                        @{int countproduct = Model.Productdata != null ? Model.Productdata.Count : 0;}
+                                    @for (int i = 0; i < countproduct; i++)
+                                    { 
+
+                                        <tr>
+                                            <td>@(i+1)</td>
+                                            <td>@Model.Productdata[i].NameProduct</td>
+                                            <td>@Model.Productdata[i].AmtProduct</td>
+                                            <td>@Model.Productdata[i].Unit</td>
+                                            <td>@Model.Productdata[i].Price_Per_Piece</td>
+                                            <td>บาท</td>
+                                            @*<td></td>
+                                            <td></td>*@
+                                        <td>@Convert.ToDecimal(Model.Productdata[i].AmtProduct * Model.Productdata[i].Price_Per_Piece).ToString("###,###,##0.00")</td>
+
+                                        </tr>
+                                    
+                                        
+                                    }
+                            
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                
-                            </tr>
-                            <tr>
-                                <td colspan="7">รวมเป็นเงินทั้งสิ้น(.........................................................................................................................................................................................)</td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="6">รวมเป็นเงินทั้งสิ้น(@Model.number_string)</td>
+                                @*<td></td>*@
+                            <td>@Convert.ToDecimal(Model.sumproduct).ToString("###,###,##0.00")</td>
                             </tr>
                         </table><br><br><br><br>
 
-                        <p align = 'center'>ลงชื่อ.................................................</p>
-                        <p align = 'center'>(....................................................)</p>
-                        <p align = 'center'>ตำแหน่ง...............................................</p>
-                        <p align = 'center'>วันที่..................................................</p>
+                        <p align='center'>ลงชื่อ <img id="signature1" src="~/img/signature/@Model.FilePath" /></p>
+                        <p align='center'>(@Model.nameProcument)</p>
+                        <p align='center'>ตำแหน่ง @Model.type_user_operation</p>
+                        <p align='center'>วันที่ @Model.TOR_DATE.Value.ToString("dd-MM-yyyy")</p>
 
 
 
@@ -86,11 +96,11 @@
                 </div>
                 <hr>
 
-                <div class="row" id="footer">
+                @*<div class="row" id="footer">
                     <div class="col-md-12 text-center">
                         <p class="copyright-text">Faculty Science &copy; Kasatsart University Sriracha campas</p>
                     </div>
-                </div>
+                </div>*@
             </div>
 
         </div>

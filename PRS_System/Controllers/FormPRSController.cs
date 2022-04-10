@@ -267,7 +267,7 @@ namespace PRS_System.Controllers
                             Procurement.desc_assist3 = Procurement.desc_assist2;
                         }
                     }
-                    else if(Procurement.type_assitst != "เพื่อใช้ในการสนับสนุนรายวิชา")
+                    if(Procurement.type_assitst != "เพื่อใช้ในการสนับสนุนรายวิชา")
                     {
                         _formService.AddAssist_TOR(Procurement);
                     }
@@ -290,6 +290,12 @@ namespace PRS_System.Controllers
                         filepath = Path.Combine(uploadfile, uniquefile);
                         Procurement.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
                         Procurement.FilePath = uniquefile;
+                    }
+                    else if(Procurement.FilePDF == null)
+                    {
+                        FormPRSModel getdata = _formService.GetValuesFormPRS(Procurement.id_tor);
+                        Procurement.FilePath = getdata.FilePath;
+
                     }
                     Procurement.User_ID = HttpContext.Session.GetString("uid").ToString();
                     _formService.EditFormDetailData(Procurement.FormDataDetail(), Procurement.id_tor);
@@ -372,7 +378,7 @@ namespace PRS_System.Controllers
         {
             try
             {
-                if(Suppies.name_select1 !="" && Suppies.name_select2 !="" && Suppies.definition !=null)
+                if(Suppies.name_select1 !="" && Suppies.name_select2 !="" && Suppies.definition !=null || Suppies.buttonstatus_2 == "Return to Requester" || Suppies.buttonstatus_2 == "Sent to Approval")
 
                 {
                     Suppies.category_user = Suppies.name_select1;
@@ -401,7 +407,7 @@ namespace PRS_System.Controllers
                     }
                     
                 }
-                else if(Suppies.name_select1 == "" || Suppies.name_select2 == "" || Suppies.definition == null)
+                else if(Suppies.name_select1 == "" || Suppies.name_select2 == "" || Suppies.definition == null && Suppies.buttonstatus_2 != "Return to Requester")
                 {
                     return Json(new { status = "error", detail = Suppies.buttonstatus_2 + " Fail", errorMessage = "กรอกข้อมูลไม่ครบ" });
                 }
@@ -672,7 +678,104 @@ namespace PRS_System.Controllers
         //}
         public IActionResult productpdf(int id_tor)
         {
-            return View();
+            
+            string login_id = HttpContext.Session.GetString("uid").ToString();
+            FormPRSModel productdata = new FormPRSModel();
+            FormPRSModel PRSdata = new FormPRSModel();
+            productdata.Productdata = _formService.GetValuesFormPRSProduct(id_tor);
+            double sumvalue = 0;
+            for (int i =0;i<productdata.Productdata.Count;i++)
+            {
+                sumvalue = sumvalue + (productdata.Productdata[i].AmtProduct * productdata.Productdata[i].Price_Per_Piece);
+            }
+            sumvalue= Math.Round(sumvalue, 2);
+            productdata.sumproduct = sumvalue;
+            //-------- แปลงตัวเลขเป็นหน่วยและตัวอักษร
+            string[] strThaiNumber = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+            string[] strThaiPos = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน","สิบล้าน","ร้อยล้าน","พันล้าน" };
+            //string numberstring = "20501.21";
+            string numberstring = sumvalue.ToString();
+            string[] splitnumber = numberstring.Split(".");
+            string splitnumber_1 = splitnumber[0];
+            
+            string numberconvertstr = "";
+            int lengthPos = splitnumber_1.Length;
+            for (int i=0; i< splitnumber_1.Length; i++)
+            {
+                
+                int number = int.Parse(splitnumber_1[i].ToString());
+                lengthPos = lengthPos - 1;
+                if (i== (splitnumber_1.Length - 2) && number==1 )
+                {
+                    numberconvertstr = numberconvertstr + "สิบเอ็ด";
+                }
+                else if (i == (splitnumber_1.Length-1) && number == 1)
+                {
+                    numberconvertstr = numberconvertstr + "เอ็ด";
+                }
+                else if (i == (splitnumber_1.Length-2) && number == 2)
+                {
+                    numberconvertstr = numberconvertstr + "ยี่สิบ";
+                }
+                else if(number==0)
+                {
+
+                }
+                else
+                {
+                    numberconvertstr = numberconvertstr + strThaiNumber[number] + strThaiPos[lengthPos];
+                }
+                
+
+
+            }
+            numberconvertstr = numberconvertstr + "บาท";
+            if (splitnumber.Length > 1)
+            {
+                string splitnumber_2 = splitnumber[1];
+                string numberconvertstr2 = "";
+                int lengthPos2 = splitnumber_2.Length;
+                for (int i = 0; i < splitnumber_2.Length; i++)
+                {
+
+                    int number2 = int.Parse(splitnumber_2[i].ToString());
+                    lengthPos = lengthPos - 1;
+                    if (i == (splitnumber_2.Length - 2) && number2 == 1)
+                    {
+                        numberconvertstr2 = numberconvertstr2 + "สิบเอ็ด";
+                    }
+                    else if (i == (splitnumber_2.Length - 1) && number2 == 1)
+                    {
+                        numberconvertstr2 = numberconvertstr2 + "เอ็ด";
+                    }
+                    else if (i == (splitnumber_2.Length - 2) && number2 == 2)
+                    {
+                        numberconvertstr2 = numberconvertstr2 + "ยี่สิบ";
+                    }
+                    else if (number2 == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        numberconvertstr2= numberconvertstr2 + strThaiNumber[number2] + strThaiPos[lengthPos2];
+                    }
+
+
+
+                }
+                numberconvertstr2 = numberconvertstr2 + "สตางค์";
+                numberconvertstr = numberconvertstr + numberconvertstr2;
+            }
+            productdata.number_string = numberconvertstr;
+            //--------
+            PRSdata = _formService.GetValuesFormPRS(id_tor);
+            UserDataModel user_prs = _accountService.CheckLogin(PRSdata.User_ID);
+            productdata.FilePath = user_prs.ESignature;
+            productdata.TOR_DATE = PRSdata.TOR_DATE;
+            productdata.type_user_operation = user_prs.Operate_Pos;
+            productdata.nameProcument = user_prs.Full_NameThai;
+            return View(productdata);
         }
         public IActionResult torpdf(int id_tor)
         {

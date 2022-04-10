@@ -14,5 +14,13 @@ namespace PRS_System.Models.FormModel
         public string login_userid { get; set; }
         public string category_user { get; set; }
         public string magnage_pos { get; set; }
+
+        public string Keyword { get; set; }
+
+        public string Keyword2 { get; set; }
+
+        public string Keyword3 { get; set; }
+
+
     }
 }

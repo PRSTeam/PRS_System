@@ -30,7 +30,8 @@ namespace PRS_System.Services
                 command.Connection = connect;
 
                 int maximum = GetMaximumID_TOR() + 1;
-                command.CommandText = @"INSERT INTO PRS_MAIN_TOR (ID_TOR,ID_Room,NAME_TOR,DESC_TOR,DIRECTOR_1,DIRECTOR_2,DIRECTOR_3,AMT_QUTATATION,@AMT_SCOP_PAGE,AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE,NAME_OTHER_DOC,AMT_OTHER_DOC,DOC_FILE,OWNER_ID,CERRENT_FLOW,TOR_DATE) VALUES(@ID_TOR,@ID_Room,@NAME_TOR,@DESC_TOR,@DIRECTOR_1,@DIRECTOR_2,@DIRECTOR_3,@AMT_QUTATATION,@AMT_STUDENTLIST_PAGE,@AMT_BUGGET_PAGE,@NAME_OTHER_DC,@AMT_OTHER_DOC,@DOC_FILE,@OWNER_ID,@CERRENT_FLOW,@TOR_DATE) ";
+                command.CommandText = @"INSERT INTO PRS_MAIN_TOR (ID_TOR,ID_Room,NAME_TOR,DESC_TOR,DIRECTOR_1,DIRECTOR_2,DIRECTOR_3,AMT_QUTATATION,AMT_SCOP_PAGE,AMT_STUDENTLIST_PAGE,AMT_BUGGET_PAGE,NAME_OTHER_DOC,AMT_OTHER_DOC,DOC_FILE,STATUS,OWNER_ID,CERRENT_FLOW,TOR_DATE) 
+                                        VALUES(@ID_TOR,@ID_Room,@NAME_TOR,@DESC_TOR,@DIRECTOR_1,@DIRECTOR_2,@DIRECTOR_3,@AMT_QUTATATION,@AMT_SCOP_PAGE,@AMT_STUDENTLIST_PAGE,@AMT_BUGGET_PAGE,@NAME_OTHER_DC,@AMT_OTHER_DOC,@DOC_FILE,@STATUS,@OWNER_ID,@CERRENT_FLOW,@TOR_DATE) ";
 
                 command.Parameters.Add(new SqlParameter("@ID_TOR", (object)maximum ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_Room", (object)formdetaildata.idRoom ?? DBNull.Value));
@@ -46,8 +47,9 @@ namespace PRS_System.Services
                 command.Parameters.Add(new SqlParameter("@NAME_OTHER_DC", (object)formdetaildata.otherSupport ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@AMT_OTHER_DOC", (object)formdetaildata.otherSupport_num ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@DOC_FILE", (object)formdetaildata.FilePath ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@STATUS", (object)formdetaildata.buttonstatus ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@OWNER_ID", (object)formdetaildata.User_ID ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@CERRENTFLOW", (object)"ฝ่ายพัสดุ" ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@CERRENT_FLOW", (object)"ฝ่ายพัสดุ" ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@TOR_DATE", DateTime.Now.ToString("yyyy-MM-dd ", new CultureInfo("en-US"))));
                 command.ExecuteNonQuery();
 
@@ -856,9 +858,10 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.Connection = connect;
 
                 command.CommandText = @"UPDATE PRS_COM_COMMENT
-                                        SET ID_TOR=@IDTOR,ID_COM=@ID_COM,COMMENT=@COMMENT,COMMENT_DATE=@COMMENT_DATE";
+                                        SET COMMENT=@COMMENT,COMMENT_DATE=@COMMENT_DATE
+                                        WHERE ID_TOR=@IDTOR AND ID_COM=@ID_COM";
                 command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
-                command.Parameters.Add(new SqlParameter("@ID_COM", (object)data.User_ID ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@ID_COM", (object)data.login_userid ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@COMMENT", (object)data.des_approval0 ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@COMMENT_DATE", DateTime.Now.ToString("yyyy-MM-dd ", new CultureInfo("en-US"))));
                 command.ExecuteNonQuery();
@@ -931,7 +934,7 @@ SET ID_SUBJECT_LIST = @IDSUBJECT ,SUBJECT=@SUBJECT
                 command.CommandText = @"Insert Into PRS_TOR_ASSIST(ID_TOR,ID_ASSIST,TYPE_ASSIST,REASON_ASSIST,DESC_ASSIST) 
                                             VALUES(@IDTOR,@ID_ASSIST,@TYPE_ASSIST,@REASON_ASSIST,@DESC_ASSIST)";
                 int maximum = GetMaximumID_ASSIST();
-                command.Parameters.Add(new SqlParameter("@IDTOR", (object)data.id_tor ?? DBNull.Value));
+                command.Parameters.Add(new SqlParameter("@IDTOR", (object)(maximum+1) ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@ID_ASSIST", (object)maximum ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@TYPE_ASSIST", (object)data.type_assitst ?? DBNull.Value));
                 command.Parameters.Add(new SqlParameter("@REASON_ASSIST", (object)data.supportType ?? DBNull.Value));
