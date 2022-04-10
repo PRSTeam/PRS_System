@@ -110,9 +110,11 @@
     <script type="text/javascript">
         function printpdf(){
             $("#print_pdf").hide();
+            $("hr").hide();
             $("#footer").hide();
             window.print();
             $("#print_pdf").show();
+            $("hr").show();
             $("#footer").show();
         }
     </script>
