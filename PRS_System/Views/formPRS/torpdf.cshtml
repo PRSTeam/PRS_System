@@ -122,34 +122,106 @@
                         <p style="margin-left:65%">วันที่ @TOR_DATE[0]</p><br>
 
                         <label>เรื่อง @Model.nameProcument</label>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยข้าพเจ้า @Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame") ตำแหน่ง @Context.Session.GetString("Operate_Pos") มีความประสงค์@nameProcument[0]ตามรายการข้างล่าง โดยมีเหตุผลจำเป็นดังนี้</p><br>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ด้วยข้าพเจ้า @Context.Session.GetString("thaiprename")@Context.Session.GetString("thainame") ตำแหน่ง @Context.Session.GetString("Operate_Pos") มีความประสงค์@nameProcument[0]ตามรายการข้างล่าง โดยมีเหตุผลจำเป็นดังนี้</p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        
+                        @if (Model.Subjectdata != null)
+                        {
+                            <input id="checkBox" name="" type="checkbox" checked disabled>
+                            <label>เพื่อใช้สนับสนุนการเรียนการสอน ดังนี้</label>
+                            <br>
+                            foreach(var sub in Model.Subjectdata)
+                            {
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp- รายวิชา @sub.Subject</label><br />
+                            }
+                        }
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if(Model.type_assitst == "โครงการ" || Model.type_assitst == "โครงงาน" || Model.type_assitst == "ปัญหาพิเศษ")
+                        {
+                            <input id="checkBox" name="" type="checkbox" checked disabled>
+                        }
+                        else
+                        {
+                            <input id="checkBox" name="" type="checkbox" disabled>
+                        }
+                        <label>เพื่อใช้สนับสนุนสำหรับ</label>
+
+                        @if(Model.type_assitst == "โครงการ")
+                        {
+                            <input type="radio" checked disabled>
+                        }
+                        else
+                        {
+                            <input type="radio" disabled>
+                        }
+                        <label>โครงการ</label>
+
+                        @if(Model.type_assitst == "โครงงาน")
+                        {
+                            <input type="radio" checked disabled>
+                        }
+                        else
+                        {
+                            <input type="radio" disabled>
+                        }
+                        <label>โครงงาน</label>
+
+                        @if(Model.type_assitst == "ปัญหาพิเศษ")
+                        {
+                            <input type="radio" checked disabled>
+                        }
+                        else
+                        {
+                            <input type="radio" disabled>
+                        }
+                        <label>ปัญหาพิเศษ</label>
+
+                        @if (Model.type_assitst == "โครงการ" || Model.type_assitst == "โครงงาน" || Model.type_assitst == "ปัญหาพิเศษ")
+                        {
+                            <label>เรื่อง @Model.detail_assist</label><br>
+                        }
+                        else
+                        {
+                            <label>เรื่อง.....................................................................................................................................</label><br>
+                        }
+                        
+
+                        <label>ซึ่งเป็นงานที่</label> 
+                        @if (Model.supportType == "ได้รับทุนสนับสนุนจาก")
+                        {
+                            <input type="radio" checked disabled>
+                            <label>ได้รับทุนสนับสนุนจากแหล่งทุน @Model.desc_assist1</label>
+                        }
+                        else
+                        {
+                            <input type="radio" disabled>
+                            <label>ได้รับทุนสนับสนุนจากแหล่งทุน.............................................................................................................................................................................................</label>
+                        }
                         <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if (Model.supportType != "ได้รับทุนสนับสนุนจาก" || Model.supportType != "เหตุผลอื่นๆ")
+                        {
+                            <input type="radio" checked disabled>
+                        }
+                        else
+                        {
+                            <input type="radio" disabled>
+                        }
+                        <label>ไม่ได้รับทุนสนับสนุนจากแหล่งทุนใดๆ</label>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>เพื่อใช้สนับสนุนการเรียนการสอน ดังนี้</label><br>
-                        <label>- รายวิชา</label><br>
-
-                        <input id="checkBox" name="" type="checkbox">
-                        <label>เพื่อใช้สนับสนุนสำหรับ</label><br>
-                        <input type="radio">
-                        <label>โครงการ</label><br>
-                        <input type="radio">
-                        <label>โครงงาน</label><br>
-                        <input type="radio">
-                        <label>
-                            ปัญหาพิเศษ
-                            เรื่อง...................................................................................................
-                        </label><br>
-
-                        <label>ซึ่งเป็นงานที่</label><br>
-                        <input type="radio">
-                        <label>ได้รับทุนสนับสนุนจากแหล่งทุน..............................................................................................................................................</label><br>
-                        <input type="radio">
-                        <label>ไม่ได้รับทุนสนับสนุนจากแหล่งทุนใดๆ</label><br>
-                        <input type="radio">
-                        <label>เหตุผลอื่นๆ..............................................................................................................................................</label>
-
-
+                        @if (Model.supportType == "เหตุผลอื่นๆ")
+                        {
+                            <input type="radio" checked disabled>
+                            <label>เหตุผลอื่นๆ @Model.desc_assist2</label>
+                        }
+                        else
+                        {
+                            <input type="radio" disabled>
+                            <label>เหตุผลอื่นๆ..................................................................................................................................................................................................................................</label>
+                        }
+                        
                         <table id="customers" align="center">
                             <thead>
                                 <tr>
@@ -180,7 +252,7 @@
                                             var sum = item.AmtProduct * item.Price_Per_Piece;
                                             all_sum += sum;
                                         }
-                                        <td style="text-align:center">@Convert.ToDecimal(sum).ToString("###,###,##0.00")</td>
+                                        <td style="text-align:right">@Convert.ToDecimal(sum).ToString("###,###,##0.00")</td>
                                     </tr>
                                 }
                             }
@@ -249,7 +321,7 @@
                                     }
                                     else
                                     {
-                                        <input id="checkBox" name="" type="checkbox">
+                                        <input id="checkBox" name="" type="checkbox" disabled>
                                         <label>ใบเสนอราคาจำนวน..........ราย</label>
                                     }
                                     <br>
@@ -263,7 +335,7 @@
                                     }
                                     else
                                     {
-                                        <input id="checkBox" name="" type="checkbox">
+                                        <input id="checkBox" name="" type="checkbox" disabled>
                                         <label>
                                             ขอบเขตของงาน/รายระเอียดคุณลักษณะ จำนวน................หน้า
                                             (*กรณีการจัดซื้อจัดจ้างวงเงินตั้งเเต่ 10,000 บาท)
@@ -280,7 +352,7 @@
                                     }
                                     else
                                     {
-                                        <input id="checkBox" name="" type="checkbox">
+                                        <input id="checkBox" name="" type="checkbox" disabled>
                                         <label>
                                             เอกสารรายชื้อนิสิตในการลงทะเบียนเรียนรายวิชาโครงงาน/ปัญหาพิเศษ
                                             จำนวน................หน้า
@@ -297,7 +369,7 @@
                                     }
                                     else
                                     {
-                                        <input id="checkBox" name="" type="checkbox">
+                                        <input id="checkBox" name="" type="checkbox" disabled>
                                         <label>
                                             เอกสารที่ได้รับอนุมัติงบประมาณ จำนวน................หน้า
                                             (*กรณีการปรับแผนซื้อครุภัณฑ์)
@@ -314,7 +386,7 @@
                                     }
                                     else
                                     {
-                                        <input id="checkBox" name="" type="checkbox">
+                                        <input id="checkBox" name="" type="checkbox" disabled>
                                         <label>
                                             เอกสารประกอบอื่นๆ (ถ้ามี)
                                             ได้แก่.............................................................................................................จำนวน................หน้า
@@ -381,14 +453,14 @@
                                 }
                             </tr>
                         </table>
-                        <table id="customers" width="100%">
-                            <tr>
-                                <th colspan="2">ภาคปกติ</th>
-                            </tr>
-                            <tr>
-                                @if (Model.definition == "ปกติ")
-                                {
-                                    if (Model.des_approval3 != null)
+                        @if (Model.definition == "ปกติ")
+                        {
+                            <table id="customers" width="100%">
+                                <tr>
+                                    <th colspan="2">ภาคปกติ</th>
+                                </tr>
+                                <tr>
+                                    @if (Model.des_approval3 != null)
                                     {
                                         <td width="50%">
                                             1) เรียนคณบดี <br>
@@ -397,7 +469,10 @@
                                                 <img src="~/img/signature/@Model.esign_approval3" height=50px /><br>
                                                 (@Model.name_approval3)<br>
                                                 นักวิเคราะนโยบายและแผนชำนาญการ<br>
-                                                (@Model.date_approval3)
+                                                @{
+                                                    var date_app3 = @Model.date_approval3.ToString().Split(" ");
+                                                }
+                                                (@date_app3[0])
                                             </p>
                                         </td>
                                     }
@@ -416,7 +491,7 @@
                                             </p>
                                         </td>
                                     }
-                                    if (Model.des_approval4 != null)
+                                    @if (Model.des_approval4 != null)
                                     {
                                         <td width="50%">
                                             2) เรียนคณบดี<br>
@@ -425,7 +500,10 @@
                                                 <img src="~/img/signature/@Model.esign_approval4" height=50px /><br>
                                                 (@Model.name_approval4)<br>
                                                 หัวหน้าสำนักงานเลขานุการ<br>
-                                                (@Model.date_approval4)
+                                                @{
+                                                    var date_app4 = @Model.date_approval4.ToString().Split(" ");
+                                                }
+                                                (@date_app4[0])
                                             </p>
                                         </td>
                                     }
@@ -444,44 +522,17 @@
                                             </p>
                                         </td>
                                     }
-                                }
-                                else
-                                {
-                                    <td width="50%">
-                                        1) เรียนคณบดี <br>
-                                        ......................................................................................................................................<br>
-                                        ......................................................................................................................................<br>
-                                        ......................................................................................................................................<br>
-                                        <p style="text-align:center">
-                                            ..........................................................<br>
-                                            (@Model.name_approval3)<br>
-                                            นักวิเคราะนโยบายและแผนชำนาญการ<br>
-                                            (.........../.........../...........)
-                                        </p>
-                                    </td>
-                                    <td width="50%">
-                                        2) เรียนคณบดี<br>
-                                        ......................................................................................................................................<br>
-                                        ......................................................................................................................................<br>
-                                        ......................................................................................................................................<br>
-                                        <p style="text-align:center">
-                                            ..........................................................<br>
-                                            (@Model.name_approval4)<br>
-                                            หัวหน้าสำนักงานเลขานุการ<br>
-                                            (.........../.........../...........)
-                                        </p>
-                                    </td>
-                                }
-                            </tr>
-                        </table>
-                        <table id="customers" width="100%">
-                            <tr>
-                                <th colspan="3">ภาคพิเศษ</th>
-                            </tr>
-                            <tr>
-                                @if (Model.definition == "พิเศษ")
-                                {
-                                    if (Model.des_approval3 != null)
+                                </tr>
+                            </table>
+                        }
+                        @if (Model.definition == "พิเศษ")
+                        {
+                            <table id="customers" width="100%">
+                                <tr>
+                                    <th colspan="3">ภาคพิเศษ</th>
+                                </tr>
+                                <tr>
+                                    @if (Model.des_approval3 != null)
                                     {
                                         <td width="33.33%">
                                             1) เรียนประธานกรรมการฯ<br>
@@ -510,7 +561,7 @@
                                         </td>
                                     }
 
-                                    if (Model.des_approval4 != null)
+                                    @if (Model.des_approval4 != null)
                                     {
                                         <td width="33.33%">
                                             2) เรียนประธานกรรมการฯ<br>
@@ -539,7 +590,7 @@
                                         </td>
                                     }
 
-                                    if (Model.des_approval5 != null)
+                                    @if (Model.des_approval5 != null)
                                     {
                                         <td width="33.33%">
                                             3) เรียนคณบดี<br>
@@ -567,49 +618,11 @@
                                             </p>
                                         </td>
                                     }
-                                }
-                                else
-                                {
-                                    <td width="33.33%">
-                                        1) เรียนประธานกรรมการฯ<br>
-                                        .......................................................................................<br>
-                                        .......................................................................................<br>
-                                        .......................................................................................<br>
-                                        <p style="text-align:center">
-                                            ..........................................................<br>
-                                            (@Model.name_approval3)<br>
-                                            นักวิเคราะนโยบายและแผนชำนาญการ<br>
-                                            (.........../.........../...........)
-                                        </p>
-                                    </td>
-                                    <td width="33.33%">
-                                        2) เรียนประธานกรรมการฯ<br>
-                                        .......................................................................................<br>
-                                        .......................................................................................<br>
-                                        .......................................................................................<br>
-                                        <p style="text-align:center">
-                                            ..........................................................<br>
-                                            (@Model.name_approval4)<br>
-                                            หัวหน้าสำนักงานเลขานุการ<br>
-                                            (.........../.........../...........)
-                                        </p>
-                                    </td>
-                                    <td width="33.33%">
-                                        3) เรียนคณบดี<br>
-                                        .......................................................................................<br>
-                                        .......................................................................................<br>
-                                        .......................................................................................<br>
-                                        <p style="text-align:center">
-                                            ..........................................................<br>
-                                            (@Model.date_approval5)<br>
-                                            ประธานกรรมการดำเนินงานฯ<br>
-                                            (.........../.........../...........)
-                                        </p>
-                                    </td>
-                                }
-                            </tr>
+                                    }
+                                </tr>
 
-                        </table>
+                            </table>
+                        }
 
 
                         <button class="button button3">Export PDF</button>
