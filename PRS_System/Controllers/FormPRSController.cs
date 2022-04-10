@@ -693,7 +693,7 @@ namespace PRS_System.Controllers
                 Createview.sumproduct = Math.Round(sumvalue + vaxvalue, 2);
                 Createview.Subjectdata = _formService.GetValuesFormPRSSubject(id_tor);
 
-                if (Createview.status == "Sent to Approval")
+                if (Createview.status == "Approved")
                 {
                     FormPRSModel order_diract = new FormPRSModel();
                     order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);
