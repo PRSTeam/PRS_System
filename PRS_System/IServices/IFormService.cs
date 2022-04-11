@@ -8,7 +8,7 @@ namespace PRS_System.IServices
 {
     public interface IFormService
     {
-        public void AddFormDetailData(FormPRSDataModel formdetaildata);
+        public int AddFormDetailData(FormPRSDataModel formdetaildata);
         public void AddSubjectData(List<SubjectDataModel> formdetaildata, int ID_TOR);
         public void AddProductData(List<ProductDataModel> formdetaildata, int ID_TOR);
         public int GetMaximumID_TOR();

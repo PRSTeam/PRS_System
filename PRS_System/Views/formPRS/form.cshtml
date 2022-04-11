@@ -1146,7 +1146,7 @@
                     dataType: "JSON",
                     processData: false,
                     success: function (data) {
-
+                        var id_tor_2 = data.idtor
                         console.log(data);
                         if (data.status == "success") {
                             Swal.fire({
@@ -1156,8 +1156,31 @@
                                 confirmButtonText: 'Ok'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    
-                                   
+                                    let status = document.getElementById("buttonstatus").value;
+                                    alert(status)
+                                    if (status == "Sent") {
+                                        alert("id_tor" + id_tor_2)
+                                            let emailadmin = '@Model.stringlistemail_admin';
+                                             @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
+                                        const arrayemail = emailadmin.split("/");
+                                        for (let i = 0; i < arrayemail.length; i++) {
+                                            
+                                            Email.send({
+                                                Host: "smtp.gmail.com",
+                                                Username: "chinopas.muangthai@gmail.com",
+                                                Password: "aukijdfxsurfnmlu",
+                                                To: arrayemail[i],
+                                                From: "chinopas.muangthai@gmail.com",
+                                                Subject: "Test send Email",
+                                                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2
+                                         })
+                                                .then(function (message) {
+                                                    alert("mail sent successfully " + "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2)
+                                                });
+
+                                        }
+                                    }
+
 
                                     location.href ="@Url.Action("index", "FormPRS")";
                                 }
@@ -1178,28 +1201,7 @@
                         alert("Error save fail");
                     }
                 });
-                let status = document.getElementById("buttonstatus").value;
-                if (status == "Sent") {
 
-                                            let emailadmin = '@Model.stringlistemail_admin';
-                                             @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
-                                        const arrayemail = emailadmin.split("/");
-                                        for (let i = 0; i < arrayemail.length; i++) {
-                                            Email.send({
-                                                Host: "smtp.gmail.com",
-                                                Username: "chinopas.muangthai@gmail.com",
-                                                Password: "aukijdfxsurfnmlu",
-                                                To: arrayemail[i],
-                                                From: "chinopas.muangthai@gmail.com",
-                                                Subject: "Test send Email",
-                                                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor'
-                                         })
-                                                .then(function (message) {
-                                                    @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
-                                                });
-
-                                        }
-                                    }
 
             } catch (error) {
                 console.error('Error:', error);
