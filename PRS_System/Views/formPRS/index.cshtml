@@ -170,7 +170,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="widget-title">History</h4>
-                            <p>ตารางหน้าคำขอผู้จัดซื้อ</p>
+                        
                             <button class="button button1" id="createbutton">+Create</button>
 
                             @*keyword*@
@@ -179,7 +179,8 @@
                                 <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword" placeholder="search...">
                                 <button id="" class="button button4" type ="submit">ค้นหา</button>
                             </form>
-                            
+                            <br>
+                            <p>ตารางหน้าคำขอผู้จัดซื้อ</p>
                             <hr>
                             <table id="customers">
                                 <tr>
@@ -337,6 +338,7 @@
 
                             </table>
                             </div>
+                            <br>
                             <div style="display:@(Model.magnage_pos==""?"None":"block" )">
                                 <p>ตารางหน้าผู้อนุมัติ</p>
                                 <hr>
