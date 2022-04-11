@@ -448,6 +448,7 @@ namespace PRS_System.Controllers
                     {
                         string uniquefile = null;
                         string filepath = null;
+                        FileStream fs = null;
 
                         if (infor_data.FilePic != null)
                         {
@@ -456,9 +457,13 @@ namespace PRS_System.Controllers
                             string[] fileextension = filename.Split(".");
                             //uniquefile = filename + "." + fileextension[1];
                             filepath = Path.Combine(uploadfile, filename);
-                            infor_data.FilePic.CopyTo(new FileStream(filepath, FileMode.Create));
+                            fs = new FileStream(filepath, FileMode.Create);
+                            infor_data.FilePic.CopyTo(fs);
                             infor_data.FilePath = filename;
-                            if (infor_data.Description == null) infor_data.Description = filepath;
+                            if (infor_data.Description == null)
+                            {
+                                infor_data.Description = filepath;
+                            }
                         }
                         else if (infor_data.FilePDF != null)
                         {
@@ -467,7 +472,8 @@ namespace PRS_System.Controllers
                             string[] fileextension = filename.Split(".");
                             //uniquefile = filename + "." + fileextension[1];
                             filepath = Path.Combine(uploadfile, filename);
-                            infor_data.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
+                            fs = new FileStream(filepath, FileMode.Create);
+                            infor_data.FilePDF.CopyTo(fs);
                             infor_data.FilePath = filename;
                         }
                         else
@@ -475,11 +481,11 @@ namespace PRS_System.Controllers
                             return Json(new { status = "error", detail = "Error", errorMessage = "Have a problem while adding new performance testing" });
                         }
 
+                        fs.Close();
                         Console.WriteLine("Check");
                         _informationService.AddNewsDetailData(infor_data.ToAddNews());
 
                         return RedirectToAction("InformationSetting", "AdminSetting");
-                        //return Json(new { status = "success", Messege = "Add Complete" });
                     }
                     catch (Exception ex)
                     {
@@ -498,24 +504,32 @@ namespace PRS_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteData(string filename)
+        public async Task<IActionResult> DeleteData(string filename)
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
+                
                 if (HttpContext.Session.GetString("type_person") == "Admin")
                 {
-                    //ลบไฟล์
-                    var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
-                    string[] fileList = Directory.GetFiles(rootFolderPath, filename);
-                    foreach (var file in fileList)
+                    try
                     {
-                        //System.Diagnostics.Debug.WriteLine(file + "will be deleted");
-                        System.IO.File.Delete(file);
-                        Console.WriteLine(file + "deleted");
-                    }
+                        //ลบไฟล์
+                        var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
+                        string[] fileList = Directory.GetFiles(rootFolderPath, filename);
+                        foreach (var file in fileList)
+                        {
+                            //System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                            System.IO.File.Delete(file);
+                            Console.WriteLine(file + "deleted");
+                        }
 
-                    _informationService.Del_data(filename);
-                    return Json(new { status = "success" });
+                        _informationService.Del_data(filename);
+                        return Json(new { status = "success" });
+                    }
+                    catch(IOException ex)
+                    {
+                        return Json(new { status = "error", detail = ex, errorMessage = "Fail" });
+                    }
                 }
                 else
                 {
