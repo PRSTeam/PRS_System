@@ -318,8 +318,8 @@
                                                 <td>
                                                     <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
                                                     <button type="button" style="display:@(item.Status=="Return to Requester" || item.Status=="Sent"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button button3">Delete</button>
-                                                    <button class="button button1" style="display:@(item.Status=="Sent"?"block":"None" )" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
-                                                    <button class="button button4" style="display:@(item.Status=="Sent"?"block":"None" )" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                                    <button class="button button1"  type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
+                                                    <button class="button button4"  type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                                 </td>
                                                 <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
                                             </tr>

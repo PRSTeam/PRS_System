@@ -230,10 +230,10 @@
                                 }
                                 <br><br>
 
-                                <button type="button" class="button button7" id="showimage1" onclick="showimage(1)">เซ็นอนุมัติ</button><img id="signature1" src="~/img/signature/@Model.FilePath" style="display:none" /><br>
+                                
                                 <input asp-for="buttonstatus" style="display:none" />
                                 <button class="button button2" type="submit" onclick="sentstatus('Draft','PRS','')">บันทึกร่างเอกสาร</button>
-                                <button class="button button3">Export PDF</button>
+                                @*<button class="button button3">Export PDF</button>*@
                                 @if (Model.id_tor == 0)
                                 {
                                     <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
@@ -299,7 +299,7 @@
                                 <input asp-for="User_ID" style="display:none" />
                                 <input  asp-for="Email_approval6" style="display:none"/>
                                 <button  type="button" class="button button2" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                <button type="button" class="button button3" >Export PDF</button>
+                                @*<button type="button" class="button button3" >Export PDF</button>*@
                                 <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
 
                             </fieldset>
@@ -325,10 +325,10 @@
                                     <label>ความคิดเห็น</label><br>
                                     <textarea class="w3-input w3-border w3-round" asp-for="des_approval" cols="50" rows="6"
                                               placeholder="คำอธิบาย"></textarea><br><br>
-                                    <label>ลายเซ็น</label><br><br>
+                                    
                                     <input asp-for="last_approval" value="@Model.name_select2" style="display:none" />
                                     <input asp-for="id_tor" style="display:none" />
-                                    <input asp-for="User_ID" />
+                                    <input asp-for="User_ID" style="display:none" />
                                     
                                     <input type="text" id="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "buttonstatus_3":"")" name="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "buttonstatus_3":"")" style="display:none" />
                                     <button class="button button7">เซ็นอนุมัติ</button><br>
@@ -342,12 +342,12 @@
                                         <label>ความคิดเห็น</label><br>
                                         <textarea class="w3-input w3-border w3-round" asp-for="des_approval2" cols="50" rows="6"
                                                   placeholder="คำอธิบาย"></textarea><br><br>
-                                        <label>ลายเซ็น</label><br><br>
+                                        
                                         <input type="text" id="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร")? "buttonstatus_3":"")" name="@((Model.cerrent_flow =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.cerrent_flow=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") &&(Model.type_user_magnement =="ผู้ประสานงานห้องปฏิบัติการวิทยาศาสตร์"||Model.type_user_magnement=="ผู้ประสานงานหน่วยสนับสนุนเทคโนโลยีสารสนเทศและสื่อสาร") ? "buttonstatus_3":"")" style="display:none" />
                                         <input asp-for="last_approval" value="นักวิเคราะห์นโยบายและแผนชำนาญการ" style="display:none" />
                                         <input asp-for="id_tor" style="display:none" />
-                                        <input asp-for="User_ID" />
-                                        <button class="button button7">เซ็นอนุมัติ</button><br>
+                                        <input asp-for="User_ID" style="display:none" />
+                                        
                                         <button class="button button5" onclick="sentstatus('Return to Requester', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                         <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval2')">เห็นชอบ</button>
                                     </form>
@@ -363,12 +363,12 @@
                                             <label>ความคิดเห็น</label><br>
                                             <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
                                                       placeholder="คำอธิบาย"></textarea><br><br>
-                                            <label>ลายเซ็น</label><br><br>
+                                            <br><br>
                                             <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
                                             <input asp-for="last_approval" value="หัวหน้าสำนักงานเลขานุการ" style="display:none" />
                                             <input asp-for="id_tor" style="display:none" />
-                                            <input asp-for="User_ID" />
-                                            <button class="button button7">เซ็นอนุมัติ</button><br>
+                                            <input asp-for="User_ID" style="display:none" />
+                                            
                                             <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                             <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
                                         </form>
@@ -378,11 +378,11 @@
                                                 <label>ความคิดเห็น</label><br>
                                                 <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
                                                           placeholder="คำอธิบาย"></textarea><br><br>
-                                                <label>ลายเซ็น</label><br><br>
+                                                
                                                 <input type="text" id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ? "buttonstatus_3":"")" style="display:none" />
                                                 <input asp-for="last_approval" value="เสร็จสิ้น" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
-                                                <input asp-for="User_ID"/>
+                                                <input asp-for="User_ID" style="display:none"/>
                                                 
                                                 <button class="button button7">เซ็นอนุมัติ</button><br>
                                                 <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
@@ -399,12 +399,12 @@
                                             <label>ความคิดเห็น</label><br>
                                             <textarea class="w3-input w3-border w3-round" asp-for="des_approval3" cols="50" rows="6"
                                                       placeholder="คำอธิบาย"></textarea><br><br>
-                                            <label>ลายเซ็น</label><br><br>
+                                            <br><br>
                                             <input type="text" id="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="นักวิเคราะห์นโยบายและแผนชำนาญการ" && Model.type_user_magnement=="นักวิเคราะห์นโยบายและแผนชำนาญการ" ? "buttonstatus_3":"")" style="display:none" />
                                             <input asp-for="last_approval" value="กรรมการเลขานุการฯ" style="display:none" />
                                             <input asp-for="id_tor" style="display:none" />
-                                            <input asp-for="User_ID" />
-                                            <button class="button button7">เซ็นอนุมัติ</button><br>
+                                            <input asp-for="User_ID" style="display:none"/>
+                                            
                                             <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                             <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
                                         </form>
@@ -415,12 +415,12 @@
                                                 <label>ความคิดเห็น</label><br>
                                                 <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
                                                           placeholder="คำอธิบาย"></textarea><br><br>
-                                                <label>ลายเซ็น</label><br><br>
+                                                <br><br>
                                                 <input type="text" id="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="กรรมการเลขานุการฯ" && Model.type_user_magnement=="กรรมการเลขานุการฯ" ? "buttonstatus_3":"")" style="display:none" />
                                                 <input asp-for="last_approval" value="ประธานกรรมการดำเนินการฯ" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
-                                                <input asp-for="User_ID" />
-                                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                                <input asp-for="User_ID" style="display:none" />
+                                                
                                                 <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                                 <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
                                             </form>
@@ -430,12 +430,12 @@
                                                 <label>ความคิดเห็น</label><br>
                                                 <textarea class="w3-input w3-border w3-round" asp-for="des_approval4" cols="50" rows="6"
                                                           placeholder="คำอธิบาย"></textarea><br><br>
-                                                <label>ลายเซ็น</label><br><br>
+                                                <br><br>
                                                 <input type="text" id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ"? "buttonstatus_3":"")" name="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ? "buttonstatus_3":"")" style="display:none" />
                                                 <input asp-for="last_approval" value="เสร็จสิ้น" style="display:none" />
                                                 <input asp-for="id_tor" style="display:none" />
-                                                <input asp-for="User_ID" />
-                                                <button class="button button7">เซ็นอนุมัติ</button><br>
+                                                <input asp-for="User_ID" style="display:none"/>
+                                                
                                                 <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                                 <button class="button button6" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
                                             </form>

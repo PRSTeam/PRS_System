@@ -52,7 +52,14 @@
                             <div class="row">
 
                                 <label>ID ผู้ใช้</label><br>
-                                <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required disabled><br><br>
+                                <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required readonly><br><br>
+                                <label>คำนำหน้าชื่อ</label><br>
+                                <select asp-for="Prefix_NameThai" required>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นาง">นางสาว</option>
+                                </select>
+                                <br><br>
                                 <label>ชื่อ นามสกุล</label><br>
                                 <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20" required><br><br>
                                 <label>ตำแหน่งปฏิบัติงาน</label><br>
@@ -72,28 +79,22 @@
                                     <option value="นักวิเคราะห์นโยบายและแผนชำนาญการ">นักวิเคราะห์นโยบายและแผนชำนาญการ</option>
                                     <option value="หัวหน้าสำนักงานเลขานุการ">หัวหน้าสำนักงานเลขานุการ</option>
                                     <option value="นักวิเคราะห์นโยบายและแผนชำนาญการ">นักวิเคราะห์นโยบายและแผนชำนาญการ</option>
-                                    <option value="กรรมการและเลขานุการฯ">กรรมการและเลขานุการ</option>
-                                    <option value="ประธานกรรมการดำเนินงานฯ">กรรมการและเลขานุการฯ</option>
+                                    <option value="กรรมการและเลขานุการฯ">กรรมการและเลขานุการฯ</option>
+                                    <option value="ประธานกรรมการดำเนินงานฯ">ประธานกรรมการดำเนินงานฯ</option>
                                 </select><br><br>
 
 
                                 <br><br>
                                 <label>Email (*Gmail)</label>
                                 <br>
-                                <input type="text" asp-for="Email"  required />
+                                <input type="text" asp-for="Email" required />
                                 <br><br>
-                                <label>คำนำหน้าชื่อ</label><br>
-                                <select asp-for="Prefix_NameThai" required>
-                                    <option value="นาย">นาย</option>
-                                    <option value="นาง">นาง</option>
-                                    <option value="นาง">นางสาว</option>
-                                </select>
-                                <br><br>
+
 
                                 <label>หมวดหมู่ผู้ใช้</label><br>
                                 <input asp-for="Category" class="category2" type="radio" value="Admin">
                                 <label>Admin</label>
-                                <input asp-for="Category" class="category3" type="radio" value="User" >
+                                <input asp-for="Category" class="category3" type="radio" value="User">
                                 <label>User</label><br><br>
 
                                 <label>ลายเซ็น</label><br><br>
@@ -107,7 +108,7 @@
                                 </div>
 
                                 <label>สถานะผู้ใช้</label><br>
-                                <input asp-for="Status" class="status2" type="radio" value="Active" >
+                                <input asp-for="Status" class="status2" type="radio" value="Active">
                                 <label>Active</label>
                                 <input asp-for="Status" class="status3" type="radio" value="Inactive">
                                 <label>Inactive</label><br><br>

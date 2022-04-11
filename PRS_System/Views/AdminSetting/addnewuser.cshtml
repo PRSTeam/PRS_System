@@ -53,6 +53,13 @@
 
                                 <label>ID ผู้ใช้</label><br>
                                 <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required><br><br>
+                                <label>คำนำหน้าชื่อ</label><br>
+                                <select asp-for="Prefix_NameThai" required>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นาง">นางสาว</option>
+                                </select>
+                                <br><br>
                                 <label>ชื่อ นามสกุล</label><br>
                                 <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20" required><br><br>
                                 <label>ตำแหน่งปฏิบัติงาน</label><br>
@@ -82,13 +89,7 @@
                                 <br>
                                 <input type="text" asp-for="Email" required />
                                 <br><br>
-                                <label>คำนำหน้าชื่อ</label><br>
-                                <select asp-for="Prefix_NameThai" required>
-                                    <option value="นาย">นาย</option>
-                                    <option value="นาง">นาง</option>
-                                    <option value="นาง">นางสาว</option>
-                                </select>
-                                <br><br>
+
 
                                 <label>หมวดหมู่ผู้ใช้</label><br>
                                 <input asp-for="Category" type="radio" value="Admin">
