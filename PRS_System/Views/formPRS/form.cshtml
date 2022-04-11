@@ -213,24 +213,63 @@
                                 <input type="number" asp-for="otherSupport_num" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <br><br>
-                                <b>ไฟล์แนบ</b> <br>
-                                <input type="file" accept="application/pdf" asp-for="FilePDF" multiple>
-                                <br>
+                                @{ string checkloginuser2 = Model.login_userid != null ? Model.login_userid : "";
+                                    string statusform2 = Model.status != null ? Model.status : "";
+                                    string checkownerid2 = Model.User_ID != null ? Model.User_ID : Model.login_userid;
+                                }
+                                @if (statusform2 == "Return to Requester" || statusform2 == "Draft" || statusform2 == "")
+                                {
+                                    <b>ไฟล์แนบ </b> <br>
+                                    <label>
+                                        *กรณีที่เป็นเอกสารขอซื้อ
+                                        ไม่เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 1 ใบ และแสดงรายละเอียดของพัสดุที่ขอซื้อ
+                                        หรือ เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 3 ใบ และ TOR 1 ชุด
+                                    </label><br>
+                                    <label>
+                                        *กรณีที่เป็นเอกสารขอจ้าง
+                                        ไม่เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 1 ใบ และ TOR 1 ชุด
+                                        หรือ เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 3 ใบ และ TOR 1 ชุด
+                                    </label><br>
+                                    <input type="file" accept="application/pdf" asp-for="FilePDF" multiple>
+                                    <br>
+                                }
 
-                                @{ if (Model.FilePath != "")
+                                else if (statusform2 != "Return to Requester" && statusform2 != "Draft")
+                                {
+                                    if (Model.FilePath != "")
                                     {
                                         <b>ไฟล์แนบล่าสุด</b> <br>
+                                        <label>
+                                            *กรณีที่เป็นเอกสารขอซื้อ
+                                            ไม่เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 1 ใบ และแสดงรายละเอียดของพัสดุที่ขอซื้อ
+                                            หรือ เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 3 ใบ และ TOR 1 ชุด
+                                        </label><br>
+                                        <label>
+                                            *กรณีที่เป็นเอกสารขอจ้าง
+                                            ไม่เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 1 ใบ และ TOR 1 ชุด
+                                            หรือ เกิน 100,000 บาท ต้องมีใบเสนอราคาอย่างน้อย 3 ใบ และ TOR 1 ชุด
+                                        </label><br>
                                         <a href="~/File/FileDocUser/@Model.FilePath">@Model.FilePath</a>
                                     }
                                     else if (Model.FilePath == "")
                                     {
                                         <b>ไม่มีไฟล์แนบล่าสุด</b>
                                     }
-
                                 }
+                                @*@{ if (Model.FilePath != "")
+            {
+                <b>ไฟล์แนบล่าสุด</b> <br>
+                <a href="~/File/FileDocUser/@Model.FilePath">@Model.FilePath</a>
+            }
+            else if (Model.FilePath == "")
+            {
+                <b>ไม่มีไฟล์แนบล่าสุด</b>
+            }
+
+        }*@
                                 <br><br>
 
-                                
+
                                 <input asp-for="buttonstatus" style="display:none" />
                                 <button class="button button2" type="submit" onclick="sentstatus('Draft','PRS','')">บันทึกร่างเอกสาร</button>
                                 @*<button class="button button3">Export PDF</button>*@
