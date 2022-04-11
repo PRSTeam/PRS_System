@@ -38,7 +38,7 @@ namespace PRS_System.Controllers
             {
                 //indexmodel.ListForm = _formService.GetnamePRS(user_id);
                 indexmodel.Keyword = "";
-                indexmodel.ListForm = _formService.SearchPRS_Proqument(user_id, indexmodel.Keyword);
+                indexmodel.ListForm = _formService.GetnamePRS(user_id);
                 if (indexmodel.category_user == "Admin")
                 { 
                     indexmodel.ListSuppies = _formService.SearchPRS_Suppies(indexmodel.Keyword); 
