@@ -11,12 +11,14 @@
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
+    width: 150px
 }
 
 .button1 {
     background-color: white;
     color: black;
     border: 2px solid #4CAF50;
+    border-radius: 8px;
 }
 
     .button1:hover {
@@ -28,6 +30,7 @@
     background-color: white;
     color: black;
     border: 2px solid #0666f5;
+    border-radius: 8px;
 }
 
     .button2:hover {
@@ -39,6 +42,7 @@
     background-color: white;
     color: black;
     border: 2px solid #8023fa9c;
+    border-radius: 8px;
 }
 
     .button3:hover {
@@ -50,6 +54,7 @@
     background-color: white;
     color: black;
     border: 2px solid #11a36b;
+    border-radius: 8px;
 }
 
     .button4:hover {
@@ -61,6 +66,7 @@
     background-color: white;
     color: black;
     border: 2px solid #ca14149c;
+    border-radius: 8px;
 }
 
     .button5:hover {
@@ -72,6 +78,7 @@
     background-color: white;
     color: black;
     border: 2px solid #05aa139c;
+    border-radius: 8px;
 }
 
     .button6:hover {
@@ -83,6 +90,7 @@
     background-color: white;
     color: black;
     border: 2px solid #3b3b3b9c;
+    border-radius: 8px;
 }
 
     .button7:hover {
