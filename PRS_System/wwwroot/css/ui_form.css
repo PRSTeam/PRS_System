@@ -12,91 +12,66 @@
     transition-duration: 0.4s;
     cursor: pointer;
     width: 150px;
+    border-radius: 8px;
     font-family: 'Kanit', sans-serif;
 }
 
-.button1 {
-    background-color: white;
-    color: black;
+.green {
+    background-color: #4CAF50;
+    color: white;
     border: 2px solid #4CAF50;
-    border-radius: 8px;
 }
 
-    .button1:hover {
-        background-color: #4CAF50;
-        color: white;
+    .green:hover {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
     }
 
-.button2 {
-    background-color: white;
-    color: black;
-    border: 2px solid #0666f5;
-    border-radius: 8px;
+
+
+.yellow {
+    background-color: #f5c906;
+    color: white;
+    border: 2px solid #f5c906;
 }
 
-    .button2:hover {
-        background-color: #0666f5;
-        color: white;
+    .yellow:hover {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
     }
 
-.button3 {
-    background-color: white;
-    color: black;
-    border: 2px solid #8023fa9c;
-    border-radius: 8px;
+
+.red {
+    background-color: #f44336;
+    color: white;
+    border: 2px solid #f44336;
 }
 
-    .button3:hover {
-        background-color: #8023fa9c;
-        color: white;
+    .red:hover {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
     }
 
-.button4 {
-    background-color: white;
-    color: black;
-    border: 2px solid #11a36b;
-    border-radius: 8px;
+.blue {
+    background-color: #01dbf8;
+    color: white;
+    border: 2px solid #01dbf8;
 }
 
-    .button4:hover {
-        background-color: #11a36b;
-        color: white;
+    .blue:hover {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
     }
 
-.button5 {
-    background-color: white;
-    color: black;
-    border: 2px solid #ca14149c;
-    border-radius: 8px;
+.teal {
+    background-color: #215a62;
+    color: white;
+    border: 2px solid #215a62;
 }
 
-    .button5:hover {
-        background-color: #ca14149c;
-        color: white;
-    }
-
-.button6 {
-    background-color: white;
-    color: black;
-    border: 2px solid #05aa139c;
-    border-radius: 8px;
-}
-
-    .button6:hover {
-        background-color: #05aa139c;
-        color: white;
-    }
-
-.button7 {
-    background-color: white;
-    color: black;
-    border: 2px solid #3b3b3b9c;
-    border-radius: 8px;
-}
-
-    .button7:hover {
-        background-color: #3b3b3b9c;
-        color: white;
+    .teal:hover {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
     }
 .add_form_field {
     background-color: white;

@@ -41,18 +41,18 @@
                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
                         <h1>Edit User</h1>
                         <div align="right">
-                            <button class="button button3" onclick="history.back()">Back</button>
+                            <button class="button red" onclick="history.back()">Back</button>
                         </div>
                     </div>
                 </div>
                 <!-- Form -->
-                <form class="w3-container w3-card-4 w3-light-grey" id="user-form" method="post" enctype="multipart/form-data" asp-action="EditUserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
+                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="EditUserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
                     <div class="page-section" id="add">
                         <fieldset class="col-md-4 col-sm-6">
                             <div class="row">
 
                                 <label>ID ผู้ใช้</label><br>
-                                <input type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required readonly><br><br>
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required readonly><br><br>
                                 <label>คำนำหน้าชื่อ</label><br>
                                 <select asp-for="Prefix_NameThai" required>
                                     <option value="นาย">นาย</option>
@@ -61,7 +61,7 @@
                                 </select>
                                 <br><br>
                                 <label>ชื่อ นามสกุล</label><br>
-                                <input type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20" required><br><br>
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20" required><br><br>
                                 <label>ตำแหน่งปฏิบัติงาน</label><br>
                                 <select asp-for="User_Type_Operation" required>
                                     <option value="นักวิชาการเงินและบัญชี ชำนาญการ">นักวิชาการเงินและบัญชี ชำนาญการ</option>
@@ -87,7 +87,7 @@
                                 <br><br>
                                 <label>Email (*Gmail)</label>
                                 <br>
-                                <input type="text" asp-for="Email" required />
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="Email" required />
                                 <br><br>
 
 
@@ -113,8 +113,8 @@
                                 <input asp-for="Status" class="status3" type="radio" value="Inactive">
                                 <label>Inactive</label><br><br>
 
-                                <button class="button button1" id="clearBtn" type="button">Clear signature</button>
-                                <button class="button button2" type="submit" id="submitBtn">Submit</button>
+                                <button class="button blue" id="clearBtn" type="button">Clear signature</button>
+                                <button class="button green" type="submit" id="submitBtn">Submit</button>
 
                             </div> <!-- .contact-form -->
                         </fieldset>

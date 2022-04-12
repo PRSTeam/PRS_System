@@ -38,15 +38,15 @@
         <div class="fluid-container">
             <div>
                 <div class="row">
-                   <div class="w3-container w3-light-blue w3-hover-text-light-grey">
+                   <div >
                      <h1>Add New User</h1>
                      <div align="right">
-                         <button class="button button3" onclick="history.back()">Back</button>
+                         <button class="button red" onclick="history.back()">Back</button>
                      </div>
                    </div>
             </div>
                 <!-- Form -->
-                <form class="w3-container w3-card-4 w3-light-grey" id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
+                <form id="user-form" method="post" enctype="multipart/form-data" asp-action="Addnewuserdata" asp-controller="Adminsetting" onsubmit="AJAXSubmit(this); return false;">
                     <div class="page-section" id="add">
                         <fieldset class="col-md-4 col-sm-6">
                             <div class="row">
@@ -113,8 +113,8 @@
                                 <input asp-for="Status" type="radio" value="Inactive">
                                 <label>Inactive</label><br><br>
 
-                                <button id="clearBtn" type="button">Clear signature</button>
-                                <button type="submit" id="submitBtn">Submit</button>
+                                <button class="button blue" id="clearBtn" type="button">Clear signature</button>
+                                <button class="button green" type="submit" id="submitBtn">Submit</button>
 
                             </div> <!-- .contact-form -->
                         </fieldset>

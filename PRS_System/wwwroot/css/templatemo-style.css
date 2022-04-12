@@ -279,17 +279,17 @@ hr {
 -------------------------------------------------------- */
 .sidebar-menu {
   float: left;
-  width: 23%;
+  width: 18%;
   height: 100%;
   position: fixed;
-  background-color: #5f6d7e;
+  background-color: #060664;
   color: white;
   overflow-y: hidden;
 }
 @media screen and (max-width: 1290px) {
   .sidebar-menu {
     overflow-y: scroll;
-    width: 30%;
+    width: 18%;
   }
 }
 

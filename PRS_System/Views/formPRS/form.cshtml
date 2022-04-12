@@ -42,12 +42,12 @@
                             <h1>FORM</h1>
                             <h2>สำหรับผู้ทำงานขอจัดซื้อ</h2>
                             <div align="right">
-                                <button class="button button5" onclick="history.back()">Back</button>
+                                <button class="button red" onclick="history.back()">Back</button>
                             </div>
                         </div>
                     </div>
-                    <div class="w3-container w3-light-grey">
-                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;" class="w3-container w3-sand">
+                    <div>
+                        <form id="createform" asp-controller="FormPRS" asp-action="AddDataProcurement" enctype="multipart/form-data" method="post" onsubmit="AJAXSubmit(this); return false;">
                             <!-- form_ผู้จัดซื้อ -->
                             <fieldset class="col-md-4 col-sm-8">
                                 <p>ประเภทเอกสาร</p>
@@ -271,15 +271,15 @@
 
 
                                 <input asp-for="buttonstatus" style="display:none" />
-                                <button class="button button2" type="submit" onclick="sentstatus('Draft','PRS','')">บันทึกร่างเอกสาร</button>
+                                <button class="button green" type="submit" onclick="sentstatus('Draft','PRS','')">บันทึกร่างเอกสาร</button>
                                 @*<button class="button button3">Export PDF</button>*@
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button button4" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
+                                    <button class="button green" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button button4" type="submit" onclick="sentstatus('Sent','PRS','')">แก้ไขเอกสาร</button>
+                                    <button class="button red" type="submit" onclick="sentstatus('Sent','PRS','')">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
@@ -287,7 +287,7 @@
                         </form>
                             <!-- form_ฝ่ายพัสดุ -->
         
-                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post" class="w3-container w3-sand">
+                        <form id="suppliesform" asp-controller="FormPRS" asp-action="AddDataSuppies" enctype="multipart/form-data" method="post">
                             <div class="page-section" id="form">
                                 <div class="row">
                                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
@@ -337,9 +337,9 @@
                                 <input asp-for="buttonstatus_2" style="display:none" />
                                 <input asp-for="User_ID" style="display:none" />
                                 <input  asp-for="Email_approval6" style="display:none"/>
-                                <button  type="button" class="button button2" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                <button  type="button" class="button red" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                 @*<button type="button" class="button button3" >Export PDF</button>*@
-                                <button  type="button" class="button button4" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
+                                <button  type="button" class="button green" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
 
                             </fieldset>
                         </form>
@@ -356,7 +356,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <fieldset class="w3-container w3-sand" style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
+                            <fieldset style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
                                 <form id="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       name="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post" >
@@ -370,9 +370,9 @@
                                     <input asp-for="User_ID" style="display:none" />
                                     
                                     <input type="text" id="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "buttonstatus_3":"")" name="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "buttonstatus_3":"")" style="display:none" />
-                                    <button class="button button7">เซ็นอนุมัติ</button><br>
-                                    <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                    <button class="button button6" onclick="sentstatus('Sent to Approval','fieldapproval2','@Model.Email_approval')">เห็นชอบ</button>
+                                    <button class="button blue">เซ็นอนุมัติ</button><br>
+                                    <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                    <button class="button green" onclick="sentstatus('Sent to Approval','fieldapproval2','@Model.Email_approval')">เห็นชอบ</button>
                                 </form>
 
                                 <br><br>
@@ -387,8 +387,8 @@
                                         <input asp-for="id_tor" style="display:none" />
                                         <input asp-for="User_ID" style="display:none" />
                                         
-                                        <button class="button button5" onclick="sentstatus('Return to Requester', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                        <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval2')">เห็นชอบ</button>
+                                        <button class="button red" onclick="sentstatus('Return to Requester', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                        <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval2')">เห็นชอบ</button>
                                     </form>
 
                                 <br><br>
@@ -408,8 +408,8 @@
                                             <input asp-for="id_tor" style="display:none" />
                                             <input asp-for="User_ID" style="display:none" />
                                             
-                                            <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                            <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
+                                            <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                            <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
                                         </form>
                                         <br><br>
                                             <form id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
@@ -423,9 +423,9 @@
                                                 <input asp-for="id_tor" style="display:none" />
                                                 <input asp-for="User_ID" style="display:none"/>
                                                 
-                                                <button class="button button7">เซ็นอนุมัติ</button><br>
-                                                <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                                <button class="button button6" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
+                                                <button class="button blue">เซ็นอนุมัติ</button><br>
+                                                <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button class="button green" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
                                             </form>
 
 
@@ -444,8 +444,8 @@
                                             <input asp-for="id_tor" style="display:none" />
                                             <input asp-for="User_ID" style="display:none"/>
                                             
-                                            <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                            <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
+                                            <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                            <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
                                         </form>
 
                                         <br><br>
@@ -460,8 +460,8 @@
                                                 <input asp-for="id_tor" style="display:none" />
                                                 <input asp-for="User_ID" style="display:none" />
                                                 
-                                                <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                                <button class="button button6" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
+                                                <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
                                             </form>
 
                                             <form id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
@@ -475,8 +475,8 @@
                                                 <input asp-for="id_tor" style="display:none" />
                                                 <input asp-for="User_ID" style="display:none"/>
                                                 
-                                                <button class="button button5" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                                <button class="button button6" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
+                                                <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button class="button green" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
                                             </form>
 
                                             
