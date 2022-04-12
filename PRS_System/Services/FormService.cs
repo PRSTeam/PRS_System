@@ -20,7 +20,7 @@ namespace PRS_System.Services
             _logger = logger;
             _connectionString = Startup.ConnectionString;
         }
-        public void AddFormDetailData(FormPRSDataModel formdetaildata)
+        public int AddFormDetailData(FormPRSDataModel formdetaildata)
         {
             try
             {
@@ -55,6 +55,7 @@ namespace PRS_System.Services
                 command.ExecuteNonQuery();
 
                 connect.Close();
+                return maximum;
             }
             catch (Exception ex)
             {

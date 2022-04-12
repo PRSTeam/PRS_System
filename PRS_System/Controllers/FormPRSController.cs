@@ -313,7 +313,7 @@ namespace PRS_System.Controllers
                     Procurement.User_ID = HttpContext.Session.GetString("uid").ToString();
                     Console.WriteLine("Check");
                     //----แอดข้อมูลFormข้อมูลที่ไม่ได้เป้นลิสต์
-                    _formService.AddFormDetailData(Procurement.FormDataDetail());
+                    int cerrent_idtor=_formService.AddFormDetailData(Procurement.FormDataDetail());
                     Procurement.id_tor = _formService.GetMaximumID_TOR();
                     //--------------------------------
                     _formService.AddProductData(Procurement.Productdata, Procurement.id_tor);
@@ -340,9 +340,9 @@ namespace PRS_System.Controllers
                     {
                         _formService.AddAssist_TOR(Procurement);
                     }
-                    
-                    
 
+
+                    return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete", IDTOR = cerrent_idtor.ToString() });
 
                 }
                 //----Edit Form to Database
@@ -442,8 +442,9 @@ namespace PRS_System.Controllers
                             _formService.UpdateAddSubjectData(Procurement.Subjectdata[i], Procurement.id_tor);
                         }
                     }
+                    return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete", IDTOR = Procurement.id_tor.ToString() });
                 }
-                return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete" });
+                return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete", IDTOR = Procurement.id_tor.ToString() });
                 //if (ModelState.IsValid)
                 //{
 
