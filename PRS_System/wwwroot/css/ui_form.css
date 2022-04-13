@@ -20,6 +20,7 @@
     background-color: #4CAF50;
     color: white;
     border: 2px solid #4CAF50;
+    font-family: 'Kanit', sans-serif;
 }
 
     .green:hover {
@@ -33,6 +34,7 @@
     background-color: #f5c906;
     color: white;
     border: 2px solid #f5c906;
+    font-family: 'Kanit', sans-serif;
 }
 
     .yellow:hover {
@@ -45,6 +47,7 @@
     background-color: #f44336;
     color: white;
     border: 2px solid #f44336;
+    font-family: 'Kanit', sans-serif;
 }
 
     .red:hover {
@@ -56,6 +59,7 @@
     background-color: #01dbf8;
     color: white;
     border: 2px solid #01dbf8;
+    font-family: 'Kanit', sans-serif;
 }
 
     .blue:hover {
@@ -67,9 +71,21 @@
     background-color: #215a62;
     color: white;
     border: 2px solid #215a62;
+    font-family: 'Kanit', sans-serif;
 }
 
     .teal:hover {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
+    }
+.purple {
+    background-color: #750679;
+    color: white;
+    border: 2px solid #750679;
+    font-family: 'Kanit', sans-serif;
+}
+
+    .purple:hover {
         background-color: #ffffff;
         color: rgb(0, 0, 0);
     }
@@ -116,5 +132,11 @@ select {
     padding: 6px 10px;
     border-radius: 4px;
     background-color: #d8fafa;
+    font-family: 'Kanit', sans-serif
+}
+.ui input {
+    width: 10%;
+    padding: 6px 10px;
+    border-radius: 4px;
     font-family: 'Kanit', sans-serif
 }

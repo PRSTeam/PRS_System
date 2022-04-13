@@ -140,19 +140,19 @@
                                         <div id="field@(i)">
 
                                             <label>ชื่อสินค้า</label>
-                                            <input type="text" id="Productdata[@i].NameProduct" Name="Productdata[@i].NameProduct" value="@item.NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
+                                            <input class="ui input" type="text" id="Productdata[@i].NameProduct" Name="Productdata[@i].NameProduct" value="@item.NameProduct" placeholder="บิ๊กเกอร์ 50 มล." required>
 
                                             <label>จำนวนสินค้า</label>
-                                            <input type="number" id="Productdata[@i].AmtProduct" Name="Productdata[@i].AmtProduct" value="@item.AmtProduct" placeholder="99" onkeypress="check_amt()" onkeyup="check_amt()" step="0.01" required>
+                                            <input class="ui input" type="number" id="Productdata[@i].AmtProduct" Name="Productdata[@i].AmtProduct" value="@item.AmtProduct" placeholder="99" onkeypress="check_amt()" onkeyup="check_amt()" step="0.01" required>
 
                                             <label>หน่วยสินค้า</label>
-                                            <input type="text" id="Productdata[@i].Unit" Name="Productdata[@i].Unit" value="@item.Unit" placeholder="อัน" required>
+                                            <input class="ui input" type="text" id="Productdata[@i].Unit" Name="Productdata[@i].Unit" value="@item.Unit" placeholder="อัน" required>
 
                                             <label>ราคาต่อหน่วย</label>
 
-                                            <input type="number" id="Productdata[@i].Price_Per_Piece" value="@item.Price_Per_Piece" onkeypress="sumproductprice()" onkeyup="sumproductprice()" Name="Productdata[@i].Price_Per_Piece" placeholder="100" step="0.01" required />
-                                            <input type="text" id="Productdata[@i].status" Name="Productdata[@i].status" value="@item.status" style="display:none" readonly>
-                                            <input type="number" id="Productdata[@i].Id_Product" Name="Productdata[@i].Id_Product" value="@item.Id_Product" style="display:none" readonly>
+                                            <input class="ui input" type="number" id="Productdata[@i].Price_Per_Piece" value="@item.Price_Per_Piece" onkeypress="sumproductprice()" onkeyup="sumproductprice()" Name="Productdata[@i].Price_Per_Piece" placeholder="100" step="0.01" required />
+                                            <input class="ui input" type="text" id="Productdata[@i].status" Name="Productdata[@i].status" value="@item.status" style="display:none" readonly>
+                                            <input class="ui input" type="number" id="Productdata[@i].Id_Product" Name="Productdata[@i].Id_Product" value="@item.Id_Product" style="display:none" readonly>
                                             @if (i > 0)
                                             {
                                                 <button type="button" id="buttonproduct@(i)" class="delete" onclick="deleteproductfield(@i,'Productdata[@i].status','Productdata[@(i)].Id_Product')">Delete</button>
@@ -163,18 +163,18 @@
                                 </div>
                                 <div>
                                     <label>ภาษีมูลค่าเพิ่ม7%</label>
-                                    <input asp-for="vaxproduct" type="number" style="background-color:white" step="0.01" disabled />
+                                    <input class="ui input" asp-for="vaxproduct" type="number" style="background-color:white" step="0.01" disabled />
                                     <label>มูลค่ารวมทั้งสิ้น</label>
-                                    <input asp-for="sumproduct" type="number" style="background-color:white" step="0.01" disabled />
+                                    <input class="ui input" asp-for="sumproduct" type="number" style="background-color:white" step="0.01" disabled />
                                 </div>
                             </fieldset>
                             <hr>
 
                             <fieldset class="col-md-4 col-sm-6">
                                 <b>รายชื่อคณะกรรมการ ตรวจรับพัสดุ</b><br>
-                                <input type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
-                                <input type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" value="@Model.diractor_2" style="display:@(Model.diractor_2 == "" ? "none" : "block"  )" />
-                                <input type="text" asp-for="diractor_3" placeholder="กรรมการคนที่3" value="@Model.diractor_3" style="display:@(Model.diractor_3 == "" ? "none" : "block"  )" />
+                                <input class="ui input" type="text" asp-for="diractor_1" placeholder="กรรมการคนที่1" />
+                                <input class="ui input" type="text" asp-for="diractor_2" placeholder="กรรมการคนที่2" value="@Model.diractor_2" style="display:@(Model.diractor_2 == "" ? "none" : "block"  )" />
+                                <input class="ui input"type="text" asp-for="diractor_3" placeholder="กรรมการคนที่3" value="@Model.diractor_3" style="display:@(Model.diractor_3 == "" ? "none" : "block"  )" />
                             </fieldset>
                             <hr>
                             <fieldset class="col-md-4 col-sm-6">
@@ -182,13 +182,13 @@
 
                                 <input id="checkbox1" type="checkbox" value="@(Model.quotationNum != 0 ? "true" : " false" )">
                                 <label>ใบเสนอราคา จำนวน</label>
-                                <input type="number" asp-for="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
+                                <input class="ui input" type="number" asp-for="quotationNum" placeholder="จำนวน" size="20" maxlength="6">
                                 <label>หน้า</label>
                                 <br>
 
                                 <input id="checkbox2" name="" type="checkbox" value="@(Model.scopeWork != 0 ? "true" : " false" )">
                                 <label>ขอบเขตของงาน/รายละเอียดคุณลักษณะ</label>
-                                <input type="number" asp-for="scopeWork" placeholder="จำนวน">
+                                <input class="ui input" type="number" asp-for="scopeWork" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <label>*กรณีจัดซื้อจัดจ้างวงเงินตั้งเเต่ 100,000 บาทขึ้นไป</label>
                                 <br>
@@ -201,16 +201,16 @@
 
                                 <input id="checkbox4" name="" type="checkbox" value="@(Model.budgetDoc != 0 ? "true" : " false")">
                                 <label>เอกสารที่ได้รับอนุมัติงบประมาณ จำนวน</label>
-                                <input type="number" asp-for="budgetDoc" placeholder="จำนวน">
+                                <input class="ui input" type="number" asp-for="budgetDoc" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <label>*กรณีปรับแผนซื้อครุภัณฑ์</label>
                                 <br>
 
                                 <input id="checkbox5" name="" type="checkbox" value="@(Model.otherSupport_num != 0 && Model.otherSupport != "" ? "true" : " false")">
                                 <label>เอกสารประกอบอื่นๆ(ถ้ามี) ได้แก่</label>
-                                <input type="text" asp-for="otherSupport" placeholder="ชื่อเอกสารอื่นๆ">
+                                <input class="ui input" type="text" asp-for="otherSupport" placeholder="ชื่อเอกสารอื่นๆ">
                                 <label>จำนวน</label>
-                                <input type="number" asp-for="otherSupport_num" placeholder="จำนวน">
+                                <input class="ui input" type="number" asp-for="otherSupport_num" placeholder="จำนวน">
                                 <label>หน้า</label>
                                 <br><br>
                                 @{ string checkloginuser2 = Model.login_userid != null ? Model.login_userid : "";
