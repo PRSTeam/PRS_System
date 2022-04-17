@@ -41,7 +41,7 @@
                     <div class="w3-container w3-light-blue w3-hover-text-light-grey">
                         <h1>Edit User</h1>
                         <div align="right">
-                            <button class="button red" onclick="history.back()">Back</button>
+                            <button class="button red" onclick="history.back()">ย้อนกลับ</button>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         <fieldset class="col-md-4 col-sm-6">
                             <div class="row">
 
-                                <label>ID ผู้ใช้</label><br>
+                                <label>รหัสผู้ใช้งาน</label><br>
                                 <input class="w3-input w3-border w3-round" type="text" asp-for="UserID" placeholder="Ex.sfcfrc" size="20" required readonly><br><br>
                                 <label>คำนำหน้าชื่อ</label><br>
                                 <select asp-for="Prefix_NameThai" required>
@@ -60,7 +60,7 @@
                                     <option value="นาง">นางสาว</option>
                                 </select>
                                 <br><br>
-                                <label>ชื่อ นามสกุล</label><br>
+                                <label>ชื่อ - นามสกุล</label><br>
                                 <input class="w3-input w3-border w3-round" type="text" asp-for="Full_NameThai" placeholder="Ex.ชิโนภาส เมืองไทย" size="20" required><br><br>
                                 <label>ตำแหน่งปฏิบัติงาน</label><br>
                                 <select asp-for="User_Type_Operation" required>
