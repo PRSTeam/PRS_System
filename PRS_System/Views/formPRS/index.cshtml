@@ -123,7 +123,7 @@
                     @*<li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                     <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
                     <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>*@
-                    <li><a href="#setting"><i class="fa fa-cog"></i>Admin Setting</a></li>
+                    <li><a href="#setting"><i class="fa fa-cog"></i>การตั้งค่าผู้ดูแลระบบ</a></li>
                 </ul>
             </div>
         </div>
@@ -143,17 +143,17 @@
                 @if (Context.Session.GetString("type_person").ToString() == "Admin")
                 {
                     <li class="dropdown">
-                    <i class="fa fa-cog"></i>Admin Setting
+                    <i class="fa fa-cog"></i>การตั้งค่าผู้ดูแลระบบ
                     <div class="dropdown-content">
-                        <a href="@Url.Action("ShowListuser","AdminSetting")" id="Admin_Setting">Admin Control</a>
-                        <a href="@Url.Action("informationsetting","AdminSetting")" id="Information_Setting">Information Control</a>
+                        <a href="@Url.Action("ShowListuser","AdminSetting")" id="Admin_Setting">จัดการบัญชีผู้ใช้</a>
+                        <a href="@Url.Action("informationsetting","AdminSetting")" id="Information_Setting">แก้ไขหน้าประชาสัมพันธ์</a>
                     </div>
                 </li>
                 }
                 
                 @if (!string.IsNullOrEmpty(Context.Session.GetString("AccessToken")))
                 {
-                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>Logout</a></li>
+                    <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i>ออกจากระบบ</a></li>
                 }
             </ul>
         </div> <!-- .main-navigation -->
@@ -171,12 +171,12 @@
                         <div class="col-md-12">
                             <h4 class="widget-title">History</h4>
                         
-                            <button class="button green" id="createbutton">+Create</button>
+                            <button class="button green" id="createbutton">สร้างฟอร์ม</button>
 
                             @*keyword*@
                             <br><label>Search</label>
                             <form asp-action="index" asp-controller="FormPRS" method="post">
-                                <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword" placeholder="search...">
+                                <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword" placeholder="ค้นหา...">
                                 <button id="" class="button blue" type ="submit">ค้นหา</button>
                             </form>
                             <br>
@@ -184,14 +184,14 @@
                             <hr>
                             <table id="customers">
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Procurement Request</th>
-                                    <th>Status</th>
+                                    <th>หมายเลข</th>
+                                    <th>คำขอจัดซื้อหรือจ้าง</th>
+                                    <th>สถานะ</th>
                                     <th>
                                         Waiting
                                     </th>
-                                    <th>Function</th>
-                                    <th>Date</th>
+                                    <th>ฟังก์ชั่น</th>
+                                    <th>วันที่</th>
                                 </tr>
                                 @{int countfield = Model.ListForm != null ? Model.ListForm.Count : 0;}
                                 @if(countfield ==0)
@@ -237,7 +237,7 @@
                                         </td>
 
                                         <td>
-                                            <button style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button yellow" onclick="formpage(@item.id_tor)">View</button>
+                                            <button style="display:@(item.Status=="Return to Requester"?"None":"block" )" class="button yellow" onclick="formpage(@item.id_tor)">ดู</button>
                                             <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" class="button yellow" onclick="formpage(@item.id_tor)">Edit</button>
                                             <button type="button" style="display:@(item.Status=="Return to Requester"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">Delete</button>
                                             <button class="button purple" style="display:@(item.Status=="Approved"?"block":"None" )" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
@@ -259,15 +259,15 @@
                                 </form>*@
                             <table id="customers" style="display:@(Model.category_user=="Admin"?"block":"None" )">
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Name of Purchaser</th>
-                                    <th>Procurement Request</th>
-                                    <th>Status</th>
+                                    <th>หมายเลข</th>
+                                    <th>ชื่อ - นามสกุล</th>
+                                    <th>คำขอจัดซื้อหรือจ้าง</th>
+                                    <th>สถานะ</th>
                                     <th>
                                         Waiting
                                     </th>
-                                    <th>Function</th>
-                                    <th>Date</th>
+                                    <th>ฟังก์ชั่น</th>
+                                    <th>วันที่</th>
                                 </tr>
 
                                 @{int countfield2 = Model.ListSuppies != null ? Model.ListSuppies.Count : 0;}
@@ -317,8 +317,8 @@
                                                     @item.cerrent_flow
                                                 </td>
                                                 <td>
-                                                    <button class="button yellow" onclick="formpage(@item.id_tor)">View And approval</button>
-                                                    <button type="button" style="display:@(item.Status=="Return to Requester" || item.Status=="Sent"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">Delete</button>
+                                                    <button class="button yellow" onclick="formpage(@item.id_tor)">ดูและอนุมัติ</button>
+                                                    <button type="button" style="display:@(item.Status=="Return to Requester" || item.Status=="Sent"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">ลบ</button>
                                                     <button class="button purple"  type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
                                                     <button class="button teal"  type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
                                                 </td>
@@ -348,15 +348,15 @@
                                 </form>*@
                             <table id="customers" style="display:@(Model.magnage_pos==""?"none":"block" )">
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Name of Purchaser</th>
-                                    <th>Procurement Request</th>
-                                    <th>Status</th>
+                                    <th>หมายเลข</th>
+                                    <th>ชื่อ - นามสกุล</th>
+                                    <th>คำขอจัดซื้อหรือจ้าง</th>
+                                    <th>สถานะ</th>
                                     <th>
                                         Waiting
                                     </th>
-                                    <th>Function</th>
-                                    <th>Date</th>
+                                    <th>ฟังก์ชั่น</th>
+                                    <th>วันที่</th>
                                 </tr>
 
                                 @{int countfield3 = Model.ListApproval.Count;}
