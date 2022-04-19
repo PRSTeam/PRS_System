@@ -281,11 +281,11 @@
                                         </td>
 
                                         <td>
-                                            <button style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข"?"None":"block" )" class="button yellow" onclick="formpage(@item.id_tor)">View</button>
-                                            <button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข"?"block":"None" )" class="button yellow" onclick="formpage(@item.id_tor)">Edit</button>
-                                            <button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">Delete</button>
-                                            <button class="button red" style="display:@(item.Status=="เห็นชอบ"?"block":"None" )" type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
-                                            <button class="button teal" style="display:@(item.Status=="เห็นชอบ"?"block":"None" )" type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                            <button style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข"?"None":"block" )" class="button yellow" onclick="formpage(@item.id_tor)">ดู</button>
+                                            <button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข"?"block":"None" )" class="button yellow" onclick="formpage(@item.id_tor)">แก้ไข</button>
+                                            <button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">ลบ</button>
+                                            <button class="button red" style="display:@(item.Status=="เห็นชอบ"?"block":"None" )" type="button" onclick="torpdf(@item.id_tor)">พิมพ์เอกสาร TOR PDF</button>
+                                            <button class="button teal" style="display:@(item.Status=="เห็นชอบ"?"block":"None" )" type="button" onclick="productpdf(@item.id_tor)">พิมพ์เอกสาร PRODUCT PDF</button>
                                             @*<button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข "?"block":"None" )" class="button button4">ร่างเอกสาร </button>*@
                                         </td>
                                         <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
@@ -361,10 +361,10 @@
                                                     @item.cerrent_flow
                                                 </td>
                                                 <td>
-                                                    <button class="button yellow" onclick="formpage(@item.id_tor)">View And approval</button>
-                                                    <button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข" || item.Status=="ส่งแล้ว"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">Delete</button>
-                                                    <button class="button red"  type="button" onclick="torpdf(@item.id_tor)">Export TOR PDF</button>
-                                                    <button class="button teal"  type="button" onclick="productpdf(@item.id_tor)">Export PRODUCT PDF</button>
+                                                    <button class="button yellow" onclick="formpage(@item.id_tor)">ดูและให้ความเห็น</button>
+                                                    <button type="button" style="display:@(item.Status=="ส่งคืนเพื่อแก้ไข" || item.Status=="ส่งแล้ว"?"block":"None" )" onclick="deleteAllFormPRS(@item.id_tor)" class="button red">ลบ</button>
+                                                    <button class="button red"  type="button" onclick="torpdf(@item.id_tor)">พิมพ์เอกสาร TOR PDF</button>
+                                                    <button class="button teal"  type="button" onclick="productpdf(@item.id_tor)">พิมพ์เอกสาร PRODUCT PDF</button>
                                                 </td>
                                                 <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
                                             </tr>
@@ -442,7 +442,7 @@
                                                     @item.cerrent_flow
                                                 </td>
                                                 <td>
-                                                    <button class="button button2" onclick="formpage(@item.id_tor)">View And approval</button>
+                                                    <button class="button button2" onclick="formpage(@item.id_tor)">ดูและให้ความเห็น</button>
                                                 </td>
                                                 <td>@item.Date.Value.ToString("dd-MM-yyyy")</td>
                                             </tr>
