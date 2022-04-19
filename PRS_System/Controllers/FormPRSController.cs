@@ -172,7 +172,7 @@ namespace PRS_System.Controllers
                     {
                         Createview.desc_assist2 = assist.desc_assist3;
                     }
-                    if(Createview.status == "Sent" || Createview.status == "Approved" || Createview.status == "Return to Requester")
+                    if(Createview.status == "ส่งแล้ว" || Createview.status == "เห็นชอบ" || Createview.status == "ส่งคืนเพื่อแก้ไข")
                     {
                         FormPRSModel order_diract = new FormPRSModel();
                         order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);
@@ -181,7 +181,7 @@ namespace PRS_System.Controllers
                         Createview.name_select2 = order_diract.name_select2;
                         Createview.definition = order_diract.definition;
                     }
-                    if(Createview.status == "Sent to Approval" || Createview.status == "Approved" || Createview.status == "Return to Requester")
+                    if(Createview.status == "ส่งให้ผู้อนุมัติ" || Createview.status == "เห็นชอบ" || Createview.status == "ส่งคืนเพื่อแก้ไข")
                     {
                         FormPRSModel order_diract = new FormPRSModel();
                         order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);
@@ -268,7 +268,7 @@ namespace PRS_System.Controllers
                     Createview.stringlistemail_admin = listemailadmin.Substring(0, (listemailadmin.Length - 1));
                 }
                 
-                Console.WriteLine("Check" + id_tor);
+                Console.WriteLine("Check" + Createview.status);
                 Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
                 UserDataModel user_login = _accountService.CheckLogin(Createview.User_ID);
                 Createview.Email_Proquement = user_login.Email;
@@ -342,7 +342,7 @@ namespace PRS_System.Controllers
                     }
 
 
-                    return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete", IDTOR = cerrent_idtor.ToString() });
+                    return Json(new { status = "success", Messege = "Add Complete", IDTOR = cerrent_idtor.ToString() });
 
                 }
                 //----Edit Form to Database
@@ -359,6 +359,16 @@ namespace PRS_System.Controllers
                         filepath = Path.Combine(uploadfile, uniquefile);
                         Procurement.FilePDF.CopyTo(new FileStream(filepath, FileMode.Create));
                         Procurement.FilePath = uniquefile;
+                        //---Delete old file
+                        FormPRSModel getdata = _formService.GetValuesFormPRS(Procurement.id_tor);
+                        var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\FileDocUser");
+                        string[] fileList = Directory.GetFiles(rootFolderPath, getdata.FilePath);
+                        foreach (var file in fileList)
+                        {
+                            //System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                            System.IO.File.Delete(file);
+                        }
+                        
                     }
                     else if(Procurement.FilePDF == null)
                     {
@@ -442,8 +452,8 @@ namespace PRS_System.Controllers
                             _formService.UpdateAddSubjectData(Procurement.Subjectdata[i], Procurement.id_tor);
                         }
                     }
-                    return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete", IDTOR = Procurement.id_tor.ToString() });
-                }
+                    return Json(new { status = "success", Messege = "Update Complete", IDTOR = Procurement.id_tor.ToString() });
+                    }
                 return Json(new { status = "success", Messege = (Procurement.id_tor == 0 ? "Add" : "Update") + "Complete", IDTOR = Procurement.id_tor.ToString() });
                 //if (ModelState.IsValid)
                 //{
@@ -468,11 +478,11 @@ namespace PRS_System.Controllers
         {
             try
             {
-                if(Suppies.name_select1 !="" && Suppies.name_select2 !="" && Suppies.definition !=null || Suppies.buttonstatus_2 == "Return to Requester" || Suppies.buttonstatus_2 == "Sent to Approval")
+                if(Suppies.name_select1 !="" && Suppies.name_select2 !="" && Suppies.definition !=null || Suppies.buttonstatus_2 == "ส่งคืนเพื่อแก้ไข" || Suppies.buttonstatus_2 == "ส่งให้ผู้อนุมัติ")
 
                 {
                     Suppies.category_user = Suppies.name_select1;
-                    if (Suppies.buttonstatus_2 == "Sent to Approval")
+                    if (Suppies.buttonstatus_2 == "ส่งให้ผู้อนุมัติ")
                     {
                         FormPRSModel check_order_data = _formService.Get_PRS_ORDER_DIRACT(Suppies.id_tor);
                         //checkว่าค้นหาข้อมูลจัดซื้อว่ามีหรือไม่ ถ้าไม่มีให้เพิ่ม ถ้ามีให้แก้ไข
@@ -489,7 +499,7 @@ namespace PRS_System.Controllers
 
 
                     }
-                    else if (Suppies.buttonstatus_2 == "Return to Requester")
+                    else if (Suppies.buttonstatus_2 == "ส่งคืนเพื่อแก้ไข")
                     {
 
                         _formService.updatestatusform(Suppies.buttonstatus_2, Suppies.id_tor, Suppies.User_ID);
@@ -497,9 +507,9 @@ namespace PRS_System.Controllers
                     }
                     
                 }
-                else if(Suppies.name_select1 == "" || Suppies.name_select2 == "" || Suppies.definition == null && Suppies.buttonstatus_2 != "Return to Requester")
+                else if(Suppies.name_select1 == "" || Suppies.name_select2 == "" || Suppies.definition == null && Suppies.buttonstatus_2 != "ส่งคืนเพื่อแก้ไข")
                 {
-                    return Json(new { status = "error", detail = Suppies.buttonstatus_2 + " Fail", errorMessage = "กรอกข้อมูลไม่ครบ" });
+                    return Json(new { status = "error", detail = Suppies.buttonstatus_2 + "Fail", errorMessage = "กรอกข้อมูลไม่ครบ" });
                 }
                 return Json(new { status = "success", Messege = Suppies.buttonstatus_2 + " Complete" });
 
@@ -581,16 +591,16 @@ namespace PRS_System.Controllers
 
                 }
                 UserDataModel user_PRS = _accountService.CheckLogin(Approver.User_ID);
-                if (Approver.buttonstatus_3 == "Sent to Approval" || Approver.buttonstatus_3 == "Approved")
+                if (Approver.buttonstatus_3 == "ส่งให้ผู้อนุมัติ" || Approver.buttonstatus_3 == "เห็นชอบ")
                 {
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
                 }
-                else if (Approver.buttonstatus_3 == "Return to Requester")
+                else if (Approver.buttonstatus_3 == "ส่งคืนเพื่อแก้ไข")
                 {
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, user_PRS.Full_NameThai);
                 }
 
-                return Json(new { status = "success", messege = (checkcomment.comment == null ? "Add Approval" : "Update Approval") + "Complete" });
+                return Json(new { status = "success", messege = "Approval Complete" });
             }
             catch (Exception ex)
             {
@@ -666,11 +676,11 @@ namespace PRS_System.Controllers
                     }
 
                 }
-                if (Approver.buttonstatus_3 == "Sent to Approval" || Approver.buttonstatus_3 == "Approved")
+                if (Approver.buttonstatus_3 == "ส่งให้ผู้อนุมัติ" || Approver.buttonstatus_3 == "เห็นชอบ")
                 {
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
                 }
-                else if (Approver.buttonstatus_3 == "Return to Requester")
+                else if (Approver.buttonstatus_3 == "ส่งคืนเพื่อแก้ไข")
                 {
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
                 }
@@ -750,11 +760,11 @@ namespace PRS_System.Controllers
         //            }
                     
         //        }
-        //        if (Approver.buttonstatus_3 == "Sent to Approval" || Approver.buttonstatus_3 == "Approved")
+        //        if (Approver.buttonstatus_3 == "ส่งให้ผู้อนุมัติ" || Approver.buttonstatus_3 == "เห็นชอบ")
         //        {
         //            _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
         //        }
-        //        else if (Approver.buttonstatus_3 == "Return to Requester")
+        //        else if (Approver.buttonstatus_3 == "ส่งคืนเพื่อแก้ไข")
         //        {
         //            _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
         //        }
@@ -906,7 +916,7 @@ namespace PRS_System.Controllers
                     Createview.desc_assist2 = assist.desc_assist3;
                 }
 
-                if (Createview.status == "Approved")
+                if (Createview.status == "เห็นชอบ")
                 {
                     FormPRSModel order_diract = new FormPRSModel();
                     order_diract = _formService.Get_PRS_ORDER_DIRACT(id_tor);

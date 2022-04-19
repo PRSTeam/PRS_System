@@ -8,7 +8,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="th">
+<html class="no-js" lang="th" >
 <!--<![endif]-->
 
 <head>
@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="~/css/normalize.css">
     <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
-    <meta charset="utf-8" />
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    @*<meta charset="utf-8" />*@
     <link rel="stylesheet" href="~/css/normalize.css">
 
     <link rel="stylesheet" href="~/css/font-awesome.css">
@@ -217,7 +218,7 @@
                                     string statusform2 = Model.status != null ? Model.status : "";
                                     string checkownerid2 = Model.User_ID != null ? Model.User_ID : Model.login_userid;
                                 }
-                                @if (statusform2 == "Return to Requester" || statusform2 == "Draft" || statusform2 == "")
+                                @if (statusform2 == "ส่งคืนเพื่อแก้ไข" || statusform2 == "ร่างเอกสาร" || statusform2 == "")
                                 {
                                     <b>ไฟล์แนบ </b> <br>
                                     <label>
@@ -234,7 +235,7 @@
                                     <br>
                                 }
 
-                                else if (statusform2 != "Return to Requester" && statusform2 != "Draft")
+                                else if (statusform2 != "ส่งคืนเพื่อแก้ไข" && statusform2 != "ร่างเอกสาร")
                                 {
                                     if (Model.FilePath != "")
                                     {
@@ -271,15 +272,15 @@
 
 
                                 <input asp-for="buttonstatus" style="display:none" />
-                                <button class="button green" type="submit" onclick="sentstatus('Draft','PRS','')">บันทึกร่างเอกสาร</button>
+                                <button class="button green" type="submit" onclick="sentstatus('ร่างเอกสาร','PRS','')">บันทึกร่างเอกสาร</button>
                                 @*<button class="button button3">Export PDF</button>*@
                                 @if (Model.id_tor == 0)
                                 {
-                                    <button class="button green" type="submit" value="Sent" onclick="sentstatus('Sent','PRS','')">ส่งเอกสาร</button>
+                                    <button class="button green" type="submit" value="ส่งแล้ว" onclick="sentstatus('ส่งแล้ว','PRS','')">ส่งเอกสาร</button>
                                 }
                                 @if (Model.id_tor != 0)
                                 {
-                                    <button class="button red" type="submit" onclick="sentstatus('Sent','PRS','')">แก้ไขเอกสาร</button>
+                                    <button class="button red" type="submit" onclick="sentstatus('ส่งแล้ว','PRS','')">แก้ไขเอกสาร</button>
                                 }
 
                             </fieldset>
@@ -337,9 +338,9 @@
                                 <input asp-for="buttonstatus_2" style="display:none" />
                                 <input asp-for="User_ID" style="display:none" />
                                 <input  asp-for="Email_approval6" style="display:none"/>
-                                <button  type="button" class="button red" onclick="sentstatus('Return to Requester', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                <button  type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข', 'supplies', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
                                 @*<button type="button" class="button button3" >Export PDF</button>*@
-                                <button  type="button" class="button green" onclick="sentstatus('Sent to Approval', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
+                                <button  type="button" class="button green" onclick="sentstatus('ส่งให้ผู้อนุมัติ', 'supplies', '@Model.Email_approval6')">ส่งให้ผู้อนุมัติ</button>
 
                             </fieldset>
                         </form>
@@ -349,14 +350,14 @@
                             
                             <!-- form_ฝ่ายพัสดุ -->
                             <!-- form_ฝ่ายอนุมัติ -->
-                            <div class="page-section" id="form"style="display:@(Model.status == "Sent to Approval" || Model.status=="Approved" ? "block" : "none")">
+                            <div class="page-section" id="form"style="display:@(Model.status == "ส่งให้ผู้อนุมัติ" || Model.status=="เห็นชอบ" ? "block" : "none")">
                                 <div class="row">
                                     <div class="w3-container w3-cyan w3-hover-text-light-grey">
                                         <h2>สำหรับฝ่ายอนุมัติ</h2>
                                     </div>
                                 </div>
                             </div>
-                            <fieldset style="display:@(Model.status == "Sent to Approval"|| Model.status=="Approved" ? "block" : "none")">
+                            <fieldset style="display:@(Model.status == "ส่งให้ผู้อนุมัติ"|| Model.status=="เห็นชอบ" ? "block" : "none")">
                                 <form id="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       name="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"
                                       class="@((Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Model.type_user_magnement =="หัวหน้าภาควิชา"|| Model.type_user_magnement=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||  Model.type_user_magnement=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา")? "fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post" >
@@ -370,9 +371,9 @@
                                     <input asp-for="User_ID" style="display:none" />
                                     
                                     <input type="text" id="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา"? "buttonstatus_3":"")" name="@(Model.cerrent_flow =="หัวหน้าภาควิชา"||Model.cerrent_flow=="หัวหน้าฝ่ายสนับสนุนงานกลาง" ||Model.cerrent_flow=="หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา" ? "buttonstatus_3":"")" style="display:none" />
-                                    <button class="button blue">เซ็นอนุมัติ</button><br>
-                                    <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                    <button class="button green" onclick="sentstatus('Sent to Approval','fieldapproval2','@Model.Email_approval')">เห็นชอบ</button>
+                                    <button type="button" class="button blue">เซ็นอนุมัติ</button><br>
+                                    <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                    <button type="button" class="button green" onclick="sentstatus('ส่งให้ผู้อนุมัติ','fieldapproval2','@Model.Email_approval')">เห็นชอบ</button>
                                 </form>
 
                                 <br><br>
@@ -387,8 +388,8 @@
                                         <input asp-for="id_tor" style="display:none" />
                                         <input asp-for="User_ID" style="display:none" />
                                         
-                                        <button class="button red" onclick="sentstatus('Return to Requester', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                        <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval2')">เห็นชอบ</button>
+                                        <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข', 'fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                        <button type="button" class="button green" onclick="sentstatus('ส่งให้ผู้อนุมัติ', 'fieldapproval2', '@Model.Email_approval2')">เห็นชอบ</button>
                                     </form>
 
                                 <br><br>
@@ -408,8 +409,8 @@
                                             <input asp-for="id_tor" style="display:none" />
                                             <input asp-for="User_ID" style="display:none" />
                                             
-                                            <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                            <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
+                                            <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                            <button type="button" class="button green" onclick="sentstatus('ส่งให้ผู้อนุมัติ', 'fieldapproval2', '@Model.Email_approval3')">เห็นชอบ</button>
                                         </form>
                                         <br><br>
                                             <form id="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="หัวหน้าสำนักงานเลขานุการ" && Model.type_user_magnement=="หัวหน้าสำนักงานเลขานุการ" ?"fieldapproval2":"fieldapproval3")"  enctype="multipart/form-data" method="post">
@@ -423,9 +424,9 @@
                                                 <input asp-for="id_tor" style="display:none" />
                                                 <input asp-for="User_ID" style="display:none"/>
                                                 
-                                                <button class="button blue">เซ็นอนุมัติ</button><br>
-                                                <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                                <button class="button green" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
+                                                <button type="button" class="button blue">เซ็นอนุมัติ</button><br>
+                                                <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button type="button" class="button green" onclick="sentstatus('เห็นชอบ', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
                                             </form>
 
 
@@ -444,8 +445,8 @@
                                             <input asp-for="id_tor" style="display:none" />
                                             <input asp-for="User_ID" style="display:none"/>
                                             
-                                            <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                            <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
+                                            <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                            <button type="button" class="button green" onclick="sentstatus('ส่งให้ผู้อนุมัติ', 'fieldapproval2', '@Model.Email_approval4')">เห็นชอบ</button>
                                         </form>
 
                                         <br><br>
@@ -460,8 +461,8 @@
                                                 <input asp-for="id_tor" style="display:none" />
                                                 <input asp-for="User_ID" style="display:none" />
                                                 
-                                                <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                                <button class="button green" onclick="sentstatus('Sent to Approval', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
+                                                <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button type="button" class="button green" onclick="sentstatus('ส่งให้ผู้อนุมัติ', 'fieldapproval2', '@Model.Email_approval5')">เห็นชอบ</button>
                                             </form>
 
                                             <form id="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" class="@(Model.cerrent_flow=="ประธานกรรมการดำเนินการฯ" && Model.type_user_magnement=="ประธานกรรมการดำเนินการฯ" ?"fieldapproval2":"fieldapproval3")" enctype="multipart/form-data" method="post">
@@ -475,8 +476,8 @@
                                                 <input asp-for="id_tor" style="display:none" />
                                                 <input asp-for="User_ID" style="display:none"/>
                                                 
-                                                <button class="button red" onclick="sentstatus('Return to Requester','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
-                                                <button class="button green" onclick="sentstatus('Approved', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
+                                                <button type="button" class="button red" onclick="sentstatus('ส่งคืนเพื่อแก้ไข','fieldapproval2', '@Model.Email_Proquement')">ส่งคืนเพื่อแก้ไข</button>
+                                                <button type="button" class="button green" onclick="sentstatus('เห็นชอบ', 'fieldapproval2', '@Model.Email_Proquement')">เห็นชอบ</button>
                                             </form>
 
                                             
@@ -546,19 +547,21 @@
         var add_object = $(".add_form_object");
 
         var id_tor = document.getElementById("id_tor").value;
-        // check form prs จัดซื้อว่า ชื่อ ตรงกันหรือไม่ เอาชื่อที่ login กับ ชื่อ ที่เคยกรอกมาเช็คกัน สถานะจะแก้ไขได้ก็ต่อเมื่อ สถานะ เป็น Return to Requester และจะแอดได้ก็ต่อเมื่อสถานะ เป็น ""
+        // check form prs จัดซื้อว่า ชื่อ ตรงกันหรือไม่ เอาชื่อที่ login กับ ชื่อ ที่เคยกรอกมาเช็คกัน สถานะจะแก้ไขได้ก็ต่อเมื่อ สถานะ เป็น ส่งคืนเพื่อแก้ไข และจะแอดได้ก็ต่อเมื่อสถานะ เป็น ""
         @{ string checkloginuser = Model.login_userid != "" ? Model.login_userid:"";
             string statusform = Model.status != "" ? Model.status : "";
             string checkownerid = Model.User_ID != "" ? Model.User_ID : Model.login_userid;
             string category_user = Model.category_user;
             }
-        var checkloginuser ="@checkloginuser";
-        var statusform ="@statusform";
+        var checkloginuser = "@checkloginuser";
+        var statusform = "@statusform";
+        var statusformthai = String.fromCharCode.apply(String, statusform.match(/x[^;]*;/g).map(function (n) { return parseInt(n.slice(1, -1), 16); }));
         var checkuserid = "@checkownerid";
         var checkcategory_user="@category_user";
         if (id_tor != 0) {
+            alert(statusformthai);
 
-            if (checkloginuser != checkuserid || statusform == "Sent" || statusform == "Sent to Approval" || statusform == "Approved" ) {
+            if (checkloginuser != checkuserid || statusformthai == "ส่งแล้ว" || statusformthai == "ส่งให้ผู้อนุมัติ" || statusformthai  == "เห็นชอบ" ) {
                 $("#createform").children('fieldset').children('input').prop("disabled", true);
                 $("#createform").children('fieldset').children('textarea').prop("disabled", true);
                 $("#createform").children('fieldset').children('button').hide();
@@ -578,7 +581,7 @@
         }
 
         //---- Check Form Suppies
-        if (checkcategory_user != "Admin" || statusform != "Sent")
+        if (checkcategory_user != "Admin" || statusformthai  != "ส่งแล้ว")
         {
 
             $("#suppliesform").children('fieldset').children().prop("disabled", true);
@@ -615,7 +618,7 @@
                 Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304"+"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
             })
                 .then(function (message) {
-                alert("mail sent successfully")
+                alert("mail ส่งแล้ว successfully")
                 });
         });
 
@@ -683,7 +686,7 @@
                 Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304"+"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
             })
                 .then(function (message) {
-                    //alert("mail sent successfully")
+                    //alert("mail ส่งแล้ว successfully")
                 });
 
         }
@@ -804,7 +807,7 @@
                         alert("Error save fail");
                     }
                 });
-                if (value == "Sent to Approval") {
+                if (value == "ส่งให้ผู้อนุมัติ") {
                     var email2 = document.getElementById("Email_approval6").value;
                     //alert(email2);
                     Email.send({
@@ -817,10 +820,10 @@
                         Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
-                            //alert("mail sent successfully")
+                            //alert("mail ส่งแล้ว successfully")
                         });
                 }
-                else if (value == 'Return to Requester') {
+                else if (value == 'ส่งคืนเพื่อแก้ไข') {
                     Email.send({
                         Host: "smtp.gmail.com",
                         Username: "chinopas.muangthai@gmail.com",
@@ -828,10 +831,10 @@
                         To: email,
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
-                        Body: "สถานะ ส่งคืนเพื่อแก้ไข ขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                        Body: "สถานะ ส่งคืนเพื่อแก้ไขขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
-                            //alert("mail sent successfully")
+                            //alert("mail ส่งแล้ว successfully")
                         });
                 }
 
@@ -850,7 +853,7 @@
                 var id_tor = document.getElementById("id_tor").value;
                 var form = document.getElementById("fieldapproval2");
                 const url = "@Url.Action("AddDataApprover2", "FormPRS")";
-                
+
                 console.log(url);
                 const formData = new FormData(form);
                 $.ajax({
@@ -861,11 +864,11 @@
                     dataType: "JSON",
                     processData: false,
                     success: function (data) {
-                        alert(data.status);
+                        //alert(data.status);
                         console.log(data);
                         if (data.status == "success") {
                             //alert("success");
-                            location.href = "@Url.Action("index", "FormPRS")";
+
                             Swal.fire({
                                 icon: 'success',
                                 title: data.messege,
@@ -876,6 +879,7 @@
                                     location.href = "@Url.Action("index", "FormPRS")";
                                 }
                             });
+                            @*location.href = "@Url.Action("index", "FormPRS")";*@
 
                         }
                         else if (data.status == "error") {
@@ -892,7 +896,7 @@
                         alert("Error save fail");
                     }
                 });
-                if (value == "Sent to Approval") {
+                if (value == "ส่งให้ผู้อนุมัติ") {
                     Email.send({
                         Host: "smtp.gmail.com",
                         Username: "chinopas.muangthai@gmail.com",
@@ -903,10 +907,10 @@
                         Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
-                            //alert("mail sent successfully")
+                            //alert("mail ส่งแล้ว successfully")
                         });
                 }
-                else if (value == 'Approved') {
+                else if (value == 'เห็นชอบ') {
                     Email.send({
                         Host: "smtp.gmail.com",
                         Username: "chinopas.muangthai@gmail.com",
@@ -917,10 +921,10 @@
                         Body: "คำขอจัดซื้อหรือจ้าง เรื่อง " + '@Model.nameProcument'+" ได้ถูกอนุมัติเห็นชอบแล้ว"
                     })
                         .then(function (message) {
-                            //alert("mail sent successfully")
+                            //alert("mail ส่งแล้ว successfully")
                         });
                 }
-                else if (value == 'Return to Requester') {
+                else if (value == 'ส่งคืนเพื่อแก้ไข') {
                     Email.send({
                         Host: "smtp.gmail.com",
                         Username: "chinopas.muangthai@gmail.com",
@@ -928,10 +932,10 @@
                         To: email,
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
-                        Body: "สถานะ ส่งคืนเพื่อแก้ไข ขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                        Body: "สถานะ ส่งคืนเพื่อแก้ไขขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
-                            //alert("mail sent successfully")
+                            //alert("mail ส่งแล้ว successfully")
                         });
                 }
             } catch (error) {
@@ -1158,10 +1162,10 @@
                                 if (result.isConfirmed) {
                                     let status = document.getElementById("buttonstatus").value;
                                     alert(status)
-                                    if (status == "Sent") {
+                                    if (status == "ส่งแล้ว") {
                                         alert("id_tor" + id_tor_2)
                                             let emailadmin = '@Model.stringlistemail_admin';
-                                             @*alert("mail sent successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
+                                             @*alert("mail ส่งแล้ว successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
                                         const arrayemail = emailadmin.split("/");
                                         for (let i = 0; i < arrayemail.length; i++) {
                                             
@@ -1175,7 +1179,7 @@
                                                 Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2
                                          })
                                                 .then(function (message) {
-                                                    alert("mail sent successfully " + "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2)
+                                                    alert("mail ส่งแล้ว successfully " + "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2)
                                                 });
 
                                         }
