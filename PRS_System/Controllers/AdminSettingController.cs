@@ -360,7 +360,7 @@ namespace PRS_System.Controllers
                         ViewBag.tab_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อแท็บ : " + data_header[m].ToString() + "</h3><button class='delete-tab' onclick='deletetab()'>ลบแท็บ</button></div>";
                         ViewBag.tab_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อแท็บ' id='rename' name='rename' /><button onclick='renametab()'>เปลี่ยนชื่อ</button></div></div>";
                         ViewBag.tab_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มข่าว</h3><button class='add-tab fa-solid fa-plus' onclick='togglefile()'></button></div>";
-                        ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
+                        ViewBag.tab_body += "<div class='add-news-field'><table><thead><tr><th> ลำดับ </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
 
                         int t = 0;
                         foreach (var desc in result_data)
@@ -399,7 +399,7 @@ namespace PRS_System.Controllers
                         ViewBag.section_body += "<div class='rename-tag'><div class='btn2 btn-delete-tab'><h3>เปลื่ยนชื่อหัวข้อเอกสาร : " + data_section[n].ToString() + "</h3><button class='delete-tab' onclick='deletesec()'>ลบหัวข้อเอกสาร</button></div>";
                         ViewBag.section_body += "<div class='rename-con'><input class='rename-input' type='text' placeholder='เปลื่ยนชื่อหัวข้อเอกสาร' id='rename' name='rename' /><button onclick='renamesec()'>เปลี่ยนชื่อ</button></div></div>";
                         ViewBag.section_body += "<div class='add-news'><div class='btn2 btn-add-tab'><h3>เพิ่มเอกสาร</h3><button class='add-tab fa-solid fa-plus' onclick='togglesection()'></button></div>";
-                        ViewBag.section_body += "<div class='add-news-field'><table><thead><tr><th> No </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
+                        ViewBag.section_body += "<div class='add-news-field'><table><thead><tr><th> ลำดับ </th><th style='width:60%'> คำอธิบาย </th><th style='width:15%'> วันที่ </th><th>  </th></tr></thead><tbody>";
 
                         int u = 0;
                         foreach (var desc in result_data)

@@ -30,6 +30,11 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
+    <style>
+        h1{
+            font-family: 'Kanit', sans-serif
+        }
+    </style>
 
 </head>
 
@@ -45,18 +50,18 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="w3-container w3-pale-blue w3-hover-text-teal">
-                                <h1>User Control</h1>
+                                <h1>จัดการบัญชีผู้ใช้</h1>
                                 <div align="right">
-                                    <button class="button red" onclick="history.back()">Back</button>
+                                    <button class="button red" onclick="history.back()">ย้อนกลับ</button>
                                 </div>
                             </div>
                             <button id="newuser" class="button green">
-                                Add New User
+                                เพิ่มผู้ใช้งาน
                             </button>
                             <form asp-action="Showlistuser" asp-controller="AdminSetting">
                                 <fieldset class="col-md-4 col-sm-8">
-                                    <label>Search</label>
-                                    <input asp-for="Keyword" class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="search...">
+                                    <label>ค้นหา</label>
+                                    <input asp-for="Keyword" class="w3-input w3-border w3-round" type="text" id="mySearch" placeholder="ค้นหา...">
                                     <button class="button blue" type ="submit">ค้นหา</button>
                                 </fieldset>
                             </form>
@@ -67,12 +72,12 @@
                         <hr>
                         <table id="customers">
                             <tr>
-                                <th>User ID</th>
-                                <th>Full Name </th>
-                                <th>User Type</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Function</th>
+                                <th>รหัสผู้ใช้งาน</th>
+                                <th>ชื่อ - นามสกุล </th>
+                                <th>ตำแหน่ง</th>
+                                <th>ประเภทผู้ใช้</th>
+                                <th>สถานะ</th>
+                                <th>ฟังก์ชั่น</th>
                             </tr>
                             @foreach (var item in Model.userdata)
                             {
@@ -83,8 +88,8 @@
                                     <td>@item.Category</td>
                                     <td>@item.Status</td>
                                     <td>
-                                        <button class="button yellow" onclick="edituser('@item.UserID')">Edit</button>
-                                        <button class="button red" onclick="deleteuser('@item.UserID')">Delete</button>
+                                        <button class="button yellow" onclick="edituser('@item.UserID')">แก้ไข</button>
+                                        <button class="button red" onclick="deleteuser('@item.UserID')">ลบ</button>
                                     </td>
                                 </tr>
                             }
