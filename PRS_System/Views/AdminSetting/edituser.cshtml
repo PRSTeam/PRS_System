@@ -174,7 +174,7 @@
                 y: 0
             };
             var lastPos = mousePos;
-
+            
             canvas.addEventListener("mousedown", function (e) {
                 drawing = true;
                 lastPos = getMousePos(canvas, e);
@@ -239,6 +239,11 @@
                     ctx.lineTo(mousePos.x, mousePos.y);
                     ctx.stroke();
                     lastPos = mousePos;
+                    if (lastPos.x != 0 && lastPos.y != 0) {
+                     
+                        var sigurl = document.getElementById("sig-canvas").toDataURL();
+                        $("#ESignature").val(sigurl);
+                    }
                 }
             }
 
@@ -263,11 +268,13 @@
                 requestAnimFrame(drawLoop);
                 renderCanvas();
             })();
-
+            
             function clearCanvas() {
                 canvas.width = canvas.width;
             }
-
+            if (lastPos.x == 0 && lastPos.y == 0) {
+                $("#ESignature").val(null);
+            }
             // Set up the UI
 
             //var sigText = document.getElementById("sig-dataUrl");
@@ -294,7 +301,7 @@
             //    var sigurl = canvas.toDataURL();
             //    $(inputsig).val(sigurl);
             //});
-
+            
         })();
 
     })
@@ -304,8 +311,9 @@
 
     async function AJAXSubmit(oFormElement) {
         try {
-            var sigurl = document.getElementById("sig-canvas").toDataURL();
-            $("#ESignature").val(sigurl);
+            //var sigurl = document.getElementById("sig-canvas").toDataURL();
+            //alert(sigurl);
+            //$("#ESignature").val(sigurl);
                 var form = document.getElementById("user-form");
                 const url = "@Url.Action("EditUserdata", "AdminSetting")";
                 const formData = new FormData(form);

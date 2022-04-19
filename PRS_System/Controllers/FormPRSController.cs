@@ -109,6 +109,7 @@ namespace PRS_System.Controllers
         }
         public IActionResult form(int id_tor, FormPRSModel Createview)
         {
+           
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
                 // เพิ่มโค้ด
@@ -267,7 +268,8 @@ namespace PRS_System.Controllers
                     
                     Createview.stringlistemail_admin = listemailadmin.Substring(0, (listemailadmin.Length - 1));
                 }
-                
+                string host = Request.Host.Value;
+                Createview.host = host;
                 Console.WriteLine("Check" + Createview.status);
                 Createview.login_userid = HttpContext.Session.GetString("uid").ToString();
                 UserDataModel user_login = _accountService.CheckLogin(Createview.User_ID);

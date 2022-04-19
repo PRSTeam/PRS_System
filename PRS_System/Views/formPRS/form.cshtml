@@ -233,6 +233,12 @@
                                     </label><br>
                                     <input type="file" accept="application/pdf" asp-for="FilePDF" multiple>
                                     <br>
+                                    if(Model.FilePath!="")
+                                    {
+                                        <b>ไฟล์แนบล่าสุด</b> <br>
+                                    <a href="~/File/FileDocUser/@Model.FilePath">@Model.FilePath</a>
+                                    }
+                                    
                                 }
 
                                 else if (statusform2 != "ส่งคืนเพื่อแก้ไข" && statusform2 != "ร่างเอกสาร")
@@ -615,7 +621,7 @@
                 To: 'chinopas.m@ku.th',
                 From: "chinopas.muangthai@gmail.com",
                 Subject: "Test send Email",
-                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304"+"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
+                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://" + "@Model.host" +"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
             })
                 .then(function (message) {
                 alert("mail ส่งแล้ว successfully")
@@ -683,7 +689,7 @@
                 To: arrayemail[i],
                 From: "chinopas.muangthai@gmail.com",
                 Subject: "Test send Email",
-                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304"+"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
+                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://" + "@Model.host" +"@Url.Action("form", "FormPRS")"+"?id_tor="+id_tor
             })
                 .then(function (message) {
                     //alert("mail ส่งแล้ว successfully")
@@ -817,7 +823,7 @@
                         To: email2.toString(),
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
-                        Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                        Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://" + "@Model.host" +"@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
                             //alert("mail ส่งแล้ว successfully")
@@ -831,7 +837,7 @@
                         To: email,
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
-                        Body: "สถานะ ส่งคืนเพื่อแก้ไขขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                        Body: "สถานะ ส่งคืนเพื่อแก้ไขขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://" + "@Model.host" +"@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
                             //alert("mail ส่งแล้ว successfully")
@@ -904,7 +910,7 @@
                         To: email,
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
-                        Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                        Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นเอกสารจัดซื้อหรือจ้าง https://" + "@Model.host" +"@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
                             //alert("mail ส่งแล้ว successfully")
@@ -932,7 +938,7 @@
                         To: email,
                         From: "chinopas.muangthai@gmail.com",
                         Subject: "Test send Email",
-                        Body: "สถานะ ส่งคืนเพื่อแก้ไขขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
+                        Body: "สถานะ ส่งคืนเพื่อแก้ไขขอความกรุณา กดลิ๊งเพื่อแก้ไขเอกสารจัดซื้อหรือจ้าง https://" + "@Model.host" +"@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor
                     })
                         .then(function (message) {
                             //alert("mail ส่งแล้ว successfully")
@@ -1176,7 +1182,7 @@
                                                 To: arrayemail[i],
                                                 From: "chinopas.muangthai@gmail.com",
                                                 Subject: "Test send Email",
-                                                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2
+                                                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://" + "@Model.host" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2
                                          })
                                                 .then(function (message) {
                                                     alert("mail ส่งแล้ว successfully " + "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2)

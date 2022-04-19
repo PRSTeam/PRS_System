@@ -228,28 +228,55 @@ namespace PRS_System.Controllers
                         fileName = datamodel.UserID + "_" + uniquefile + ".png";
                         string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature", fileName); //image คือ พาทRoot ของ image โดยเซฟเป็นชื่อ filename
                         System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(datamodel.ESignature.Replace("data:image/png;base64,", string.Empty)));
-                        
-                        
-                    }
-                    string checksignature=_accountService.GetSignature(datamodel.UserID);
-                    if(checksignature!=null)
-                    {
-                        fileName = checksignature;
-                    }
-                    UserDataModel userdata = datamodel.ToEdituserdata(fileName);
-                    UserDataModel checkposition = _accountService.CheckPositionManegment(datamodel.User_Type_Magnement);
-                    if (checkposition.Manage_Pos == null)
-                    {
-                        
-                        
-                    }
-                    else if (checkposition.Manage_Pos != null && datamodel.UserID != checkposition.UserID && checkposition.UserID!=null)
-                    {
-                        return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + datamodel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });
-                        goto errorreturn;
+                        //---Delete old file
+                        string checksignature2 = _accountService.GetSignature(datamodel.UserID);
+                        var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\signature");
+                        string[] fileList = Directory.GetFiles(rootFolderPath,checksignature2);
+                        foreach (var file in fileList)
+                        {
+                            //System.Diagnostics.Debug.WriteLine(file + "will be deleted");
+                            System.IO.File.Delete(file);
+                        }
+                        UserDataModel userdata = datamodel.ToEdituserdata(fileName);
+                        UserDataModel checkposition = _accountService.CheckPositionManegment(datamodel.User_Type_Magnement);
+                        if (checkposition.Manage_Pos == null)
+                        {
+
+
+                        }
+                        else if (checkposition.Manage_Pos != null && datamodel.UserID != checkposition.UserID && checkposition.UserID != null)
+                        {
+                            return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + datamodel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });
+                            goto errorreturn;
+
+                        }
+                        _accountService.EditUser(userdata);
 
                     }
-                    _accountService.EditUser(userdata);
+                    if(datamodel.ESignature == null)
+                    {
+                        string checksignature = _accountService.GetSignature(datamodel.UserID);
+                        if (checksignature != null)
+                        {
+                            fileName = checksignature;
+                        }
+                        UserDataModel userdata = datamodel.ToEdituserdata(fileName);
+                        UserDataModel checkposition = _accountService.CheckPositionManegment(datamodel.User_Type_Magnement);
+                        if (checkposition.Manage_Pos == null)
+                        {
+
+
+                        }
+                        else if (checkposition.Manage_Pos != null && datamodel.UserID != checkposition.UserID && checkposition.UserID != null)
+                        {
+                            return Json(new { status = "error", detail = "มีบุคคลที่มีตำแหน่ง " + datamodel.User_Type_Magnement + " นี้อยู่แล้ว", errorMessage = "Edit Fail" });
+                            goto errorreturn;
+
+                        }
+                        _accountService.EditUser(userdata);
+                    }
+                    
+                    
                     return Json(new { status = "success", Messege = "Edit Complete" });
                 errorreturn:
                     Console.WriteLine("Error");

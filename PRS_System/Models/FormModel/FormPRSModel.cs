@@ -9,6 +9,7 @@ namespace PRS_System.Models.FormModel
 {
     public class FormPRSModel
     {
+        public string host { get; set; }
         public string type_PRS { get; set; }
         public double vaxproduct { get; set; }
         public double sumproduct { get; set; }

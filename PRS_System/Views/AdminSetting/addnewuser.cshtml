@@ -283,7 +283,11 @@
             //    var sigurl = canvas.toDataURL();
             //    $(inputsig).val(sigurl);
             //});
-
+            if (mousePos.x != 0 && mousePos.y != 0)
+        {
+                var sigurl = document.getElementById("sig-canvas").toDataURL();
+                $("#ESignature").val(sigurl);
+        }
         })();
 
     })
@@ -293,12 +297,10 @@
 
     async function AJAXSubmit(oFormElement) {
         try {
-            var sigurl = document.getElementById("sig-canvas").toDataURL();
-            $("#ESignature").val(sigurl);
+            
                 var form = document.getElementById("user-form");
                 const url = "@Url.Action("Addnewuserdata", "AdminSetting")";
                 const formData = new FormData(form);
-
                 $.ajax({
                     type: "POST",
                     url: url,
