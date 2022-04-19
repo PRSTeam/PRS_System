@@ -30,7 +30,7 @@ namespace PRS_System.Controllers
         }
         public IActionResult Index(IndexListFormModel indexmodel)
         {
-            indexmodel.category_user = HttpContext.Session.GetString("type_person").ToString();
+            indexmodel.category_user = HttpContext.Session.GetString("CATEGORY").ToString();
             indexmodel.magnage_pos = HttpContext.Session.GetString("Manage_Pos").ToString();
             string user_id = HttpContext.Session.GetString("uid").ToString();
             UserDataModel magnement_type = _accountService.CheckPositionManegment(indexmodel.magnage_pos);
@@ -277,7 +277,7 @@ namespace PRS_System.Controllers
                 Createview.type_user_magnement = HttpContext.Session.GetString("Manage_Pos").ToString();
                 bool check = (Createview.last_approval == "หัวหน้าภาควิชา" || Createview.last_approval == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.last_approval == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา") && (Createview.type_user_magnement == "หัวหน้าภาควิชา" || Createview.type_user_magnement == "หัวหน้าฝ่ายสนับสนุนงานกลาง" || Createview.type_user_magnement == "หัวหน้าฝ่ายบริการและพัฒนาคุณภาพการศึกษา");
                 Console.WriteLine(check);
-                Createview.category_user= HttpContext.Session.GetString("type_person").ToString();
+                Createview.category_user= HttpContext.Session.GetString("CATEGORY").ToString();
                 //Createview.FilePath = _accountService.GetSignature(Createview.login_userid);
                 Createview.id_tor = id_tor;
                 return View(Createview);
