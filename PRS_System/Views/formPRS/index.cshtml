@@ -179,7 +179,7 @@
                 @*<li><a href="#home"><i class="fa fa-globe"></i>Home</a></li>
                 <li><a href="#history"><i class="fa fa-pencil"></i>History</a></li>
                 <li><a href="#form"><i class="fa fa-link"></i>Form</a></li>*@
-                @if (Context.Session.GetString("type_person").ToString() == "Admin")
+                @if (Context.Session.GetString("CATEGORY").ToString() == "Admin")
                 {
                     <li class="dropdown">
                     <i class="fa fa-cog"></i>การตั้งค่าผู้ดูแลระบบ

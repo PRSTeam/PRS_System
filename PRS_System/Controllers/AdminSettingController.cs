@@ -277,7 +277,7 @@ namespace PRS_System.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if (HttpContext.Session.GetString("type_person") == "Admin")
+                if (HttpContext.Session.GetString("CATEGORY") == "Admin")
                 {
                     ViewBag.item_pic = null;
                     string h = null;
@@ -442,7 +442,7 @@ namespace PRS_System.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if (HttpContext.Session.GetString("type_person") == "Admin")
+                if (HttpContext.Session.GetString("CATEGORY") == "Admin")
                 {
                     try
                     {
@@ -509,7 +509,7 @@ namespace PRS_System.Controllers
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
                 
-                if (HttpContext.Session.GetString("type_person") == "Admin")
+                if (HttpContext.Session.GetString("CATEGORY") == "Admin")
                 {
                     try
                     {
@@ -547,7 +547,7 @@ namespace PRS_System.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if (HttpContext.Session.GetString("type_person") == "Admin")
+                if (HttpContext.Session.GetString("CATEGORY") == "Admin")
                 {
                     _informationService.Add_tab(tabname, secname);
                     return Json(new { status = "success" });
@@ -568,7 +568,7 @@ namespace PRS_System.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if (HttpContext.Session.GetString("type_person") == "Admin")
+                if (HttpContext.Session.GetString("CATEGORY") == "Admin")
                 {
                     var rootFolderPath = Path.Combine(_hostingEnvironment.WebRootPath, "File\\information");
                     var filename = _informationService.ShowInformation();
@@ -612,7 +612,7 @@ namespace PRS_System.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if (HttpContext.Session.GetString("type_person") == "Admin")
+                if (HttpContext.Session.GetString("CATEGORY") == "Admin")
                 {
                     _informationService.Rename_tab(old_tabname, new_tabname, header);
                     return Json(new { status = "success" });

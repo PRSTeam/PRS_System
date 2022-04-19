@@ -57,8 +57,8 @@ namespace PRS_System.Controllers
                         HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
                         //HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
                         HttpContext.Session.SetString("ESignature", result_chk.ESignature);
-                        HttpContext.Session.SetString("mail", result_chk.Email);
-                        HttpContext.Session.SetString("type_person", result_chk.Category);
+                        HttpContext.Session.SetString("google_mail", result_chk.Email);
+                        HttpContext.Session.SetString("CATEGORY", result_chk.Category);
 
                         ////ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
                         //if (TempData["ApproverData"] != null)
@@ -91,17 +91,6 @@ namespace PRS_System.Controllers
                     return Json(new { status = "error", detail = "กรุณาลองใหม่อีกครั้ง", errorMessage = "ชื่อผู้ใช้งาน หรือรหัสผ่านไม่ถูกต้อง" });
                 }
 
-                //try
-                //{
-                //    byte[] encData_byte = new byte[data.Password.Length];
-                //    encData_byte = System.Text.Encoding.UTF8.GetBytes(data.Password);
-                //    string encodedData = Convert.ToBase64String(encData_byte);    
-                //}
-                //catch (Exception ex)
-                //{
-                //    throw new Exception("Error in base64Encode" + ex.Message);
-                //}
-                //return RedirectToActionPermanentPreserveMethod("Index", "FormPRS");
             }
             else
             {
@@ -198,6 +187,12 @@ namespace PRS_System.Controllers
             }
             else
             {
+                var result_chk = _accountService.CheckLogin(HttpContext.Session.GetString("uid"));
+
+                HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
+                HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
+                HttpContext.Session.SetString("ESignature", result_chk.ESignature);
+                HttpContext.Session.SetString("CATEGORY", result_chk.Category);
                 return RedirectToAction("Index", "FormPRS");
             }
         }
