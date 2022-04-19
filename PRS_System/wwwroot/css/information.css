@@ -177,7 +177,7 @@
 .container-News {
     display: flex;
     height: 100vh;
-    background: #EBEBEB;
+    background: #EEEEEE;
     /* border: 5px solid red; */
 }
 
@@ -265,7 +265,7 @@
 .backgroud-News {
     display: flex;
     height: 80vh;
-    background: linear-gradient(white, #000C66 99.1%, #EBEBEB);
+    background: linear-gradient(white, #000C66 99.1%, #EEEEEE);
     justify-content: center;
 }
 
@@ -283,6 +283,15 @@
     animation: slider 50s linear infinite;
 }
 
+#footer p.copyright-text {
+    background-color: #EEEEEE;
+    padding-bottom: 40px;
+    font-size: 13px;
+    font-family: 'Kanit', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: #777777;
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media screen and (max-width: 600px) {
@@ -370,6 +379,5 @@
     .container-News {
         display: flex;
         height: 80vh;
-        background: #EBEBEB;
     }
 }
