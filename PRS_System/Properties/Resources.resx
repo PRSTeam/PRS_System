@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConnectionString" xml:space="preserve">
-    <value>data source=158.108.101.25; initial catalog=PRS; User id=PRS; Password=PRS1234</value>
+    <value>data source=158.108.101.24; initial catalog=PRS; User id=dbadmin; Password=comsci199</value>
     <comment>ConnectSQL Server</comment>
   </data>
 </root>
