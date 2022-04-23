@@ -146,8 +146,8 @@ WHERE ID_USER like '%" + keyword + "%' or PRE_NAME like '%" + keyword + "%' or F
                     userdata.Manage_Pos = reader["MANAGEMENT_POS"] != DBNull.Value ? reader["MANAGEMENT_POS"].ToString() : "-";
                     //userdata.Full_NameEng = reader["ENG_NAME_FULL"] != DBNull.Value ? reader["ENG_NAME_FULL"].ToString() : null;
                     //userdata.User_Type = reader["USER_TYPE"] != DBNull.Value ? reader["USER_TYPE"].ToString() : null;
-                    userdata.Email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : null;
-                    userdata.ESignature = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : null;
+                    userdata.Email = reader["EMAIL"] != DBNull.Value ? reader["EMAIL"].ToString() : "-";
+                    userdata.ESignature = reader["SIGNATURE"] != DBNull.Value ? reader["SIGNATURE"].ToString() : "-";
                     userdata.Category = reader["CATEGORY"] != DBNull.Value ? reader["CATEGORY"].ToString() : null;
                     userdata.Status = reader["STATUS"] != DBNull.Value ? reader["STATUS"].ToString() : null;
                 }
