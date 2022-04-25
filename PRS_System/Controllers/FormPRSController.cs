@@ -117,6 +117,7 @@ namespace PRS_System.Controllers
                 {
                     List<ProductDataModel> productdata = new List<ProductDataModel>();
                     //List<SubjectDataModel> subjectdata = new List<SubjectDataModel>();
+                    
                     productdata.Add(new ProductDataModel
                     {
                         Id_Product = 0
@@ -602,7 +603,7 @@ namespace PRS_System.Controllers
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, user_PRS.Full_NameThai);
                 }
 
-                return Json(new { status = "success", messege = "Approval Complete" });
+                return Json(new { status = "success", messege = "ลงความเห็น เสร็จสิ้น" });
             }
             catch (Exception ex)
             {
@@ -687,7 +688,7 @@ namespace PRS_System.Controllers
                     _formService.updatestatusform(Approver.buttonstatus_3, Approver.id_tor, Approver.last_approval);
                 }
 
-                return Json(new { status = "success", Messege = (checkcomment == null ? "Add Approval" : "Update Approval") + "Complete" }); 
+                return Json(new { status = "success", Messege = (checkcomment == null ? "ลงความเห็น" : "แก้ไขความเห็น") + "เสร็จสิ้น" }); 
             }
             catch (Exception ex)
             {

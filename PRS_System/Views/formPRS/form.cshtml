@@ -561,13 +561,13 @@
             }
         var checkloginuser = "@checkloginuser";
         var statusform = "@statusform";
-        var statusformthai = String.fromCharCode.apply(String, statusform.match(/x[^;]*;/g).map(function (n) { return parseInt(n.slice(1, -1), 16); }));
+       
         var checkuserid = "@checkownerid";
         var checkcategory_user="@category_user";
         if (id_tor != 0) {
-            alert(statusformthai);
+            var statusformthai = String.fromCharCode.apply(String, statusform.match(/x[^;]*;/g).map(function (n) { return parseInt(n.slice(1, -1), 16); }));
 
-            if (checkloginuser != checkuserid || statusformthai == "ส่งแล้ว" || statusformthai == "ส่งให้ผู้อนุมัติ" || statusformthai  == "เห็นชอบ" ) {
+            if (checkloginuser != checkuserid || statusformthai == "ส่งแล้ว" || statusformthai == "ส่งให้ผู้อนุมัติ" || statusformthai == "เห็นชอบ" ) {
                 $("#createform").children('fieldset').children('input').prop("disabled", true);
                 $("#createform").children('fieldset').children('textarea').prop("disabled", true);
                 $("#createform").children('fieldset').children('button').hide();
@@ -1173,8 +1173,20 @@
                                             let emailadmin = '@Model.stringlistemail_admin';
                                              @*alert("mail ส่งแล้ว successfully "+"ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + '@Model.id_tor')*@
                                         const arrayemail = emailadmin.split("/");
-                                        for (let i = 0; i < arrayemail.length; i++) {
-                                            
+                                         Email.send({
+                                                Host: "smtp.gmail.com",
+                                                Username: "chinopas.muangthai@gmail.com",
+                                                Password: "aukijdfxsurfnmlu",
+                                                To: "Leemy_8484@hotmail.com",
+                                                From: "chinopas.muangthai@gmail.com",
+                                                Subject: "Test send Email",
+                                                Body: "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://" + "@Model.host" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2
+                                         })
+                                                .then(function (message) {
+                                                    alert("mail ส่งแล้ว successfully " + "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2)
+                                                });
+                                        @*for (let i = 0; i < arrayemail.length; i++) {
+
                                             Email.send({
                                                 Host: "smtp.gmail.com",
                                                 Username: "chinopas.muangthai@gmail.com",
@@ -1188,7 +1200,7 @@
                                                     alert("mail ส่งแล้ว successfully " + "ขอความกรุณา กดลิ๊งเพื่อลงความเห็นจัดซื้อหรือจ้าง https://localhost:44304" + "@Url.Action("form", "FormPRS")" + "?id_tor=" + id_tor_2)
                                                 });
 
-                                        }
+                                        }*@
                                     }
 
 

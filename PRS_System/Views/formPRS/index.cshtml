@@ -221,8 +221,8 @@
 
                             <div class="tab">
                               <button class="tablinks" onclick="openCity(event, 'ตารางหน้าคำขอผู้จัดซื้อ')" id="defaultOpen">ตารางหน้าคำขอผู้จัดซื้อ</button>
-                              <button class="tablinks" onclick="openCity(event, 'ตารางหน้าฝ่ายพัสดุ')">ตารางหน้าฝ่ายพัสดุ</button>
-                              <button class="tablinks" onclick="openCity(event, 'ตารางหน้าผู้อนุมัติ')">ตารางหน้าผู้อนุมัติ</button>
+                              <button class="tablinks" onclick="openCity(event, 'ตารางหน้าฝ่ายพัสดุ')" style="display:@(Model.category_user=="Admin"?"block":"None" )">ตารางหน้าฝ่ายพัสดุ</button>
+                              <button class="tablinks" onclick="openCity(event, 'ตารางหน้าผู้อนุมัติ')"style="display:@(Model.magnage_pos==null?"None":"block" )">ตารางหน้าผู้อนุมัติ</button>
                             </div>
 
                             <div id="ตารางหน้าคำขอผู้จัดซื้อ" class="tabcontent">
@@ -380,7 +380,7 @@
                             </div>
 
                             <div id="ตารางหน้าผู้อนุมัติ" class="tabcontent">
-                              <div style="display:@(Model.magnage_pos==""?"None":"block" )">
+                              <div style="display:@(Model.magnage_pos=="-"?"None":"block" )">
                                 <br>
                                   <p>ตารางหน้าผู้อนุมัติ</p>
                                 <hr>
@@ -388,7 +388,7 @@
                                     <input class="w3-input w3-border w3-round" type="text" asp-for="Keyword3" placeholder="search...">
                                     <button id="" class="button button4" type="submit">ค้นหา</button>
                                 </form>*@
-                            <table id="customers" style="display:@(Model.magnage_pos==""?"none":"block" )">
+                            <table id="customers" style="display:@(Model.magnage_pos=="-"?"none":"block" )">
                                 <tr>
                                     <th>หมายเลข</th>
                                     <th>ชื่อ - นามสกุล</th>
