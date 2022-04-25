@@ -43,13 +43,13 @@ namespace PRS_System.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                if ((data.Username == "Admin" && data.Password == "1234") || (!string.IsNullOrEmpty(data.Username) && !string.IsNullOrEmpty(data.Password)))
+                if ((!string.IsNullOrEmpty(data.Username) && data.Password == "1234"))
                 {
                     try
                     {
                         var result_chk = _accountService.CheckLogin(data.Username);
 
-                        HttpContext.Session.SetString("AccessToken", "1234567890");
+                        HttpContext.Session.SetString("AccessToken", result_chk.UserID);
                         HttpContext.Session.SetString("uid", result_chk.UserID);
                         HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
                         HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);

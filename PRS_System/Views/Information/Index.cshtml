@@ -12,11 +12,11 @@
         {
             if (img.Header == "รูปปก")
             {
-                img_slide += num + "% { background-image: url(../File/information/" + img.FilePath + ")}";
+                img_slide += num + "% { background-image: url(../PRS/File/Information/" + img.FilePath + ")}";
                 num =+ num + ViewBag.count_img;
                 if (ViewBag.st_pic == null)
                 {
-                    ViewBag.st_pic = "url(../File/information/" + img.FilePath + ")";
+                    ViewBag.st_pic = "url(../PRS/File/Information/" + img.FilePath + ")";
                 }
 
             }
@@ -165,13 +165,6 @@
             </div>
 
         </div>
-
-        @*<div class="Footer">
-            <div class="tab-links">
-
-            </div>
-            </div>*@
-
     </div>
 
 

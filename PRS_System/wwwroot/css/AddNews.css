@@ -1253,3 +1253,13 @@
             color: #fff;
             transition: .2s linear;
         }
+
+#footer p.copyright-text {
+    background-color: #EEEEEE;
+    padding-bottom: 40px;
+    font-size: 13px;
+    font-family: 'Kanit', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: #777777;
+}

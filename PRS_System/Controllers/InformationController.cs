@@ -97,7 +97,7 @@ namespace PRS_System.Controllers
                         //ViewBag.tab_body += "<h4>" + desc.Section + "</h4>";
 
 
-                        ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
+                        ViewBag.tab_body += "<p><a href='../PRS/File/Information/" + desc.FilePath.ToString() + "' target='_blank'>";
                         ViewBag.tab_body += desc.Description + "</a></p>";
                         ViewBag.tab_body += "<hr>";
                     }
@@ -119,7 +119,7 @@ namespace PRS_System.Controllers
                 {
                     if (desc.Header == "เอกสารดาวน์โหลด" && desc.Section == data_section[n_section])
                     {
-                        ViewBag.tab_body += "<p><a href='../File/Information/" + desc.FilePath + "' target='_blank'>";
+                        ViewBag.tab_body += "<p><a href='../PRS/File/Information/" + desc.FilePath.ToString() + "' target='_blank'>";
                         ViewBag.tab_body += desc.Description + "</a></p>";
                         //ViewBag.tab_body += "<hr>";
                     }

@@ -229,9 +229,9 @@ namespace OAuth2TestTool.MVC.Controllers
 			{
 				return new OAuth2ViewModel
 				{
-                    ClientId = "",
-                    ClientSecret = "",
-                    Scope = "",
+                    ClientId = "7b6699c1-1fac-4617-ba6a-253ee57c0201",
+                    ClientSecret = "bF5ony1KqUAes1BYgVqFqOFyEVfVoG6jSsupzLkkjGNNwBoghe6lX5B9BbUVvFKzE2exJj3dSQzbFGPvNao-Ew",
+                    Scope = "kuinfo",
                     Focus = Request.Cookies["Focus"],
 					RedirectURI = "https://" + Request.Host.Value + "/",
                     State = "1234",
