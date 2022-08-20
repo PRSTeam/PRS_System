@@ -273,6 +273,10 @@ namespace PRS_System.Controllers
                     return RedirectToAction("Index", "Login", Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "รหัสผู้ใช้งานของคุณไม่ได้รับสิทธื์เข้าใช้งาน" }));
                 }
             }
+            else
+            {
+                return RedirectToAction("Index", "Information");
+            }
         }
     }
 }
