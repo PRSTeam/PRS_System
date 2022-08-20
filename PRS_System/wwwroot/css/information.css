@@ -88,14 +88,42 @@
     justify-content: space-around;
 }
 
-.box {
+.box_line a {
+    text-decoration: none;
+    color: rgb(49,38, 130);
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+}
+
+.box_line a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 0%;
+    height: 2px;
+    background-color: rgb(49, 38, 130);
+    transition: all 0.5s linear;
+}
+
+.box_line a:hover::before {
+    width: 100%;
+    background-color: rgb(49, 38, 130);
+    
+}
+
+
+
+
+/*.box {*/
     /* width: 15%; */
-    height: auto;
+    /*height: auto;
     float: left;
     transition: all .5s ease;
-    position: relative;
+    position: relative;*/
     /* display: block; */
-    overflow: hidden;
+    /*overflow: hidden;
     padding: 10px;
     text-align: center;
     margin: 0 5px;
@@ -153,7 +181,7 @@
             height: 100%;
             transform: translate(0);
             transition: .3s transform linear, 3s height linear .5s;
-        }
+        }*/
 
 .toggle {
     font-size: 30px;
