@@ -202,5 +202,77 @@ namespace PRS_System.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Information");
         }
+
+        public IActionResult SessionFromApp(LoginModel.ReceiveSession session)
+        {
+            if (!string.IsNullOrEmpty(session.AccessToken))
+            {
+                HttpContext.Session.SetString("AccessToken", session.AccessToken);
+
+                //ชื่อเต็มภาษาไทย
+                HttpContext.Session.SetString("thainame", session.thainame); //มหาราช ทศศะ
+                //ชื่อต้นภาษาไทย
+                HttpContext.Session.SetString("first_name", session.first_name); //มหาราช
+                //นามสกุลภาษาไทย
+                HttpContext.Session.SetString("last_name", session.last_name); //ทศศะ
+                //ชื่อเต็มภาษาอังกฤษ
+                HttpContext.Session.SetString("cn", session.cn); //maharat tossa
+                //ชื่อต้นภาษาอังกฤษ
+                HttpContext.Session.SetString("givenname", session.givenname); //maharat
+                //นามสกุลภาษาอังกฤษ
+                HttpContext.Session.SetString("surname", session.surname); //tossa
+                //คำนำหน้าชื่อ
+                HttpContext.Session.SetString("thaiprename", session.thaiprename); //นาย
+                //ลักษณะงานตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("jobtype", session.jobtype); //ข้าราชการ สาย ก.
+                //ประเภทบุคคลตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("type_person", session.type_person); //ประเภทบุคคล: 1=teacher,2=staff,3=student ,4=alumni,5=guest,6=emailfac,7=kol,8=nondegree
+                //ตำแหน่งตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("position", session.position); //ตำแหน่ง เช่น นักวิชาการคอมพิวเตอร์, อาจารย์
+                //รหัสตำแหน่งตามข้อมูลกองการเจ้าหน้าที่
+                HttpContext.Session.SetString("position_id", session.position_id); //รหัสตำแหน่ง: 001-004 = Teacher (!(001-004)) = Staff
+                //วิทยาเขตสังกัด
+                HttpContext.Session.SetString("campus", session.campus); //B=วิทยาเขตบางเขน, K = วิทยาเขตกำแพงแสน, C = วิทยาเขตสกลนคร, S = วิทยาเขตศรีราชา
+                //ชื่อคณะสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("faculty", session.faculty); //สำนักบริการคอมพิวเตอร์
+                //รหัสคณะสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("faculty_id", session.faculty_id); //B20
+                //ชื่อภาควิชาสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("department", session.department); //ฝ่ายระบบคอมพิวเตอร์และเครือข่าย
+                //รหัสภาควิชาสังกัด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("department_id", session.department_id); //B20xx
+                //รหัสอาจารย์ (เฉพาะอาจารย์)
+                HttpContext.Session.SetString("advisor_id", session.advisor_id); //รหัสอาจารย์ เช่น D4021
+                //KU Mail รวม alias ทั้งหมด (เฉพาะบุคลากร)
+                HttpContext.Session.SetString("mail", session.mail); //อีเมล cpcmrt@ku.ac.th, maharat.t@ku.ac.th
+                //Google Mail
+                HttpContext.Session.SetString("google_mail", session.google_mail); //อีเมล KU-Google เช่น maharat.t@ku.th
+                //MS Live Mail
+                HttpContext.Session.SetString("office365_mail", session.office365_mail); //อีเมล KU-Office เช่น maharat.t@live.ku.th
+                //Login ID format ใหม่
+                HttpContext.Session.SetString("userprincipalname", session.userprincipalname); //maharat.t
+                //Login ID format เดิม (อายุชั่วคราว 3 ปี)
+                HttpContext.Session.SetString("uid", session.uid); //cpcmrt
+
+                //1=teacher, 2=staff
+                if (HttpContext.Session.GetString("type_person") == "1" || HttpContext.Session.GetString("type_person") == "2")
+                {
+                    //ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
+                    if (TempData["ApproverData"] != null)
+                    {
+                        TempData.Keep("ApproverData");
+                        return RedirectToAction("form", "FormPRS", new { id_tor = TempData["ApproverData"] });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "FormPRS");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Login", Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "รหัสผู้ใช้งานของคุณไม่ได้รับสิทธื์เข้าใช้งาน" }));
+                }
+            }
+        }
     }
 }
