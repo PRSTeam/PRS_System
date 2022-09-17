@@ -116,7 +116,7 @@ namespace OAuth2TestTool.MVC.Controllers
 
             // Since this is a POST request, RestSharp will add these to the payload (request body).	
             tokenRequest.AddParameter("grant_type", "authorization_code");
-            tokenRequest.AddParameter("redirect_uri", "https://" + Request.Host.Value + "/");
+            tokenRequest.AddParameter("redirect_uri", "https://" + Request.Host.Value + "/PRS");
             tokenRequest.AddParameter("code", Code);
 
             IRestResponse response = client.Execute(tokenRequest);
@@ -221,7 +221,7 @@ namespace OAuth2TestTool.MVC.Controllers
 			{
 				return new OAuth2ViewModel
 				{
-					RedirectURI = "https://" + Request.Host.Value + "/",
+					RedirectURI = "https://" + Request.Host.Value + "/PRS",
 					State = Guid.NewGuid().ToString("N")
 				};
 			}
@@ -229,11 +229,11 @@ namespace OAuth2TestTool.MVC.Controllers
 			{
 				return new OAuth2ViewModel
 				{
-                    ClientId = "7b6699c1-1fac-4617-ba6a-253ee57c0201",
-                    ClientSecret = "bF5ony1KqUAes1BYgVqFqOFyEVfVoG6jSsupzLkkjGNNwBoghe6lX5B9BbUVvFKzE2exJj3dSQzbFGPvNao-Ew",
-                    Scope = "kuinfo",
+                    ClientId = "f4be9b7e-5460-4612-ab33-392618d50c9c",
+                    ClientSecret = "kfOLRvHvd_9H6oaykSKnNZ8T_xHt-UYgQLPLI1dN0Sh4y9WtfvAFsRes8FhQpq2nudCF4XJtOcbQDpSgULVI2A",
+                    Scope = "basic",
                     Focus = Request.Cookies["Focus"],
-					RedirectURI = "https://" + Request.Host.Value + "/",
+					RedirectURI = "https://" + Request.Host.Value + "/PRS",
                     State = "1234",
                     AccessToken = null,
                     AuthorizationCode = null,
