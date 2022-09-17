@@ -10,27 +10,36 @@ using System.Web;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace OAuth2TestTool.MVC.Controllers
 {
 	public class HomeController : Controller
 	{
-		#region Actions
+        private HttpContext _httpContext;
 
-		/// <summary>
-		/// Loads the inital view and is also the callback when performing the authentication request.
-		/// </summary>
-		/// <param name="code">Authorization code will be provided by the IDP when redirecting back to this page following the authorization request.</param>
-		/// <param name="state">Returned state string from the IDP for verification.</param>
-		/// <param name="reset">Boolean to determine whether to clear cookies.</param>
-		/// <param name="clear">Boolean to determine whether to clear token values from cookies.</param>
-		/// <returns></returns>
-		public IActionResult Index(string code, string state, bool reset, bool clear)
+        public HomeController(HttpContext httpContext)
+        {
+            _httpContext = httpContext;
+        }
+
+        #region Actions
+
+        /// <summary>
+        /// Loads the inital view and is also the callback when performing the authentication request.
+        /// </summary>
+        /// <param name="code">Authorization code will be provided by the IDP when redirecting back to this page following the authorization request.</param>
+        /// <param name="state">Returned state string from the IDP for verification.</param>
+        /// <param name="reset">Boolean to determine whether to clear cookies.</param>
+        /// <param name="clear">Boolean to determine whether to clear token values from cookies.</param>
+        /// <returns></returns>
+        public IActionResult Index(string code, string state, bool reset, bool clear)
 		{
 			// Clear cookies.
 			if (reset)
 			{
-				foreach (var cookie in Request.Cookies.Keys)
+				foreach (var cookie in _httpContext.Request.Cookies.Keys)
 					Response.Cookies.Delete(cookie);
 
 				return View(GetViewModel(true));
@@ -63,7 +72,7 @@ namespace OAuth2TestTool.MVC.Controllers
 				// Check state.
 				// State is a randomly generated string (whatever you like).The idea is that you pass the state along with the request, then the auth server returns
 				// it in the response, you must verify that it has not changed, i.e. no-one has intercepted the request and transformed it.
-				if (state == null || state.Trim() != Request.Cookies["State"])
+				if (state == null || state.Trim() == _httpContext.Request.Cookies["State"])
 				{
 					model.ErrorMessage = "State sent to OAuth provider did not match response state.";
 				}
@@ -116,7 +125,7 @@ namespace OAuth2TestTool.MVC.Controllers
 
             // Since this is a POST request, RestSharp will add these to the payload (request body).	
             tokenRequest.AddParameter("grant_type", "authorization_code");
-            tokenRequest.AddParameter("redirect_uri", "https://" + Request.Host.Value + "/PRS");
+            tokenRequest.AddParameter("redirect_uri", "https://" + _httpContext.Request.Host.Value + "/app");
             tokenRequest.AddParameter("code", Code);
 
             IRestResponse response = client.Execute(tokenRequest);
@@ -221,7 +230,7 @@ namespace OAuth2TestTool.MVC.Controllers
 			{
 				return new OAuth2ViewModel
 				{
-					RedirectURI = "https://" + Request.Host.Value + "/PRS",
+					RedirectURI = "https://" + _httpContext.Request.Host.Value + "/app",
 					State = Guid.NewGuid().ToString("N")
 				};
 			}
@@ -232,8 +241,8 @@ namespace OAuth2TestTool.MVC.Controllers
                     ClientId = "f4be9b7e-5460-4612-ab33-392618d50c9c",
                     ClientSecret = "kfOLRvHvd_9H6oaykSKnNZ8T_xHt-UYgQLPLI1dN0Sh4y9WtfvAFsRes8FhQpq2nudCF4XJtOcbQDpSgULVI2A",
                     Scope = "basic",
-                    Focus = Request.Cookies["Focus"],
-					RedirectURI = "https://" + Request.Host.Value + "/PRS",
+                    // Focus = _httpContext.Request.Cookies["Focus"],
+					RedirectURI = "https://" + _httpContext.Request.Host.Value + "/app",
                     State = "1234",
                     AccessToken = null,
                     AuthorizationCode = null,

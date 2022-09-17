@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using PRS_System.IServices;
 using Newtonsoft.Json;
+using System.Net.Http;
+using static System.Collections.Specialized.BitVector32;
 
 namespace PRS_System.Controllers
 {
@@ -17,8 +19,7 @@ namespace PRS_System.Controllers
 
         public LoginController(ILogger<LoginController> logger,
                                       IWebHostEnvironment hostEnvironment,
-                                      IAccountService accountService,
-                                      IInformationService informationService)
+                                      IAccountService accountService)
         {
             _logger = logger;
             _hostingEnvironment = hostEnvironment;
@@ -29,7 +30,8 @@ namespace PRS_System.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                return View();
+                //return View();
+                return Redirect("https://app.sci.src.ku.ac.th/app");
             }
             else
             {
@@ -55,7 +57,6 @@ namespace PRS_System.Controllers
                         HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
                         HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
                         HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
-                        //HttpContext.Session.SetString("position", result_chk.Operate_Pos + ", " + result_chk.Manage_Pos);
                         HttpContext.Session.SetString("ESignature", result_chk.ESignature);
                         HttpContext.Session.SetString("google_mail", result_chk.Email);
                         HttpContext.Session.SetString("CATEGORY", result_chk.Category);
@@ -166,7 +167,7 @@ namespace PRS_System.Controllers
                     if (TempData["ApproverData"] != null)
                     {
                         TempData.Keep("ApproverData");
-                        return RedirectToAction("form", "FormPRS", new {id_tor = TempData["ApproverData"] });
+                        return RedirectToAction("form", "FormPRS", new { id_tor = TempData["ApproverData"] });
                     }
                     else
                     {
@@ -181,8 +182,8 @@ namespace PRS_System.Controllers
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
             {
-                var AuthControl = new OAuth2TestTool.MVC.Controllers.HomeController();
-                AuthControl.Index("code", "state", false, false);
+                var AuthControl = new OAuth2TestTool.MVC.Controllers.HomeController(HttpContext);
+                AuthControl.Index("code", "state" , false, false);
                 return View();
             }
             else
@@ -203,79 +204,40 @@ namespace PRS_System.Controllers
             return RedirectToAction("Index", "Information");
         }
 
-        public IActionResult SessionFromApp(LoginModel.ReceiveSession session)
+        public IActionResult SessionFromApp(string TokenAndId)
         {
-            if (!string.IsNullOrEmpty(session.AccessToken))
+            var splitString = TokenAndId.Split("Prs199");
+            string AccessToken = splitString[0];
+            string uid = splitString[1];
+
+            if (!string.IsNullOrEmpty(AccessToken))
             {
-                HttpContext.Session.SetString("AccessToken", session.AccessToken);
+                var result_chk = _accountService.CheckLogin(uid);
 
-                //ชื่อเต็มภาษาไทย
-                HttpContext.Session.SetString("thainame", session.thainame); //มหาราช ทศศะ
-                //ชื่อต้นภาษาไทย
-                HttpContext.Session.SetString("first_name", session.first_name); //มหาราช
-                //นามสกุลภาษาไทย
-                HttpContext.Session.SetString("last_name", session.last_name); //ทศศะ
-                //ชื่อเต็มภาษาอังกฤษ
-                HttpContext.Session.SetString("cn", session.cn); //maharat tossa
-                //ชื่อต้นภาษาอังกฤษ
-                HttpContext.Session.SetString("givenname", session.givenname); //maharat
-                //นามสกุลภาษาอังกฤษ
-                HttpContext.Session.SetString("surname", session.surname); //tossa
-                //คำนำหน้าชื่อ
-                HttpContext.Session.SetString("thaiprename", session.thaiprename); //นาย
-                //ลักษณะงานตามข้อมูลกองการเจ้าหน้าที่
-                HttpContext.Session.SetString("jobtype", session.jobtype); //ข้าราชการ สาย ก.
-                //ประเภทบุคคลตามข้อมูลกองการเจ้าหน้าที่
-                HttpContext.Session.SetString("type_person", session.type_person); //ประเภทบุคคล: 1=teacher,2=staff,3=student ,4=alumni,5=guest,6=emailfac,7=kol,8=nondegree
-                //ตำแหน่งตามข้อมูลกองการเจ้าหน้าที่
-                HttpContext.Session.SetString("position", session.position); //ตำแหน่ง เช่น นักวิชาการคอมพิวเตอร์, อาจารย์
-                //รหัสตำแหน่งตามข้อมูลกองการเจ้าหน้าที่
-                HttpContext.Session.SetString("position_id", session.position_id); //รหัสตำแหน่ง: 001-004 = Teacher (!(001-004)) = Staff
-                //วิทยาเขตสังกัด
-                HttpContext.Session.SetString("campus", session.campus); //B=วิทยาเขตบางเขน, K = วิทยาเขตกำแพงแสน, C = วิทยาเขตสกลนคร, S = วิทยาเขตศรีราชา
-                //ชื่อคณะสังกัด (เฉพาะบุคลากร)
-                HttpContext.Session.SetString("faculty", session.faculty); //สำนักบริการคอมพิวเตอร์
-                //รหัสคณะสังกัด (เฉพาะบุคลากร)
-                HttpContext.Session.SetString("faculty_id", session.faculty_id); //B20
-                //ชื่อภาควิชาสังกัด (เฉพาะบุคลากร)
-                HttpContext.Session.SetString("department", session.department); //ฝ่ายระบบคอมพิวเตอร์และเครือข่าย
-                //รหัสภาควิชาสังกัด (เฉพาะบุคลากร)
-                HttpContext.Session.SetString("department_id", session.department_id); //B20xx
-                //รหัสอาจารย์ (เฉพาะอาจารย์)
-                HttpContext.Session.SetString("advisor_id", session.advisor_id); //รหัสอาจารย์ เช่น D4021
-                //KU Mail รวม alias ทั้งหมด (เฉพาะบุคลากร)
-                HttpContext.Session.SetString("mail", session.mail); //อีเมล cpcmrt@ku.ac.th, maharat.t@ku.ac.th
-                //Google Mail
-                HttpContext.Session.SetString("google_mail", session.google_mail); //อีเมล KU-Google เช่น maharat.t@ku.th
-                //MS Live Mail
-                HttpContext.Session.SetString("office365_mail", session.office365_mail); //อีเมล KU-Office เช่น maharat.t@live.ku.th
-                //Login ID format ใหม่
-                HttpContext.Session.SetString("userprincipalname", session.userprincipalname); //maharat.t
-                //Login ID format เดิม (อายุชั่วคราว 3 ปี)
-                HttpContext.Session.SetString("uid", session.uid); //cpcmrt
+                HttpContext.Session.SetString("AccessToken", result_chk.UserID);
+                HttpContext.Session.SetString("uid", result_chk.UserID);
+                HttpContext.Session.SetString("thaiprename", result_chk.Prefix_NameThai);
+                HttpContext.Session.SetString("thainame", result_chk.Full_NameThai);
+                HttpContext.Session.SetString("Operate_Pos", result_chk.Operate_Pos);
+                HttpContext.Session.SetString("Manage_Pos", result_chk.Manage_Pos);
+                HttpContext.Session.SetString("ESignature", result_chk.ESignature);
+                HttpContext.Session.SetString("google_mail", result_chk.Email);
+                HttpContext.Session.SetString("CATEGORY", result_chk.Category);
 
-                //1=teacher, 2=staff
-                if (HttpContext.Session.GetString("type_person") == "1" || HttpContext.Session.GetString("type_person") == "2")
+                //ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
+                if (TempData["ApproverData"] != null)
                 {
-                    //ไปหน้าอนุมัติ สำหรับ User ที่กดลิงค์ใน Email
-                    if (TempData["ApproverData"] != null)
-                    {
-                        TempData.Keep("ApproverData");
-                        return RedirectToAction("form", "FormPRS", new { id_tor = TempData["ApproverData"] });
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "FormPRS");
-                    }
+                    TempData.Keep("ApproverData");
+                    return RedirectToAction("form", "FormPRS", new { id_tor = TempData["ApproverData"] });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Login", Json(new { status = "error", detail = "กรุณาติดต่อเจ้าหน้าที่", errorMessage = "รหัสผู้ใช้งานของคุณไม่ได้รับสิทธื์เข้าใช้งาน" }));
+                    return RedirectToAction("Index", "FormPRS");
                 }
             }
             else
             {
-                return RedirectToAction("Index", "Information");
+                return Redirect("https://app.sci.src.ku.ac.th/app");
             }
         }
     }
