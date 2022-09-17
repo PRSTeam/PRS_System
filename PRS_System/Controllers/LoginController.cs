@@ -204,9 +204,9 @@ namespace PRS_System.Controllers
             return RedirectToAction("Index", "Information");
         }
 
-        public IActionResult SessionFromApp(string TokenAndId)
+        public IActionResult SessionFromApp(string Token)
         {
-            var splitString = TokenAndId.Split("Prs199");
+            var splitString = Token.Split("Prs199");
             string AccessToken = splitString[0];
             string uid = splitString[1];
 
